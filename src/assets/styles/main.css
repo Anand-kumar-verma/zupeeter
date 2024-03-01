@@ -1,0 +1,313 @@
+* {
+  font-family: "Poppins", sans-serif !important;
+  box-sizing: border-box;
+  color: #8f5206 !important;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: white;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+}
+
+.header {
+  background: linear-gradient(180deg, #FAE59F 0%, #C4933F 100%);
+  color: #8f5206;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  align-content: center;
+  flex-wrap: wrap;
+}
+
+.register_header {
+  padding: 10px;
+  margin-bottom: 3px;
+}
+
+.register_header h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 3px;
+}
+
+.register_header h6 {
+  font-size: 12px;
+  margin-bottom: 3px;
+}
+
+.nav h3 {
+  font-size: 12px;
+  font-weight: 500;
+  margin-top: 10px;
+  color: gray !important
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  padding: 20px 0px;
+  width: 100%;
+  border-bottom: 2px solid transparent;
+}
+
+.activeNav {
+  border-bottom: 2px solid #8f5206;
+}
+
+.nav>svg>path {
+  color: gray !important;
+}
+
+
+.activeNav>svg>path {
+  color: #8f5206 !important;
+}
+
+.activeNav>h3 {
+  color: #8f5206 !important;
+}
+
+.loginlabel>svg>path {
+  color: black !important;
+}
+
+.loginlabel {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.loginlabel>h3 {
+  color: black !important;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.loginfields>div>input {
+  background-color: white !important;
+  border-radius: 10px;
+}
+
+.loginfields>div>fieldset {
+  border: none;
+}
+
+
+
+.MuiInputBase-input::placeholder {
+  color: black !important;
+}
+
+.loginbtnbox {
+  margin: auto;
+}
+
+.btnLogin {
+  background: linear-gradient(180deg, #FAE59F 0%, #C4933F 100%) !important;
+  font-size: 20px !important;
+  font-weight: 600 !important;
+  text-transform: capitalize !important;
+  width: 80% !important;
+  margin: auto !important;
+  color: #8f5206 !important;
+  border-radius: 25px !important;
+  margin-left: 10% !important;
+}
+
+.btnregister {
+  background: white !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  text-transform: capitalize !important;
+  width: 80% !important;
+  margin: auto !important;
+  border: 2px solid #8f5206 !important;
+  border-radius: 25px !important;
+  color: #c4933f !important;
+  margin-left: 10% !important;
+}
+
+
+.loginfieldspass {
+  background: #c4933f !important;
+  border-radius: 10px !important;
+}
+
+.loginfieldspass>fieldset {
+  border: none !important;
+}
+
+.loginfieldsres>div>input {
+  background-color: #c4933f !important;
+  border-radius: 10px;
+}
+
+.loginfieldsres>div>fieldset {
+  border: none;
+}
+
+/* swiper css */
+
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+
+  /* Center slide text vertically */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* end swipre css */
+
+.serv-item {
+  width: 45px;
+  height: 45px;
+  border: 1px solid #8f5206 !important;
+  padding: 5px;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+
+.db-header {
+  margin-left: -5px !important;
+  color: #c4933f !important;
+  font-size: 14px !important;
+  font-weight: 400;
+}
+
+.b-val {
+  margin: 0 !important;
+  color: #c4933f !important;
+  line-height: 1 !important;
+  margin-bottom: 5px !important;
+  font-size: 32px !important;
+  font-weight: 600 !important;
+}
+
+.b-valp {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  font-size: 12px !important;
+  text-align: center;
+  color: #fff !important;
+}
+
+.whitebtn {
+  background: white !important;
+  padding: 7px 27px !important;
+  height: 35px !important;
+  color: black !important;
+  margin-left: 13% !important;
+}
+
+.dbinput>div>input {
+  background-color: #484848 !important;
+  border-radius: 5px !important;
+  height: 6px !important;
+  color: white !important;
+  font-size: 13px;
+}
+
+
+.dbinput>div>fieldset {
+  border: none;
+}
+
+.telegrambtn {
+  background: #6da7f4 !important;
+  width: 49%;
+}
+
+.supportbtn {
+  background: #FF7D89 !important;
+  width: 49%;
+}
+
+.wingoc1 {
+  position: relative;
+  padding: 25px 10px;
+  border-radius: 25px 25px 0 0;
+  background: url(../../assets/images/bgcardh.png) no-repeat 50%, -webkit-linear-gradient(90deg, hsla(254, 68%, 9%, 1) 0%, hsla(269, 97%, 37%, 1) 33%, hsla(320, 77%, 55%, 1) 66%, hsla(316, 41%, 93%, 1) 100%);
+  background: url(../../assets/images/bgcardh.png) no-repeat 50%, linear-gradient(90deg, hsla(254, 68%, 9%, 1) 0%, hsla(269, 97%, 37%, 1) 33%, hsla(320, 77%, 55%, 1) 66%, hsla(316, 41%, 93%, 1) 100%);
+  background-size: 100% 100%;
+  transition: all 0.3s;
+}
+
+.wingoc1:hover>div>h5,
+.wingoc1:hover>div>p {
+  color: #c4933f !important;
+}
+
+.slider-item {
+  flex: 1;
+  min-height: 100%;
+  color: #ffffff;
+  z-index: 10;
+  padding: 5px 10px;
+}
+
+.idiv {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.coming-text {
+  display: block;
+  border-radius: 10px;
+  margin-top: 20px;
+  Background: linear-gradient(180deg, #FAE59F 0%, #C4933F 100%);
+  line-height: 40px;
+  height: 40px;
+  text-align: center;
+  font-weight: 800;
+  Color: #8f5206;
+  font-size: 30px;
+  margin: 5px 5px;
+}
+
+.bgcardbox {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+
+.bgcardboxda {
+  background: linear-gradient(180deg, #FAE59F 0%, #C4933F 100%) !important;
+  width: 32%;
+  border-radius: 10px;
+  height: 130px;
+  margin-bottom: 30px;
+  position: relative;
+}
