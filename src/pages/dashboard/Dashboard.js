@@ -40,7 +40,6 @@ import ludo from "../../assets/images/ludo.webp";
 import Layout from "../../component/Layout/Layout";
 import { endpoint, rupees } from "../../services/urls";
 import playnow from "../../assets/images/playnow.png";
-import moment from "moment";
 function Dashboard() {
   const navigate = useNavigate();
   const login_data = localStorage.getItem("logindata");
