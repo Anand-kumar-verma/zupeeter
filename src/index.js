@@ -5,16 +5,36 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material';
 import theme from './utils/theme';
+import '../src/index.css'
+import "tailwindcss/tailwind.css";
+import { Toaster } from 'react-hot-toast';
+import { QueryClient, QueryClientProvider } from 'react-query';
+const queryClient = new QueryClient();
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
+  <QueryClientProvider client={queryClient}>
     <BrowserRouter>
       <ThemeProvider theme={theme}>
         <App />
+        <Toaster
+      toastOptions={{
+        className: "",
+        style: {
+          border: "1px solid green",
+          color: "white",
+          fontSize:'15px',
+          marginTop:'100px',
+          borderRadius:'50px',
+          backgroundColor:'rgb(60, 179, 113,.5)',
+          
+        }, 
+      }}
+      limit={1} 
+    />
       </ThemeProvider>
     </BrowserRouter>
-  </React.StrictMode>
+    </QueryClientProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
