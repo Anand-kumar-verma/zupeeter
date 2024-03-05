@@ -78,6 +78,7 @@ function Login() {
      console.log(response);
       if (response?.data?.error === "200") {
         localStorage.setItem("logindata", JSON.stringify(response?.data));
+        sessionStorage.setItem("isAvailableUser",true);
         navigate("/dashboard");
       }
     } catch (e) {

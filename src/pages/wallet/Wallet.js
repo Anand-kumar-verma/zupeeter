@@ -1,59 +1,48 @@
+import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import {
   Box,
-  Button,
   CircularProgress,
   Container,
-  TextField,
-  Typography,
+  Typography
 } from "@mui/material";
 import axios from "axios";
-import copy from "clipboard-copy";
-import { useFormik } from "formik";
-import moment from "moment";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { useQuery } from "react-query";
+import { useNavigate } from "react-router-dom";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import Icon1 from "../../assets/images/icon1.png";
+import Icon2 from "../../assets/images/icon2.png";
 import Layout from "../../component/Layout/Layout";
 import { endpoint, rupees } from "../../services/urls";
-import { useNavigate } from "react-router-dom";
-import Icon2 from "../../assets/images/icon2.png";
-import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 function Wallet() {
   const navigate = useNavigate();
   const login_data = localStorage.getItem("logindata");
   const user_id = JSON.parse(login_data).UserID;
   const [select_type_of_history, setselect_type_of_history] = useState(1);
-  const { isLoading, data } = useQuery(["walletamount"], () => walletamount(), {
-    refetchOnMount: false,
-    refetchOnReconnect: true,
-  });
 
-  const walletamount = async () => {
+  const { isLoading, data } = useQuery(
+    ["withdrawallet"],
+    () => withdowaWalletFn(),
+    {
+      refetchOnMount: false,
+      refetchOnReconnect: true,
+    }
+  );
+
+  const withdowaWalletFn = async () => {
     try {
-      const response = await axios.get(
-        `${endpoint.userwallet}?userid=${user_id}`
-      );
+      const response = await axios.get(`${endpoint.profiledata}?id=${user_id}`);
       return response;
     } catch (e) {
       toast(e?.message);
       console.log(e);
     }
   };
-  const initialValues = {
-    referrel_code: "https://zupeeter.com/auth/registration/WlcxMjM0NTY3",
-  };
-  const fk = useFormik({
-    initialValues: initialValues,
-    onSubmit: () => {
-      console.log("This is handle submit");
-    },
-  });
 
-  const amount = data?.data?.data?.wallet || 0;
+  const wallet_data = data?.data || {};
   if (isLoading)
     return (
       <Layout>
@@ -99,7 +88,12 @@ function Wallet() {
                   </Typography>
                 </Box>
                 <div className="">
-                  <p className="text-4xl font-bold">{rupees} 212.32</p>
+                  <p className="text-4xl font-bold">
+                    {rupees}{" "}
+                    {Number(wallet_data?.withdrawal?.withdrawal || 0)?.toFixed(
+                      2
+                    )}
+                  </p>
                   <p className="!text-white">Withdrawal Wallet</p>
                 </div>
                 <Box>
@@ -127,8 +121,11 @@ function Wallet() {
               <div
                 onClick={() => setselect_type_of_history(1)}
                 style={{
-                  background:
-                    `${select_type_of_history===1?"linear-gradient(180deg, #FAE59F 0%, #C4933F 100%)":""}`,
+                  background: `${
+                    select_type_of_history === 1
+                      ? "linear-gradient(180deg, #FAE59F 0%, #C4933F 100%)"
+                      : ""
+                  }`,
                 }}
                 className="cursor-pointer  place-items-center flex w-full justify-center items-center flex-col rounded-lg py-2"
               >
@@ -138,8 +135,11 @@ function Wallet() {
               <div
                 onClick={() => setselect_type_of_history(2)}
                 style={{
-                  background:
-                    `${select_type_of_history===2?"linear-gradient(180deg, #FAE59F 0%, #C4933F 100%)":""}`,
+                  background: `${
+                    select_type_of_history === 2
+                      ? "linear-gradient(180deg, #FAE59F 0%, #C4933F 100%)"
+                      : ""
+                  }`,
                 }}
                 className="cursor-pointer place-items-center flex w-full justify-center items-center flex-col rounded-lg py-2"
               >

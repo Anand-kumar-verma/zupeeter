@@ -20,40 +20,29 @@ import { endpoint, rupees } from "../../../services/urls";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import { useNavigate } from "react-router-dom";
 import PersonIcon from "@mui/icons-material/Person";
-import CallIcon from '@mui/icons-material/Call';
+import CallIcon from "@mui/icons-material/Call";
 import { Lock, Mail } from "@mui/icons-material";
 function Profile() {
   const navigate = useNavigate();
   const login_data = localStorage.getItem("logindata");
   const user_id = JSON.parse(login_data).UserID;
 
-  const { isLoading, data } = useQuery(["walletamount"], () => walletamount(), {
+  const { isLoading, data } = useQuery(["profiledata"], () => profileFn(), {
     refetchOnMount: false,
     refetchOnReconnect: true,
   });
 
-  const walletamount = async () => {
+  const profileFn = async () => {
     try {
-      const response = await axios.get(
-        `${endpoint.userwallet}?userid=${user_id}`
-      );
+      const response = await axios.get(`${endpoint.profiledata}?id=${user_id}`);
       return response;
     } catch (e) {
       toast(e?.message);
       console.log(e);
     }
   };
-  const initialValues = {
-    referrel_code: "https://zupeeter.com/auth/registration/WlcxMjM0NTY3",
-  };
-  const fk = useFormik({
-    initialValues: initialValues,
-    onSubmit: () => {
-      console.log("This is handle submit");
-    },
-  });
 
-  const amount = data?.data?.data?.wallet || 0;
+  const profile_data = data?.data || {};
   if (isLoading)
     return (
       <Layout>
@@ -82,47 +71,53 @@ function Profile() {
                 />
                 <CameraAltIcon className="absolute bottom-0 left-[55%] !text-white" />
               </div>
-              <p className="text-lg !text-white mt-2"> Vijay Bahadur Thapa</p>
-              <p className="text-sm !text-white ">ZW1234567</p>
+              <p className="text-lg !text-white mt-2">{profile_data?.data?.username}</p>
+              <p className="text-sm !text-white ">{profile_data?.data?.referral_code}</p>
               <div className="!border-[1px] border-white grid grid-cols-3 place-items-center w-full py-3 mt-2">
                 <div className="w-full flex  flex-col items-center">
                   <p>276</p>
                   <p className="!text-[12px] !text-white">Total Team</p>
                 </div>
                 <div className="w-full flex  flex-col items-center">
-                  <p>0</p>
+                  <p>
+                    {Number(profile_data?.deposit?.payin || 0)?.toFixed(2) || 0}
+                  </p>
                   <p className="!text-[12px] !text-white">Total Investment</p>
                 </div>
                 <div className="w-full flex  flex-col items-center">
-                  <p>194</p>
+                  <p>
+                    {Number(profile_data?.withdrawal?.withdrawal || 0)?.toFixed(
+                      2
+                    )}
+                  </p>
                   <p className="!text-[12px] !text-white">Total Income</p>
                 </div>
               </div>
               <p className="py-4 !text-white">Account Info</p>
               <div className="!border-[1px] border-white w-full py-3 mt-2 px-3">
                 <div className="flex gap-2">
-                    <PersonIcon/>
-                    <span className="!text-white">ZW1234567</span>
+                  <PersonIcon />
+                  <span className="!text-white">{profile_data?.data?.referral_code}</span>
                 </div>
                 <p className="bg-[#DCB86A] h-[1px] !my-2 "></p>
                 <div className="flex gap-2">
-                    <PersonIcon/>
-                    <span className="!text-white">Vijay Bahadur Thapa</span>
+                  <PersonIcon />
+                  <span className="!text-white">{profile_data?.data?.username}</span>
                 </div>
                 <p className="bg-[#DCB86A] h-[1px] !my-2 "></p>
                 <div className="flex gap-2">
-                    <CallIcon/>
-                    <span className="!text-white">12345</span>
+                  <CallIcon />
+                  <span className="!text-white">{profile_data?.data?.mobile}</span>
                 </div>
                 <p className="bg-[#DCB86A] h-[1px] !my-2 "></p>
                 <div className="flex gap-2">
-                    <Mail/>
-                    <span className="!text-white">magiccoin01@gmail.com</span>
+                  <Mail />
+                  <span className="!text-white">{profile_data?.data?.email}</span>
                 </div>
                 <p className="bg-[#DCB86A] h-[1px] !my-2 "></p>
                 <div className="flex gap-2">
-                    <Lock/>
-                    <span className="!text-white">554411</span>
+                  <Lock />
+                  <span className="!text-white">{profile_data?.data?.password}</span>
                 </div>
               </div>
             </div>
