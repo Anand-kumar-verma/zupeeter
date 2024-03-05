@@ -1,3 +1,4 @@
+import CloseIcon from "@mui/icons-material/Close";
 import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
 import FitbitIcon from "@mui/icons-material/Fitbit";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
@@ -33,17 +34,12 @@ import one from "../../assets/images/1.png";
 import two from "../../assets/images/2.png";
 import three from "../../assets/images/3.png";
 import Icon1 from "../../assets/images/icon1.png";
-import CloseIcon from "@mui/icons-material/Close";
-
 import Icon2 from "../../assets/images/icon2.png";
-import playnow from "../../assets/images/playnow.png";
 import Layout from "../../component/Layout/Layout";
 import { endpoint, rupees } from "../../services/urls";
-import playnow from "../../assets/images/playnow.png";
-import { Policy } from "@mui/icons-material";
-import Notification from "./Notification";
 import Lottery from "./DashboadSubcomponent/Lottery";
 import Original from "./DashboadSubcomponent/Original";
+import Notification from "./Notification";
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
