@@ -1,21 +1,18 @@
-import { useState } from 'react';
-import { Container, Typography, Box, Stack, CircularProgress, } from '@mui/material';
-import { NavLink } from 'react-router-dom';
-import * as React from 'react';
-import Slide from '@mui/material/Slide';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { Box, CircularProgress, Container, Stack, Typography, } from '@mui/material';
+import Slide from '@mui/material/Slide';
+import axios from 'axios';
+import * as React from 'react';
+import { useState } from 'react';
+import toast from 'react-hot-toast';
+import { useQuery } from 'react-query';
+import { NavLink } from 'react-router-dom';
 import Icon1 from '../../assets/images/icon1.png';
 import Icon2 from '../../assets/images/icon2.png';
+import Time from '../../assets/images/time.png';
 import Layout from '../../component/Layout/Layout';
-import WinOneMin from './component/WinOneMin/WinOneMin';
-import WinThreeMin from './component/WinThreeMin/WinThreeMin';
-import WinFiveMin from './component/WinFiveMin/WinFiveMin';
-import Time from '../../assets/images/time.png'
-import { useQuery, useQueryClient } from 'react-query';
-import axios from 'axios';
 import { endpoint } from '../../services/urls';
-import toast from 'react-hot-toast';
-
+import WinOneMin from './component/WinOneMin/WinOneMin';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -26,9 +23,6 @@ function Win() {
   const login_data = localStorage.getItem("logindata");
   const user_id = JSON.parse(login_data).UserID;
   const [Tab, setTab] = useState(1);
-
-  // const client = useQueryClient()
-  // const wallet_amount = client.getQueriesData("walletamount")?.[1]?.data?.data?.wallet;
   const { isLoading, data } = useQuery(["walletamount"], () => walletamount(), {
     refetchOnMount: false,
     refetchOnReconnect: true,
@@ -45,7 +39,8 @@ function Win() {
       console.log(e);
     }
   };
-console.log(data)
+
+
 if(isLoading) return  <Layout><CircularProgress/></Layout>
   return (
     <Layout>

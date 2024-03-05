@@ -1,57 +1,44 @@
 import ArticleIcon from "@mui/icons-material/Article";
 import CloseIcon from "@mui/icons-material/Close";
-import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
-import SummarizeIcon from "@mui/icons-material/Summarize";
 import {
   Box,
-  Button,
-  CircularProgress,
   IconButton,
   Stack,
-  Typography,
+  Typography
 } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
-import Pagination from "@mui/material/Pagination";
-import Paper from "@mui/material/Paper";
 import Slide from "@mui/material/Slide";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
 import axios from "axios";
-import moment from "moment";
+import { useFormik } from "formik";
 import * as React from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { useQuery } from "react-query";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useQueryClient } from "react-query";
+import io from "socket.io-client";
 import pr0 from "../../../../assets/images/0.png";
 import pr11 from "../../../../assets/images/11.png";
 import pr22 from "../../../../assets/images/22.png";
 import pr33 from "../../../../assets/images/33.png";
 import pr4 from "../../../../assets/images/4.png";
-import pr5 from "../../../../assets/images/5.png";
-import pr6 from "../../../../assets/images/6.png";
-import pr7 from "../../../../assets/images/7.png";
-import pr8 from "../../../../assets/images/8.png";
-import pr9 from "../../../../assets/images/9.png";
-import Layout from "../../../../component/Layout/Layout";
-import { endpoint, rupees } from "../../../../services/urls";
-import ApplyBetDialogBox from "../ApplyBetDialogBox";
+import { endpoint } from "../../../../services/urls";
 import Policy from "../policy/Policy";
-import io from "socket.io-client";
-import { useFormik } from "formik";
 // const socket = io("https://app.ferryinfotech.in/");
-const socket = io("http://192.168.189.149:9000");
+const socket = io("http://192.168.18.183:9000");
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 const TwoMinCountDown = () => {
+  const client = useQueryClient();
   const [three_min_time, setThree_min_time] = useState("0_0");
   const show_this_three_min_time_sec = String(three_min_time?.split("_")?.[1]).padStart(2, "0");
   const show_this_three_min_time_min = String(three_min_time?.split("_")?.[0]).padStart(2, "0");
+ 
+  React.useEffect(()=>{
+    if(show_this_three_min_time_sec === "01"){
+      oneMinCheckResult()
+      oneMinColorWinning()
+    } 
+  },[show_this_three_min_time_sec])
 
   const [poicy, setpoicy] = React.useState(false);
   const handleClickOpenpoicy = () => {
@@ -75,14 +62,32 @@ const TwoMinCountDown = () => {
   React.useEffect(() => {
     socket.on("threemin", (onemin) => {
      setThree_min_time(onemin);
-      //   if (onemin === 5) fk.setFieldValue("openTimerDialogBox", true);
-      //   if (onemin === 59) fk.setFieldValue("openTimerDialogBox", false);
+        if (onemin?.split("_")?.[1] === "5") fk.setFieldValue("openTimerDialogBox", true);
+        if (onemin?.split("_")?.[1] === "59") fk.setFieldValue("openTimerDialogBox", false);
     });
     return () => {
-      socket.off("onemin");
+      socket.off("threemin");
     };
   }, []);
-console.log(show_this_three_min_time_sec,show_this_three_min_time_min)
+
+  const oneMinCheckResult = async () => {
+    try {
+      const response = await axios.get(`${endpoint.check_result}`);
+      client.refetchQueries("gamehistory")
+    } catch (e) {
+      toast(e?.message);
+      console.log(e);
+    }
+  };
+  const oneMinColorWinning = async () => {
+    console.log("checkresult function hit")
+    try {
+      const response = await axios.get(`${endpoint.color_winning}?id=2&gid=2`);
+    } catch (e) {
+      toast(e?.message);
+      console.log(e);
+    }
+  };
   return (
     <Box className="countdownbg">
       <Box

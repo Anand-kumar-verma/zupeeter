@@ -1,19 +1,14 @@
-import ArticleIcon from "@mui/icons-material/Article";
-import CloseIcon from "@mui/icons-material/Close";
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 import SummarizeIcon from "@mui/icons-material/Summarize";
 import {
   Box,
   Button,
   CircularProgress,
-  IconButton,
   Stack,
-  Typography,
+  Typography
 } from "@mui/material";
-import Dialog from "@mui/material/Dialog";
 import Pagination from "@mui/material/Pagination";
 import Paper from "@mui/material/Paper";
-import Slide from "@mui/material/Slide";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -26,7 +21,7 @@ import * as React from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useQuery } from "react-query";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import pr0 from "../../../../assets/images/0.png";
 import pr11 from "../../../../assets/images/11.png";
 import pr22 from "../../../../assets/images/22.png";
@@ -40,39 +35,29 @@ import pr9 from "../../../../assets/images/9.png";
 import Layout from "../../../../component/Layout/Layout";
 import { endpoint, rupees } from "../../../../services/urls";
 import ApplyBetDialogBox from "../ApplyBetDialogBox";
-import Policy from "../policy/Policy";
-import io from "socket.io-client";
-import { useFormik } from "formik";
 import OneMinCountDown from "./OneMinCountDown";
-import TwoMinCountDown from "./TwoMinCountDown";
 import ThreeMinCountDown from "./ThreeMinCountDown";
-// const socket = io("https://app.ferryinfotech.in/");
-const socket = io("http://192.168.189.149:9000");
-const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
+import TwoMinCountDown from "./TwoMinCountDown";
+
+
 
 function WinOneMin({ gid }) {
-  const navigate = useNavigate();
   const login_data = localStorage.getItem("logindata");
   const user_id = JSON.parse(login_data).UserID;
   const [TabTwo, setTabTwo] = useState(1);
-  const [expanded, setExpanded] = useState(false);
   const [apply_bit_dialog_box, setapply_bit_dialog_box] = React.useState(false);
   const [dialog_type, setdialog_type] = React.useState("");
-  const [one_min_time, setOne_min_time] = useState(0);
-  const show_this_one_min_time = String(one_min_time).padStart(2, "0");
 
   const { isLoading, data: game_history } = useQuery(
-    ["gamehistory"],
-    () => GameHistoryFn(),
+    ["gamehistory",gid],
+    () => GameHistoryFn(gid),
     {
       refetchOnMount: false,
       refetchOnReconnect: true,
     }
   );
 
-  const GameHistoryFn = async () => {
+  const GameHistoryFn = async (gid) => {
     try {
       const response = await axios.get(
         `${endpoint.game_history}?limit=20&offset=0&gameid=${gid}`
@@ -108,7 +93,6 @@ function WinOneMin({ gid }) {
   const my_history_data = my_history?.data?.data?.filter(
     (i) => i?.gameid === gid
   );
-
   if (isLoading || myhistory_loding)
     return (
       <Layout>
@@ -287,7 +271,7 @@ function WinOneMin({ gid }) {
                     return (
                       <TableRow>
                         <TableCell className="!text-white">
-                          {Date.now(i?.datetime)}
+                          {i?.gamesno}
                         </TableCell>
                         <TableCell className="!text-white">
                           {i?.number}
@@ -387,12 +371,12 @@ function WinOneMin({ gid }) {
                   <Stack direction="row">
                     <Box className="charttableheading">
                       <Typography variant="body1" color="initial">
-                        {Date.now()}
+                      {i?.gamesno}
                       </Typography>
                     </Box>
                     <Box className="winningNumberBox ">
                       <Typography
-                        className={`circleNumberbody  !bg-white !font-bold ${
+                        className={`circleNumberbody  !font-bold ${
                           i?.number === "0"
                             ? "!bg-gradient-to-b from-[#e85053] to-[#8c06f2] !text-white"
                             : "!bg-white !text-black"
@@ -402,7 +386,7 @@ function WinOneMin({ gid }) {
                         0
                       </Typography>
                       <Typography
-                        className={`circleNumberbody  !bg-white !font-bold ${
+                        className={`circleNumberbody   !font-bold ${
                           i?.number === "1"
                             ? "!bg-[#4bef98] !text-white"
                             : "!bg-white !text-black"
@@ -412,7 +396,7 @@ function WinOneMin({ gid }) {
                         1
                       </Typography>
                       <Typography
-                        className={`circleNumberbody  !bg-white !font-bold ${
+                        className={`circleNumberbody   !font-bold ${
                           i?.number === "2"
                             ? "!bg-[#f1494c] !text-white"
                             : "!bg-white !text-black"
@@ -422,7 +406,7 @@ function WinOneMin({ gid }) {
                         2
                       </Typography>
                       <Typography
-                        className={`circleNumberbody  !bg-white !font-bold ${
+                        className={`circleNumberbody   !font-bold ${
                           i?.number === "3"
                             ? "!bg-[#46eb93] !text-white"
                             : "!bg-white !text-black"
@@ -432,7 +416,7 @@ function WinOneMin({ gid }) {
                         3
                       </Typography>
                       <Typography
-                        className={`circleNumberbody  !bg-white !font-bold ${
+                        className={`circleNumberbody   !font-bold ${
                           i?.number === "4"
                             ? "!bg-[#ed4b4e] !text-white"
                             : "!bg-white !text-black"
@@ -442,7 +426,7 @@ function WinOneMin({ gid }) {
                         4
                       </Typography>
                       <Typography
-                        className={`circleNumberbody  !bg-white !font-bold ${
+                        className={`circleNumberbody  !font-bold ${
                           i?.number === "5"
                             ? "!bg-gradient-to-b from-[#55f8a1] to-[#8c06f2] !text-white"
                             : "!bg-white !text-black"
@@ -452,9 +436,9 @@ function WinOneMin({ gid }) {
                         5
                       </Typography>
                       <Typography
-                        className={`circleNumberbody  !bg-white !font-bold ${
+                        className={`circleNumberbody  !font-bold ${
                           i?.number === "6"
-                            ? "!bg-[#f54b4e] !text-black"
+                            ? "!bg-[#f54b4e] !text-white"
                             : "!bg-white !text-black"
                         }`}
                       >
@@ -462,7 +446,7 @@ function WinOneMin({ gid }) {
                         6
                       </Typography>
                       <Typography
-                        className={`circleNumberbody  !bg-white !font-bold ${
+                        className={`circleNumberbody  !font-bold ${
                           i?.number === "7"
                             ? "!bg-[#4af499] !text-white"
                             : "!bg-white !text-black"
@@ -472,7 +456,7 @@ function WinOneMin({ gid }) {
                         7
                       </Typography>
                       <Typography
-                        className={`circleNumberbody  !bg-white !font-bold ${
+                        className={`circleNumberbody   !font-bold ${
                           i?.number === "8"
                             ? "!bg-[#eb494c] !text-white"
                             : "!bg-white !text-black"
@@ -482,7 +466,7 @@ function WinOneMin({ gid }) {
                         8
                       </Typography>
                       <Typography
-                        className={`circleNumberbody  !bg-white !font-bold ${
+                        className={`circleNumberbody   !font-bold ${
                           i?.number === "9"
                             ? "!bg-[#4cf199] !text-white"
                             : "!bg-white !text-black"
@@ -588,7 +572,7 @@ function WinOneMin({ gid }) {
                     <div className="flex justify-between">
                       <p className="!text-white !text-[12px]">Order number</p>
                       <p className="!text-white !text-[12px]">
-                        {rupees} {Date.now(i?.datetime)}
+                       {i?.gamesno}
                       </p>
                     </div>
                   </div>
