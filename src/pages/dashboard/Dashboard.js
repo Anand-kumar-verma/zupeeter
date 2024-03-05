@@ -10,6 +10,9 @@ import {
   Button,
   CircularProgress,
   Container,
+  Dialog,
+  IconButton,
+  Slide,
   Stack,
   TextField,
   Typography,
@@ -17,7 +20,7 @@ import {
 import axios from "axios";
 import copy from "clipboard-copy";
 import { useFormik } from "formik";
-import React from "react";
+import React, { useEffect } from "react";
 import toast from "react-hot-toast";
 import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
@@ -30,18 +33,26 @@ import one from "../../assets/images/1.png";
 import two from "../../assets/images/2.png";
 import three from "../../assets/images/3.png";
 import Icon1 from "../../assets/images/icon1.png";
+import CloseIcon from "@mui/icons-material/Close";
+
 import Icon2 from "../../assets/images/icon2.png";
-import ludotwo from "../../assets/images/lodu2.webp";
-import ludothree from "../../assets/images/lodu3.webp";
-import ludofour from "../../assets/images/lodu4.webp";
-import ludofive from "../../assets/images/lodu5.webp";
-import ludosix from "../../assets/images/lodu6.webp";
-import ludo from "../../assets/images/ludo.webp";
+import playnow from "../../assets/images/playnow.png";
 import Layout from "../../component/Layout/Layout";
 import { endpoint, rupees } from "../../services/urls";
 import playnow from "../../assets/images/playnow.png";
+import { Policy } from "@mui/icons-material";
+import Notification from "./Notification";
+import Lottery from "./DashboadSubcomponent/Lottery";
+import Original from "./DashboadSubcomponent/Original";
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 function Dashboard() {
+  const isAvailableUser = sessionStorage.getItem("isAvailableUser");
   const navigate = useNavigate();
+  const [poicy, setpoicy] = React.useState(false);
+  const [type_of_game, settype_of_game] = React.useState("");
+
   const login_data = localStorage.getItem("logindata");
   const user_id = JSON.parse(login_data).UserID;
   const functionTOCopy = (value) => {
@@ -100,6 +111,17 @@ function Dashboard() {
     },
   ];
   const amount = data?.data?.data?.wallet || 0;
+
+  const handleClosepolicy = () => {
+    setpoicy(false);
+    sessionStorage.removeItem("isAvailableUser");
+  };
+  useEffect(() => {
+    if (isAvailableUser) {
+      setpoicy(true);
+    }
+  }, []);
+
   if (isLoading)
     return (
       <Layout>
@@ -255,6 +277,7 @@ function Dashboard() {
             {game_data?.map((i) => {
               return (
                 <div
+                  onClick={() => settype_of_game(i?.name)}
                   style={{
                     background:
                       "linear-gradient(180deg, #FAE59F 0%, #C4933F 100%)",
@@ -267,390 +290,61 @@ function Dashboard() {
               );
             })}
           </div>
-          {/* /// wingo */}
-          <div className=" rounded-md !py-0 h-[150px] bg-gradient-to-l from-[#dbe9fa] to-[#6DA7F4]">
-            <div className="w-full grid grid-cols-4 place-items- mt-4 cursor-pointer">
-              <div className="col-span-2">
-                <div className=" w-full h-full  flex flex-col justify-center items-center">
-                  <p className="text-2xl font-bold !text-[#805c0f]">Win Go</p>
-                  <p>Guess Number</p>
-                  <p>Green/Red/Voilet to win</p>
-                </div>
-              </div>
-              <div className="col-span-1 cursor-pointer flex items-center">
-                <img className="" src={playnow} />
-              </div>
-              <div className="col-span-1">
-                <img
-                  className="bg-cover h-[150px] w-[100%]"
-                  src="https://ossimg.bdgadminbdg.com/IndiaBDG/lotterycategory/lotterycategory_20240110062051do1k.png"
-                />
-              </div>
-            </div>
-          </div>
-          {/* // k3 lotery */}
-          <div className=" rounded-md !py-0 h-[150px] bg-gradient-to-l from-[#fbdee1] to-[#FF7D89]">
-            <div className="w-full grid grid-cols-4 place-items- mt-4 cursor-pointer">
-              <div className="col-span-2">
-                <div className=" w-full h-full  flex flex-col justify-center items-center">
-                  <p className="text-2xl font-bold !text-[#805c0f]">K3 Lotre</p>
-                  <p>Guess Number</p>
-                  <p>Big/Small/Odd/Even</p>
-                </div>
-              </div>
-              <div className="col-span-1 cursor-pointer flex items-center">
-                <img className="" src={playnow} />
-              </div>
-              <div className="col-span-1">
-                <img
-                  className="bg-cover h-[150px] w-[100%]"
-                  src="https://ossimg.bdgadminbdg.com/IndiaBDG/lotterycategory/lotterycategory_20240110062051do1k.png"
-                />
-              </div>
-            </div>
-          </div>
-          {/* // k3 lotery */}
-          <div className=" rounded-md !py-0 h-[150px] bg-gradient-to-l from-[#ceedd4] to-[#63f07d]">
-            <div className="w-full grid grid-cols-4 place-items- mt-4 cursor-pointer">
-              <div className="col-span-2">
-                <div className=" w-full h-full  flex flex-col justify-center items-center">
-                  <p className="text-2xl font-bold !text-[#805c0f]">5D Lotre</p>
-                  <p>Guess Number</p>
-                  <p>Big/Small/Odd/Even</p>
-                </div>
-              </div>
-              <div className="col-span-1 cursor-pointer flex items-center">
-                <img className="" src={playnow} />
-              </div>
-              <div className="col-span-1">
-                <img
-                  className="bg-cover h-[150px] w-[100%]"
-                  src="https://ossimg.bdgadminbdg.com/IndiaBDG/lotterycategory/lotterycategory_20240110062051do1k.png"
-                />
-              </div>
-            </div>
-          </div>
-          {/* // k3 lotery */}
-          <div className=" rounded-md !py-0 h-[150px] bg-gradient-to-l from-[#f2ead1] to-[#C4933F]">
-            <div className="w-full grid grid-cols-4 place-items- mt-4 cursor-pointer">
-              <div className="col-span-2">
-                <div className=" w-full h-full  flex flex-col justify-center items-center">
-                  <p className="text-2xl font-bold !text-[#805c0f]">Trx Win</p>
-                  <p>Guess Number</p>
-                  <p>Green/Red/Purple to win</p>
-                </div>
-              </div>
-              <div className="col-span-1 cursor-pointer flex items-center">
-                <img className="" src={playnow} />
-              </div>
-              <div className="col-span-1">
-                <img
-                  className="bg-cover h-[150px] w-[100%]"
-                  src="https://ossimg.bdgadminbdg.com/IndiaBDG/lotterycategory/lotterycategory_20240110062051do1k.png"
-                />
-              </div>
-            </div>
-          </div>
+
+          {type_of_game === "Lottery" && <Lottery />}
+          {type_of_game === "Original" && <Original />}
+
           <div className="!bg-white !bg-opacity-5 px-5 py-4">
             <p className="!text-[#DCB86A] font-bold text-xl">
               I Winning Information
             </p>
-           {[1,2,3,4,4,5,5].map((i)=>{
-            return  <div className="grid grid-cols-3 cursor-pointer bg-white !bg-opacity-10 rounded-lg px-5 py-2 mt-3">
-              <div className="flex items-center gap-2">
-                <Avatar />
-                <span className="!text-gray-500 text-[14px]">Anand***d</span>
-              </div>
-              <div>
-                <img
-                  className="h-20 w-28 border-[1px] border-yellow-600 rounded-lg"
-                  src="https://ossimg.bdgadminbdg.com/IndiaBDG/lotterycategory/lotterycategory_20240110062118e9kt.png"
-                />
-              </div>
-              <div className="flex flex-col justify-center">
-                <span className="!text-lg !text-[#f0d8a4] whitespace-nowrap">
-                  Receiving {rupees}2334.322
-                </span>
-                <span className="  !text-sm !text-gray-500">
-                  Winning Amount
-                </span>
-              </div>
-            </div>
-           })}
+            {[1, 2, 3, 4, 4, 5, 5].map((i) => {
+              return (
+                <div className="grid grid-cols-3 cursor-pointer bg-white !bg-opacity-10 rounded-lg px-5 py-2 mt-3">
+                  <div className="flex items-center gap-2">
+                    <Avatar />
+                    <span className="!text-gray-500 text-[14px]">
+                      Anand***d
+                    </span>
+                  </div>
+                  <div>
+                    <img
+                      className="h-20 w-28 border-[1px] border-yellow-600 rounded-lg"
+                      src="https://ossimg.bdgadminbdg.com/IndiaBDG/lotterycategory/lotterycategory_20240110062118e9kt.png"
+                    />
+                  </div>
+                  <div className="flex flex-col justify-center">
+                    <span className="!text-lg !text-[#f0d8a4] whitespace-nowrap">
+                      Receiving {rupees}2334.322
+                    </span>
+                    <span className="  !text-sm !text-gray-500">
+                      Winning Amount
+                    </span>
+                  </div>
+                </div>
+              );
+            })}
           </div>
-
-          {/* <Box sx={{ mt: 5 }}>
-            <Box component={NavLink}>
-              <Box className="wingoc1">
-                <Box sx={styles.gameImage}>
-                  <Box component="img" src={wingo} alt="Wingo" />
-                </Box>
+          <Dialog
+            open={poicy}
+            TransitionComponent={Transition}
+            onClose={handleClosepolicy}
+            className="dialogsmall"
+          >
+            <Box>
+              <Stack className="dialog-header-policy">
                 <Box>
-                  <Typography variant="h5" sx={styles.gameTitle}>
-                    Win Go 1 Min
-                  </Typography>
-                  <Typography variant="body1" sx={styles.gameDescription}>
-                    Guess number/Green/Purple/Red to win
+                  <Typography variant="body1" sx={{ color: "white" }}>
+                    Notification
                   </Typography>
                 </Box>
-              </Box>
-              <Box sx={{ background: "white" }}>
-                <Box className="slider-item">
-                  <Box className="idiv">
-                    <Box sx={styles.userImage}>
-                      <Box
-                        component="img"
-                        src="https://zupeeter.com/application/libraries/user_assets/gouser.svg"
-                        className="d-inline w-40"
-                        alt="user"
-                      />
-                    </Box>
-                    <Typography variant="body1" color="initial">
-                      Imtiyaz Ahmad
-                    </Typography>
-                    <Typography variant="body1" color="initial">
-                      Winning Amount ₹ 10
-                    </Typography>
-                  </Box>
-                </Box>
-              </Box>
+                <IconButton onClick={handleClosepolicy}>
+                  <CloseIcon />
+                </IconButton>
+              </Stack>
             </Box>
-          </Box>
-          <Box sx={{ mt: 5 }}>
-            <Box component={NavLink}>
-              <Box className="wingoc1">
-                <Box sx={styles.gameImage}>
-                  <Box component="img" src={wingo} alt="Wingo" />
-                </Box>
-                <Box>
-                  <Typography variant="h5" sx={styles.gameTitle}>
-                    Win Go 3 Min
-                  </Typography>
-                  <Typography variant="body1" sx={styles.gameDescription}>
-                    Guess number/Green/Purple/Red to win
-                  </Typography>
-                </Box>
-              </Box>
-              <Box sx={{ background: "white" }}>
-                <Box className="slider-item">
-                  <Box className="idiv">
-                    <Box sx={styles.userImage}>
-                      <Box
-                        component="img"
-                        src="https://zupeeter.com/application/libraries/user_assets/gouser.svg"
-                        className="d-inline w-40"
-                        alt="user"
-                      />
-                    </Box>
-                    <Typography variant="body1" color="initial">
-                      Imtiyaz Ahmad
-                    </Typography>
-                    <Typography variant="body1" color="initial">
-                      Winning Amount ₹ 10
-                    </Typography>
-                  </Box>
-                </Box>
-              </Box>
-            </Box>
-          </Box>
-          <Box sx={{ mt: 5, mb: 2 }}>
-            <Box component={NavLink}>
-              <Box className="wingoc1">
-                <Box sx={styles.gameImage}>
-                  <Box component="img" src={wingo} alt="Wingo" />
-                </Box>
-                <Box>
-                  <Typography variant="h5" sx={styles.gameTitle}>
-                    Win Go 5 Min
-                  </Typography>
-                  <Typography variant="body1" sx={styles.gameDescription}>
-                    Guess number/Green/Purple/Red to win
-                  </Typography>
-                </Box>
-              </Box>
-              <Box sx={{ background: "white" }}>
-                <Box className="slider-item">
-                  <Box className="idiv">
-                    <Box sx={styles.userImage}>
-                      <Box
-                        component="img"
-                        src="https://zupeeter.com/application/libraries/user_assets/gouser.svg"
-                        className="d-inline w-40"
-                        alt="user"
-                      />
-                    </Box>
-                    <Typography variant="body1" color="initial">
-                      Imtiyaz Ahmad
-                    </Typography>
-                    <Typography variant="body1" color="initial">
-                      Winning Amount ₹ 10
-                    </Typography>
-                  </Box>
-                </Box>
-              </Box>
-            </Box>
-          </Box> */}
-          <Box sx={{ padding: 1 }}>
-            <Box className="coming-text"> Coming Soon</Box>
-          </Box>
-          <Box className="bgcardbox">
-            <Box className="bgcardboxda">
-              <Box
-                sx={{
-                  width: "100%",
-                  height: "130px",
-                  position: "absolute",
-                  top: "-20px",
-                }}
-              >
-                <Box sx={{ width: "60%", height: "90px", marginLeft: "20%" }}>
-                  <Box component="img" src={ludo}></Box>
-                </Box>
-                <Typography
-                  variant="body1"
-                  color="initial"
-                  sx={{
-                    textAlign: "center",
-                    mt: "20px",
-                    fontSize: "15px",
-                    fontWeight: "500",
-                  }}
-                >
-                  Ludo Supreme
-                </Typography>
-              </Box>
-            </Box>
-            <Box className="bgcardboxda">
-              <Box
-                sx={{
-                  width: "100%",
-                  height: "130px",
-                  position: "absolute",
-                  top: "-20px",
-                }}
-              >
-                <Box sx={{ width: "60%", height: "90px", marginLeft: "20%" }}>
-                  <Box component="img" src={ludotwo}></Box>
-                </Box>
-                <Typography
-                  variant="body1"
-                  color="initial"
-                  sx={{
-                    textAlign: "center",
-                    mt: "20px",
-                    fontSize: "15px",
-                    fontWeight: "500",
-                  }}
-                >
-                  Ludo Ninja
-                </Typography>
-              </Box>
-            </Box>
-            <Box className="bgcardboxda">
-              <Box
-                sx={{
-                  width: "100%",
-                  height: "130px",
-                  position: "absolute",
-                  top: "-20px",
-                }}
-              >
-                <Box sx={{ width: "60%", height: "90px", marginLeft: "20%" }}>
-                  <Box component="img" src={ludothree}></Box>
-                </Box>
-                <Typography
-                  variant="body1"
-                  color="initial"
-                  sx={{
-                    textAlign: "center",
-                    mt: "10px",
-                    fontSize: "15px",
-                    fontWeight: "500",
-                  }}
-                >
-                  Ludo Turbo
-                </Typography>
-              </Box>
-            </Box>
-            <Box className="bgcardboxda">
-              <Box
-                sx={{
-                  width: "100%",
-                  height: "130px",
-                  position: "absolute",
-                  top: "-20px",
-                }}
-              >
-                <Box sx={{ width: "60%", height: "90px", marginLeft: "20%" }}>
-                  <Box component="img" src={ludosix}></Box>
-                </Box>
-                <Typography
-                  variant="body1"
-                  color="initial"
-                  sx={{
-                    textAlign: "center",
-                    mt: "10px",
-                    fontSize: "15px",
-                    fontWeight: "500",
-                  }}
-                >
-                  Snakes & Ladders Plus
-                </Typography>
-              </Box>
-            </Box>
-            <Box className="bgcardboxda">
-              <Box
-                sx={{
-                  width: "100%",
-                  height: "130px",
-                  position: "absolute",
-                  top: "-20px",
-                }}
-              >
-                <Box sx={{ width: "60%", height: "90px", marginLeft: "20%" }}>
-                  <Box component="img" src={ludofive}></Box>
-                </Box>
-                <Typography
-                  variant="body1"
-                  color="initial"
-                  sx={{
-                    textAlign: "center",
-                    mt: "10px",
-                    fontSize: "15px",
-                    fontWeight: "500",
-                  }}
-                >
-                  Trump Cards Mania
-                </Typography>
-              </Box>
-            </Box>
-            <Box className="bgcardboxda">
-              <Box
-                sx={{
-                  width: "100%",
-                  height: "130px",
-                  position: "absolute",
-                  top: "-20px",
-                }}
-              >
-                <Box sx={{ width: "60%", height: "90px", marginLeft: "20%" }}>
-                  <Box component="img" src={ludofour}></Box>
-                </Box>
-                <Typography
-                  variant="body1"
-                  color="initial"
-                  sx={{
-                    textAlign: "center",
-                    mt: "10px",
-                    fontSize: "15px",
-                    fontWeight: "500",
-                  }}
-                >
-                  Ludo Supreme League
-                </Typography>
-              </Box>
-            </Box>
-          </Box>
+            <Notification handleClosepolicy={handleClosepolicy} />
+          </Dialog>
         </Container>
       </Box>
     </Layout>

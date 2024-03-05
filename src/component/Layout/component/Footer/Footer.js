@@ -19,32 +19,32 @@ function Footer() {
     >
       <Box sx={style.root}>
         <Stack direction="row" sx={style.stack}>
-          <Box sx={style.nav}>
-            <HomeIcon sx={style.icon} />
+           <Box  sx={style.nav} onClick={() => navigate("/dashboard")}>
+            <HomeIcon sx={style.icon} className="!cursor-pointer" />
             <Typography variant="body1" sx={style.text}>
               Home
             </Typography>
           </Box>
-          <Box sx={style.nav}>
-            <RowingIcon sx={style.icon} />
+           <Box sx={style.nav} onClick={() => navigate("/activity")}>
+            <RowingIcon sx={style.icon} className="!cursor-pointer" />
             <Typography variant="body1" sx={style.text}>
               Activity
             </Typography>
           </Box>
-          <Box sx={style.nav}>
-            <EmojiEventsIcon sx={style.icon} />
+           <Box sx={style.nav} onClick={() => navigate("/promotion")}>
+            <EmojiEventsIcon sx={style.icon} className="!cursor-pointer" />
             <Typography variant="body1" sx={style.text}>
-              Win
+              Promotion
             </Typography>
           </Box>
           <Box onClick={() => navigate("/wallet")} sx={style.nav}>
-            <WalletIcon sx={style.icon} />
+            <WalletIcon sx={style.icon} className="!cursor-pointer" />
             <Typography variant="body1" sx={style.text}>
               Wallet
             </Typography>
           </Box>
           <Box sx={style.nav} onClick={() => navigate("/account")}>
-            <ManageAccountsIcon sx={style.icon} />
+            <ManageAccountsIcon sx={style.icon} className="!cursor-pointer" />
             <Typography variant="body1" sx={style.text}>
               Account
             </Typography>

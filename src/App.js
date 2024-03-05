@@ -27,8 +27,16 @@ import LevelBonus from './pages/account/AccountSubSection/Income/IncomeSubParts/
 import TeamBettingBonus from './pages/account/AccountSubSection/Income/IncomeSubParts/TeamBettingBonus';
 import TeamSalaryBonus from './pages/account/AccountSubSection/Income/IncomeSubParts/TeamSalaryBonus';
 import RegistrationBonus from './pages/account/AccountSubSection/Income/IncomeSubParts/RegistrationBonus';
-
-
+import Activity from './pages/activity/Activity'
+import Win from './pages/win/win';
+import Promotion from './pages/promotion/Promotion';
+import Subordinate from './pages/promotion/component/Subordinate';
+import Invitaton from './pages/promotion/component/Invitaton';
+import TeamReports from './pages/promotion/component/TeamReport';
+import MyCommission from './pages/promotion/component/MyCommission';
+import PromotionRule from './pages/promotion/component/PromotionRule';
+import RobateRetio from './pages/promotion/component/RebateRatio';
+import CustomerLine from './pages/promotion/component/CustomerLine';
 function App() {
 
   return (
@@ -36,6 +44,19 @@ function App() {
       <Route path='/login' Component={Login}></Route>
       <Route path='/register' Component={Register}></Route>
       <Route path='/dashboard' Component={Dashboard}></Route>
+      <Route path='/activity' Component={Activity}></Route>
+      <Route path='/win' Component={Win}></Route>
+      {/* // promotion */}
+      <Route path='/promotion' Component={Promotion}></Route>
+      <Route path='/promotion/Subordinate' Component={Subordinate}></Route>
+      <Route path='/promotion/PromotionShare' Component={Invitaton}></Route>
+      <Route path='/promotion/TeamReport/' Component={TeamReports}></Route>
+      <Route path='/promotion/MyCommission/' Component={MyCommission}></Route>
+      <Route path='/promotion/PromotionRule/' Component={PromotionRule}></Route>
+      <Route path='/promotion/RebateRatio/' Component={RobateRetio}></Route>
+      <Route path='/promotion/customerLine/' Component={CustomerLine}></Route>
+
+
       <Route path='/view_fund_request' Component={FundRequest}></Route>
       <Route path='/view_width_request' Component={Withdrawl}></Route>
       <Route path='/wallet' Component={Wallet}></Route>
