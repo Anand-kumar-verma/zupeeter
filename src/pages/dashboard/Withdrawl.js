@@ -64,10 +64,11 @@ function Withdrawl() {
     <Layout>
       <Box sx={styles.root}>
         <Container>
-          <div  style={{
+        <div className="h-screen overflow-auto">
+        <div  style={{
               background: "linear-gradient(180deg, #FAE59F 0%, #C4933F 100%)",
             }}
-            className="grid place-items-center rounded-b-[50px]">
+            className="grid place-items-center  rounded-b-[50px]">
             <span className="py-[8%]">Withdraw</span>
           </div>
           <div className="bg-white !bg-opacity-10 rounded-lg p-5 mt-3 w-full flex flex-col items-center px-[10%]">
@@ -142,6 +143,7 @@ function Withdrawl() {
                 </Button>
             </div>
           </div>
+        </div>
         </Container>
       </Box>
     </Layout>

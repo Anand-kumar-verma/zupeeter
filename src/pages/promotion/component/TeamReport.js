@@ -10,7 +10,7 @@ function TeamReports() {
 
   return (
     <Layout>
-      <Container sx={{ background: '#292929', width: '100%' }}>
+      <Container sx={{ background: '#292929', width: '100%', height: '100vh', overflow: 'auto' }}>
         <Box sx={style.header}>
           <Box component={NavLink} to='/promotion/'>
             <KeyboardArrowLeftOutlinedIcon />
@@ -92,6 +92,6 @@ export default TeamReports
 const style = {
   header: {
     padding: '8px', background: '#3F3F3F', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-    '&>p': { color: 'white' }, '&>a>svg': { color: 'white', fontSize: '25px' }
+    '&>p': { color: 'white !important' }, '&>a>svg': { color: 'white', fontSize: '25px' }
   },
 };

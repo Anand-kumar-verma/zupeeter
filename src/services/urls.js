@@ -1,13 +1,31 @@
 export const rupees = "₹"
-export const baseUrl = "https://tollwinlife.ferryinfotech.com"
+
+export const baseUrl = "https://task.sabrikhidmat.org"
+
+//  export const domain = "http://192.168.18.183:9000"
+ export const domain = "https://app.ferryinfotech.in/"
+
+
 export const endpoint ={
-  login:`${baseUrl}/admin/api/user_login.php`,
-  signup:`${baseUrl}/admin/index.php/User-register`,
-  userwallet:`${baseUrl}/admin/api/userwallet.php`,
-  profiledata:`${baseUrl}/admin/api/profileapi.php`,
-  applybet:`${baseUrl}/admin/api/bet.php`,
-  game_history:`${baseUrl}/admin/api/colour_result.php`,
-  my_history:`${baseUrl}/admin/api/getbet.php`,
-  check_result:`${baseUrl}/admin/api/checkresult.php`,
-  color_winning:`${baseUrl}/admin/api/colour_winning.php?id=1&gid=1`,
+  login:`${baseUrl}/api/user_login`,
+  signup:`${baseUrl}/User-register`,
+  userwallet:`${baseUrl}/api/userwallet`,
+  profiledata:`${baseUrl}/api/profileapi`,
+  applybet:`${baseUrl}/api/bet`,
+  game_history:`${baseUrl}/api/colour_result`,
+  my_history:`${baseUrl}/api/getbet`,
+  check_result:`${baseUrl}/api/checkresult`,
+  color_winning:`${baseUrl}/api/colour_winning`,
+
+
+  // aviator urls
+  aviator_login:`${baseUrl}/api/aviator/login`,
+  get_data_by_user_id:`${baseUrl}/api/userProfile`,
+  aviator_result:`${baseUrl}/api/aviator/result_cron`,
+  total_bet_history:`${baseUrl}/api/aviator/total-bet-histroy`,
+  bet_history:`${baseUrl}/api/aviator/bet_histroy`,
+  result:`${baseUrl}/api/aviator/result`,
+  wallet_data:`${baseUrl}/api/aviator/userwallet`,
+  bet_now:`${baseUrl}/api/aviator/bet_now`,
+  cash_out:`${baseUrl}/api/aviator/cash_out`,
 }

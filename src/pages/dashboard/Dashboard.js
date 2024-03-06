@@ -40,15 +40,27 @@ import { endpoint, rupees } from "../../services/urls";
 import Lottery from "./DashboadSubcomponent/Lottery";
 import Original from "./DashboadSubcomponent/Original";
 import Notification from "./Notification";
+import stageBg from "../../assets/images/stagebg.png";
+import positoin1 from "../../assets/images/positoin1.png";
+import positio2 from "../../assets/images/positio2.png";
+import position3 from "../../assets/images/position3.png";
+import positionimg from "../../assets/images/positionimg.png";
+import positionimg2 from "../../assets/images/positionimg2.png";
+import positionimg3 from "../../assets/images/positionimg3.png";
+import positioncap from "../../assets/images/positioncap.png";
+import positioncap2 from "../../assets/images/positioncap2.png";
+import positioncap3 from "../../assets/images/positioncap3.png";
+import { waitingAviatorFun } from "../../redux/slices/counterSlice";
+import { useDispatch } from "react-redux";
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 function Dashboard() {
+  const dispatch = useDispatch();
   const isAvailableUser = sessionStorage.getItem("isAvailableUser");
   const navigate = useNavigate();
   const [poicy, setpoicy] = React.useState(false);
   const [type_of_game, settype_of_game] = React.useState("");
-
   const login_data = localStorage.getItem("logindata");
   const user_id = JSON.parse(login_data).UserID;
   const functionTOCopy = (value) => {
@@ -117,6 +129,20 @@ function Dashboard() {
       setpoicy(true);
     }
   }, []);
+  useEffect(() => {
+    dispatch(waitingAviatorFun(true));
+  }, []);
+
+  const [data_array, setdata_array] = React.useState([1, 2, 3, 4]);
+
+  useEffect(() => {
+    setInterval(() => {
+      setdata_array([...data_array, 100]);
+      setTimeout(() => {
+        setdata_array(data_array.slice(0, data_array.length));
+      }, 1000);
+    }, 3000);
+  }, []);
 
   if (isLoading)
     return (
@@ -127,7 +153,7 @@ function Dashboard() {
   return (
     <Layout>
       <Box sx={styles.root}>
-        <Container>
+        <Container className="!h-[100%] !overflow-auto no-scrollbar">
           <div
             style={{
               background: "linear-gradient(180deg, #FAE59F 0%, #C4933F 100%)",
@@ -182,13 +208,15 @@ function Dashboard() {
               </SwiperSlide>
             </Swiper>
           </Box>
-          <div className="mt-2 flex items-center gap-5 !bg-white !bg-opacity-5 rounded-lg px-3 py-3">
-            <RecordVoiceOverIcon />
-            <p className="text-[12px] !text-white leading-3">
-              See the Installation page for additional docs about how to make
-              sure everything is set up correctly.
-            </p>
-            <InfoIcon className="!cursor-pointer" />
+          <div className="mt-2  flex items-center gap-5 !bg-white !bg-opacity-5 rounded-lg px-3 py-3">
+            <RecordVoiceOverIcon className="!text-[#8f5206]" />
+            <div className="text-[12px] !text-white leading-3 relative !w-full !h-full !py-2 overflow-hidden">
+              <span className=" absolute !w-[100%]  animateTextFromTopToButtom_class">
+                See the Installation page for additional docs about how to make
+                sure everything is set up correctly.
+              </span>
+            </div>
+            <InfoIcon className="!cursor-pointer !text-[#8f5206]" />
           </div>
           <Stack direction="row" sx={styles.depositWithdrawContainer}>
             <Box>
@@ -269,7 +297,7 @@ function Dashboard() {
               </Button>
             </Stack>
           </Box>
-          <div className="mt-2 w-full grid grid-cols-3 gap-[2%]">
+          <div className="mt-2 w-full grid grid-cols-3 gap-[2%] o">
             {game_data?.map((i) => {
               return (
                 <div
@@ -290,37 +318,221 @@ function Dashboard() {
           {type_of_game === "Lottery" && <Lottery />}
           {type_of_game === "Original" && <Original />}
 
-          <div className="!bg-white !bg-opacity-5 px-5 py-4">
+          <div className="!bg-white mt-5  !bg-opacity-5 px-5 py-4 overflow-auto no-scrollbar">
             <p className="!text-[#DCB86A] font-bold text-xl">
               I Winning Information
             </p>
-            {[1, 2, 3, 4, 4, 5, 5].map((i) => {
-              return (
-                <div className="grid grid-cols-3 cursor-pointer bg-white !bg-opacity-10 rounded-lg px-5 py-2 mt-3">
-                  <div className="flex items-center gap-2">
-                    <Avatar />
-                    <span className="!text-gray-500 text-[14px]">
-                      Anand***d
-                    </span>
+            <div className="w-full h-[450px] overflow-hidden">
+              {data_array.length < 5 && (
+                <div className="animation_div w-full mt-3 cursor-pointer bg-white !bg-opacity-10 rounded-lg "></div>
+              )}
+              {data_array?.map((i, index) => {
+                return (
+                  <div className="grid grid-cols-3 cursor-pointer bg-white !bg-opacity-10 rounded-lg px-5 py-2 mt-3">
+                    <div className="flex items-center gap-2">
+                      <Avatar
+                        src={index % 2 === 0 ? positionimg3 : positionimg2}
+                      />
+                      <span className="!text-gray-500 lg:text-[14px] text-[10px]">
+                        Anand***d
+                      </span>
+                    </div>
+                    <div>
+                      <img
+                        className="h-20 w-28 border-[1px] border-yellow-600 rounded-lg"
+                        src="https://ossimg.bdgadminbdg.com/IndiaBDG/lotterycategory/lotterycategory_20240110062118e9kt.png"
+                      />
+                    </div>
+                    <div className="flex flex-col justify-center">
+                      <span className="lg:!text-lg !text-sm !text-[#f0d8a4] whitespace-nowrap">
+                        Receiving {rupees}2334.322
+                      </span>
+                      <span className="!text-sm !text-gray-500">
+                        Winning Amount
+                      </span>
+                    </div>
                   </div>
-                  <div>
-                    <img
-                      className="h-20 w-28 border-[1px] border-yellow-600 rounded-lg"
-                      src="https://ossimg.bdgadminbdg.com/IndiaBDG/lotterycategory/lotterycategory_20240110062118e9kt.png"
-                    />
-                  </div>
-                  <div className="flex flex-col justify-center">
-                    <span className="!text-lg !text-[#f0d8a4] whitespace-nowrap">
-                      Receiving {rupees}2334.322
-                    </span>
-                    <span className="  !text-sm !text-gray-500">
-                      Winning Amount
-                    </span>
-                  </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
+
+            {/* // top 5 winning member */}
+            <div className="  px-5 py-4">
+              <p className="lg:!pb-[15%] !pb-[30%] !font-bold !text-xl !text-[#DCB86A]">
+                Today's Earning Chart
+              </p>
+              <Box sx={{ height: "40vh", position: "relative" }}>
+                <Box
+                  className="!h-[20vh] lg:!h-[30vh]"
+                  component="img"
+                  src={stageBg}
+                  sx={styles.stageBox}
+                ></Box>
+                <Box sx={styles.stageinner}>
+                  <Box sx={styles.profileBox}>
+                    <Box
+                      component="img"
+                      src={positioncap3}
+                      sx={styles.imgBox}
+                    ></Box>
+                    <Box
+                      component="img"
+                      className="profile"
+                      src={positionimg}
+                    ></Box>
+                    <Box
+                      component="img"
+                      src={positio2}
+                      sx={styles.thirdimg}
+                    ></Box>
+                  </Box>
+                  <Box
+                    sx={{
+                      paddingTop: "12%",
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Typography
+                      variant="men**WER"
+                      color="initial"
+                      sx={styles.name}
+                    >
+                      mrh***MTR
+                    </Typography>
+                    <Typography
+                      variant="men**WER"
+                      color="initial"
+                      sx={styles.rupee}
+                    >
+                      ₹ 51,552.00
+                    </Typography>
+                  </Box>
+                </Box>
+                <Box sx={styles.stageinnerTwo}>
+                  <Box sx={styles.profileBox}>
+                    <Box
+                      component="img"
+                      src={positioncap}
+                      sx={styles.imgBox}
+                    ></Box>
+                    <Box
+                      component="img"
+                      className="profile"
+                      src={positionimg2}
+                    ></Box>
+                    <Box
+                      component="img"
+                      src={positoin1}
+                      sx={styles.thirdimg}
+                    ></Box>
+                  </Box>
+                  <Box
+                    sx={{
+                      paddingTop: "18%",
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Typography
+                      variant="men**WER"
+                      color="initial"
+                      sx={styles.name}
+                    >
+                      lsh***EDR
+                    </Typography>
+                    <Typography
+                      variant="men**WER"
+                      color="initial"
+                      sx={styles.rupee}
+                    >
+                      ₹ 51,552.00
+                    </Typography>
+                  </Box>
+                </Box>
+                <Box sx={styles.stageinnerThree}>
+                  <Box sx={styles.profileBox}>
+                    <Box
+                      component="img"
+                      src={positioncap2}
+                      sx={styles.imgBox}
+                    ></Box>
+                    <Box
+                      component="img"
+                      className="profile"
+                      src={positionimg3}
+                    ></Box>
+                    <Box
+                      component="img"
+                      src={position3}
+                      sx={styles.thirdimg}
+                    ></Box>
+                  </Box>
+                  <Box
+                    sx={{
+                      paddingTop: "12%",
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Typography
+                      variant="men**WER"
+                      color="initial"
+                      sx={styles.name}
+                    >
+                      ion***HTR
+                    </Typography>
+                    <Typography
+                      variant="men**WER"
+                      color="initial"
+                      sx={styles.rupee}
+                    >
+                      ₹ 51,552.00
+                    </Typography>
+                  </Box>
+                </Box>
+                {[1, 2]?.map((i, index) => {
+                  return (
+                    <div
+                      className={`${
+                        index !== 0 && "mt-3"
+                      } !bg-white !bg-opacity-5  grid grid-cols-3 cursor-pointer  rounded-lg px-5 py-2`}
+                    >
+                      <div className="flex items-center gap-2">
+                        <Avatar src={positionimg2} />
+                        <span className="!text-gray-500 lg:text-[14px] text-[10px]">
+                          Anand***d
+                        </span>
+                      </div>
+                      <div>
+                        <img
+                          className="h-20 w-28 border-[1px] border-yellow-600 rounded-lg"
+                          src="https://ossimg.bdgadminbdg.com/IndiaBDG/lotterycategory/lotterycategory_20240110062118e9kt.png"
+                        />
+                      </div>
+                      <div className="flex flex-col justify-center pl-5">
+                        <span className="lg:!text-lg !text-sm !text-[#f0d8a4] whitespace-nowrap">
+                          Receiving {rupees}
+                          <br />
+                          2334.322
+                        </span>
+                        <span className="!text-sm !text-gray-500">
+                          Winning Amount
+                        </span>
+                      </div>
+                    </div>
+                  );
+                })}
+              </Box>
+            </div>
           </div>
+
           <Dialog
             open={poicy}
             TransitionComponent={Transition}
@@ -438,4 +650,63 @@ const styles = {
     transition: "all 0.3s",
   },
   userImage: { width: "50px", height: "50px" },
+  profileBox: {
+    "&>.profile": { width: "80px", height: "80px", borderRadius: "50%" },
+    position: "relative",
+    mb: "15px",
+  },
+  stageBox: { width: "100%" },
+  stageinner: {
+    width: "32%",
+    position: "absolute",
+    top: "0%",
+    left: "0%",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  stageinnerTwo: {
+    width: "32%",
+    position: "absolute",
+    top: "-18%",
+    left: "34%",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  stageinnerThree: {
+    width: "32%",
+    position: "absolute",
+    top: "-4%",
+    right: "0%",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  imgBox: {
+    width: "50px",
+    height: "50px",
+    position: "absolute",
+    top: "-23px",
+    left: "-15px",
+  },
+  thirdimg: {
+    width: "70px",
+    height: "18px",
+    position: "absolute",
+    bottom: "0",
+    left: "7px",
+  },
+  name: { color: "#8f5206", fontSize: "13px", fontWeight: 500 },
+  rupee: {
+    color: "#8f5206",
+    fontSize: "13px",
+    fontWeight: 500,
+    background: "linear-gradient(180deg, #FAE59F 0%, #C4933F 100%)",
+    padding: "6px 5px",
+    borderRadius: "20px",
+  },
 };

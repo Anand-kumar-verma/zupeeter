@@ -14,11 +14,11 @@ import pr33 from "../../../../assets/images/33.png";
 import pr4 from "../../../../assets/images/4.png";
 import Policy from "../policy/Policy";
 import axios from "axios";
-import { endpoint } from "../../../../services/urls";
+import { domain, endpoint } from "../../../../services/urls";
 import toast from "react-hot-toast";
 import { useQueryClient } from "react-query";
 // const socket = io("https://app.ferryinfotech.in/");
-const socket = io("http://192.168.18.183:9000");
+const socket = io(domain);
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -38,7 +38,7 @@ const ThreeMinCountDown = () => {
       oneMinColorWinning()
     } 
   },[show_this_three_min_time_sec])
-  
+
   const [poicy, setpoicy] = React.useState(false);
   const handleClickOpenpoicy = () => {
     setpoicy(true);
@@ -75,6 +75,8 @@ const ThreeMinCountDown = () => {
     try {
       const response = await axios.get(`${endpoint.check_result}`);
       client.refetchQueries("gamehistory")
+      client.refetchQueries("gamehistory_chart")
+      client.refetchQueries("myhistory")
     } catch (e) {
       toast(e?.message);
       console.log(e);
@@ -179,7 +181,7 @@ const ThreeMinCountDown = () => {
               style={{
                 background: "linear-gradient(180deg, #FAE59F 0%, #C4933F 100%)",
               }}
-              className="p-1 !px-4 lg:!text-[200px] !text-[100px] rounded-xl !font-bold"
+              className="p-1 !text-[#8f5206] !px-4 !text-[200px] rounded-xl !font-bold"
             >
               {show_this_three_min_time_sec?.substring(0, 1)}
             </div>
@@ -187,7 +189,7 @@ const ThreeMinCountDown = () => {
               style={{
                 background: "linear-gradient(180deg, #FAE59F 0%, #C4933F 100%)",
               }}
-              className="p-1 !px-4 lg:!text-[200px] !text-[100px] rounded-xl !font-bold"
+              className="p-1 !text-[#8f5206] !px-4 !text-[200px]  rounded-xl !font-bold"
             >
               {show_this_three_min_time_sec?.substring(1, 2)}
             </div>

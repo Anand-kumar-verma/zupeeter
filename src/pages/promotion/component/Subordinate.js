@@ -29,7 +29,7 @@ function Subordinate() {
           <Typography variant="body1" color="initial"> </Typography>
         </Box>
         <Box sx={{
-          width: '95%', background: '#3F3F3F', marginLeft: '2.5%', marginTop: '10px', borderRadius: '5px', color: 'white',
+          width: '95%', background: '#3F3F3F', marginLeft: '2.5%', marginTop: '10px', borderRadius: '5px', color: 'white !important',
           '&>div>div>div>button': { color: 'gray' },
           '&>div>div>div>button.Mui-selected ': { color: '#d9ac4f !important' },
         }}>
@@ -67,7 +67,7 @@ export default Subordinate
 const style = {
   header: {
     padding: '8px', background: '#3F3F3F', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-    '&>p': { color: 'white' }, '&>a>svg': { color: 'white', fontSize: '25px' }
+    '&>p': { color: 'white !important' }, '&>a>svg': { color: 'white', fontSize: '25px' }
   },
 };
 

@@ -30,7 +30,7 @@ function Activity() {
                 <Box sx={{ width: '60%', height: '90px', marginLeft: '20%' }}>
                   <Box component='img' src={ludo}></Box>
                 </Box>
-                <Typography variant="body1" color="initial" sx={{ textAlign: 'center', mt: '10px', fontSize: '15px', fontWeight: '500' }}>Ludo Supreme</Typography>
+                <Typography variant="body1" color="initial" sx={{ textAlign: 'center', mt: '20px', fontSize: '15px', fontWeight: '500' }}>Ludo Supreme</Typography>
               </Box>
             </Box>
             <Box className="bgcardboxda">
@@ -38,7 +38,7 @@ function Activity() {
                 <Box sx={{ width: '60%', height: '90px', marginLeft: '20%' }}>
                   <Box component='img' src={ludotwo}></Box>
                 </Box>
-                <Typography variant="body1" color="initial" sx={{ textAlign: 'center', mt: '10px', fontSize: '15px', fontWeight: '500' }}>Ludo Ninja
+                <Typography variant="body1" color="initial" sx={{ textAlign: 'center', mt: '20px', fontSize: '15px', fontWeight: '500' }}>Ludo Ninja
                 </Typography>
               </Box>
             </Box>
@@ -47,7 +47,7 @@ function Activity() {
                 <Box sx={{ width: '60%', height: '90px', marginLeft: '20%' }}>
                   <Box component='img' src={ludothree}></Box>
                 </Box>
-                <Typography variant="body1" color="initial" sx={{ textAlign: 'center', mt: '10px', fontSize: '15px', fontWeight: '500' }}>Ludo Turbo
+                <Typography variant="body1" color="initial" sx={{ textAlign: 'center', mt: '20px', fontSize: '15px', fontWeight: '500' }}>Ludo Turbo
                 </Typography>
               </Box>
             </Box>
@@ -56,7 +56,7 @@ function Activity() {
                 <Box sx={{ width: '60%', height: '90px', marginLeft: '20%' }}>
                   <Box component='img' src={ludosix}></Box>
                 </Box>
-                <Typography variant="body1" color="initial" sx={{ textAlign: 'center', mt: '10px', fontSize: '15px', fontWeight: '500' }}>Snakes & Ladders Plus
+                <Typography variant="body1" color="initial" sx={{ textAlign: 'center', mt: '20px', fontSize: '15px', fontWeight: '500' }}>Snakes & Ladders Plus
                 </Typography>
               </Box>
             </Box>
@@ -65,7 +65,7 @@ function Activity() {
                 <Box sx={{ width: '60%', height: '90px', marginLeft: '20%' }}>
                   <Box component='img' src={ludofive}></Box>
                 </Box>
-                <Typography variant="body1" color="initial" sx={{ textAlign: 'center', mt: '10px', fontSize: '15px', fontWeight: '500' }}>Trump Cards Mania
+                <Typography variant="body1" color="initial" sx={{ textAlign: 'center', mt: '20px', fontSize: '15px', fontWeight: '500' }}>Trump Cards Mania
                 </Typography>
               </Box>
             </Box>
@@ -74,7 +74,7 @@ function Activity() {
                 <Box sx={{ width: '60%', height: '90px', marginLeft: '20%' }}>
                   <Box component='img' src={ludofour}></Box>
                 </Box>
-                <Typography variant="body1" color="initial" sx={{ textAlign: 'center', mt: '10px', fontSize: '15px', fontWeight: '500' }}>Ludo Supreme League</Typography>
+                <Typography variant="body1" color="initial" sx={{ textAlign: 'center', mt: '20px', fontSize: '15px', fontWeight: '500' }}>Ludo Supreme League</Typography>
               </Box>
             </Box>
           </Box>

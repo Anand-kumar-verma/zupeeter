@@ -78,8 +78,8 @@ import PrivacyTipIcon from '@mui/icons-material/PrivacyTip';
                   }}
                   className="cursor-pointer  place-items-center flex w-full justify-center items-center flex-col rounded-lg py-2"
                 >
-                  <PrivacyTipIcon className="!w-[40px] !h-[40px]" />
-                  <p className="text-sm">Change Account  Password</p>
+                  <PrivacyTipIcon className="!w-[40px] !h-[40px] !text-[#8f5206]" />
+                  <p className="text-sm !text-[#8f5206]">Change Account  Password</p>
                 </div>
                 <div 
                 onClick={()=>navigate('/account-password/change-transction-password')}
@@ -89,8 +89,8 @@ import PrivacyTipIcon from '@mui/icons-material/PrivacyTip';
                   }}
                   className="cursor-pointer  place-items-center flex w-full justify-center items-center flex-col rounded-lg py-2"
                 >
-                  <PrivacyTipIcon className="!w-[40px] !h-[40px]" />
-                  <p className="text-sm">Change Transaction  Password</p>
+                  <PrivacyTipIcon className="!w-[40px] !h-[40px] !text-[#8f5206]" />
+                  <p className="text-sm !text-[#8f5206]">Change Transaction  Password</p>
                 </div>
               </div>
             </div>

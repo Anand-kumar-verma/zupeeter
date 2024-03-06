@@ -29,7 +29,7 @@ function Invitaton() {
         <Typography variant="body1" color="initial"> </Typography>
       </Box>
       <Box my={3}>
-        <Typography variant="body1" color="initial" sx={{ color: 'white', textAlign: 'center', }}>Please swipe left - right to choose your favorite poster</Typography>
+        <Typography variant="body1" color="initial" sx={{ color: 'white !important', textAlign: 'center', }}>Please swipe left - right to choose your favorite poster</Typography>
       </Box>
 
       <Swiper pagination={{ dynamicBullets: false, }} modules={[Pagination]} className="mySwiper"
@@ -42,7 +42,7 @@ function Invitaton() {
             <Box component='img' src={posterlogo} sx={{ width: '100px !important' }}></Box>
             <Box sx={{
               display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-              '&>p': { fontSize: '12px', color: 'white', fontWeight: '500' }
+              '&>p': { fontSize: '12px', color: 'white !important', fontWeight: '500' }
             }}>
               <Typography variant="body1" color="initial">Welcome to <br /> BDG Game</Typography>
 
@@ -59,7 +59,7 @@ function Invitaton() {
                 <Typography variant="body1" color="initial"> Open and <br /> transparent</Typography>
               </Box>
             </Box>
-            <Box sx={{ textAlign: 'center', mt: 2, '&>p': { fontSize: '30px', color: 'white', fontWeight: '600' } }}>
+            <Box sx={{ textAlign: 'center', mt: 2, '&>p': { fontSize: '30px', color: 'white !important', fontWeight: '600' } }}>
               <Typography variant="body1" color="initial">Full Odds  <br />Bonus  Rate</Typography>
             </Box>
             <Stack direction='row' sx={{
@@ -90,7 +90,7 @@ function Invitaton() {
             <Box component='img' src={posterlogo} sx={{ width: '100px !important' }}></Box>
             <Box sx={{
               display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-              '&>p': { fontSize: '12px', color: 'white', fontWeight: '500' }
+              '&>p': { fontSize: '12px', color: 'white !important', fontWeight: '500' }
             }}>
               <Typography variant="body1" color="initial">Welcome to <br /> BDG Game</Typography>
 
@@ -107,7 +107,7 @@ function Invitaton() {
                 <Typography variant="body1" color="initial"> Open and <br /> transparent</Typography>
               </Box>
             </Box>
-            <Box sx={{ textAlign: 'center', mt: 2, '&>p': { fontSize: '30px', color: 'white', fontWeight: '600' } }}>
+            <Box sx={{ textAlign: 'center', mt: 2, '&>p': { fontSize: '30px', color: 'white !important', fontWeight: '600' } }}>
               <Typography variant="body1" color="initial">Full Odds  <br />Bonus  Rate</Typography>
             </Box>
             <Stack direction='row' sx={{
@@ -138,7 +138,7 @@ function Invitaton() {
             <Box component='img' src={posterlogo} sx={{ width: '100px !important' }}></Box>
             <Box sx={{
               display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-              '&>p': { fontSize: '12px', color: 'white', fontWeight: '500' }
+              '&>p': { fontSize: '12px', color: 'white !important', fontWeight: '500' }
             }}>
               <Typography variant="body1" color="initial">Welcome to <br /> BDG Game</Typography>
 
@@ -155,7 +155,7 @@ function Invitaton() {
                 <Typography variant="body1" color="initial"> Open and <br /> transparent</Typography>
               </Box>
             </Box>
-            <Box sx={{ textAlign: 'center', mt: 2, '&>p': { fontSize: '30px', color: 'white', fontWeight: '600' } }}>
+            <Box sx={{ textAlign: 'center', mt: 2, '&>p': { fontSize: '30px', color: 'white !important', fontWeight: '600' } }}>
               <Typography variant="body1" color="initial">Full Odds  <br />Bonus  Rate</Typography>
             </Box>
             <Stack direction='row' sx={{
@@ -186,8 +186,8 @@ function Invitaton() {
 
       <Stack direction='row' sx={{
         alignItems: 'center', justifyContent: 'space-between', padding: 2,
-        '&>p:nth-child(1)': { color: 'white', fontSize: '14px', fontWeight: 500 },
-        '&>p:nth-child(2)': { color: 'white', fontSize: '14px', fontWeight: 500 },
+        '&>p:nth-child(1)': { color: 'white !important', fontSize: '14px', fontWeight: 500 },
+        '&>p:nth-child(2)': { color: 'white !important', fontSize: '14px', fontWeight: 500 },
         '&>p:nth-child(2)>span': { color: '#FFB857', fontSize: '14px', fontWeight: 500 },
       }}>
         <Typography variant="body1" color="initial">Invite friends</Typography>
@@ -212,7 +212,7 @@ export default Invitaton
 const style = {
   header: {
     padding: '8px', background: '#3F3F3F', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-    '&>p': { color: 'white' }, '&>a>svg': { color: 'white', fontSize: '25px' }
+    '&>p': { color: 'white !important' }, '&>a>svg': { color: 'white !important', fontSize: '25px' }
   },
   invitebutton: {
     width: '100%', background: '#292929', paddingTop: '40px', mt: '-10px',

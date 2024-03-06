@@ -27,10 +27,7 @@ function SingleTeamDetails() {
 
   const login_data = localStorage.getItem("logindata");
   const user_id = JSON.parse(login_data).UserID;
-  const functionTOCopy = (value) => {
-    copy(value);
-    toast.success("Copied to clipboard!");
-  };
+
   const { isLoading, data } = useQuery(["walletamount"], () => walletamount(), {
     refetchOnMount: false,
     refetchOnReconnect: true,

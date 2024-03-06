@@ -75,7 +75,9 @@ const Lottery = () => {
         </div>
       </div>
       {/* // k3 lotery */}
-      <div className=" rounded-md !py-0 h-[150px] bg-gradient-to-l from-[#f2ead1] to-[#C4933F]">
+      <div 
+      onClick={()=>navigate('/trx')}
+      className=" rounded-md !py-0 h-[150px] bg-gradient-to-l from-[#f2ead1] to-[#C4933F]">
         <div className="w-full grid grid-cols-4 place-items- mt-4 cursor-pointer">
           <div className="col-span-2">
             <div className=" w-full h-full  flex flex-col justify-center items-center">

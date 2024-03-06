@@ -24,7 +24,6 @@ function PrivacyPolicy() {
   const navigate = useNavigate();
   const login_data = localStorage.getItem("logindata");
   const user_id = JSON.parse(login_data).UserID;
-  const [select_type_of_history, setselect_type_of_history] = useState(1);
   const { isLoading, data } = useQuery(["walletamount"], () => walletamount(), {
     refetchOnMount: false,
     refetchOnReconnect: true,

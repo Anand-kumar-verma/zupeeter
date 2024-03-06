@@ -39,7 +39,6 @@ function Account() {
   const navigate = useNavigate();
   const login_data = localStorage.getItem("logindata");
   const user_id = JSON.parse(login_data).UserID;
-  const [select_type_of_history, setselect_type_of_history] = useState(1);
   const { isLoading, data } = useQuery(["walletamount"], () => walletamount(), {
     refetchOnMount: false,
     refetchOnReconnect: true,
@@ -71,7 +70,7 @@ function Account() {
   const page_data = [
     {
       icon: <SpaceDashboardIcon
-      className="!w-[40px] !h-[40px] "
+      className="!w-[40px] !h-[40px] !text-[#8f5206]"
       color="#FAE59F"
     />,
       name: "Dashboard",
@@ -79,7 +78,7 @@ function Account() {
     },
     {
         icon: <GroupsIcon
-        className="!w-[40px] !h-[40px] "
+        className="!w-[40px] !h-[40px] !text-[#8f5206]"
         color="#FAE59F"
       />,
         name: "My Team",
@@ -87,7 +86,7 @@ function Account() {
       },
       {
         icon: <RequestQuoteIcon
-        className="!w-[40px] !h-[40px] "
+        className="!w-[40px] !h-[40px] !text-[#8f5206] "
         color="#FAE59F"
       />,
         name: "Income",
@@ -95,7 +94,7 @@ function Account() {
       },
       {
         icon: <CardGiftcardIcon
-        className="!w-[40px] !h-[40px] "
+        className="!w-[40px] !h-[40px] !text-[#8f5206]"
         color="#FAE59F"
       />,
         name: "Betting Bonus",
@@ -103,7 +102,7 @@ function Account() {
       },
       {
         icon: <CottageIcon
-        className="!w-[40px] !h-[40px] "
+        className="!w-[40px] !h-[40px] !text-[#8f5206]"
         color="#FAE59F"
       />,
         name: "Bank Details",
@@ -111,7 +110,7 @@ function Account() {
       },
       {
         icon: <Person2Icon
-        className="!w-[40px] !h-[40px] "
+        className="!w-[40px] !h-[40px] !text-[#8f5206]"
         color="#FAE59F"
       />,
         name: "Profile",
@@ -119,7 +118,7 @@ function Account() {
       },
       {
         icon: <LockResetIcon
-        className="!w-[40px] !h-[40px] "
+        className="!w-[40px] !h-[40px] !text-[#8f5206]"
         color="#FAE59F"
       />,
         name: "Password",
@@ -127,7 +126,7 @@ function Account() {
       },
       {
         icon: <AppsIcon
-        className="!w-[40px] !h-[40px] "
+        className="!w-[40px] !h-[40px] !text-[#8f5206]"
         color="#FAE59F"
       />,
         name: "ICO",
@@ -135,7 +134,7 @@ function Account() {
       },
       {
         icon: <PrivacyTipIcon
-        className="!w-[40px] !h-[40px] "
+        className="!w-[40px] !h-[40px] !text-[#8f5206]"
         color="#FAE59F"
       />,
         name: "Privacy Policy",
@@ -143,7 +142,7 @@ function Account() {
       },
       {
         icon: <StarBorderIcon
-        className="!w-[40px] !h-[40px] "
+        className="!w-[40px] !h-[40px] !text-[#8f5206] "
         color="#FAE59F"
       />,
         name: "Risk Disclosure Agreement",
@@ -151,7 +150,7 @@ function Account() {
       },
       {
         icon: <CloudDownloadIcon
-        className="!w-[40px] !h-[40px] "
+        className="!w-[40px] !h-[40px] !text-[#8f5206] "
         color="#FAE59F"
       />,
         name: "App Download",
@@ -184,7 +183,12 @@ function Account() {
                   <p>Personal Center</p>
                   <span className="text-sm text-white">ID:2348902374</span>
                 </div>
-                <div className="flex flex-col justify-center items-center ">
+                <div className="flex flex-col justify-center items-center !cursor-pointer" 
+                onClick={()=>{
+                  localStorage.clear();
+                  navigate('/')
+                }}
+                >
                   <Logout />
                   <span className="text-sm text-white">Logout</span>
                 </div>

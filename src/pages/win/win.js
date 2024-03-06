@@ -14,10 +14,6 @@ import Layout from '../../component/Layout/Layout';
 import { endpoint } from '../../services/urls';
 import WinOneMin from './component/WinOneMin/WinOneMin';
 
-const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
-
 
 function Win() {
   const login_data = localStorage.getItem("logindata");

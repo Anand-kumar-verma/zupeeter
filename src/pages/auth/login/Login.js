@@ -79,6 +79,7 @@ function Login() {
       if (response?.data?.error === "200") {
         localStorage.setItem("logindata", JSON.stringify(response?.data));
         sessionStorage.setItem("isAvailableUser",true);
+        get_user_data(response?.data?.UserID)
         navigate("/dashboard");
       }
     } catch (e) {
@@ -87,6 +88,29 @@ function Login() {
     }
   };
 
+
+  const get_user_data = async (id) => {
+    console.log(id)
+    try {
+      const response = await axios.get(`${endpoint.get_data_by_user_id}?id=${id}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+          },
+        }
+      );
+      console.log(response, "This is response");
+     
+
+      if (response?.data?.error === "200") {
+        localStorage.setItem("aviator_data", JSON.stringify(response?.data?.data));
+      }
+    } catch (e) {
+      toast(e?.message);
+      console.error(e);
+    }
+  };
   return (
     <Container sx={style.root}>
       <Box

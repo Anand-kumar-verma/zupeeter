@@ -52,6 +52,7 @@ const ApplyBetDialogBox = ({
   };
 
   async function betFunctionStart() {
+    console.log("FUnction called apply bit")
     const reqBody = {
       userid: user_id,
       amount: calculated_value | 0,
@@ -106,7 +107,7 @@ const ApplyBetDialogBox = ({
               "!bg-gradient-to-b from-[#68A1ED] to-[#21497F]") ||
             (type === "big" && "!bg-gradient-to-b from-[#FBDA74] to-[#BB9112]")
           } 
-            dialog-header`}
+            dialog-header `}
         >
           <Box>
             <Typography variant="body1" color="initial">
@@ -179,10 +180,11 @@ const ApplyBetDialogBox = ({
           <AddIcon />
         </IconButton>
       </Stack>
-      <Box className="addbtnbox" sx={{ px: 2 }}>
+      <Box className=" !grid !grid-cols-6 gap-1 !pt-8" sx={{ px: 2 }}>
+
         {[1, 5, 10, 20, 50, 100]?.map((i) => {
           return (
-            <Button
+            <div
               onClick={() => setcalculated_value(value * i)}
               className={`${
                 ((type === "green" ||
@@ -203,11 +205,12 @@ const ApplyBetDialogBox = ({
                   "!bg-gradient-to-b from-[#68A1ED] to-[#21497F]") ||
                 (type === "big" &&
                   "!bg-gradient-to-b from-[#FBDA74] to-[#BB9112]")
-              } 
+              }
+             !px-3 !py-2 rounded-md  !text-center !text-[#8f5206]
             `}
             >
               {i}x
-            </Button>
+            </div>
           );
         })}
       </Box>

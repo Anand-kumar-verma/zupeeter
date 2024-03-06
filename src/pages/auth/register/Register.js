@@ -273,7 +273,7 @@ function Register() {
           <Box mt={2}>
             <Button
               component={NavLink}
-              to="/login"
+              to="/"
               className="btnregister"
               mt={2}
             >

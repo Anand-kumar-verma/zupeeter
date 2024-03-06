@@ -1,27 +1,22 @@
+import { Lock, Mail } from "@mui/icons-material";
+import CallIcon from "@mui/icons-material/Call";
+import CameraAltIcon from "@mui/icons-material/CameraAlt";
+import PersonIcon from "@mui/icons-material/Person";
 import {
   Box,
-  Button,
   CircularProgress,
-  Container,
-  TextField,
+  Container
 } from "@mui/material";
 import axios from "axios";
-import copy from "clipboard-copy";
-import { useFormik } from "formik";
-import moment from "moment";
 import React from "react";
 import toast from "react-hot-toast";
 import { useQuery } from "react-query";
+import { useNavigate } from "react-router-dom";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import Layout from "../../../component/Layout/Layout";
-import { endpoint, rupees } from "../../../services/urls";
-import CameraAltIcon from "@mui/icons-material/CameraAlt";
-import { useNavigate } from "react-router-dom";
-import PersonIcon from "@mui/icons-material/Person";
-import CallIcon from "@mui/icons-material/Call";
-import { Lock, Mail } from "@mui/icons-material";
+import { endpoint } from "../../../services/urls";
 function Profile() {
   const navigate = useNavigate();
   const login_data = localStorage.getItem("logindata");
@@ -75,17 +70,17 @@ function Profile() {
               <p className="text-sm !text-white ">{profile_data?.data?.referral_code}</p>
               <div className="!border-[1px] border-white grid grid-cols-3 place-items-center w-full py-3 mt-2">
                 <div className="w-full flex  flex-col items-center">
-                  <p>276</p>
+                  <p className="!text-[#8f5206]">276</p>
                   <p className="!text-[12px] !text-white">Total Team</p>
                 </div>
                 <div className="w-full flex  flex-col items-center">
-                  <p>
+                  <p className="!text-[#8f5206]">
                     {Number(profile_data?.deposit?.payin || 0)?.toFixed(2) || 0}
                   </p>
                   <p className="!text-[12px] !text-white">Total Investment</p>
                 </div>
                 <div className="w-full flex  flex-col items-center">
-                  <p>
+                  <p className="!text-[#8f5206]">
                     {Number(profile_data?.withdrawal?.withdrawal || 0)?.toFixed(
                       2
                     )}
@@ -96,27 +91,27 @@ function Profile() {
               <p className="py-4 !text-white">Account Info</p>
               <div className="!border-[1px] border-white w-full py-3 mt-2 px-3">
                 <div className="flex gap-2">
-                  <PersonIcon />
+                  <PersonIcon className="!text-[#8f5206]"/>
                   <span className="!text-white">{profile_data?.data?.referral_code}</span>
                 </div>
                 <p className="bg-[#DCB86A] h-[1px] !my-2 "></p>
                 <div className="flex gap-2">
-                  <PersonIcon />
+                  <PersonIcon className="!text-[#8f5206]"/>
                   <span className="!text-white">{profile_data?.data?.username}</span>
                 </div>
                 <p className="bg-[#DCB86A] h-[1px] !my-2 "></p>
                 <div className="flex gap-2">
-                  <CallIcon />
+                  <CallIcon className="!text-[#8f5206]"/>
                   <span className="!text-white">{profile_data?.data?.mobile}</span>
                 </div>
                 <p className="bg-[#DCB86A] h-[1px] !my-2 "></p>
                 <div className="flex gap-2">
-                  <Mail />
+                  <Mail className="!text-[#8f5206]"/>
                   <span className="!text-white">{profile_data?.data?.email}</span>
                 </div>
                 <p className="bg-[#DCB86A] h-[1px] !my-2 "></p>
                 <div className="flex gap-2">
-                  <Lock />
+                  <Lock className="!text-[#8f5206]"/>
                   <span className="!text-white">{profile_data?.data?.password}</span>
                 </div>
               </div>

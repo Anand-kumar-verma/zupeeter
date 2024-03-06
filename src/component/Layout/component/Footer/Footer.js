@@ -62,7 +62,7 @@ const style = {
     background: "#3A3A3A",
     borderRadius: "10px 10px 0px 0px",
     padding: "10px 20px",
-    width: "575px",
+    maxWidth: "575px",
     margin: "auto",
   },
   icon: { fontSize: "25px", "&>path": { color: "white !important" } },

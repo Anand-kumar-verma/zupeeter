@@ -14,7 +14,7 @@ import download from '../../assets/images/download.png'
 import Layout from '../../component/Layout/Layout';
 import { NavLink } from 'react-router-dom';
 
-   
+
 function Promotion() {
   return (
     <Layout>
@@ -37,12 +37,12 @@ function Promotion() {
             <Stack direction='row' sx={{ width: '100%', }}>
               <Box sx={style.subordinatesleft}>
                 <EmojiPeopleOutlinedIcon />
-                <Typography variant="body1" color="initial" className='!text-white'> Direct subordinates</Typography>
+                <Typography variant="body1" color="initial"> Direct subordinates</Typography>
 
               </Box>
               <Box sx={style.subordinatesRight}>
                 <Groups2OutlinedIcon />
-                <Typography variant="body1" color="initial" className='!text-white'>Team subordinates</Typography>
+                <Typography variant="body1" color="initial" >Team subordinates</Typography>
               </Box>
             </Stack>
             <Box sx={style.boxStyles}>
@@ -198,41 +198,45 @@ const style = {
   commitionboxOuter: { width: '100%', height: '40vh', background: '#c4933f', '&>img': { width: '100%', height: '100%' }, position: 'relative' },
   commitionbox: { left: '15%', width: '70%', textAlign: 'center', position: 'absolute', top: 0, py: 2, '&>p:nth-child(1)': { color: '#8f5206', fontSize: '25px', fontWeight: '500' }, '&>p:nth-child(2)': { color: '#ffdaac', fontSize: '13px', fontWeight: '400', padding: '5px 0px', background: '#8f5206', borderRadius: '20px' }, '&>p:nth-child(3)': { color: '#8f5206', fontSize: '13px', fontWeight: '400', marginTop: '5px' } },
   subordinatesleft: { width: '50%', textAlign: 'center', py: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#fae59f', borderTopLeftRadius: '10px', borderRight: '2px solid black', '&>svg': { color: '#8f5206', fontSize: '25px', marginRight: '10px' }, '&>p': { color: '#8f5206', fontSize: '14px', fontWeight: '500' } },
-  subordinatesRight: { width: '50%', textAlign: 'center', py: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#fae59f', borderTopRightRadius: '10px', '&>svg': { color: '#8f5206', fontSize: '25px', marginRight: '10px' }, '&>p': { color: '#8f5206', fontSize: '14px', fontWeight: '500' } },
+  subordinatesRight: {
+    width: '50%', textAlign: 'center', py: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#fae59f', borderTopRightRadius: '10px',
+    '&>svg': { color: '#8f5206', fontSize: '25px', marginRight: '10px' },
+    '&>p': { color: '#8f5206', fontSize: '14px', fontWeight: '500', }
+  },
   boxStyles: { background: '#404040', padding: '15px', display: 'flex' },
   innerBoxStyles: { width: '50%', borderRight: '1px solid black', borderBottomLeftRadius: '10px', padding: '0px 20px' },
   innerBoxStylestwo: { width: '50%', padding: '0px 20px' },
-  subcordinatelist: { textAlign: 'center', '&>p': { color: '#a6a9ae', fontSize: '13px', }, mb: 1 },
-  subcordinateBox: { position: 'absolute', width: '549px', left: '13px', top: '45%' },
+  subcordinatelist: { textAlign: 'center', '&>p': { color: 'white !important', fontSize: '13px', }, mb: 1 },
+  subcordinateBox: { position: 'absolute', width: '100%', top: '50%', mb: 2 },
   buttonStyles: { width: '8.8rem', height: '100%', color: '#8f5206', fontSize: '.4rem', fontWeight: 700, letterSpacing: '.01333rem', border: 'none', borderRadius: '99rem', background: 'linear-gradient(180deg, #FAE59F 0%, #C4933F 100%)', '&:hover': { background: 'linear-gradient(180deg, #C4933F 0%, #FAE59F 100%)', }, },
   invitebutton: {
-    width: '100%', background: '#292929', paddingTop: '140px', mt: '-10px',
+    width: '100%', background: '#292929', paddingTop: '140px', mt: '70px',
     '&>a>p': { background: 'red', width: '80%', marginLeft: '10%', borderRadius: '20px', textAlign: 'center', padding: '10px', background: 'linear-gradient(180deg, #FAE59F 0%, #C4933F 100%)', color: '#8f5206', fontSize: '17px', fontWeight: 600 }
   },
   invitbox: {
     width: '90%', background: '#3F3F3F', padding: '10px', mt: '20px', borderRadius: '10px', marginLeft: '5%', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
     '&>div>img': { width: '35px', marginRight: '10px' },
-    '&>div>p': { fontSize: "14px", color: 'white' },
+    '&>div>p': { fontSize: "14px", color: 'white !important' },
     '&>div': { alignItems: 'center' },
-    '&>div:nth-child(2)>p': { color: '#8f5206', marginRight: '20px' },
-    '&>div:nth-child(2)>svg': { color: 'gray', fontSize: "14px", marginRight: '10px' }
+    '&>div:nth-child(2)>p': { color: '#8f5206', marginRight: '20px', color: 'white !important' },
+    '&>div:nth-child(2)>svg': { color: 'gray', fontSize: "14px", marginRight: '10px', color: 'white !important' }
   },
   promotionBox: {
     display: 'flex', alignItems: 'center', justifyContent: 'space-between',
     '&>div:nth-child(1)': { alignItems: 'center' },
     '&>div:nth-child(1)>img': { width: '35px', marginRight: '10px' },
-    '&>div:nth-child(1)>p': { fontSize: '17px', fontWeight: 500, color: '#d9ac4f' },
+    '&>div:nth-child(1)>p': { fontSize: '17px', fontWeight: 500, color: '#d9ac4f', color: 'white !important' },
   },
   promotionBoxOuter: {
     width: '90%', background: '#3F3F3F', padding: '10px', mt: '20px', borderRadius: '5px', marginLeft: '5%', paddingBottom: '70px',
     '&>div:nth-child(2)>div:nth-child(1)': { my: '10px', borderRight: '1px solid black', width: '50%', textAlign: "center" },
     '&>div:nth-child(2)>div:nth-child(2)': { my: '10px', width: '50%', textAlign: "center" },
-    '&>div:nth-child(2)>div>p:nth-child(1)': { color: 'white' },
-    '&>div:nth-child(2)>div>p:nth-child(2)': { color: 'gray', fontSize: '13px', fontWeight: 500 },
+    '&>div:nth-child(2)>div>p:nth-child(1)': { color: 'white !important' },
+    '&>div:nth-child(2)>div>p:nth-child(2)': { color: 'gray', fontSize: '13px', fontWeight: 500, color: 'white !important' },
     '&>div:nth-child(3)>div:nth-child(1)': { my: '10px', borderRight: '1px solid black', width: '50%', textAlign: "center" },
     '&>div:nth-child(3)>div:nth-child(2)': { my: '10px', width: '50%', textAlign: "center" },
-    '&>div:nth-child(3)>div>p:nth-child(1)': { color: 'white' },
-    '&>div:nth-child(3)>div>p:nth-child(2)': { color: 'gray', fontSize: '13px', fontWeight: 500 },
+    '&>div:nth-child(3)>div>p:nth-child(1)': { color: 'white !important' },
+    '&>div:nth-child(3)>div>p:nth-child(2)': { color: 'gray', fontSize: '13px', fontWeight: 500, color: 'white !important' },
   },
 
 };

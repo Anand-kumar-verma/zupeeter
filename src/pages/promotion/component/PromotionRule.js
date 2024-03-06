@@ -76,7 +76,7 @@ function PromotionRule() {
           <Box>
             <Stack direction='row' sx={{
               px: '2px', py: '10px', background: '#6F6F6F', alignItems: 'center', justifyContent: 'space-between',
-              '&>div': { fontSize: '12px', color: 'white', },
+              '&>div': { fontSize: '12px', color: 'white !important', },
             }}>
               <Box>Rebate level</Box>
               <Box>Team Number </Box>
@@ -188,18 +188,18 @@ export default PromotionRule;
 
 const style = {
   container: { background: '#292929', width: '100%' },
-  header: { padding: '8px', background: '#3F3F3F', display: 'flex', alignItems: 'center', justifyContent: 'space-between', '& > p': { color: 'white' }, '& > a > svg': { color: 'white', fontSize: '25px' } },
-  contentText: { '& > p:nth-child(1)': { fontSize: '20px', textAlign: 'center', py: 1, color: 'gray' }, '& > p:nth-child(2)': { fontSize: '15px', textAlign: 'center', color: 'gray' } },
+  header: { padding: '8px', background: '#3F3F3F', display: 'flex', alignItems: 'center', justifyContent: 'space-between', '& > p': { color: 'white !important', }, '& > a > svg': { color: 'white !important', fontSize: '25px' } },
+  contentText: { '& > p:nth-child(1)': { fontSize: '20px', textAlign: 'center', py: 1, color: 'white !important', }, '& > p:nth-child(2)': { fontSize: '15px', textAlign: 'center', color: 'gray' } },
   box: {
     position: 'relative', border: '1px solid #6F6F6F', borderTopLeftRadius: '10px', borderTopRightRadius: '10px', padding: 2, background: '#3F3F3F',
-    '&>p': { color: 'white', fontSize: '13px', fontWeight: '400', wordSpacing: '1x', lineHeight: '20px' },
+    '&>p': { color: 'white !important', fontSize: '13px', fontWeight: '400', wordSpacing: '1x', lineHeight: '20px' },
     '&>p>a': { color: '#FEA237', fontSize: '13px', fontWeight: '400', wordSpacing: '1x', lineHeight: '20px', display: 'flex', alignItems: 'center' },
   },
-  boxNumber: { color: 'white', position: 'absolute', textAlign: 'center', background: '#6F6F6F', clipPath: 'polygon(10% 0, 90% 0, 100% 50%, 90% 100%, 10% 100%, 0 50%)', width: '30%', top: '-13px', left: '35%' },
+  boxNumber: { color: 'white !important', position: 'absolute', textAlign: 'center', background: '#6F6F6F', clipPath: 'polygon(10% 0, 90% 0, 100% 50%, 90% 100%, 10% 100%, 0 50%)', width: '30%', top: '-13px', left: '35%' },
   levalBox: {
     px: '0px', background: '#3F3F3F', display: 'flex !important', alignItems: 'center', justifyContent: 'space-between',
     '&>div': {
-      fontSize: '12px', color: 'white', textAlign: 'center', border: '1px solid #292929', width: '25%', height: '45px',
+      fontSize: '12px', color: 'white !important', textAlign: 'center', border: '1px solid #292929', width: '25%', height: '45px',
       display: 'flex', alignItems: 'center', justifyContent: 'center'
     },
     '&>div>img': { width: '50%', height: '35px' },

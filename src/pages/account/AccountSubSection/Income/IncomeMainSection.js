@@ -69,32 +69,32 @@ function IncomeMainSection() {
   const page_data = [
     {
       icon: (
-        <LogoutIcon className="!w-[40px] !h-[40px] " color="#FAE59F" />
+        <LogoutIcon className="!w-[40px] !h-[40px] !text-[#8f5206]" color="#8f5206" />
       ),
       name: "Referral Bonus",
       link: "/account-income-referral-bonus",
     },
     {
-      icon: <VoicemailIcon className="!w-[40px] !h-[40px] " color="#FAE59F" />,
+      icon: <VoicemailIcon className="!w-[40px] !h-[40px] !text-[#8f5206] " color="#8f5206" />,
       name: "Level Bonus",
       link: "/account-income-level-bonus",
     },
     {
       icon: (
-        <CenterFocusWeakIcon className="!w-[40px] !h-[40px] " color="#FAE59F" />
+        <CenterFocusWeakIcon className="!w-[40px] !h-[40px] !text-[#8f5206]" color="#8f5206" />
       ),
       name: "Team Betting Bonus",
       link: "/account-income-team-betting-bonus",
     },
     {
       icon: (
-        <CardGiftcardIcon className="!w-[40px] !h-[40px] " color="#FAE59F" />
+        <CardGiftcardIcon className="!w-[40px] !h-[40px] !text-[#8f5206]" color="#8f5206" />
       ),
       name: "Team Salary Bonus",
       link: "/account-income-team-salary-bonus",
     },
     {
-      icon: <AccessibilityIcon className="!w-[40px] !h-[40px] " color="#FAE59F" />,
+      icon: <AccessibilityIcon className="!w-[40px] !h-[40px] !text-[#8f5206]" color="#8f5206" />,
       name: "Registration Bonus",
       link: "/account-income-registratioin-bonus",
     }
