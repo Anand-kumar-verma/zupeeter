@@ -17,12 +17,14 @@ import axios from "axios";
 import { domain, endpoint } from "../../../../services/urls";
 import toast from "react-hot-toast";
 import { useQueryClient } from "react-query";
+import { useSocket } from "../../../../Shared/SocketContext";
 // const socket = io("https://app.ferryinfotech.in/");
-const socket = io(domain);
+// const socket = io(domain);
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 const ThreeMinCountDown = () => {
+  const socket = useSocket()
   const client = useQueryClient();
   const [one_min_time, setOne_min_time] = useState("0_0");
   const show_this_three_min_time_sec = String(
@@ -58,18 +60,38 @@ const ThreeMinCountDown = () => {
     },
   });
 
-  React.useEffect(() => {
-    socket.on("fivemin", (onemin) => {
-      console.log(onemin, "This is new message");
-      setOne_min_time(onemin);
-       if (onemin?.split("_")?.[1] === "5") fk.setFieldValue("openTimerDialogBox", true);
-       if (onemin?.split("_")?.[1] === "59") fk.setFieldValue("openTimerDialogBox", false);
-    });
+  // React.useEffect(() => {
+  //   socket.on("fivemin", (onemin) => {
+  //     console.log(onemin, "This is new message");
+  //     setOne_min_time(onemin);
+  //      if (onemin?.split("_")?.[1] === "5") fk.setFieldValue("openTimerDialogBox", true);
+  //      if (onemin?.split("_")?.[1] === "59") fk.setFieldValue("openTimerDialogBox", false);
+  //   });
 
+  //   return () => {
+  //     socket.off("fivemin");
+  //   };
+  // }, []);
+
+  React.useEffect(() => {
+    const handleFiveMin = (fivemin) => {
+      console.log(fivemin, "This is new message");
+      setOne_min_time(fivemin);
+      if (fivemin?.split('_')?.[1] === '5') {
+        fk.setFieldValue('openTimerDialogBox', true);
+      }
+      if (fivemin?.split('_')?.[1] === '59') {
+        fk.setFieldValue('openTimerDialogBox', false);
+      }
+    };
+  
+    socket.on('fivemin', handleFiveMin);
+  
     return () => {
-      socket.off("fivemin");
+      socket.off('fivemin', handleFiveMin);
     };
   }, []);
+  
 
   const oneMinCheckResult = async () => {
     try {

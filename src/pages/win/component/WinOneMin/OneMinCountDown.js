@@ -1,11 +1,6 @@
 import ArticleIcon from "@mui/icons-material/Article";
 import CloseIcon from "@mui/icons-material/Close";
-import {
-  Box,
-  IconButton,
-  Stack,
-  Typography
-} from "@mui/material";
+import { Box, IconButton, Stack, Typography } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
 import Slide from "@mui/material/Slide";
 import axios from "axios";
@@ -22,22 +17,24 @@ import pr33 from "../../../../assets/images/33.png";
 import pr4 from "../../../../assets/images/4.png";
 import { domain, endpoint } from "../../../../services/urls";
 import Policy from "../policy/Policy";
+import { useSocket } from "../../../../Shared/SocketContext";
 // const socket = io("https://app.ferryinfotech.in/");
-const socket = io(domain);
+// const socket = io(domain);
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 const OneMinCountDown = () => {
+  const socket = useSocket();
   const client = useQueryClient();
   const [one_min_time, setOne_min_time] = useState(0);
   const show_this_one_min_time = String(one_min_time).padStart(2, "0");
 
-  React.useEffect(()=>{
-    if(show_this_one_min_time === "01"){
-      oneMinCheckResult()
-      oneMinColorWinning()
-    } 
-  },[show_this_one_min_time])
+  React.useEffect(() => {
+    if (show_this_one_min_time === "01") {
+      oneMinCheckResult();
+      oneMinColorWinning();
+    }
+  }, [show_this_one_min_time]);
 
   const [poicy, setpoicy] = React.useState(false);
   const handleClickOpenpoicy = () => {
@@ -58,32 +55,48 @@ const OneMinCountDown = () => {
     },
   });
 
+  // React.useEffect(() => {
+  //   socket.on("onemin", (onemin) => {
+  //     setOne_min_time(onemin);
+  //     if (onemin === 5) fk.setFieldValue("openTimerDialogBox", true);
+  //     if (onemin === 59) fk.setFieldValue("openTimerDialogBox", false);
+  //   });
+
+  //   console.log("socket effect is called")
+
+  //   return () => {
+  //     // socket.off("onemin");
+  //     socket.disconnect();
+  //   };
+  // }, []);
+
   React.useEffect(() => {
-    socket.on("onemin", (onemin) => {
+    const handleOneMin = (onemin) => {
+      console.log("hii anand")
       setOne_min_time(onemin);
       if (onemin === 5) fk.setFieldValue("openTimerDialogBox", true);
       if (onemin === 59) fk.setFieldValue("openTimerDialogBox", false);
-    });
-
+    };
+    socket.on("onemin", handleOneMin);
     return () => {
-      socket.off("onemin");
+      socket.off("onemin", handleOneMin);
     };
   }, []);
 
   const oneMinCheckResult = async () => {
-    console.log("checkresult function hit")
+    console.log("checkresult function hit");
     try {
       const response = await axios.get(`${endpoint.check_result}`);
-      client.refetchQueries("gamehistory")
-      client.refetchQueries("gamehistory_chart")
-      client.refetchQueries("myhistory")
+      client.refetchQueries("gamehistory");
+      client.refetchQueries("gamehistory_chart");
+      client.refetchQueries("myhistory");
     } catch (e) {
       toast(e?.message);
       console.log(e);
     }
   };
   const oneMinColorWinning = async () => {
-    console.log("checkresult function hit2")
+    console.log("checkresult function hit2");
     try {
       const response = await axios.get(`${endpoint.color_winning}?id=1&gid=1`);
     } catch (e) {

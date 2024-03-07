@@ -18,7 +18,7 @@ const MyHistory = ({ gid }) => {
   const login_data = localStorage.getItem("logindata");
   const user_id = JSON.parse(login_data).UserID;
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [page, setPage] = React.useState(0);
+  const [page, setPage] = React.useState(1);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);

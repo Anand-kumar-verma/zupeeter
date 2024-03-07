@@ -11,11 +11,13 @@ import { Toaster } from "react-hot-toast";
 import { Provider } from "react-redux";
 import store from "./redux/store/store";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { SocketProvider } from "./Shared/SocketContext";
 const queryClient = new QueryClient();
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={store}>
+  <SocketProvider>
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <ThemeProvider theme={theme}>
@@ -37,6 +39,7 @@ root.render(
         </ThemeProvider>
       </BrowserRouter>
     </QueryClientProvider>
+    </SocketProvider>
   </Provider>
 );
 

@@ -17,12 +17,14 @@ import pr33 from "../../../../assets/images/33.png";
 import pr4 from "../../../../assets/images/4.png";
 import { domain, endpoint } from "../../../../services/urls";
 import Policy from "../policy/Policy";
+import { useSocket } from "../../../../Shared/SocketContext";
 // const socket = io("https://app.ferryinfotech.in/");
-const socket = io(domain);
+// const socket = io(domain);
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 const TwoMinCountDown = () => {
+  const socket = useSocket()
   const client = useQueryClient();
   const [three_min_time, setThree_min_time] = useState("0_0");
   const show_this_three_min_time_sec = String(
@@ -58,18 +60,37 @@ const TwoMinCountDown = () => {
     },
   });
 
+  // React.useEffect(() => {
+  //   socket.on("threemin", (onemin) => {
+  //     setThree_min_time(onemin);
+  //     if (onemin?.split("_")?.[1] === "5")
+  //       fk.setFieldValue("openTimerDialogBox", true);
+  //     if (onemin?.split("_")?.[1] === "59")
+  //       fk.setFieldValue("openTimerDialogBox", false);
+  //   });
+  //   return () => {
+  //     socket.off("threemin");
+  //   };
+  // }, []);
+
   React.useEffect(() => {
-    socket.on("threemin", (onemin) => {
-      setThree_min_time(onemin);
-      if (onemin?.split("_")?.[1] === "5")
-        fk.setFieldValue("openTimerDialogBox", true);
-      if (onemin?.split("_")?.[1] === "59")
-        fk.setFieldValue("openTimerDialogBox", false);
-    });
+    const handleThreeMin = (threemin) => {
+      setThree_min_time(threemin);
+      if (threemin?.split('_')?.[1] === '5') {
+        fk.setFieldValue('openTimerDialogBox', true);
+      }
+      if (threemin?.split('_')?.[1] === '59') {
+        fk.setFieldValue('openTimerDialogBox', false);
+      }
+    };
+  
+    socket.on('threemin', handleThreeMin);
+  
     return () => {
-      socket.off("threemin");
+      socket.off('threemin', handleThreeMin);
     };
   }, []);
+  
 
   const oneMinCheckResult = async () => {
     try {

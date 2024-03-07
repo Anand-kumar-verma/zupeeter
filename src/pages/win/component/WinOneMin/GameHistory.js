@@ -15,7 +15,7 @@ import { useQuery } from "react-query";
 import { endpoint } from "../../../../services/urls";
 const GameHistory = ({ gid }) => {
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [page, setPage] = React.useState(0);
+  const [page, setPage] = React.useState(1);
   const { isLoading, data: game_history } = useQuery(
     ["gamehistory", gid],
     () => GameHistoryFn(gid),

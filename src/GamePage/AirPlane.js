@@ -53,37 +53,82 @@ const AirPlane = ({ formik, fk }) => {
   let seconds = Number(combineTime?.split("_")?.[1]);
   const client = useQueryClient();
 
+  // useEffect(() => {
+  //   socket.on("message", (newMessage) => {
+  //     console.log(newMessage, "This is new message");
+  //     startFly(newMessage);
+  //   });
+
+  //   return () => {
+  //     socket.off("message");
+  //   };
+  // }, []);
+  // useEffect(() => {
+  //   socket.on("seconds", (seconds) => {
+  //     setcombineTime(seconds);
+  //   });
+  //   socket.on("setcolorofdigit", (color_value) => {
+  //     fk.setFieldValue("setcolorofdigit", color_value);
+  //     console.log(color_value, "This is color Value");
+  //   });
+  //   socket.on("setloder", (setloder) => {
+  //     fk.setFieldValue("setloder", setloder);
+  //   });
+  //   socket.on("isFlying", (isFlying) => {
+  //     fk.setFieldValue("isFlying", isFlying);
+  //   });
+  //   return () => {
+  //     socket.off("seconds");
+  //     socket.off("setcolorofdigit");
+  //     socket.off("setloder");
+  //     socket.off("isFlying");
+  //   };
+  // }, []);
+
   useEffect(() => {
-    socket.on("message", (newMessage) => {
+    const handleNewMessage = (newMessage) => {
       console.log(newMessage, "This is new message");
       startFly(newMessage);
-    });
-
-    return () => {
-      socket.off("message");
     };
-  }, []);
+  
+    socket.on("message", handleNewMessage);
+  
+    return () => {
+      socket.off("message", handleNewMessage);
+    };
+  }, []);  // Include startFly as a dependency if it's defined outside the useEffect.
+  
   useEffect(() => {
-    socket.on("seconds", (seconds) => {
+    const handleSeconds = (seconds) => {
       setcombineTime(seconds);
-    });
-    socket.on("setcolorofdigit", (color_value) => {
+    };
+  
+    const handleSetColorOfDigit = (color_value) => {
       fk.setFieldValue("setcolorofdigit", color_value);
       console.log(color_value, "This is color Value");
-    });
-    socket.on("setloder", (setloder) => {
+    };
+  
+    const handleSetLoader = (setloder) => {
       fk.setFieldValue("setloder", setloder);
-    });
-    socket.on("isFlying", (isFlying) => {
+    };
+  
+    const handleIsFlying = (isFlying) => {
       fk.setFieldValue("isFlying", isFlying);
-    });
+    };
+  
+    socket.on("seconds", handleSeconds);
+    socket.on("setcolorofdigit", handleSetColorOfDigit);
+    socket.on("setloder", handleSetLoader);
+    socket.on("isFlying", handleIsFlying);
+  
     return () => {
-      socket.off("seconds");
-      socket.off("setcolorofdigit");
-      socket.off("setloder");
-      socket.off("isFlying");
+      socket.off("seconds", handleSeconds);
+      socket.off("setcolorofdigit", handleSetColorOfDigit);
+      socket.off("setloder", handleSetLoader);
+      socket.off("isFlying", handleIsFlying);
     };
   }, []);
+  
 
   function hii(randomFlyingTime) {
     const mainDiv = document.getElementsByClassName("maindiv")[0];
