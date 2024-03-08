@@ -6,7 +6,7 @@ import * as React from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useQuery } from 'react-query';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import Icon1 from '../../assets/images/icon1.png';
 import Icon2 from '../../assets/images/icon2.png';
 import Time from '../../assets/images/time.png';
@@ -16,6 +16,7 @@ import WinOneMin from './component/WinOneMin/WinOneMin';
 
 
 function Win() {
+  const navigate = useNavigate()
   const login_data = localStorage.getItem("logindata");
   const user_id = JSON.parse(login_data).UserID;
   const [Tab, setTab] = useState(1);
@@ -36,14 +37,13 @@ function Win() {
     }
   };
 
-
 if(isLoading) return  <Layout><CircularProgress/></Layout>
   return (
     <Layout>
       <Box sx={styles.root}>
         <Container>
           <Box sx={{ padding: 2, borderBottom: '1px solid white' }}>
-            <ArrowBackIcon sx={{ color: 'white !important' }} />
+            <ArrowBackIcon sx={{ color: 'white !important' }} onClick={()=>navigate('/dashboard')}/>
             <Stack direction="row" sx={styles.depositWithdrawContainer}>
               <Box component={NavLink}>
                 <Box className="serv-item">

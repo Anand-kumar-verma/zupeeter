@@ -311,6 +311,16 @@
   }
 }
 
+.loder-waiting-for-next-round-start {
+  height: 100%;
+  position: absolute;
+  right: 0px;
+  width: 0;
+  background-color: #3c3b3b; /* Set the background color you want */
+  border-radius: inherit; /* Make sure the child div has the same border-radius as the parent */
+  animation: widthAnimation 2s ease-in-out infinite; /* Adjust the animation duration as needed */
+}
+
 /* //  rotate image */
 .rotate-animation {
   animation: rotate 2s linear infinite; /* Adjust the animation duration as needed */
@@ -424,6 +434,21 @@
 }
 
 
+
+.scrollable-text {
+  height: 10px; /* Set the desired height */
+  overflow: hidden;
+  animation: scroll 5s linear infinite ; /* Adjust the animation duration as needed */
+}
+@keyframes scroll {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
 .waiting_for_next_round {
   animation: waiting_for_next_round_text 1s infinite alternate;
   text-shadow: 2px 2px 4px rgba(250, 247, 247, 0.5);
@@ -446,8 +471,15 @@
 @keyframes animation_div_text {
   from {
     height: 0px;
+    opacity: 0;
   }
   to {
     height: 90px;
+    opacity: 1;
   }
+}
+
+.transparentColor{
+  -webkit-background-clip:text;
+  -webkit-text-fill-color: transparent;
 }

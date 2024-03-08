@@ -1,5 +1,5 @@
 import { Container, Typography, Box, Stack } from '@mui/material'
-import filter from '../../assets/images/filter.png'
+import sort from '../../assets/images/data-flow.png'
 import EmojiPeopleOutlinedIcon from '@mui/icons-material/EmojiPeopleOutlined';
 import promotionbg from '../../assets/images/promotionbg.png'
 import copycode from '../../assets/images/copy_code.png'
@@ -13,7 +13,17 @@ import ArrowForwardIosOutlinedIcon from '@mui/icons-material/ArrowForwardIosOutl
 import download from '../../assets/images/download.png'
 import Layout from '../../component/Layout/Layout';
 import { NavLink } from 'react-router-dom';
+import { zubgback, zubgbackgrad, zubgmid } from '../../Shared/color';
+import copy from '../../assets/images/copy.png'
+import donut from '../../assets/images/database.png'
+import coin from '../../assets/images/settings.png'
+import book from '../../assets/images/rules.png'
+import customer from '../../assets/images/24-hours-service.png'
+import money from '../../assets/images/salary.png'
+import data from '../../assets/images/data-analytics.png'
 
+
+// sajdf;l
 
 function Promotion() {
   return (
@@ -23,11 +33,10 @@ function Promotion() {
           <Typography variant="body1" color="initial"> </Typography>
           <Typography variant="body1" color="initial" className='!text-white'>Agency</Typography>
           <Box component={NavLink} to='/promotion/Subordinate/'>
-            <Box component='img' src={filter} ></Box>
+            <Box component='img' src={sort} ></Box>
           </Box>
         </Box>
         <Box sx={style.commitionboxOuter}>
-          <Box component='img' src={promotionbg}></Box>
           <Box sx={style.commitionbox}>
             <Typography variant="body1" color="initial" className='!text-white'>0</Typography>
             <Typography variant="body1" color="initial" className='!text-white'>Yesterday's total commission</Typography>
@@ -64,10 +73,11 @@ function Promotion() {
                   <Typography variant="body1" color="initial" className='!text-white'>  Number of people making first deposit</Typography>
                 </Box>
               </Box>
+
               <Box sx={style.innerBoxStylestwo}>
                 <Box sx={style.subcordinatelist}>
                   <Typography variant="body1" color="initial">0</Typography>
-                  <Typography variant="body1" color="initial"> number of register</Typography>
+                  <Typography variant="body1" color="initial"> number of register </Typography>
                 </Box>
                 <Box sx={style.subcordinatelist}>
                   <Typography variant="body1" color="initial">0</Typography>
@@ -83,14 +93,17 @@ function Promotion() {
                 </Box>
               </Box>
             </Box>
+            <Box sx={style.invitebtn}>
+              <NavLink to="/promotion/PromotionShare">
+                <Typography sx={{}}>INVITATION LINK</Typography>
+              </NavLink>
+            </Box>
           </Box>
-          <Box sx={style.invitebutton}>
-            <NavLink to="/promotion/PromotionShare">
-              <Typography sx={{}}>INVITATION LINK</Typography>
-            </NavLink>
+          <Box sx={style.invitebutton} className="invitebutton">
             <Box sx={style.invitbox}>
               <Stack direction='row'>
-                <Box component='img' src={copycode}></Box>
+                {/* <Box component='img' src={copycode}></Box> */}
+                <Box component='img' src={copy}></Box>
                 <Typography variant="body1" color="initial">Copy invitation code</Typography>
               </Stack>
               <Stack direction='row'>
@@ -101,7 +114,8 @@ function Promotion() {
             <NavLink to='/promotion/TeamReport'>
               <Box sx={style.invitbox}>
                 <Stack direction='row'>
-                  <Box component='img' src={team_port}></Box>
+                  {/* <Box component='img' src={team_port}></Box> */}
+                  <Box component='img' src={donut}></Box>
                   <Typography variant="body1" color="initial">Subordinate data</Typography>
                 </Stack>
                 <Stack direction='row'>
@@ -112,7 +126,7 @@ function Promotion() {
             <NavLink to='/promotion/MyCommission'>
               <Box sx={style.invitbox}>
                 <Stack direction='row'>
-                  <Box component='img' src={commission}></Box>
+                  <Box component='img' src={coin}></Box>
                   <Typography variant="body1" color="initial">Commission detail</Typography>
                 </Stack>
                 <Stack direction='row'>
@@ -123,7 +137,8 @@ function Promotion() {
             <NavLink to='/promotion/PromotionRule'>
               <Box sx={style.invitbox}>
                 <Stack direction='row'>
-                  <Box component='img' src={invite_reg}></Box>
+                  {/* <Box component='img' src={invite_reg}></Box> */}
+                  <Box component='img' src={book}></Box>
                   <Typography variant="body1" color="initial">Invitation rules</Typography>
                 </Stack>
                 <Stack direction='row'>
@@ -134,7 +149,8 @@ function Promotion() {
             <NavLink to='/promotion/customerLine/'>
               <Box sx={style.invitbox}>
                 <Stack direction='row'>
-                  <Box component='img' src={server}></Box>
+                  {/* <Box component='img' src={server}></Box> */}
+                  <Box component='img' src={customer}></Box>
                   <Typography variant="body1" color="initial">Agent line customer service</Typography>
                 </Stack>
                 <Stack direction='row'>
@@ -145,7 +161,8 @@ function Promotion() {
             <NavLink to='/promotion/RebateRatio/'>
               <Box sx={style.invitbox}>
                 <Stack direction='row'>
-                  <Box component='img' src={rebateRatio}></Box>
+                  {/* <Box component='img' src={rebateRatio}></Box> */}
+                  <Box component='img' src={money}></Box>
                   <Typography variant="body1" color="initial">Rebate ratio</Typography>
                 </Stack>
                 <Stack direction='row'>
@@ -156,7 +173,8 @@ function Promotion() {
             <Box sx={style.promotionBoxOuter}>
               <Box sx={style.promotionBox}>
                 <Stack direction='row'>
-                  <Box component='img' src={download}></Box>
+                  {/* <Box component='img' src={download}></Box> */}
+                  <Box component='img' src={data}></Box>
                   <Typography variant="body1" color="initial">promotion data</Typography>
                 </Stack>
               </Box>
@@ -177,14 +195,16 @@ function Promotion() {
                 </Box>
                 <Box>
                   <Typography variant="body1" color="initial">0</Typography>
-                  <Typography variant="body1" color="initial">Total number of subordinates in the team</Typography>
+                  <Typography variant="body1" color="initial">Total number of <br />subordinates in the team</Typography>
                 </Box>
               </Stack>
+            </Box>
+            <Box sx={style.promotionBoxOutertwo}>
             </Box>
           </Box>
         </Box>
       </Container >
-    </Layout>
+    </Layout >
   )
 }
 
@@ -192,51 +212,52 @@ export default Promotion
 
 const style = {
   header: {
-    padding: '8px', background: '#3F3F3F', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+    padding: '8px', background: zubgback, display: 'flex', alignItems: 'center', justifyContent: 'space-between',
     '&>p': { color: 'white' }, '&>a>img': { width: '30px' }
   },
-  commitionboxOuter: { width: '100%', height: '40vh', background: '#c4933f', '&>img': { width: '100%', height: '100%' }, position: 'relative' },
-  commitionbox: { left: '15%', width: '70%', textAlign: 'center', position: 'absolute', top: 0, py: 2, '&>p:nth-child(1)': { color: '#8f5206', fontSize: '25px', fontWeight: '500' }, '&>p:nth-child(2)': { color: '#ffdaac', fontSize: '13px', fontWeight: '400', padding: '5px 0px', background: '#8f5206', borderRadius: '20px' }, '&>p:nth-child(3)': { color: '#8f5206', fontSize: '13px', fontWeight: '400', marginTop: '5px' } },
-  subordinatesleft: { width: '50%', textAlign: 'center', py: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#fae59f', borderTopLeftRadius: '10px', borderRight: '2px solid black', '&>svg': { color: '#8f5206', fontSize: '25px', marginRight: '10px' }, '&>p': { color: '#8f5206', fontSize: '14px', fontWeight: '500' } },
+  commitionboxOuter: { width: '100%', height: '20vh', background: zubgmid, '&>img': { width: '100%', height: '100%' }, },
+  commitionbox: { margin: 'auto', width: '70%', textAlign: 'center', py: 2, '&>p:nth-child(1)': { fontSize: '25px', fontWeight: '500' }, '&>p:nth-child(2)': { fontSize: '13px', fontWeight: '400', padding: '5px 0px', background: zubgbackgrad, borderRadius: '20px' }, '&>p:nth-child(3)': { fontSize: '13px', fontWeight: '400', marginTop: '5px' } },
+  subordinatesleft: { width: '50%', textAlign: 'center', py: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', background: zubgbackgrad, borderTopLeftRadius: '10px', borderRight: '2px solid black', '&>svg': { color: 'white', fontSize: '25px', marginRight: '10px' }, '&>p': { color: 'white', fontSize: '14px', fontWeight: '500' } },
   subordinatesRight: {
-    width: '50%', textAlign: 'center', py: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#fae59f', borderTopRightRadius: '10px',
-    '&>svg': { color: '#8f5206', fontSize: '25px', marginRight: '10px' },
-    '&>p': { color: '#8f5206', fontSize: '14px', fontWeight: '500', }
+    width: '50%', textAlign: 'center', py: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', background: zubgbackgrad, borderTopRightRadius: '10px',
+    '&>svg': { color: 'white', fontSize: '25px', marginRight: '10px' },
+    '&>p': { color: 'white', fontSize: '14px', fontWeight: '500', }
   },
-  boxStyles: { background: '#404040', padding: '15px', display: 'flex' },
-  innerBoxStyles: { width: '50%', borderRight: '1px solid black', borderBottomLeftRadius: '10px', padding: '0px 20px' },
-  innerBoxStylestwo: { width: '50%', padding: '0px 20px' },
+  boxStyles: { background: zubgmid, padding: '15px', display: 'flex', borderRadius: ' 0px 0px 10px 10px' },
+  innerBoxStyles: { width: '50%', borderRight: '1px solid black', borderBottomLeftRadius: '10px', padding: '0px 0px' },
+  innerBoxStylestwo: { width: '50%', padding: '0px 0px' },
   subcordinatelist: { textAlign: 'center', '&>p': { color: 'white !important', fontSize: '13px', }, mb: 1 },
-  subcordinateBox: { position: 'absolute', width: '100%', top: '50%', mb: 2 },
-  buttonStyles: { width: '8.8rem', height: '100%', color: '#8f5206', fontSize: '.4rem', fontWeight: 700, letterSpacing: '.01333rem', border: 'none', borderRadius: '99rem', background: 'linear-gradient(180deg, #FAE59F 0%, #C4933F 100%)', '&:hover': { background: 'linear-gradient(180deg, #C4933F 0%, #FAE59F 100%)', }, },
+  subcordinateBox: { width: '100%', padding: '20px 10px', background: zubgback },
   invitebutton: {
-    width: '100%', background: '#292929', paddingTop: '140px', mt: '70px',
-    '&>a>p': { background: 'red', width: '80%', marginLeft: '10%', borderRadius: '20px', textAlign: 'center', padding: '10px', background: 'linear-gradient(180deg, #FAE59F 0%, #C4933F 100%)', color: '#8f5206', fontSize: '17px', fontWeight: 600 }
+    width: '100%', background: zubgback,
   },
+  invitebtn: { mt: '20px', '&>a>p': { width: '80%', marginLeft: '10%', borderRadius: '20px', textAlign: 'center', padding: '10px', background: zubgbackgrad, color: 'white', fontSize: '17px', fontWeight: 600 } },
   invitbox: {
-    width: '90%', background: '#3F3F3F', padding: '10px', mt: '20px', borderRadius: '10px', marginLeft: '5%', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+    width: '95%', background: zubgmid, padding: '10px', mb: '20px', borderRadius: '10px', marginLeft: '2.5%', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
     '&>div>img': { width: '35px', marginRight: '10px' },
     '&>div>p': { fontSize: "14px", color: 'white !important' },
     '&>div': { alignItems: 'center' },
-    '&>div:nth-child(2)>p': { color: '#8f5206', marginRight: '20px', color: 'white !important' },
+    '&>div:nth-child(2)>p': { marginRight: '20px', color: 'white !important' },
     '&>div:nth-child(2)>svg': { color: 'gray', fontSize: "14px", marginRight: '10px', color: 'white !important' }
   },
   promotionBox: {
     display: 'flex', alignItems: 'center', justifyContent: 'space-between',
     '&>div:nth-child(1)': { alignItems: 'center' },
     '&>div:nth-child(1)>img': { width: '35px', marginRight: '10px' },
-    '&>div:nth-child(1)>p': { fontSize: '17px', fontWeight: 500, color: '#d9ac4f', color: 'white !important' },
+    '&>div:nth-child(1)>p': { fontSize: '17px', fontWeight: 500, color: 'white !important' },
   },
   promotionBoxOuter: {
-    width: '90%', background: '#3F3F3F', padding: '10px', mt: '20px', borderRadius: '5px', marginLeft: '5%', paddingBottom: '70px',
-    '&>div:nth-child(2)>div:nth-child(1)': { my: '10px', borderRight: '1px solid black', width: '50%', textAlign: "center" },
+    width: '95%', background: zubgmid, padding: '10px', mt: '20px', borderRadius: '5px', marginLeft: '2.5%', paddingBottom: '15px',
+    '&>div:nth-child(2)>div:nth-child(1)': { my: '10px', borderRight: '1px solid gray', width: '50%', textAlign: "center" },
     '&>div:nth-child(2)>div:nth-child(2)': { my: '10px', width: '50%', textAlign: "center" },
     '&>div:nth-child(2)>div>p:nth-child(1)': { color: 'white !important' },
     '&>div:nth-child(2)>div>p:nth-child(2)': { color: 'gray', fontSize: '13px', fontWeight: 500, color: 'white !important' },
-    '&>div:nth-child(3)>div:nth-child(1)': { my: '10px', borderRight: '1px solid black', width: '50%', textAlign: "center" },
+    '&>div:nth-child(3)>div:nth-child(1)': { my: '10px', borderRight: '1px solid gray', width: '50%', textAlign: "center" },
     '&>div:nth-child(3)>div:nth-child(2)': { my: '10px', width: '50%', textAlign: "center" },
     '&>div:nth-child(3)>div>p:nth-child(1)': { color: 'white !important' },
     '&>div:nth-child(3)>div>p:nth-child(2)': { color: 'gray', fontSize: '13px', fontWeight: 500, color: 'white !important' },
   },
-
+  promotionBoxOutertwo: {
+    width: '90%', background: zubgback, padding: '10px', borderRadius: '5px', marginLeft: '5%', paddingBottom: '70px',
+  },
 };

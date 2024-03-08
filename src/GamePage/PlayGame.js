@@ -1,4 +1,4 @@
-import { CircularProgress, Tab, Tabs } from "@mui/material";
+import { CircularProgress, LinearProgress, Tab, Tabs } from "@mui/material";
 import axios from "axios";
 import { useFormik } from "formik";
 import React, { useEffect, useRef, useState } from "react";
@@ -8,24 +8,34 @@ import { RxCross2 } from "react-icons/rx";
 import { useQuery } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
 import { useMediaQuery } from "react-responsive";
+import crashmusic from "../assets/crashmusic.mp3";
 import howtoplay from "../assets/howtoplay.PNG";
-import { endpoint } from "../services/urls";
+import {
+  just_start_after_waitingFun,
+  waitingAviatorFun,
+} from "../redux/slices/counterSlice";
+import { endpoint, rupees } from "../services/urls";
 import AirPlane from "./AirPlane";
 import AllBets from "./AllBets";
 import AccountMenu from "./MenuItems";
 import MyBets from "./MyBets";
 import Top from "./Top";
 import { gray } from "./color";
-import crashmusic from '../assets/crashmusic.mp3'
+import { useSocket } from "../Shared/SocketContext";
+import aviatorimage from "../assets/aviatorimage.png";
+import bg_waiting_image from "../assets/bg_waiting_image.png";
 const PlayGame = () => {
   const dispatch = useDispatch();
-
+  const waiting_aviator = useSelector((state) => state.aviator.waiting_aviator);
+  const just_start_after_waiting = useSelector(
+    (state) => state.aviator.just_start_after_waiting
+  );
   const userId = JSON.parse(localStorage.getItem("aviator_data"))?.id;
   const isMediumScreen = useMediaQuery({ minWidth: 800 });
   const [value, setValue] = React.useState(0);
   const [limit, setlimit] = useState(100);
   const [anchorEl, setAnchorEl] = useState(null);
-
+  const socket = useSocket();
 
   const handleClick = (event) => {
     anchorEl === null ? setAnchorEl(event.currentTarget) : setAnchorEl(null);
@@ -188,12 +198,68 @@ const PlayGame = () => {
   useEffect(() => {
     localStorage.removeItem("hasCodeExecuted");
   }, []);
+  useEffect(() => {
+    const handleSetColorOfDigit = (color_value) => {
+      fk.setFieldValue("setcolorofdigit", color_value);
+      console.log(color_value, "This is color Value");
+    };
+
+    const handleSetLoader = (setloder) => {
+      fk.setFieldValue("setloder", setloder);
+    };
+
+    const handleIsFlying = (isFlying) => {
+      fk.setFieldValue("isFlying", isFlying);
+    };
+
+    socket.on("setcolorofdigit", handleSetColorOfDigit);
+    socket.on("setloder", handleSetLoader);
+    socket.on("isFlying", handleIsFlying);
+
+    return () => {
+      socket.off("setcolorofdigit", handleSetColorOfDigit);
+      socket.off("setloder", handleSetLoader);
+      socket.off("isFlying", handleIsFlying);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (fk.values.setcolorofdigit) {
+      dispatch(waitingAviatorFun(false));
+      setTimeout(() => {
+        dispatch(just_start_after_waitingFun(false));
+      }, 2000);
+    }
+  }, [fk.values.setcolorofdigit]);
+
   if (isLoading)
     return (
       <div className="flex justify-center items-center">
         <CircularProgress />
       </div>
     );
+
+  if(waiting_aviator) return <>
+     <LinearProgress />
+     <div className="h-full !bg-black w-full flex flex-col justify-center items-center overflow-y-hidden no-scrollbar
+      ">
+    <CircularProgress/>
+    <span className="!text-white">Connecting...</span>
+  </div>
+  </>
+  // just_start_after_waiting
+  if (just_start_after_waiting)
+    return (
+      <>
+        <div className="h-full w-full flex flex-col justify-center items-center overflow-y-hidden no-scrollbar">
+          <img src={bg_waiting_image || "https://res.cloudinary.com/do7kimovl/image/upload/v1709897093/bg_waiting_image_b4udpt.png"} className="lg:h-[50%] lg:w-[50%] w-[90%]" />
+          <div className="lg:h-[20px] h-[15px] w-[150px] lg:w-[500px] rounded-r-full rounded-l-full relative  bg-[#C8153C] ">
+            <div className="loder-waiting-for-next-round-start !rounded-full"></div>
+          </div>
+        </div>
+      </>
+    );
+
   return (
     <div className=" h-full">
       <audio ref={audioRefMusic} hidden loop>
@@ -202,30 +268,39 @@ const PlayGame = () => {
       <audio ref={audioRefSound} hidden>
         <source src={crashmusic} type="audio/mp3" />
       </audio>
-      {isMediumScreen && <div className={`bg-[#0E0E0E] h-[8%]`}></div>}
-      <div className={`${gray} h-[10%] flex justify-between text-white p-1`}>
-        <div>
-          <img src={howtoplay} className="h-16" />
-        </div>
-        <div className="flex gap-2">
+      <div className={`${gray} lg:h-[10%] flex justify-between text-white p-1`}>
+        {isMediumScreen && (
+          <div>
+            <img src={howtoplay} className="h-16" />
+          </div>
+        )}
+        {!isMediumScreen && (
+          <span>
+            <img src={aviatorimage} className="h-5 mt-1" />
+          </span>
+        )}
+        <div className="w-full flex lg:justify-end justify-end gap-2">
           <div className="flex flex-col justify-between">
-            <p className="text-[10px] bg-[#f6c74f] text-black px-4 py-1 rounded-md">
-              Play for money
-            </p>
+            {isMediumScreen && (
+              <p className="text-[10px] bg-[#f6c74f] text-black px-4 py-1 rounded-md">
+                Play for money
+              </p>
+            )}
             <p className="">
               {walletloding ? (
                 <CircularProgress />
               ) : (
-                <span className="text-green-700 font-bold">
-                  {Number(walletAmount?.wallet).toFixed(2) || "0000"}
+                <span className="text-green-700 !text-[15px]">
+                  <span className="!font-bold">
+                    {Number(walletAmount?.wallet).toFixed(2) || "0000"}
+                  </span>{" "}
+                  <span className="!text-white">{rupees}</span>
                 </span>
               )}
-
-              <sapn className="text-gray-500 text-[10px]">USD</sapn>
             </p>
           </div>
-          <div className="flex flex-col justify-between">
-            <RxCross2 className="text-lg cursor-pointer" />
+          <div className="flex lg:flex-col lg:justify-between ">
+            {/* <RxCross2 className="text-lg cursor-pointer" /> */}
             <CgDetailsMore
               className="text-lg cursor-pointer"
               onClick={(e) => handleClick(e)}
@@ -233,9 +308,12 @@ const PlayGame = () => {
           </div>
         </div>
       </div>
+
       <div className="flex text-white   lg:flex-row-reverse flex-col">
         {/* // right section */}
-        <div className={` w-[100%] h-auto lg:w-[75%]  bg-black p-2 rounded-lg`}>
+        <div
+          className={` w-[100%] h-auto lg:w-[75%]  bg-black p-2 pb-5 rounded-lg`}
+        >
           <div
             className={`no-scrollbar px-1 py-1 flex gap-1 flex-wrap h-[24px] overflow-x-scroll overflow-y-hidden rounded-full`}
           >
@@ -261,7 +339,7 @@ const PlayGame = () => {
         </div>
         {/* // left section */}
         <div
-          className={`w-[100%] lg:w-[25%] lg:h-[520px] h-[500px] ${gray} px-2 border-2 border-black rounded-lg`}
+          className={`w-[100%] lg:w-[25%] lg:h-[88vh] h-[500px] ${gray} px-2 border-2 border-black rounded-lg`}
         >
           <div className="flex justify-center w-full">
             <Tabs

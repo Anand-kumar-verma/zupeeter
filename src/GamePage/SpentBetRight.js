@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 import { CiCircleMinus, CiCirclePlus } from "react-icons/ci";
 import { useQueryClient } from "react-query";
 import { gray } from "./color";
-import { endpoint } from "../services/urls";
+import { endpoint, rupees } from "../services/urls";
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -22,8 +22,8 @@ const SpentBetRight = ({ milliseconds, seconds, fk, formik }) => {
   const [gameno, setgameno] = useState({});
 
   const initialValues = {
-    custombetValue_auto_cash_out:1.10.toFixed(2)||0,
-    isbetActive:false
+    custombetValue_auto_cash_out: (1.1).toFixed(2) || 0,
+    isbetActive: false,
   };
 
   const rightbitfk = useFormik({
@@ -66,7 +66,6 @@ const SpentBetRight = ({ milliseconds, seconds, fk, formik }) => {
   useEffect(() => {
     fk.values.isFlying && rightbitfk?.values?.isbetActive && spentBit();
   }, [fk.values.isFlying]);
-
 
   const getHistory = async () => {
     const userid = JSON.parse(logindata)?.id || 2;
@@ -123,19 +122,24 @@ const SpentBetRight = ({ milliseconds, seconds, fk, formik }) => {
     client.refetchQueries("walletamount_aviator");
     localStorage.removeItem("spent_amount2");
   };
-   useEffect(()=>{
-    if (fk.values.isStart2 && fk.values.isFlying&&pre_amount&&fk.values.autocashout2&&
-      Number(rightbitfk.values.custombetValue_auto_cash_out)===Number(`${seconds}.${milliseconds}`)
-      ) {
+  useEffect(() => {
+    if (
+      fk.values.isStart2 &&
+      fk.values.isFlying &&
+      pre_amount &&
+      fk.values.autocashout2 &&
+      Number(rightbitfk.values.custombetValue_auto_cash_out) ===
+        Number(`${seconds}.${milliseconds}`)
+    ) {
       fk.setFieldValue("isStart2", false);
       cashOut(seconds, milliseconds);
     }
-   },[milliseconds])
+  }, [milliseconds]);
 
   //  console.log(typeof(Number(`${seconds}.${milliseconds}`)),"aaa")
   return (
     <div
-      className={`w-[100%]  lg:w-[50%] mt-2  flex justify-between lg:flex-row sm:flex-col md:flex-col`}
+      className={`w-[100%]   lg:w-[50%] mt-2  flex justify-between lg:flex-row sm:flex-col md:flex-col`}
     >
       <div
         className={` h-full ${gray}  rounded-lg w-full p-2  
@@ -154,7 +158,7 @@ const SpentBetRight = ({ milliseconds, seconds, fk, formik }) => {
         <div className="flex justify-center">
           <div className="flex justify-center gap-3 w-[40%] lg:w-[30%] bg-black rounded-full">
             <p
-              className={`text-[10px] bg-black px-6 py-1 rounded-full cursor-pointer ${
+              className={`text-[10px] bg-black px-10 py-1 rounded-full cursor-pointer ${
                 selectedValue === "Bet" && `!bg-[#2C2D30]`
               }`}
               onClick={() => setSelectedValue("Bet")}
@@ -162,7 +166,7 @@ const SpentBetRight = ({ milliseconds, seconds, fk, formik }) => {
               Bet
             </p>
             <p
-              className={`text-[10px] bg-black px-6 py-1 rounded-full cursor-pointer ${
+              className={`text-[10px] bg-black px-10 py-1 rounded-full cursor-pointer ${
                 selectedValue === "Auto" && `!bg-[#2C2D30]`
               }`}
               onClick={() => setSelectedValue("Auto")}
@@ -194,7 +198,7 @@ const SpentBetRight = ({ milliseconds, seconds, fk, formik }) => {
                 onClick={() => setBetValue(betValue + 1)}
               />
             </div>
-            <div className="grid grid-cols-2 text-center text-[12px] pt-2 gap-1">
+            <div className="grid grid-cols-2 text-center text-[12px] lg:pt-2 pt-[2px]  gap-1">
               {[100, 200, 500, 1000]?.map((i) => {
                 return (
                   <p
@@ -267,7 +271,7 @@ const SpentBetRight = ({ milliseconds, seconds, fk, formik }) => {
                   <CircularProgress />
                 </div>
               ) : !fk.values.waitingForNextTime2 ? (
-                <div className="flex flex-col -gap-4  w-full  items-center py-4 lg:py-2  justify-center  ">
+                <div className="flex flex-col w-full py-3 lg:py-3 font-semibold">
                   <span
                     className={`text-lg text-center ${
                       fk.values.isStart2 && !fk.values.isFlying && "py-4"
@@ -279,7 +283,10 @@ const SpentBetRight = ({ milliseconds, seconds, fk, formik }) => {
                       ? "Cancel"
                       : "BET"}
                   </span>
-                  <span className={`text-lg text-center `}>
+                  <span
+                    className={`text-lg text-center`}
+                    style={{ margin: "-8px 0 0" }}
+                  >
                     {fk.values.isStart2 && !fk.values.isFlying
                       ? ""
                       : fk.values.isStart2
@@ -292,7 +299,7 @@ const SpentBetRight = ({ milliseconds, seconds, fk, formik }) => {
                             milliseconds?.toString()?.substring(1, 2) || 1
                           ) * 10
                         } x`
-                      : `${betValue?.toFixed(2) || 0} USD`}
+                      : `${betValue?.toFixed(2) || 0} ${rupees}`}
                   </span>
                 </div>
               ) : (
@@ -336,7 +343,12 @@ const SpentBetRight = ({ milliseconds, seconds, fk, formik }) => {
                     : "!text-gray-400 bg-opacity-30"
                 } `}
                 value={rightbitfk?.values?.custombetValue_auto_cash_out}
-                onChange={(e)=>rightbitfk.setFieldValue("custombetValue_auto_cash_out",e.target.value)}
+                onChange={(e) =>
+                  rightbitfk.setFieldValue(
+                    "custombetValue_auto_cash_out",
+                    e.target.value
+                  )
+                }
               />
             </p>
           </div>
@@ -369,8 +381,6 @@ export default SpentBetRight;
 //     </DialogContent>
 //   </Dialog>
 // )}
-
-
 
 // import { CircularProgress, Switch } from "@mui/material";
 // import axios from "axios";
@@ -531,7 +541,7 @@ export default SpentBetRight;
 //               fk.values.isStart2
 //                 ? "bg-gradient-to-t from-[#d47e3c] to-[#e59c6f]"
 //                 : "bg-[#28A909]"
-//             } 
+//             }
 //             ${
 //               fk.values.waitingForNextTime2 &&
 //               "bg-gradient-to-t from-[#c62424] to-[#e84e4e]"
@@ -591,6 +601,3 @@ export default SpentBetRight;
 // };
 
 // export default SpentBetRight;
-
-
-

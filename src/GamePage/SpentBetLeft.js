@@ -1,4 +1,11 @@
-import { Box, Button, CircularProgress, Slide, Stack, Switch } from "@mui/material";
+import {
+  Box,
+  Button,
+  CircularProgress,
+  Slide,
+  Stack,
+  Switch,
+} from "@mui/material";
 import axios from "axios";
 import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
@@ -6,8 +13,8 @@ import toast from "react-hot-toast";
 import { CiCircleMinus, CiCirclePlus } from "react-icons/ci";
 import { useQueryClient } from "react-query";
 import { gray } from "./color";
-import StarBorderIcon from '@mui/icons-material/StarBorder';
-import { endpoint } from "../services/urls";
+import StarBorderIcon from "@mui/icons-material/StarBorder";
+import { endpoint, rupees } from "../services/urls";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -105,7 +112,7 @@ const SpentBetLeft = ({ milliseconds, seconds, fk, formik }) => {
             </span>
             <span className="">{`${sec || 0}.${mili || 0} x`}</span>
           </p>
-         
+
           <Button
             sx={{
               padding: 0,
@@ -171,8 +178,6 @@ const SpentBetLeft = ({ milliseconds, seconds, fk, formik }) => {
       fk.setFieldValue("isStart1", false);
       cashOut(seconds, milliseconds);
     }
-
-   
   }, [milliseconds]);
 
   return (
@@ -196,7 +201,7 @@ const SpentBetLeft = ({ milliseconds, seconds, fk, formik }) => {
         <div className="flex justify-center">
           <div className="flex justify-center gap-3 w-[40%] lg:w-[30%] bg-black rounded-full">
             <p
-              className={`text-[10px] bg-black px-6 py-1 rounded-full cursor-pointer ${
+              className={`text-[10px] bg-black px-10 py-1 rounded-full cursor-pointer ${
                 selectedValue === "Bet" && `!bg-[#2C2D30]`
               }`}
               onClick={() => setSelectedValue("Bet")}
@@ -204,7 +209,7 @@ const SpentBetLeft = ({ milliseconds, seconds, fk, formik }) => {
               Bet
             </p>
             <p
-              className={`text-[10px] bg-black px-6 py-1 rounded-full cursor-pointer ${
+              className={`text-[10px] bg-black px-10 py-1 rounded-full cursor-pointer ${
                 selectedValue === "Auto" && `!bg-[#2C2D30]`
               }`}
               onClick={() => setSelectedValue("Auto")}
@@ -214,7 +219,7 @@ const SpentBetLeft = ({ milliseconds, seconds, fk, formik }) => {
           </div>
         </div>
         <div
-          className={`w-full flex justify-center pt-3 gap-2 ${
+          className={`w-full flex justify-center  pt-3 gap-2 ${
             selectedValue === "Bet" && "lg:mt-5 mt:2"
           }`}
         >
@@ -236,7 +241,7 @@ const SpentBetLeft = ({ milliseconds, seconds, fk, formik }) => {
                 onClick={() => setBetValue(betValue + 1)}
               />
             </div>
-            <div className="grid grid-cols-2 text-center text-[12px] pt-2 gap-1">
+            <div className="grid grid-cols-2 text-center text-[12px] lg:pt-2 pt-[2px] gap-1">
               {[100, 200, 500, 1000]?.map((i) => {
                 return (
                   <p
@@ -305,11 +310,11 @@ const SpentBetLeft = ({ milliseconds, seconds, fk, formik }) => {
             `}
             >
               {loding ? (
-                <div className="w-full flex justify-center py-6 lg:py-4">
+                <div className="w-full flex justify-center py-6 lg:py-4 ">
                   <CircularProgress />
                 </div>
               ) : !fk.values.waitingForNextTime1 ? (
-                <div className="flex flex-col -gap-4  w-full  items-center py-4 lg:py-2  justify-center  ">
+                <div className="flex flex-col w-full py-3 lg:py-3 !font-semibold">
                   <span
                     className={`text-lg text-center ${
                       fk.values.isStart1 && !fk.values.isFlying && "py-4"
@@ -321,7 +326,10 @@ const SpentBetLeft = ({ milliseconds, seconds, fk, formik }) => {
                       ? "Cancel"
                       : "BET"}
                   </span>
-                  <span className={`text-lg text-center `}>
+                  <span
+                    className={`text-lg text-center`}
+                    style={{ margin: "-8px 0 0" }}
+                  >
                     {fk.values.isStart1 && !fk.values.isFlying
                       ? ""
                       : fk.values.isStart1
@@ -334,7 +342,7 @@ const SpentBetLeft = ({ milliseconds, seconds, fk, formik }) => {
                             milliseconds?.toString()?.substring(1, 2) || 1
                           ) * 10
                         } x`
-                      : `${betValue?.toFixed(2) || 0} USD`}
+                      : `${betValue?.toFixed(2) || 0} ${rupees}`}
                   </span>
                 </div>
               ) : (

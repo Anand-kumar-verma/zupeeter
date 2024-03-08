@@ -27,11 +27,11 @@ root.render(
               className: "",
               style: {
                 border: "1px solid green",
-                color: "white",
+                color: "#8f5206",
                 fontSize: "15px",
                 marginTop: "100px",
                 borderRadius: "50px",
-                backgroundColor: "rgb(251,218,116)",
+                background: "linear-gradient(180deg, #FAE59F 0%, #C4933F 100%)",
               },
             }}
             limit={1}

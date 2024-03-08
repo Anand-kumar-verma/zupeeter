@@ -44,7 +44,7 @@ function BettingZone() {
     }
   };
   const initialValues = {
-    referrel_code: "https://zupeeter.com/auth/registration/WlcxMjM0NTY3",
+    referrel_code: "https://gamezone.com/auth/registration/WlcxMjM0NTY3",
   };
   const fk = useFormik({
     initialValues: initialValues,

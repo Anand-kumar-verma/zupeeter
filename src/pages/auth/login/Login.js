@@ -69,8 +69,12 @@ function Login() {
           headers: {
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+            "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept, Authorization",
+            "Access-Control-Max-Age":"3628800"
             // Add any other headers you may need, such as authorization
           },
+          
         }
       );
 

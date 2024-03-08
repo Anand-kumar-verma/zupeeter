@@ -17,6 +17,7 @@ export const slice = createSlice({
       localStorage.getItem("bg_music") ||
       "https://res.cloudinary.com/do7kimovl/video/upload/v1709029785/bg_music_iiovsn.mp3",
     waiting_aviator: true,
+    just_start_after_waiting:true,
   },
   reducers: {
     // main music and sound enabling and dessabling
@@ -43,6 +44,9 @@ export const slice = createSlice({
     waitingAviatorFun: (state, actions) => {
       state.waiting_aviator = actions.payload;
     },
+    just_start_after_waitingFun: (state, actions) => {
+      state.just_start_after_waiting = actions.payload;
+    },
   },
 });
 
@@ -54,6 +58,7 @@ export const {
   backgroundImageFun,
   backgroundMusicFun,
   waitingAviatorFun,
+  just_start_after_waitingFun
 } = slice.actions;
 
 // export const incrementAsync = amount => dispatch => {

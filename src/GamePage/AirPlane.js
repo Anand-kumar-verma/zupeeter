@@ -1,18 +1,21 @@
+import { CircularProgress } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useQueryClient } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
 import { useMediaQuery } from "react-responsive";
-import io from "socket.io-client";
-import loderImage from "../assets/loderimage.png";
+import { useSocket } from "../Shared/SocketContext";
 import air from "../assets/air.png";
+import aviator_game_waiting from "../assets/images/aviator_game_waiting.avif";
+import loderImage from "../assets/loderimage.png";
 import win from "../assets/win.png";
 import {
   byTimeIsEnableMusic,
   byTimeIsEnableSound,
   waitingAviatorFun,
 } from "../redux/slices/counterSlice";
+import { endpoint } from "../services/urls";
 import {
   animationUpTo_5_sec,
   animationabove_10_sec,
@@ -32,11 +35,8 @@ import {
 } from "./DottedPoint";
 import SpentBetLeft from "./SpentBetLeft";
 import SpentBetRight from "./SpentBetRight";
-import { domain, endpoint } from "../services/urls";
-import { CircularProgress } from "@mui/material";
-import aviator_game_waiting from "../assets/images/aviator_game_waiting.avif";
-const socket = io(domain);
 const AirPlane = ({ formik, fk }) => {
+  const socket = useSocket();
   const dispatch = useDispatch();
   const backgroundImage_url = useSelector(
     (state) => state.aviator.backgroundImage_url
@@ -90,37 +90,37 @@ const AirPlane = ({ formik, fk }) => {
       console.log(newMessage, "This is new message");
       startFly(newMessage);
     };
-  
+
     socket.on("message", handleNewMessage);
-  
+
     return () => {
       socket.off("message", handleNewMessage);
     };
-  }, []);  // Include startFly as a dependency if it's defined outside the useEffect.
-  
+  }, []); // Include startFly as a dependency if it's defined outside the useEffect.
+
   useEffect(() => {
     const handleSeconds = (seconds) => {
       setcombineTime(seconds);
     };
-  
+
     const handleSetColorOfDigit = (color_value) => {
       fk.setFieldValue("setcolorofdigit", color_value);
       console.log(color_value, "This is color Value");
     };
-  
+
     const handleSetLoader = (setloder) => {
       fk.setFieldValue("setloder", setloder);
     };
-  
+
     const handleIsFlying = (isFlying) => {
       fk.setFieldValue("isFlying", isFlying);
     };
-  
+
     socket.on("seconds", handleSeconds);
     socket.on("setcolorofdigit", handleSetColorOfDigit);
     socket.on("setloder", handleSetLoader);
     socket.on("isFlying", handleIsFlying);
-  
+
     return () => {
       socket.off("seconds", handleSeconds);
       socket.off("setcolorofdigit", handleSetColorOfDigit);
@@ -128,7 +128,6 @@ const AirPlane = ({ formik, fk }) => {
       socket.off("isFlying", handleIsFlying);
     };
   }, []);
-  
 
   function hii(randomFlyingTime) {
     const mainDiv = document.getElementsByClassName("maindiv")[0];
@@ -225,111 +224,81 @@ const AirPlane = ({ formik, fk }) => {
   setTimeout(() => {
     fk.setFieldValue("closeButtomDot", false);
   }, 10000);
-  
-  useEffect(() => {
-    console.log(fk.values.isFlying, "isflying");
-    if (!fk.values.isFlying && waiting_aviator) {
-      console.log("function hit if");
-    } else if (fk.values.setcolorofdigit) {
-      dispatch(waitingAviatorFun(false));
-      console.log("function hit else");
-    }
-  }, [fk.values.isFlying, fk.values.setcolorofdigit]);
 
   return (
     <>
       <div
         className={`${
           !waiting_aviator && "py-8"
-        } moved   parentdiv relative lg:h-[320px] h-[200px] w-[99.8%] overflow-hidden  rounded-lg mt-1 border-[1px] border-white border-opacity-20`}
+        } moved parentdiv relative lg:h-[60vh]  h-[35vh] w-[99.8%] overflow-hidden  rounded-3xl mt-1 border-[1px] border-white border-opacity-10`}
       >
-        {waiting_aviator ? (
-          <div className="!h-full w-full relative flex justify-center items-center">
-            <img
-              className="!h-[100%] absolute w-full object-fill"
-              src={aviator_game_waiting}
-            />
-            <CircularProgress size={"200px"} className="!z-20 !absolute " />
-            <p className="absolute !text-4xl flex flex-col items-center !text-[#EDD188] font-bold waiting_for_next_round">
-              <span>Waiting</span>
-              <span>For Next</span>
-              <span>Round</span>
-            </p>
-          </div>
-        ) : (
-          <>
-            <img
-              src={backgroundImage_url}
-              className={`${
-                backgroundImage_url ===
-                "https://res.cloudinary.com/do7kimovl/image/upload/v1709114502/circle_dafpdo.svg"
-                  ? "absolute  -bottom-[250%] left-0 rotate_background_image !z-0 bg-gradient-to-l from-[#541850] to-[#341a55] bg-opacity-5 w-[600%] h-[600%]"
-                  : "bgimagedynamic !z-0 absolute  top-0 left-0 h-full w-[99.8%]"
-              }  object-cover `}
-            />
-            {fk.values.isShadowPath &&
-              (isMediumScreen ? (
-                <svg
-                  width="100%"
-                  height="150%"
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="z-10 absolute"
-                >
-                  {bottomLeftCoordinate.x < 190 ? (
-                    <line
-                      x1="0"
-                      y1="0"
-                      x2="0"
-                      y2="0"
-                      stroke="rgba(112,9,25, 0.6)"
-                      strokeWidth="2"
-                      // x1="10"
-                      // y1="262"
-                      // x2={`${bottomLeftCoordinate.x-10}`}
-                      // y2="262"
-                      // stroke="rgba(112,9,25, 0.6)"
-                      // strokeWidth="2"
-                    />
-                  ) : (
-                    <>
-                      <path
-                        d={`
-          M-200 262 
-          C199 262, 200 300, ${bottomLeftCoordinate.x + 10} ${
-                          bottomLeftCoordinate.y + 28
-                        }
-          L${bottomLeftCoordinate.x + 10} 400 
+        <>
+          <img
+            src={backgroundImage_url}
+            className={`${
+              backgroundImage_url ===
+              "https://res.cloudinary.com/do7kimovl/image/upload/v1709114502/circle_dafpdo.svg"
+                ? "absolute  -bottom-[250%] left-0 rotate_background_image !z-0 bg-gradient-to-l from-[#541850] to-[#341a55] bg-opacity-5 w-[600%] h-[600%]"
+                : "bgimagedynamic !z-0 absolute  top-0 left-0 h-full w-[99.8%]"
+            }  object-cover `}
+          />
+          {/* {fk.values.isShadowPath &&
+            (isMediumScreen ? (
+              <svg
+                width="100%"
+                height="150%"
+                xmlns="http://www.w3.org/2000/svg"
+                className="z-10 absolute"
+              >
+                {bottomLeftCoordinate.x < 190 ? (
+                  <line
+                    x1="10"
+                    y1="195"
+                    x2={`${bottomLeftCoordinate.x + 10}`}
+                    y2="195"
+                    stroke="rgba(112,9,25, 0.6)"
+                    strokeWidth="2"
+                  />
+                ) : (
+                  <>
+                    <path
+                      d={`
+          M-100 400 
+          C200 200, 200 200, ${bottomLeftCoordinate.x + 10} ${
+                        bottomLeftCoordinate.y + 28
+                      }
+          L${bottomLeftCoordinate.x} 400 
           L-40 400 
           Z
         `}
-                        fill="rgba(112,9,25, 0.6)"
-                        // stroke="#BC0319"
-                        stroke-width="3"
-                        stroke-dasharray="1000 0"
-                      />
-                    </>
-                  )}
-                </svg>
-              ) : (
-                <svg
-                  width="100%"
-                  height="150%"
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="z-10 absolute"
-                >
-                  {bottomLeftCoordinate.x < 100 ? (
-                    <line
-                      x1="10"
-                      y1="145"
-                      x2={`${bottomLeftCoordinate.x + 5}`}
-                      y2="145"
-                      stroke="rgba(112,9,25, 0.6)"
-                      strokeWidth="2"
+                      fill="rgba(112,9,25, 0.6)"
+                      // stroke="#BC0319"
+                      stroke-width="3"
+                      stroke-dasharray="1000 0"
                     />
-                  ) : (
-                    <>
-                      <path
-                        d={`
+                  </>
+                )}
+              </svg>
+            ) : (
+              <svg
+                width="100%"
+                height="150%"
+                xmlns="http://www.w3.org/2000/svg"
+                className="z-10 absolute"
+              >
+                {bottomLeftCoordinate.x < 100 ? (
+                  <line
+                    x1="10"
+                    y1="145"
+                    x2={`${bottomLeftCoordinate.x + 5}`}
+                    y2="145"
+                    stroke="rgba(112,9,25, 0.6)"
+                    strokeWidth="2"
+                  />
+                ) : (
+                  <>
+                    <path
+                      d={`
           M-10 185 
           C50 100, 50 ${
             bottomLeftCoordinate.x < 150 ? bottomLeftCoordinate.x + 40 : 190
@@ -338,96 +307,176 @@ const AirPlane = ({ formik, fk }) => {
           L-40 200 
           Z
         `}
-                        fill="rgba(112,9,25, 0.6)"
-                        // stroke="#BC0319"
-                        stroke-width="3"
-                        stroke-dasharray="1000 0"
-                      />
-                    </>
-                  )}
-                </svg>
-              ))}
-            <div className="maindiv absolute bottom-[20px] left-[20px]  animate-slidein infinite ">
-              {fk.values.isEnablingWinner && (
-                <p className="winslider z-20 rounded-full px-4 py-1">
-                  {[...Array(3)].map((_, index) => (
-                    <img key={index} src={win} className="w-10 h-10 absolute" />
-                  ))}
-                </p>
-              )}
-
-              <div className="relative lg:w-[120px] w-[60px] lg:h-[60px]">
-                <img
-                  src={air}
-                  className="airplain lg:w-[120px] w-[60px] lg:h-[60px]  h-[30px] text-[#BC0319] "
-                />
-              </div>
-            </div>
-            {/* fk.values.isFlying */}
-            {fk.values.isFlying && (
-              <>
-                {/* !fk.values.closeButtomDot */}
-                {!fk.values.closeButtomDot ? (
-                  <>
-                    <LeftDottedPointMoveable />
-                    <ButtomDottedPointMoveable />
-                    <TopDottedPointMoveable />
-                    <RightDottedPointMoveable />
-                  </>
-                ) : (
-                  <>
-                    <LeftDottedPoint />
-                    <ButtomDottedPoint />
-                    <TopDottedPoint />
-                    <RightDottedPoint />
+                      fill="rgba(112,9,25, 0.6)"
+                      // stroke="#BC0319"
+                      stroke-width="3"
+                      stroke-dasharray="1000 0"
+                    />
                   </>
                 )}
-              </>
-            )}
-            <div className="absolute w-[100%] bottom-0 left-0"></div>
-            {/* fk.values.setloder */}
-            {fk.values.setloder ? (
-              <div
-                className={`
-        absolute text-6xl lg:text-7xl   left-[30%] top-[15%] lg:left-[37%] lg:top-[10%] font-bold  text-white
-        flex flex-col
-        `}
+              </svg>
+            ))} */}
+          {fk.values.isShadowPath &&
+            (isMediumScreen ? (
+              <svg
+                width="100%"
+                height="150%"
+                xmlns="http://www.w3.org/2000/svg"
+                className="z-10 absolute"
               >
-                <div className="flex justify-center flex-col items-center gap-3">
-                  <img
-                    src={
-                      loderImage ||
-                      "https://res.cloudinary.com/do7kimovl/image/upload/v1708426809/loderimage_pc4eyd.png"
-                    }
-                    className="lg:w-[46%] lg:h-[46%] w-[48%] h-[48%] rotate-animation"
+                {bottomLeftCoordinate.x < 350 ? (
+                  <line
+                    x1="0"
+                    y1="0"
+                    x2="0"
+                    y2="0"
+                    stroke="rgba(112,9,25, 0.6)"
+                    strokeWidth="2"
+                    // x1="10"
+                    // y1="262"
+                    // x2={`${bottomLeftCoordinate.x-10}`}
+                    // y2="262"
+                    // stroke="rgba(112,9,25, 0.6)"
+                    // strokeWidth="2"
                   />
-                  {/* <img src="https://res.cloudinary.com/do7kimovl/image/upload/v1708426809/loderimage_pc4eyd.png" className="w-[46%] h-[46%] rotate-animation" /> */}
-                  <p className="lg:text-lg text-xs font-thin">
-                    WAITING FOR NEXT ROUND
-                  </p>
-                  <div className="h-[5px] w-[155px] rounded-r-full rounded-l-full relative  bg-[#BC0319] ">
-                    <div className="loder-waiting-for-next-round !rounded-full"></div>
-                  </div>
+                ) : (
+                  <svg>
+                    <path
+                      d={`
+          M-500 540 
+          C100 300, 450 300, ${bottomLeftCoordinate.x + 10} ${
+                        bottomLeftCoordinate.y + 28
+                      }
+          L${bottomLeftCoordinate.x + 10} 400 
+          L-90 400 
+          Z
+        `}
+                      fill="rgba(112,9,25, 0.6)"
+                      // stroke="#BC0319"
+                      stroke-width="3"
+                      stroke-dasharray="1000 0"
+                    />
+                  </svg>
+                )}
+              </svg>
+            ) : (
+              <svg
+                width="100%"
+                height="150%"
+                xmlns="http://www.w3.org/2000/svg"
+                className="z-10 absolute"
+              >
+                {bottomLeftCoordinate.x < 150 ? (
+                  <line
+                    x1="10"
+                    y1="300"
+                    x2={`${bottomLeftCoordinate.x + 5}`}
+                    y2="300"
+                    stroke="rgba(112,9,25, 0.6)"
+                    strokeWidth="2"
+                  />
+                ) : (
+                  <svg>
+                    <path
+                      d={`
+          M-320 260 
+          C100 260, 80 ${
+            bottomLeftCoordinate.x < 150 ? bottomLeftCoordinate.x + 80 : 80
+          }, ${bottomLeftCoordinate.x + 5} ${bottomLeftCoordinate.y}
+          L${bottomLeftCoordinate.x} 200 
+          L-40 200 
+          Z
+        `}
+                      fill="rgba(112,9,25, 0.6)"
+                      // stroke="#BC0319"
+                      stroke-width="3"
+                      stroke-dasharray="1000 0"
+                    />
+                  </svg>
+                )}
+              </svg>
+            ))}
+          <div className="maindiv absolute bottom-[20px] left-[20px]  animate-slidein infinite ">
+            {fk.values.isEnablingWinner && (
+              <p className="winslider z-20 rounded-full px-4 py-1">
+                {[...Array(3)].map((_, index) => (
+                  <img key={index} src={win} className="w-10 h-10 absolute" />
+                ))}
+              </p>
+            )}
+
+            <div className="relative lg:w-[120px] w-[60px] lg:h-[60px]">
+              <img
+                src={air}
+                className="airplain lg:w-[120px] w-[60px] lg:h-[60px]  h-[30px] text-[#BC0319] "
+              />
+            </div>
+          </div>
+          {/* fk.values.isFlying */}
+          {fk.values.isFlying && (
+            <>
+              {/* !fk.values.closeButtomDot */}
+              {!fk.values.closeButtomDot ? (
+                <>
+                  <LeftDottedPointMoveable />
+                  <ButtomDottedPointMoveable />
+                  {/* <TopDottedPointMoveable />
+                  <RightDottedPointMoveable /> */}
+                </>
+              ) : (
+                <>
+                  <LeftDottedPoint />
+                  <ButtomDottedPoint />
+                  {/* <TopDottedPoint />
+                  <RightDottedPoint /> */}
+                </>
+              )}
+            </>
+          )}
+          <div className="absolute w-[100%] bottom-0 left-0"></div>
+          {/* fk.values.setloder */}
+          {fk.values.setloder ? (
+            <div
+              className={`
+        absolute text-6xl lg:text-7xl   left-[13%] top-[25%] lg:left-[37%] lg:top-[20%] font-bold  text-white
+        flex flex-col justify-center items-center
+        `}
+            >
+              <div className="flex justify-center flex-col items-center gap-1 lg:gap-3">
+                <img
+                  src={
+                    loderImage ||
+                    "https://res.cloudinary.com/do7kimovl/image/upload/v1708426809/loderimage_pc4eyd.png"
+                  }
+                  className="lg:w-[46%] lg:h-[46%] w-[33%] h-[33%] rotate-animation"
+                />
+                {/* <img src="https://res.cloudinary.com/do7kimovl/image/upload/v1708426809/loderimage_pc4eyd.png" className="w-[46%] h-[46%] rotate-animation" /> */}
+                <p className="lg:text-lg !text-2xl font-thin">
+                  <span className="lg:!text-2xl text-[20px] !font-bold whitespace-nowrap">WAITING FOR NEXT ROUND</span>
+                </p>
+                <div className="lg:h-[5px] h-[4px] w-[110px] lg:w-[155px] rounded-r-full rounded-l-full relative  bg-[#BC0319] ">
+                  <div className="loder-waiting-for-next-round !rounded-full"></div>
                 </div>
               </div>
-            ) : (
-              <p
-                className={`
-        absolute text-6xl lg:text-7xl   left-[35%] top-[25%] lg:left-[37%] lg:top-[30%] font-bold  text-white
+            </div>
+          ) : (
+            <p
+              className={`
+        absolute text-6xl lg:text-7xl   left-[30%] top-[35%] lg:left-[42%] lg:top-[38%]   text-white
         ${fk.values.setcolorofdigit && "!text-[#BC0319]"}
         flex flex-col
         `}
-              >
-                {fk.values.setcolorofdigit && (
-                  <span className="!text-2xl text-white text-center">
-                    FLEW AWAY!
-                  </span>
-                )}
-                <span>{`${seconds + 1}.${milliseconds}x `}</span>
-              </p>
-            )}
-          </>
-        )}
+            >
+              {fk.values.setcolorofdigit && (
+                <span className="!text-2xl text-white text-center !font-bold">
+                  FLEW AWAY!
+                </span>
+              )}
+              <span className="!font-semibold">{`${seconds + 1}.${milliseconds}x `}</span>
+            </p>
+          )}
+        </>
+
         {/* <p className="absolute lg:text-8xl text-4xl left-[37%] top-[40%] font-bold text-purple-500">{`${seconds}.${milliseconds} x `}</p> */}
       </div>
       <div className="flex w-[100%] lg:gap-3 gap-0 flex-col lg:flex-row lg:mt-0 md:mt-[20%] sm:mt-[20%]">

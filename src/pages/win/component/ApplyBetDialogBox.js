@@ -4,6 +4,7 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import {
   Box,
   Button,
+  CircularProgress,
   DialogContentText,
   IconButton,
   Stack,
@@ -37,7 +38,7 @@ const ApplyBetDialogBox = ({
   const [value, setValue] = useState(1);
   const [Rules, setRules] = useState(false);
   const [calculated_value, setcalculated_value] = useState(1);
-
+  const [loding, setLoding] = useState(false);
   const handleClickValue = (value) => {
     if (value === 0) {
       return setValue(1);
@@ -52,7 +53,8 @@ const ApplyBetDialogBox = ({
   };
 
   async function betFunctionStart() {
-    console.log("FUnction called apply bit")
+    setLoding(true);
+    console.log("FUnction called apply bit");
     const reqBody = {
       userid: user_id,
       amount: calculated_value | 0,
@@ -71,12 +73,16 @@ const ApplyBetDialogBox = ({
       if (response?.data?.error === "200") {
         toast.success(response?.data?.msg);
         setapply_bit_dialog_box(false);
+      } else {
+        toast(response?.data?.msg);
       }
     } catch (e) {
       toast(e?.message);
       console.log(e);
     }
     client.refetchQueries("walletamount");
+    client.refetchQueries("myhistory");
+    setLoding(false);
   }
 
   return (
@@ -128,7 +134,7 @@ const ApplyBetDialogBox = ({
         </Typography>
         <Box
           className={`
-            addbtnbox`}
+            addbtnbox  !w-full !grid !grid-cols-4 !gap-1`}
         >
           {[1, 10, 100, 1000]?.map((i) => {
             return (
@@ -181,7 +187,6 @@ const ApplyBetDialogBox = ({
         </IconButton>
       </Stack>
       <Box className=" !grid !grid-cols-6 gap-1 !pt-8" sx={{ px: 2 }}>
-
         {[1, 5, 10, 20, 50, 100]?.map((i) => {
           return (
             <div
@@ -248,8 +253,15 @@ const ApplyBetDialogBox = ({
           variant="text"
           color="primary"
           onClick={() => betFunctionStart()}
+          loding={true}
         >
-          Confirm
+          {loding ? (
+            <span className="flex justify-center items-center">
+              <CircularProgress className={"!h-5 !w-5"} />
+            </span>
+          ) : (
+            "Confirm"
+          )}
         </Button>
         <Button
           className="!text-white"

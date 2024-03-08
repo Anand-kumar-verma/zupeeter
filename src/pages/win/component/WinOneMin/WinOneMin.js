@@ -34,12 +34,13 @@ function WinOneMin({ gid }) {
       ) : (
         <ThreeMinCountDown />
       )}
-      <Box sx={{ py: 2 }}>
-        <Stack
-          direction="row"
-          alignItems="center"
-          justifyContent="space-between"
-        >
+      <Box
+        sx={{ py: 2, px: 2 }}
+        className={
+          "!bg-white !bg-opacity-5 !my-2 !rounded-lg !flex !flex-col !gap-2"
+        }
+      >
+        <div className="!grid !grid-cols-3 w-full gap-2">
           <Button
             className="greembtn"
             onClick={() => {
@@ -67,8 +68,9 @@ function WinOneMin({ gid }) {
           >
             Join Red
           </Button>
-        </Stack>
-        <Box className="pridictcolor">
+        </div>
+        {/* pridictcolor */}
+        <Box className="!grid grid-cols-5 gap-2 ">
           {[
             { no: 0, img: pr0 },
             { no: 1, img: pr11 },
@@ -77,19 +79,19 @@ function WinOneMin({ gid }) {
             { no: 4, img: pr4 },
           ]?.map((i) => {
             return (
-              <Box
+              <img
                 className="!cursor-pointer"
-                component="img"
                 src={i?.img}
                 onClick={() => {
                   setapply_bit_dialog_box(true);
                   setdialog_type(i.no);
                 }}
-              ></Box>
+                alt="button"
+              />
             );
           })}
         </Box>
-        <Box className="pridictcolor">
+        <Box className="!grid grid-cols-5 gap-2 ">
           {[
             { no: 5, img: pr5 },
             { no: 6, img: pr6 },
@@ -98,25 +100,21 @@ function WinOneMin({ gid }) {
             { no: 9, img: pr9 },
           ]?.map((i) => {
             return (
-              <Box
+              <img
                 className="!cursor-pointer"
-                component="img"
                 src={i?.img}
                 onClick={() => {
                   setapply_bit_dialog_box(true);
                   setdialog_type(i.no);
                 }}
-              ></Box>
+                alt="button"
+              />
             );
           })}
         </Box>
-        <Stack
-          direction="row"
-          alignItems="center"
-          justifyContent="space-between"
-        >
+        <div className="!w-full !grid grid-cols-2 gap-2 !mt-2">
           <Button
-            className="btnsm"
+            className="!bg-[#5E8CCA] !text-white"
             onClick={() => {
               setapply_bit_dialog_box(true);
               setdialog_type("small");
@@ -125,7 +123,7 @@ function WinOneMin({ gid }) {
             small
           </Button>
           <Button
-            className="btmbig"
+            className="!bg-[#DFBC6F] !text-white"
             onClick={() => {
               setapply_bit_dialog_box(true);
               setdialog_type("big");
@@ -137,7 +135,7 @@ function WinOneMin({ gid }) {
           {/* small */}
 
           {/* small close */}
-        </Stack>
+        </div>
       </Box>
       <Box className="tableBox">
         <Box sx={{ background: "#3A3A3A" }}>

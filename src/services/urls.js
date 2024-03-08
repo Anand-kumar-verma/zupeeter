@@ -1,10 +1,12 @@
 export const rupees = "₹"
 
  export const baseUrl = "https://task.sabrikhidmat.org"
-// export const baseUrl = "https://win.gameszone.life"
+//  export const baseUrl = "https://bike.vpayout.com"
 
-  //export const domain = "http://192.168.18.183:9000"
-export const domain = "https://app.ferryinfotech.in/"
+
+  // export const domain = "http://192.168.99.149:9000"
+// export const domain = "https://app.ferryinfotech.in/"
+export const domain = "https://aviator-backend-p1xp.onrender.com/"
 
 
 export const endpoint ={

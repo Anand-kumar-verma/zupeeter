@@ -47,37 +47,39 @@ function Profile() {
   return (
     <Layout>
       <Box sx={styles.root}>
-        <Container>
+        <Container
+         
+        >
           <div className="no-scrollbar h-screen overflow-auto">
             <div
               style={{
                 background: "linear-gradient(180deg, #FAE59F 0%, #C4933F 100%)",
               }}
-              className="grid place-items-center rounded-b-[50px]"
+              className="grid bg-white bg-opacity-80  place-items-center rounded-b-[50px]"
             >
               <span className="py-[8%]">User Profile</span>
             </div>
 
-            <div className="cursor-pointer flex flex-col items-center bg-white !bg-opacity-10 rounded-lg p-5 mt-3 py-8">
+            <div className="cursor-pointer flex flex-col items-center bg-white !bg-opacity-30 rounded-lg p-5 mt-3 py-8">
               <div className="flex justify-center w-full relative">
                 <img
                   className="h-[20%] w-[20%] bg-black p-2 rounded-full"
                   src="https://zupeeter.com/application/libraries/profile.png"
                 />
-                <CameraAltIcon className="absolute bottom-0 left-[55%] !text-white" />
+                <CameraAltIcon className="absolute bottom-0 left-[55%] !text-black" />
               </div>
-              <p className="text-lg !text-white mt-2">{profile_data?.data?.username}</p>
-              <p className="text-sm !text-white ">{profile_data?.data?.referral_code}</p>
+              <p className="text-lg !text-black mt-2">{profile_data?.data?.username}</p>
+              <p className="text-sm !text-black ">{profile_data?.data?.referral_code}</p>
               <div className="!border-[1px] border-white grid grid-cols-3 place-items-center w-full py-3 mt-2">
                 <div className="w-full flex  flex-col items-center">
                   <p className="!text-[#8f5206]">276</p>
-                  <p className="!text-[12px] !text-white">Total Team</p>
+                  <p className="!text-[12px] !text-black">Total Team</p>
                 </div>
                 <div className="w-full flex  flex-col items-center">
                   <p className="!text-[#8f5206]">
                     {Number(profile_data?.deposit?.payin || 0)?.toFixed(2) || 0}
                   </p>
-                  <p className="!text-[12px] !text-white">Total Investment</p>
+                  <p className="!text-[12px] !text-black">Total Investment</p>
                 </div>
                 <div className="w-full flex  flex-col items-center">
                   <p className="!text-[#8f5206]">
@@ -85,34 +87,34 @@ function Profile() {
                       2
                     )}
                   </p>
-                  <p className="!text-[12px] !text-white">Total Income</p>
+                  <p className="!text-[12px] !text-black">Total Income</p>
                 </div>
               </div>
-              <p className="py-4 !text-white">Account Info</p>
+              <p className="py-4 !text-black">Account Info</p>
               <div className="!border-[1px] border-white w-full py-3 mt-2 px-3">
                 <div className="flex gap-2">
                   <PersonIcon className="!text-[#8f5206]"/>
-                  <span className="!text-white">{profile_data?.data?.referral_code}</span>
+                  <span className="!text-black">{profile_data?.data?.referral_code}</span>
                 </div>
                 <p className="bg-[#DCB86A] h-[1px] !my-2 "></p>
                 <div className="flex gap-2">
                   <PersonIcon className="!text-[#8f5206]"/>
-                  <span className="!text-white">{profile_data?.data?.username}</span>
+                  <span className="!text-black">{profile_data?.data?.username}</span>
                 </div>
                 <p className="bg-[#DCB86A] h-[1px] !my-2 "></p>
                 <div className="flex gap-2">
                   <CallIcon className="!text-[#8f5206]"/>
-                  <span className="!text-white">{profile_data?.data?.mobile}</span>
+                  <span className="!text-black">{profile_data?.data?.mobile}</span>
                 </div>
                 <p className="bg-[#DCB86A] h-[1px] !my-2 "></p>
                 <div className="flex gap-2">
                   <Mail className="!text-[#8f5206]"/>
-                  <span className="!text-white">{profile_data?.data?.email}</span>
+                  <span className="!text-black">{profile_data?.data?.email}</span>
                 </div>
                 <p className="bg-[#DCB86A] h-[1px] !my-2 "></p>
                 <div className="flex gap-2">
                   <Lock className="!text-[#8f5206]"/>
-                  <span className="!text-white">{profile_data?.data?.password}</span>
+                  <span className="!text-black">{profile_data?.data?.password}</span>
                 </div>
               </div>
             </div>
@@ -126,5 +128,5 @@ function Profile() {
 export default Profile;
 
 const styles = {
-  root: { background: "#202020", pb: 6 },
+  // root: { background: "#202020", pb: 6 },
 };

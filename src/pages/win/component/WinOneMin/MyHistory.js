@@ -26,7 +26,7 @@ const MyHistory = ({ gid }) => {
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
+    setPage(1);
   };
 
   const { isLoading: myhistory_loding, data: my_history } = useQuery(
@@ -60,10 +60,10 @@ const MyHistory = ({ gid }) => {
         page * rowsPerPage,
         page * rowsPerPage + rowsPerPage
       ),
-    [page, rowsPerPage]
+    [page, rowsPerPage,my_history_data]
   );
 
-  if (myhistory_loding) return <CircularProgress />;
+  if (myhistory_loding) return <div className="!w-full flex justify-center"><CircularProgress /></div>;
   return (
     <Box>
       <Stack direction="row" className="onegotextbox">
@@ -156,7 +156,7 @@ const MyHistory = ({ gid }) => {
 
       <Box className="paginationTable">
         <TablePagination
-          className="!bg-[#3A3A3A] !text-white"
+          className="!bg-gradient-to-r from-[#F8E19B] to-[#CCA04E] !text-white"
           rowsPerPageOptions={[2,5, 10, 15]}
           component="div"
           count={my_history_data?.length}

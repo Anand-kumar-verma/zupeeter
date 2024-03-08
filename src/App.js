@@ -41,12 +41,15 @@ import TeamReports from "./pages/promotion/component/TeamReport";
 import Wallet from "./pages/wallet/Wallet";
 import Win from "./pages/win/win";
 import Trx from "./pages/trx/Trx";
+import WalletRecharge from "./pages/wallet/component/WalletRecharge";
+import Test from "./pages/Test";
 
 function App() {
   return (
     <>
       <Routes>
         <Route path="/" Component={Login}></Route>
+        <Route path="/test" Component={Test}></Route>
         <Route path="/register" Component={Register}></Route>
         <Route path="/dashboard" Component={Dashboard}></Route>
         <Route path="/activity" Component={Activity}></Route>
@@ -66,6 +69,9 @@ function App() {
         <Route path="/view_fund_request" Component={FundRequest}></Route>
         <Route path="/view_width_request" Component={Withdrawl}></Route>
         <Route path="/wallet" Component={Wallet}></Route>
+        <Route path="/view_fund_request" Component={FundRequest}></Route>
+        <Route path="/wallet/Recharge" Component={WalletRecharge}></Route>
+
         <Route path="/account" Component={Account}></Route>
         <Route path="/account-my-team" Component={MyTeam}></Route>
         <Route

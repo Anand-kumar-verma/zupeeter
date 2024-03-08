@@ -7,7 +7,6 @@ import toast from "react-hot-toast";
 import { useQuery } from "react-query";
 import { endpoint } from "../../../../services/urls";
 
-
 const Chart = ({ gid }) => {
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [page, setPage] = React.useState(1);
@@ -39,7 +38,7 @@ const Chart = ({ gid }) => {
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
+    setPage(1);
   };
 
   const game_history_data = game_history?.data?.data;
@@ -50,9 +49,14 @@ const Chart = ({ gid }) => {
         page * rowsPerPage,
         page * rowsPerPage + rowsPerPage
       ),
-    [page, rowsPerPage]
+    [page, rowsPerPage, game_history_data]
   );
-  if (isLoading) return <CircularProgress />;
+  if (isLoading)
+    return (
+      <div className="!w-full flex justify-center">
+        <CircularProgress />
+      </div>
+    );
   return (
     <Box className="chartTable">
       <Stack direction="row" className="onegotextbox">
@@ -66,7 +70,14 @@ const Chart = ({ gid }) => {
             <Stack direction="row">
               <Box className="charttableheading">
                 <Typography variant="body1" color="initial">
-                  {i?.gamesno}
+                  <span
+                    className={`
+                 !bg-gradient-to-t from-[#FE63FF] to-[#007AFF]
+                  transparentColor font-bold text-lg
+                  `}
+                  >
+                    {i?.gamesno}
+                  </span>
                 </Typography>
               </Box>
               <Box className="winningNumberBox ">
@@ -184,7 +195,7 @@ const Chart = ({ gid }) => {
       })}
       <Box className="paginationTable">
         <TablePagination
-          className="!bg-[#3A3A3A] !text-white"
+         className="!bg-gradient-to-r from-[#F8E19B] to-[#CCA04E] !text-white"
           rowsPerPageOptions={[5, 10, 15]}
           component="div"
           count={game_history_data?.length}
