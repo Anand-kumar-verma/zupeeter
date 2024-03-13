@@ -105,7 +105,7 @@ function CricketUserprofile() {
         </Stack>
         <Box
           sx={style.balanceContainer}
-          className={" !grid !grid-cols-2 !gap-2 !bg-[#3883BF] !bg-opacity-20"}
+          className={" !grid lg:!grid-cols-2 !grid-cols-1 !gap-2 !bg-[#3883BF] !bg-opacity-20"}
         >
           <div className=" !bg-white !bg-opacity-5 rounded-lg p-2">
             <Stack direction="row" sx={{ alignItems: "center" }}>
@@ -258,11 +258,7 @@ function CricketUserprofile() {
           </Stack>
           <Stack
             direction="row"
-            sx={{
-              width: "100%",
-              justifyContent: "space-between",
-              alignItems: "baseline",
-            }}
+           className="!w-full !grid lg:!grid-cols-4 !grid-cols-2 !gap-[4px] !mt-5"
           >
             {[
               { img: rechargeIcon, item: "Deposit",nav:"/cricket/depositCash" },
@@ -273,7 +269,7 @@ function CricketUserprofile() {
               return (
                 <Box
                   sx={{
-                    width: "24%",
+                    
                     display: "flex",
                     alignItems: "center",
                     flexDirection: "column",
@@ -283,9 +279,9 @@ function CricketUserprofile() {
                       color: "white",
                       textAlign: "center",
                     },
-                    mt: "30px",
+                    
                     "&>a>img": { margin: "auto" },
-                    mt: "30px",
+                    
                   }}
                   className={"!bg-white !bg-opacity-30 !rounded-lg !py-2"}
                 >
@@ -300,12 +296,11 @@ function CricketUserprofile() {
             })}
           </Stack>
         </Box>
-        <Box sx={style.actionContainer}>
+        <Box className={"!w-[95%] !grid !grid-cols-2 !gap-2 !mt-3"} sx={style.balanceContainer}>
           <Box
             className={"!cursor-pointer"}
             onClick={() => navigate("/cricket/deposit-history")}
             sx={{
-              width: "49%",
               background: zubgbackgrad,
               padding: "10px",
               borderRadius: "10px",
@@ -332,7 +327,7 @@ function CricketUserprofile() {
                   },
                 }}
               >
-                <Typography variant="body1" color="initial">
+                <Typography variant="body1" color="initial" className="!text-sm">
                   Deposit
                 </Typography>
                 <Typography variant="body1" color="initial">
@@ -345,7 +340,6 @@ function CricketUserprofile() {
             className={"!cursor-pointer"}
             onClick={() => navigate("/cricket/withdrawl-history")}
             sx={{
-              width: "49%",
               background: zubgbackgrad,
               padding: "10px",
               borderRadius: "10px",
@@ -371,7 +365,7 @@ function CricketUserprofile() {
                   },
                 }}
               >
-                <Typography variant="body1" color="initial">
+                <Typography variant="body1" color="initial" className="!text-sm">
                   Withdrawl
                 </Typography>
                 <Typography variant="body1" color="initial">
@@ -592,7 +586,6 @@ const style = {
     background: zubgback_cricket,
     borderRadius: "10px",
     padding: "20px",
-    width: "95%",
     margin: "auto",
     marginTop: "2px",
   },
