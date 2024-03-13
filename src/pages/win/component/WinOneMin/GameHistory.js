@@ -1,3 +1,4 @@
+
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 import { Box, CircularProgress, Stack, Typography } from "@mui/material";
 import TablePagination from "@mui/material/TablePagination";
@@ -13,9 +14,13 @@ import * as React from "react";
 import toast from "react-hot-toast";
 import { useQuery } from "react-query";
 import { endpoint } from "../../../../services/urls";
+import history from '../../../../assets/images/rules.png'
+import { zubgback, zubgbackgrad, zubgmid } from "../../../../Shared/color";
+import CustomCircularProgress from "../../../../Shared/CustomCircularProgress";
+
 const GameHistory = ({ gid }) => {
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [page, setPage] = React.useState(1);
+  const [page, setPage] = React.useState(0);
   const { isLoading, data: game_history } = useQuery(
     ["gamehistory", gid],
     () => GameHistoryFn(gid),
@@ -28,7 +33,7 @@ const GameHistory = ({ gid }) => {
   const GameHistoryFn = async (gid) => {
     try {
       const response = await axios.get(
-        `${endpoint.game_history}?limit=20&offset=0&gameid=${gid}`
+        `${endpoint.game_history}?limit=500&offset=0&gameid=${gid}`
       );
       return response;
     } catch (e) {
@@ -44,7 +49,7 @@ const GameHistory = ({ gid }) => {
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(1);
+    setPage(0);
   };
 
   const visibleRows = React.useMemo(
@@ -66,28 +71,22 @@ const GameHistory = ({ gid }) => {
     <Box>
       <Stack direction="row" className="onegotextbox">
         <Typography variant="body1" color="initial">
-          <EmojiEventsIcon />{" "}
+          <Box component='img' src={history} width={25} sx={{ marginRight: '10px' }}></Box>
           {gid === "1"
             ? "One GO Record"
             : gid === "2"
-            ? "Three Go Record"
-            : "Five Go Record"}
+              ? "Three Go Record"
+              : "Five Go Record"}
         </Typography>
       </Stack>
       <TableContainer component={Paper}>
-        <Table
-          sx={{ maxWidth: 575, background: "#3A3A3A", color: "white" }}
-          className="wintable"
-          aria-label="simple table"
-        >
-          <TableHead 
-          className="!bg-gradient-to-b from-[#F8E19B] to-[#CCA04E] "
-          >
+        <Table sx={{ maxWidth: 575, background: zubgback, color: "white" }} className="wintable" aria-label="simple table">
+          <TableHead>
             <TableRow>
-              <TableCell className="!text-[#8f5206]">Period</TableCell>
-              <TableCell className="!text-[#8f5206]">Number</TableCell>
-              <TableCell className="!text-[#8f5206]">Big Small</TableCell>
-              <TableCell className="!text-[#8f5206]">Result</TableCell>
+              <TableCell>Period</TableCell>
+              <TableCell>Number</TableCell>
+              <TableCell>Big Small</TableCell>
+              <TableCell>Result</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -95,7 +94,7 @@ const GameHistory = ({ gid }) => {
               return (
                 <TableRow>
                   <TableCell className="!text-white">
-                  <span
+                    <span
                       className={`
                  !bg-gradient-to-t from-[#FE63FF] to-[#007AFF]
                   transparentColor font-bold text-lg
@@ -103,32 +102,31 @@ const GameHistory = ({ gid }) => {
                     >
                       {i?.gamesno}
                     </span>
-                    
+
                   </TableCell>
                   <TableCell className="!text-white">
                     <span
                       className={`
-                  ${
-                    (i?.number === "0" &&
-                      "!bg-gradient-to-t from-red-400 to-violet-400") ||
-                    (i?.number === "5" &&
-                      "!bg-gradient-to-t from-violet-400 to-green-400") ||
-                    ((i?.number === "1" ||
-                      i?.number === "3" ||
-                      i?.number === "7" ||
-                      i?.number === "9" ||
-                      i?.number === "10") &&
-                      "bg-gradient-to-t from-green-400 to-green-900") ||
-                    ((i?.number === "2" ||
-                      i?.number === "4" ||
-                      i?.number === "6" ||
-                      i?.number === "8" ||
-                      i?.number === "30") &&
-                      "bg-gradient-to-tl from-red-400 to-red-900") ||
-                    (i?.number === "50" && "bg-[#3183ee]") ||
-                    (i?.number === "40" && "bg-[#f1be24]") ||
-                    (i?.number === "20" && "bg-[#eb2feb]")
-                  }
+                  ${(i?.number === "0" &&
+                          "!bg-gradient-to-t from-red-400 to-violet-400") ||
+                        (i?.number === "5" &&
+                          "!bg-gradient-to-t from-violet-400 to-green-400") ||
+                        ((i?.number === "1" ||
+                          i?.number === "3" ||
+                          i?.number === "7" ||
+                          i?.number === "9" ||
+                          i?.number === "10") &&
+                          "bg-gradient-to-t from-green-400 to-green-900") ||
+                        ((i?.number === "2" ||
+                          i?.number === "4" ||
+                          i?.number === "6" ||
+                          i?.number === "8" ||
+                          i?.number === "30") &&
+                          "bg-gradient-to-tl from-red-400 to-red-900") ||
+                        (i?.number === "50" && "bg-[#3183ee]") ||
+                        (i?.number === "40" && "bg-[#f1be24]") ||
+                        (i?.number === "20" && "bg-[#eb2feb]")
+                        }
                   transparentColor font-bold text-xl
                   `}
                     >
@@ -136,11 +134,10 @@ const GameHistory = ({ gid }) => {
                     </span>
                   </TableCell>
                   <TableCell
-                    className={`${
-                      Number(i?.number) <= 4
-                        ? "!bg-gradient-to-l !from-[#FE63FF] !to-violet-400"
-                        : "!bg-gradient-to-l !from-[#FE63FF] !to-green-400"
-                    }  transparentColor !font-extrabold text-xl`}
+                    className={`${Number(i?.number) <= 4
+                      ? "!bg-gradient-to-l !from-[#FE63FF] !to-violet-400"
+                      : "!bg-gradient-to-l !from-[#FE63FF] !to-green-400"
+                      }  transparentColor !font-extrabold text-xl`}
                   >
                     {Number(i?.number) <= 4 ? "SMALL" : "BIG"}
                   </TableCell>
@@ -148,20 +145,18 @@ const GameHistory = ({ gid }) => {
                     {i?.number === "0" || i?.number === "5" ? (
                       <div className="!flex !gap-1">
                         <div
-                          className={`!w-[15px] !h-[15px] !rounded-full ${
-                            (i?.number === "0" &&
-                              "bg-gradient-to-tl from-red-200 to-red-900") ||
+                          className={`!w-[15px] !h-[15px] !rounded-full ${(i?.number === "0" &&
+                            "bg-gradient-to-tl from-red-200 to-red-900") ||
                             (i?.number === "5" &&
                               "bg-gradient-to-tl from-green-200 to-green-900")
-                          }`}
+                            }`}
                         ></div>
                         <div
-                          className={`!w-[15px] !h-[15px] !rounded-full ${
-                            (i?.number === "0" &&
-                              "bg-gradient-to-tl from-violet-200 to-violet-900") ||
+                          className={`!w-[15px] !h-[15px] !rounded-full ${(i?.number === "0" &&
+                            "bg-gradient-to-tl from-violet-200 to-violet-900") ||
                             (i?.number === "5" &&
                               "bg-gradient-to-tl from-violet-200 to-violet-900")
-                          }`}
+                            }`}
                         ></div>
                       </div>
                     ) : (
@@ -171,39 +166,36 @@ const GameHistory = ({ gid }) => {
                           i?.number === "7" ||
                           i?.number === "9" ||
                           i?.number === "10") && (
-                          <div
-                            className={`!w-[15px] !h-[15px] !rounded-full ${
-                              (i?.number === "1" ||
+                            <div
+                              className={`!w-[15px] !h-[15px] !rounded-full ${(i?.number === "1" ||
                                 i?.number === "3" ||
                                 i?.number === "7" ||
                                 i?.number === "9" ||
                                 i?.number === "10") &&
-                              "bg-gradient-to-tl from-green-200 to-green-900"
-                            }`}
-                          ></div>
-                        )) ||
+                                "bg-gradient-to-tl from-green-200 to-green-900"
+                                }`}
+                            ></div>
+                          )) ||
                           ((i?.number === "2" ||
                             i?.number === "4" ||
                             i?.number === "6" ||
                             i?.number === "8" ||
                             i?.number === "30") && (
-                            <div
-                              className={`!w-[15px] !h-[15px] !rounded-full ${
-                                (i?.number === "2" ||
+                              <div
+                                className={`!w-[15px] !h-[15px] !rounded-full ${(i?.number === "2" ||
                                   i?.number === "4" ||
                                   i?.number === "6" ||
                                   i?.number === "8" ||
                                   i?.number === "30") &&
-                                "bg-gradient-to-tl from-red-200 to-red-900"
-                              }`}
-                            ></div>
-                          )) || (
+                                  "bg-gradient-to-tl from-red-200 to-red-900"
+                                  }`}
+                              ></div>
+                            )) || (
                             <div
-                              className={`!w-[15px] !h-[15px] !rounded-full ${
-                                (i?.number === "50" && "bg-[#68A1ED]") ||
+                              className={`!w-[15px] !h-[15px] !rounded-full ${(i?.number === "50" && "bg-[#68A1ED]") ||
                                 (i?.number === "40" && "bg-[#D8B23E]") ||
                                 (i?.number === "20" && "bg-[#FE63FF]")
-                              }`}
+                                }`}
                             ></div>
                           )}
                       </>
@@ -217,7 +209,7 @@ const GameHistory = ({ gid }) => {
 
         <Box className="paginationTable">
           <TablePagination
-            className="!bg-gradient-to-r from-[#F8E19B] to-[#CCA04E] !text-white"
+            sx={{ background: zubgbackgrad, color: 'white', }}
             rowsPerPageOptions={[5, 10, 15]}
             component="div"
             count={game_history_data?.length}
@@ -228,8 +220,10 @@ const GameHistory = ({ gid }) => {
           />
         </Box>
       </TableContainer>
+      <CustomCircularProgress isLoading={isLoading}/>
     </Box>
   );
 };
 
 export default GameHistory;
+

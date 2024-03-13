@@ -1,16 +1,17 @@
-import { Container, Typography, Box, IconButton, InputAdornment, OutlinedInput, FormControl, Select, Stack } from '@mui/material'
+import { Container, Typography, Box, IconButton, InputAdornment, OutlinedInput, FormControl, Select, Stack, Button } from '@mui/material'
 import * as React from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import KeyboardArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardArrowLeftOutlined';
 import Layout from '../../../component/Layout/Layout';
 import { NavLink } from 'react-router-dom';
+import { zubgback, zubgmid } from '../../../Shared/color';
 
 
 function TeamReports() {
 
   return (
     <Layout>
-      <Container sx={{ background: '#292929', width: '100%', height: '100vh', overflow: 'auto' }}>
+      <Container sx={{ background: zubgback, width: '100%', height: '100vh', overflow: 'auto' }}>
         <Box sx={style.header}>
           <Box component={NavLink} to='/promotion/'>
             <KeyboardArrowLeftOutlinedIcon />
@@ -18,37 +19,35 @@ function TeamReports() {
           <Typography variant="body1" color="initial">Subordinate data</Typography>
           <Typography variant="body1" color="initial"> </Typography>
         </Box>
-        <Box sx={{ padding: 2 }}>
+        <Box sx={{ padding: 2, width: '100%' }}>
           <Box component='form'>
             <FormControl variant="outlined" fullWidth>
-              <OutlinedInput className='search'
-                placeholder='Search subordinate UID'
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton edge="end" sx={{ width: '70px', height: '35px', borderRadius: '10px', background: '#D9AC4F' }}>
-                      <SearchIcon />
-                    </IconButton>
-                  </InputAdornment>
-                }
-              />
+              <Stack direction='row'>
+                <OutlinedInput className='search'
+                  placeholder='Search subordinate UID' fullWidth
+                />
+                <Button sx={{ width: '70px', height: '55px', borderRadius: '10px', background: zubgmid, color: 'white', marginLeft: '20px' }}>
+                  <SearchIcon />
+                </Button>
+              </Stack>
             </FormControl>
           </Box>
-          <Stack sx={{ padding: 2, justifyContent: 'space-between' }} direction='row'>
+          <Stack sx={{ padding: '20px 0px', justifyContent: 'space-between' }} direction='row'>
             <FormControl variant="outlined" sx={{ width: '48%' }} className='Select'>
-              <Select multiple  ></Select>
+              <Select multiple sx={{ '&>div': { background: zubgmid, color: 'white' } }} ></Select>
             </FormControl>
             <FormControl variant="outlined" sx={{ width: '48%' }} className='Select'>
-              <Select multiple ></Select>
+              <Select multiple sx={{ '&>div': { background: zubgmid, color: 'white' } }}></Select>
             </FormControl>
           </Stack>
         </Box>
         <Box sx={{ padding: 2, }}>
           <Box sx={{
-            backgroundColor: '#d9ac4f', borderRadius: '10px', padding: '30px 20px',
+            backgroundColor: zubgmid, borderRadius: '10px', padding: '30px 20px',
             '&>div': { mb: 2 },
             '&>div>div:nth-child(1)': { borderRight: '1px solid black', width: '50%', textAlign: 'center', },
             '&>div>div:nth-child(2)': { width: '50%', textAlign: 'center' },
-            '&>div>div>p': { color: '#8f5206', fontSize: '14px', fontWeight: 500 },
+            '&>div>div>p': { color: 'white', fontSize: '14px', fontWeight: 500 },
           }}>
             <Stack direction='row'>
               <Box>
@@ -82,8 +81,8 @@ function TeamReports() {
             </Stack>
           </Box>
         </Box>
-      </Container >
-    </Layout >
+      </Container>
+    </Layout>
   )
 }
 
@@ -91,7 +90,7 @@ export default TeamReports
 
 const style = {
   header: {
-    padding: '8px', background: '#3F3F3F', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+    padding: '8px', background: zubgmid, display: 'flex', alignItems: 'center', justifyContent: 'space-between',
     '&>p': { color: 'white !important' }, '&>a>svg': { color: 'white', fontSize: '25px' }
   },
 };

@@ -1,4 +1,3 @@
-import ArticleIcon from "@mui/icons-material/Article";
 import CloseIcon from "@mui/icons-material/Close";
 import { Box, IconButton, Stack, Typography } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
@@ -9,17 +8,19 @@ import * as React from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useQueryClient } from "react-query";
-import io from "socket.io-client";
+import { useSocket } from "../../../../Shared/SocketContext";
+import countdownfirst from "../../../../assets/countdownfirst.mp3";
+import countdownlast from "../../../../assets/countdownlast.mp3";
 import pr0 from "../../../../assets/images/0.png";
 import pr11 from "../../../../assets/images/11.png";
 import pr22 from "../../../../assets/images/22.png";
 import pr33 from "../../../../assets/images/33.png";
 import pr4 from "../../../../assets/images/4.png";
-import { domain, endpoint } from "../../../../services/urls";
+import circle from '../../../../assets/images/circle-arrow.png';
+import howToPlay from '../../../../assets/images/user-guide.png';
+import { endpoint } from "../../../../services/urls";
 import Policy from "../policy/Policy";
-import { useSocket } from "../../../../Shared/SocketContext";
-// const socket = io("https://app.ferryinfotech.in/");
-// const socket = io(domain);
+
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -28,7 +29,7 @@ const OneMinCountDown = () => {
   const client = useQueryClient();
   const [one_min_time, setOne_min_time] = useState(0);
   const show_this_one_min_time = String(one_min_time).padStart(2, "0");
-
+  const synth = window.speechSynthesis;
   React.useEffect(() => {
     if (show_this_one_min_time === "01") {
       oneMinCheckResult();
@@ -55,27 +56,18 @@ const OneMinCountDown = () => {
     },
   });
 
-  // React.useEffect(() => {
-  //   socket.on("onemin", (onemin) => {
-  //     setOne_min_time(onemin);
-  //     if (onemin === 5) fk.setFieldValue("openTimerDialogBox", true);
-  //     if (onemin === 59) fk.setFieldValue("openTimerDialogBox", false);
-  //   });
-
-  //   console.log("socket effect is called")
-
-  //   return () => {
-  //     // socket.off("onemin");
-  //     socket.disconnect();
-  //   };
-  // }, []);
-
   React.useEffect(() => {
     const handleOneMin = (onemin) => {
-      console.log("hii anand")
       setOne_min_time(onemin);
-      if (onemin === 5) fk.setFieldValue("openTimerDialogBox", true);
-      if (onemin === 59) fk.setFieldValue("openTimerDialogBox", false);
+      if (onemin === 5 || onemin === 4 || onemin === 3 || onemin === 2){
+        handlePlaySound();
+      }
+      if (onemin === 1) handlePlaySoundLast();
+   
+      if (onemin === 5) {
+        fk.setFieldValue("openTimerDialogBox", true);
+      }
+      if (onemin === 0) fk.setFieldValue("openTimerDialogBox", false);
     };
     socket.on("onemin", handleOneMin);
     return () => {
@@ -84,9 +76,8 @@ const OneMinCountDown = () => {
   }, []);
 
   const oneMinCheckResult = async () => {
-    console.log("checkresult function hit");
     try {
-      const response = await axios.get(`${endpoint.check_result}`);
+      await axios.get(`${endpoint.check_result}`);
       client.refetchQueries("gamehistory");
       client.refetchQueries("gamehistory_chart");
       client.refetchQueries("myhistory");
@@ -96,17 +87,49 @@ const OneMinCountDown = () => {
     }
   };
   const oneMinColorWinning = async () => {
-    console.log("checkresult function hit2");
     try {
-      const response = await axios.get(`${endpoint.color_winning}?id=1&gid=1`);
+      await axios.get(`${endpoint.color_winning}?id=1&gid=1`);
     } catch (e) {
       toast(e?.message);
       console.log(e);
     }
   };
+  const audioRefMusic = React.useRef(null);
+  const audioRefMusiclast = React.useRef(null);
+  const handlePlaySound = async () => {
+    try {
+      if (audioRefMusic?.current?.pause) {
+        await audioRefMusic?.current?.play();
+      } else {
+        await audioRefMusic?.current?.pause();
+      }
+    } catch (error) {
+      // Handle any errors during play
+      console.error("Error during play:", error);
+    }
+  };
+ 
+  const handlePlaySoundLast = async () => {
+    try {
+      if (audioRefMusiclast?.current?.pause) {
+        await audioRefMusiclast?.current?.play();
+      } else {
+        await audioRefMusiclast?.current?.pause();
+      }
+    } catch (error) {
+      // Handle any errors during play
+      console.error("Error during play:", error);
+    }
+  };
 
   return (
     <Box className="countdownbg">
+      <audio ref={audioRefMusic} hidden>
+        <source src={`${countdownfirst}`} type="audio/mp3" />
+      </audio>
+      <audio ref={audioRefMusiclast} hidden>
+        <source src={`${countdownlast}`} type="audio/mp3" />
+      </audio>
       <Box
         sx={{
           display: "flex",
@@ -114,12 +137,13 @@ const OneMinCountDown = () => {
           justifyContent: "space-between",
         }}
       >
-        <Box sx={{ padding: 1, width: "48%" }} className="win-banner">
+        <Box sx={{ width: "50%", borderRight: '1px dashed white', paddingRight: '2%' }} className="win-banner">
           <Box onClick={() => handleClickOpenpoicy()}>
-            <ArticleIcon />
+            <Box component='img' src={howToPlay} sx={{ width: '25px !important', height: '25px !important' }}></Box>
             <Typography variant="body1" color="initial">
               How to play
             </Typography>
+            <Box component='img' src={circle} sx={{ width: '15px !important', height: '15px !important' }}></Box>
           </Box>
           <Dialog
             open={poicy}
@@ -171,42 +195,58 @@ const OneMinCountDown = () => {
               {show_this_one_min_time?.substring(1, 2)}
             </Box>
           </Stack>
-          <Typography variant="h3" color="initial" className="winTextone">
+          <Typography variant="h3" color="initial" className="winTexttwo">
             202403011253
           </Typography>
         </Box>
       </Box>
-      {fk.values.openTimerDialogBox && (
-        <Dialog
-          open={fk.values.openTimerDialogBox}
-          TransitionComponent={Transition}
-          PaperProps={{
-            style: {
-              backgroundColor: "transparent",
-              boxShadow: "none",
-            },
-          }}
-        >
-          <div className="flex gap-2 justify-cente !bg-black !bg-opacity-5">
-            <div
-              style={{
-                background: "linear-gradient(180deg, #FAE59F 0%, #C4933F 100%)",
-              }}
-              className="p-1 !text-[#8f5206] !px-4  !text-[200px] rounded-xl !font-bold"
-            >
-              {show_this_one_min_time?.substring(0, 1)}
+      {
+        fk.values.openTimerDialogBox && (
+          <Dialog
+            open={fk.values.openTimerDialogBox}
+            TransitionComponent={Transition}
+            PaperProps={{
+              style: {
+                backgroundColor: "transparent",
+                boxShadow: "none",
+              },
+            }}
+          >
+            <div className="flex gap-2 justify-cente !bg-black !bg-opacity-5" sx={{ width: '100%' }}>
+              <div
+                style={{
+                  fontSize: 200,
+                  borderRadius: 20,
+                  background: 'rgb(73, 57, 193)',
+                  fontWeight: 700,
+                  width: 150,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: 'white',
+                }}
+              >
+                {show_this_one_min_time?.substring(0, 1)}
+              </div>
+              <div
+                style={{
+                  fontSize: 200,
+                  borderRadius: 20,
+                  background: 'rgb(73, 57, 193)',
+                  fontWeight: 700,
+                  width: 150,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: 'white',
+                }}
+              >
+                {show_this_one_min_time?.substring(1, 2)}
+              </div>
             </div>
-            <div
-              style={{
-                background: "linear-gradient(180deg, #FAE59F 0%, #C4933F 100%)",
-              }}
-              className="p-1 !px-4 !text-[200px] rounded-xl !font-bold !text-[#8f5206]"
-            >
-              {show_this_one_min_time?.substring(1, 2)}
-            </div>
-          </div>
-        </Dialog>
-      )}
+          </Dialog>
+        )
+      }
     </Box>
   );
 };

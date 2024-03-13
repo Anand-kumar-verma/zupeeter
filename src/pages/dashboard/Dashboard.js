@@ -1,9 +1,6 @@
-import CloseIcon from "@mui/icons-material/Close";
 import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
 import FitbitIcon from "@mui/icons-material/Fitbit";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
-import InfoIcon from "@mui/icons-material/Info";
-import megaphone from '../../assets/images/megaphone.png'
 import TelegramIcon from "@mui/icons-material/Telegram";
 import {
   Avatar,
@@ -12,71 +9,69 @@ import {
   CircularProgress,
   Container,
   Dialog,
-  IconButton,
+  DialogContent,
   Slide,
   Stack,
   TextField,
-  Typography,
+  Typography
 } from "@mui/material";
 import axios from "axios";
 import copy from "clipboard-copy";
 import { useFormik } from "formik";
 import React, { useEffect } from "react";
 import toast from "react-hot-toast";
+import { RxCross2 } from "react-icons/rx";
 import { useQuery } from "react-query";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { gray, zubgback, zubgbackgrad, zubgmid } from "../../Shared/color";
 import one from "../../assets/images/1.jpg";
 import two from "../../assets/images/2.jpg";
-import deposit from "../../assets/images/deposit (1).png";
-import cash from "../../assets/images/cash-withdrawal.png";
 import three from "../../assets/images/3.jpg";
-import Icon1 from "../../assets/images/icon1.png";
-import Icon2 from "../../assets/images/icon2.png";
+import cash from "../../assets/images/cash-withdrawal.png";
+import deposit from "../../assets/images/deposit (1).png";
+import megaphone from "../../assets/images/megaphone.png";
+import position2 from "../../assets/images/positio2.png";
+import position3 from "../../assets/images/position3.png";
+import position1 from "../../assets/images/positoin1.png";
+import pro1 from "../../assets/images/pr1.jpg";
+import pro1c from "../../assets/images/pr1c.jpg";
+import pro2 from "../../assets/images/pr2.jpg";
+import pro3 from "../../assets/images/pr3.jpg";
+import stage from "../../assets/images/stage-podium1.jpeg";
+import winp1 from "../../assets/images/winp1.jpg";
+import winp2 from "../../assets/images/winp2.jpg";
+import winp3 from "../../assets/images/winp3.jpg";
+import winp4 from "../../assets/images/winp4.jpg";
+import winp5 from "../../assets/images/winp5.jpg";
+import winp6 from "../../assets/images/winp6.jpg";
 import Layout from "../../component/Layout/Layout";
-import { endpoint, rupees } from "../../services/urls";
+import {
+  please_reconnect_the_serverFun,
+  waitingAviatorFun,
+} from "../../redux/slices/counterSlice";
+import { endpoint } from "../../services/urls";
 import Lottery from "./DashboadSubcomponent/Lottery";
 import Original from "./DashboadSubcomponent/Original";
 import Notification from "./Notification";
-import stageBg from "../../assets/images/stagebg.png";
-import position1 from "../../assets/images/positoin1.png";
-import position2 from "../../assets/images/positio2.png";
-import position3 from "../../assets/images/position3.png";
-import positionimg from "../../assets/images/positionimg.png";
-import positionimg2 from "../../assets/images/positionimg2.png";
-import positionimg3 from "../../assets/images/positionimg3.png";
-import positioncap from "../../assets/images/positioncap.png";
-import positioncap2 from "../../assets/images/positioncap2.png";
-import positioncap3 from "../../assets/images/positioncap3.png";
-import { waitingAviatorFun } from "../../redux/slices/counterSlice";
-import { useDispatch } from "react-redux";
-import { zubgback, zubgbackgrad, zubgmid } from "../../Shared/color";
-import pro1 from '../../assets/images/pr1.jpg'
-import pro1c from '../../assets/images/pr1c.jpg'
-import pro2 from '../../assets/images/pr2.jpg'
-import pro3 from '../../assets/images/pr3.jpg'
-import winp1 from '../../assets/images/winp1.jpg'
-import winp2 from '../../assets/images/winp2.jpg'
-import winp3 from '../../assets/images/winp3.jpg'
-import winp4 from '../../assets/images/winp4.jpg'
-import winp5 from '../../assets/images/winp5.jpg'
-import winp6 from '../../assets/images/winp6.jpg'
-import stage from '../../assets/images/stage-podium1.jpeg'
-
-
+import CustomCircularProgress from "../../Shared/CustomCircularProgress";
+import sajid from '../../assets/sajid.PNG'
+import tanveer from '../../assets/tanveer.PNG'
+import Sports from "./DashboadSubcomponent/Sports";
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
-
 
 function Dashboard() {
   const dispatch = useDispatch();
   const isAvailableUser = sessionStorage.getItem("isAvailableUser");
   const navigate = useNavigate();
+  const [data_array, setdata_array] = React.useState([1, 2, 3, 4]);
   const [poicy, setpoicy] = React.useState(false);
   const [type_of_game, settype_of_game] = React.useState("");
   const login_data = localStorage.getItem("logindata");
@@ -120,11 +115,11 @@ function Dashboard() {
       img: "https://ossimg.bdgadminbdg.com/IndiaBDG/gamecategory/gamecategory_20240110061847fevc.png",
     },
     {
-      name: "Slots",
+      name: "Sports",
       img: "https://ossimg.bdgadminbdg.com/IndiaBDG/gamecategory/gamecategory_20240110061937gbid.png",
     },
     {
-      name: "Sports",
+      name: "Slots",
       img: "https://ossimg.bdgadminbdg.com/IndiaBDG/gamecategory/gamecategory_20240110061915xrqy.png",
     },
     {
@@ -147,11 +142,11 @@ function Dashboard() {
       setpoicy(true);
     }
   }, []);
+  
   useEffect(() => {
     dispatch(waitingAviatorFun(true));
+    dispatch(please_reconnect_the_serverFun(false));
   }, []);
-
-  const [data_array, setdata_array] = React.useState([1, 2, 3, 4]);
 
   useEffect(() => {
     setInterval(() => {
@@ -162,16 +157,21 @@ function Dashboard() {
     }, 3000);
   }, []);
 
-  if (isLoading)
-    return (
-      <Layout>
-        <CircularProgress />
-      </Layout>
-    );
+
+  const scrollToSection = (sectionId) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <Layout>
       <Box sx={styles.root}>
-        <Container className="!h-[100%] !overflow-auto no-scrollbar" sx={{ background: zubgback }}>
+        <Container
+          className="!h-[100%] !overflow-auto no-scrollbar"
+          sx={{ background: zubgback }}
+        >
           <div
             style={{
               background: zubgback,
@@ -179,13 +179,18 @@ function Dashboard() {
             className=" rounded-b-md"
           >
             <div className="px-2 py-2 flex justify-between">
-              <div className="flex items-center gap-2" style={{ color: 'white' }}>
+              <div
+                className="flex items-center gap-2"
+                style={{ color: "white" }}
+              >
                 <FitbitIcon />
                 <span className="text-[14px]">Welcome to zupeeter game</span>
               </div>
               <div className="flex gap-1 items-center cursor-pointer">
-                <CloudDownloadIcon sx={{ color: 'white' }} />
-                <span className="text-[12px]" style={{ color: 'white' }}>Download App</span>
+                <CloudDownloadIcon sx={{ color: "white" }} />
+                <span className="text-[12px]" style={{ color: "white" }}>
+                  Download App
+                </span>
               </div>
             </div>
           </div>
@@ -226,14 +231,25 @@ function Dashboard() {
               </SwiperSlide>
             </Swiper>
           </Box>
-          <Box sx={{
-            display: 'flex', alignItems: 'start', justifyContent: 'space-between', width: '95%', marginLeft: '2.5%',
-            background: zubgmid, borderRadius: '10px', mt: '20px', padding: '10px 10px'
-          }}>
-            <Box sx={{ width: '10%', }}>
-              <Box component='img' src={megaphone} width={30}></Box>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "start",
+              justifyContent: "space-between",
+              width: "95%",
+              marginLeft: "2.5%",
+              background: zubgmid,
+              borderRadius: "10px",
+              mt: "20px",
+              padding: "10px 10px",
+            }}
+          >
+            <Box sx={{ width: "10%" }}>
+              <Box component="img" src={megaphone} width={30}></Box>
             </Box>
-            <Box sx={{ width: '90%', '&>p': { fontSize: '13px', color: 'white' } }}>
+            <Box
+              sx={{ width: "90%", "&>p": { fontSize: "13px", color: "white" } }}
+            >
               <Typography variant="body1" color="initial">
                 See the Installation page for additional docs about how to make
                 sure everything is set up correctly.
@@ -242,17 +258,28 @@ function Dashboard() {
           </Box>
 
           <Stack direction="row" sx={styles.depositWithdrawContainer}>
-            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
               <Box className="serv-item cursor-pointer">
                 <Box
                   component="img"
                   src={deposit}
                   alt="Deposit"
                   sx={styles.depositWithdrawIcon}
-                  onClick={() => navigate("/view_fund_request")}
+                  onClick={() => navigate("/wallet/Recharge")}
                 />
               </Box>
-              <Typography variant="body1" color="initial" className="db-header" sx={{ xolor: 'white', textAlign: 'center' }}>
+              <Typography
+                variant="body1"
+                color="initial"
+                className="db-header"
+                sx={{ xolor: "white", textAlign: "center" }}
+              >
                 Deposit
               </Typography>
             </Box>
@@ -264,10 +291,16 @@ function Dashboard() {
                 Available Balance
               </Typography>
             </Box>
-            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
               <Box className="serv-item">
                 <Box
-                  onClick={() => navigate("/view_width_request")}
+                  onClick={() => navigate("/Withdrawal")}
                   component="img"
                   src={cash}
                   alt="Withdraw"
@@ -320,219 +353,531 @@ function Dashboard() {
               </Button>
             </Stack>
           </Box>
-          <div className="mt-2 w-full grid grid-cols-3 gap-[2%] o" style={{ width: '95%', marginLeft: '2.5%', marginTop: '20px', mb: '20px' }}>
+          <div
+            className="mt-2 w-full grid grid-cols-3 gap-[2%] o"
+            style={{
+              width: "95%",
+              marginLeft: "2.5%",
+              marginTop: "20px",
+              mb: "20px",
+            }}
+          >
             {game_data?.map((i) => {
               return (
-                <div
-                  onClick={() => settype_of_game(i?.name)}
+                <a
+                  onClick={() => { scrollToSection('games'); settype_of_game(i?.name); }}
+                  href={`#${i?.name}`}
                   style={{
                     // background:
                     //   zubgmid,
-                    background:
-                      zubgbackgrad,
-                    padding: '10px'
+                    background: zubgbackgrad,
+                    padding: "10px",
                   }}
                   className="cursor-pointer rounded-lg w-full flex flex-col items-center justify-center"
                 >
                   <img className="w-[90px] h-[90px] " src={i?.img} />
-                  <p className="!text-sm font-bold" style={{ color: 'white' }}>{i?.name}</p>
-                </div>
+                  <p className="!text-sm font-bold" style={{ color: "white" }}>
+                    {i?.name}
+                  </p>
+                </a>
               );
             })}
           </div>
-
-          {type_of_game === "Lottery" && <Lottery />}
-          {type_of_game === "Original" && <Original />}
-
-
+          <Box id='games' >
+            <div id="game_lottery">{type_of_game === "Lottery" && <Lottery />}</div>
+            <div id="game_original">{type_of_game === "Original" && <Original />}</div>
+            <div id="game_sports">{type_of_game === "Sports" && <Sports />}</div>
+          </Box>
           <Box sx={styles.wininfoouter}>
-            <Typography variant="body1" color="initial" sx={{ color: 'white', fontWeight: '600', fontSize: '16px', mb: 2 }}>Winning information</Typography>
-            <Stack direction='row' sx={{ ...styles.wininfoinner, mb: '10px' }}>
-              <Stack direction='row' sx={styles.wininfoouterone}>
+            <Typography
+              variant="body1"
+              color="initial"
+              sx={{
+                color: "white",
+                fontWeight: "600",
+                fontSize: "16px",
+                mb: 2,
+              }}
+            >
+              Winning information
+            </Typography>
+            <Stack direction="row" sx={{ ...styles.wininfoinner, mb: "10px" }}>
+              <Stack direction="row" sx={styles.wininfoouterone}>
                 <Avatar alt="Cindy Baker" src={pro1} width={50} />
-                <Typography variant="body1" >Myh***pol</Typography>
+                <Typography variant="body1">Myh***pol</Typography>
               </Stack>
-              <Stack direction='row' sx={styles.wininfooutertwo}>
-                <Box component='img' src={winp4} ></Box>
+              <Stack direction="row" sx={styles.wininfooutertwo}>
+                <Box component="img" src={winp4}></Box>
                 <Box>
-                  <Typography variant="body1" color="initial">Receive ₹1,960.00</Typography>
-                  <Typography variant="body1" color="initial">Winning amount</Typography>
+                  <Typography variant="body1" color="initial">
+                    Receive ₹1,960.00
+                  </Typography>
+                  <Typography variant="body1" color="initial">
+                    Winning amount
+                  </Typography>
                 </Box>
               </Stack>
             </Stack>
-            <Stack direction='row' sx={{ ...styles.wininfoinner, mb: '10px' }}>
-              <Stack direction='row' sx={styles.wininfoouterone}>
+            <Stack direction="row" sx={{ ...styles.wininfoinner, mb: "10px" }}>
+              <Stack direction="row" sx={styles.wininfoouterone}>
                 <Avatar alt="Cindy Baker" src={pro2} width={50} />
-                <Typography variant="body1" >Myh***pol</Typography>
+                <Typography variant="body1">Myh***pol</Typography>
               </Stack>
-              <Stack direction='row' sx={styles.wininfooutertwo}>
-                <Box component='img' src={winp5} ></Box>
+              <Stack direction="row" sx={styles.wininfooutertwo}>
+                <Box component="img" src={winp5}></Box>
                 <Box>
-                  <Typography variant="body1" color="initial">Receive ₹1,960.00</Typography>
-                  <Typography variant="body1" color="initial">Winning amount</Typography>
+                  <Typography variant="body1" color="initial">
+                    Receive ₹1,960.00
+                  </Typography>
+                  <Typography variant="body1" color="initial">
+                    Winning amount
+                  </Typography>
                 </Box>
               </Stack>
             </Stack>
-            <Stack direction='row' sx={{ ...styles.wininfoinner, mb: '10px' }}>
-              <Stack direction='row' sx={styles.wininfoouterone}>
+            <Stack direction="row" sx={{ ...styles.wininfoinner, mb: "10px" }}>
+              <Stack direction="row" sx={styles.wininfoouterone}>
                 <Avatar alt="Cindy Baker" src={pro1} width={50} />
-                <Typography variant="body1" >Myh***pol</Typography>
+                <Typography variant="body1">Myh***pol</Typography>
               </Stack>
-              <Stack direction='row' sx={styles.wininfooutertwo}>
-                <Box component='img' src={winp1} ></Box>
+              <Stack direction="row" sx={styles.wininfooutertwo}>
+                <Box component="img" src={winp1}></Box>
                 <Box>
-                  <Typography variant="body1" color="initial">Receive ₹1,960.00</Typography>
-                  <Typography variant="body1" color="initial">Winning amount</Typography>
+                  <Typography variant="body1" color="initial">
+                    Receive ₹1,960.00
+                  </Typography>
+                  <Typography variant="body1" color="initial">
+                    Winning amount
+                  </Typography>
                 </Box>
               </Stack>
             </Stack>
-            <Stack direction='row' sx={{ ...styles.wininfoinner, mb: '10px' }}>
-              <Stack direction='row' sx={styles.wininfoouterone}>
+            <Stack direction="row" sx={{ ...styles.wininfoinner, mb: "10px" }}>
+              <Stack direction="row" sx={styles.wininfoouterone}>
                 <Avatar alt="Cindy Baker" src={pro2} width={50} />
-                <Typography variant="body1" >Myh***pol</Typography>
+                <Typography variant="body1">Myh***pol</Typography>
               </Stack>
-              <Stack direction='row' sx={styles.wininfooutertwo}>
-                <Box component='img' src={winp2} ></Box>
+              <Stack direction="row" sx={styles.wininfooutertwo}>
+                <Box component="img" src={winp2}></Box>
                 <Box>
-                  <Typography variant="body1" color="initial">Receive ₹1,960.00</Typography>
-                  <Typography variant="body1" color="initial">Winning amount</Typography>
+                  <Typography variant="body1" color="initial">
+                    Receive ₹1,960.00
+                  </Typography>
+                  <Typography variant="body1" color="initial">
+                    Winning amount
+                  </Typography>
                 </Box>
               </Stack>
             </Stack>
-            <Stack direction='row' sx={{ ...styles.wininfoinner, mb: '10px' }}>
-              <Stack direction='row' sx={styles.wininfoouterone}>
+            <Stack direction="row" sx={{ ...styles.wininfoinner, mb: "10px" }}>
+              <Stack direction="row" sx={styles.wininfoouterone}>
                 <Avatar alt="Cindy Baker" src={pro3} width={50} />
-                <Typography variant="body1" >Myh***pol</Typography>
+                <Typography variant="body1">Myh***pol</Typography>
               </Stack>
-              <Stack direction='row' sx={styles.wininfooutertwo}>
-                <Box component='img' src={winp3} ></Box>
+              <Stack direction="row" sx={styles.wininfooutertwo}>
+                <Box component="img" src={winp3}></Box>
                 <Box>
-                  <Typography variant="body1" color="initial">Receive ₹1,960.00</Typography>
-                  <Typography variant="body1" color="initial">Winning amount</Typography>
+                  <Typography variant="body1" color="initial">
+                    Receive ₹1,960.00
+                  </Typography>
+                  <Typography variant="body1" color="initial">
+                    Winning amount
+                  </Typography>
                 </Box>
               </Stack>
             </Stack>
-            <Stack direction='row' sx={{ ...styles.wininfoinner, mb: '0px' }}>
-              <Stack direction='row' sx={styles.wininfoouterone}>
+            <Stack direction="row" sx={{ ...styles.wininfoinner, mb: "0px" }}>
+              <Stack direction="row" sx={styles.wininfoouterone}>
                 <Avatar alt="Cindy Baker" src={pro3} width={50} />
-                <Typography variant="body1" >Myh***pol</Typography>
+                <Typography variant="body1">Myh***pol</Typography>
               </Stack>
-              <Stack direction='row' sx={styles.wininfooutertwo}>
-                <Box component='img' src={winp6} ></Box>
+              <Stack direction="row" sx={styles.wininfooutertwo}>
+                <Box component="img" src={winp6}></Box>
                 <Box>
-                  <Typography variant="body1" color="initial">Receive ₹1,960.00</Typography>
-                  <Typography variant="body1" color="initial">Winning amount</Typography>
+                  <Typography variant="body1" color="initial">
+                    Receive ₹1,960.00
+                  </Typography>
+                  <Typography variant="body1" color="initial">
+                    Winning amount
+                  </Typography>
                 </Box>
               </Stack>
             </Stack>
           </Box>
 
           {/* stage Podium */}
-          <Box sx={{
-            width: '95%', marginLeft: '2.5%', borderRadius: '10px', mt: '20px', mb: '30px', height: '35vh',
-            backgroundImage: `url(${stage})`, backgroundSize: '100% 100%', position: 'relative',
-          }}>
+          <Box
+            sx={{
+              width: "95%",
+              marginLeft: "2.5%",
+              borderRadius: "10px",
+              mt: "20px",
+              mb: "30px",
+              height: "35vh",
+              backgroundImage: `url(${stage})`,
+              backgroundSize: "100% 100%",
+              position: "relative",
+            }}
+          >
             <Box sx={styles.winner1}>
-              <Box component='img' src={pro1c} sx={{ width: '60px', borderRadius: '50%', border: `3px solid ${zubgmid}`, height: '60px', objectPosition: 'top' }}></Box>
-              <Box component='img' src={position1} sx={{ width: '70px', height: '20px' }}></Box>
+              <Box
+                component="img"
+                // src={pro1c}
+                src={sajid}
+                sx={{
+                  width: "60px",
+                  borderRadius: "50%",
+                  border: `3px solid ${zubgmid}`,
+                  height: "60px",
+                  objectPosition: "top",
+                }}
+              ></Box>
+              <Box
+                component="img"
+                src={position1}
+                sx={{ width: "70px", height: "20px" }}
+              ></Box>
             </Box>
             <Box sx={styles.winner2}>
-              <Box component='img' src={pro1c} sx={{ width: '50px', borderRadius: '50%', border: `3px solid ${zubgmid}`, height: '50px', objectPosition: 'top' }}></Box>
-              <Box component='img' src={position2} sx={{ width: '60px', height: '15px' }}></Box>
+              <Box
+                component="img"
+                // src={pro1c}
+                src={tanveer}
+                sx={{
+                  width: "50px",
+                  borderRadius: "50%",
+                  border: `3px solid ${zubgmid}`,
+                  height: "50px",
+                  objectPosition: "top",
+                }}
+              ></Box>
+              <Box
+                component="img"
+                src={position2}
+                sx={{ width: "60px", height: "15px" }}
+              ></Box>
             </Box>
             <Box sx={styles.winner3}>
-              <Box component='img' src={pro1c} sx={{ width: '50px', borderRadius: '50%', border: `3px solid ${zubgmid}`, height: '50px', objectPosition: 'top' }}></Box>
-              <Box component='img' src={position3} sx={{ width: '60px', height: '15px' }}></Box>
+              <Box
+                component="img"
+                // src={pro1c}
+                src={"https://lh3.googleusercontent.com/a/ACg8ocJ_lQQ7XjcLthKctAe1u5A6Fv8JJUQ0ugECmc7RkiZmKfI=s360-c-no"}
+                sx={{
+                  width: "50px",
+                  borderRadius: "50%",
+                  border: `3px solid ${zubgmid}`,
+                  height: "50px",
+                  objectPosition: "top",
+                }}
+              ></Box>
+              <Box
+                component="img"
+                src={position3}
+                sx={{ width: "60px", height: "15px" }}
+              ></Box>
             </Box>
           </Box>
           {/* stage Podium end */}
-          <Box sx={{ ...styles.wininfoouter, mb: '40px' }}>
-            <Stack direction='row' sx={{ ...styles.wininfoinner, mb: '10px' }}>
-              <Stack direction='row' sx={styles.wininfoouterone}>
+          <Box sx={{ ...styles.wininfoouter, mb: "40px" }}>
+            <Stack direction="row" sx={{ ...styles.wininfoinner, mb: "10px" }}>
+              <Stack direction="row" sx={styles.wininfoouterone}>
                 <Avatar alt="Cindy Baker" src={pro1} width={50} />
-                <Typography variant="body1" >Myh***pol</Typography>
+                <Typography variant="body1">Myh***pol</Typography>
               </Stack>
-              <Stack direction='row' sx={styles.wininfooutertwo}>
-                <Box component='img' src={winp4} ></Box>
+              <Stack direction="row" sx={styles.wininfooutertwo}>
+                <Box component="img" src={winp4}></Box>
                 <Box>
-                  <Typography variant="body1" color="initial">Receive ₹1,960.00</Typography>
-                  <Typography variant="body1" color="initial">Winning amount</Typography>
+                  <Typography variant="body1" color="initial">
+                    Receive ₹1,960.00
+                  </Typography>
+                  <Typography variant="body1" color="initial">
+                    Winning amount
+                  </Typography>
                 </Box>
               </Stack>
             </Stack>
-            <Stack direction='row' sx={{ ...styles.wininfoinner, mb: '10px' }}>
-              <Stack direction='row' sx={styles.wininfoouterone}>
+            <Stack direction="row" sx={{ ...styles.wininfoinner, mb: "10px" }}>
+              <Stack direction="row" sx={styles.wininfoouterone}>
                 <Avatar alt="Cindy Baker" src={pro2} width={50} />
-                <Typography variant="body1" >Myh***pol</Typography>
+                <Typography variant="body1">Myh***pol</Typography>
               </Stack>
-              <Stack direction='row' sx={styles.wininfooutertwo}>
-                <Box component='img' src={winp5} ></Box>
+              <Stack direction="row" sx={styles.wininfooutertwo}>
+                <Box component="img" src={winp5}></Box>
                 <Box>
-                  <Typography variant="body1" color="initial">Receive ₹1,960.00</Typography>
-                  <Typography variant="body1" color="initial">Winning amount</Typography>
+                  <Typography variant="body1" color="initial">
+                    Receive ₹1,960.00
+                  </Typography>
+                  <Typography variant="body1" color="initial">
+                    Winning amount
+                  </Typography>
                 </Box>
               </Stack>
             </Stack>
-            <Stack direction='row' sx={{ ...styles.wininfoinner, mb: '0px' }}>
-              <Stack direction='row' sx={styles.wininfoouterone}>
+            <Stack direction="row" sx={{ ...styles.wininfoinner, mb: "0px" }}>
+              <Stack direction="row" sx={styles.wininfoouterone}>
                 <Avatar alt="Cindy Baker" src={pro3} width={50} />
-                <Typography variant="body1" >Myh***pol</Typography>
+                <Typography variant="body1">Myh***pol</Typography>
               </Stack>
-              <Stack direction='row' sx={styles.wininfooutertwo}>
-                <Box component='img' src={winp6} ></Box>
+              <Stack direction="row" sx={styles.wininfooutertwo}>
+                <Box component="img" src={winp6}></Box>
                 <Box>
-                  <Typography variant="body1" color="initial">Receive ₹1,960.00</Typography>
-                  <Typography variant="body1" color="initial">Winning amount</Typography>
+                  <Typography variant="body1" color="initial">
+                    Receive ₹1,960.00
+                  </Typography>
+                  <Typography variant="body1" color="initial">
+                    Winning amount
+                  </Typography>
                 </Box>
               </Stack>
             </Stack>
           </Box>
+          {poicy && (
+            <Dialog
+              open={poicy}
+              TransitionComponent={Transition}
+              keepMounted
+              onClose={handleClosepolicy}
+              aria-describedby="alert-dialog-slide-description"
+              PaperProps={{ className: `!max-w-[1000px] ${gray}` }}
+            >
+              <div style={{ background: zubgmid, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '15px' }}>
+                <p style={{ color: 'white', fontSize: '14px' }}>Notification</p>
+                <RxCross2 style={{ color: 'white' }} onClick={handleClosepolicy} />
+              </div>
+              <DialogContent style={{ background: zubgback }}><Notification handleClosepolicy={handleClosepolicy} /></DialogContent>
+            </Dialog>
+          )}
         </Container>
-      </Box >
-    </Layout >
+      </Box>
+      <CustomCircularProgress isLoading={isLoading}/>
+    </Layout>
   );
 }
 
 export default Dashboard;
 
-
 const styles = {
   root: { background: "#202020", pb: 6 },
-  dashboardTitle: { textAlign: "center", color: "white !important", fontSize: "21px", fontWeight: "500" },
+  dashboardTitle: {
+    textAlign: "center",
+    color: "white !important",
+    fontSize: "21px",
+    fontWeight: "500",
+  },
   swiperImage: { width: "100%", height: "auto" },
-  depositWithdrawContainer: { alignItems: "center", justifyContent: "space-between", mt: 4, width: '95%', marginLeft: '2.5%' },
+  depositWithdrawContainer: {
+    alignItems: "center",
+    justifyContent: "space-between",
+    mt: 4,
+    width: "95%",
+    marginLeft: "2.5%",
+  },
   depositWithdrawIcon: { width: "30px", height: "30px" },
-  referralLinkContainer: { background: zubgmid, padding: "15px 15px", borderRadius: "5px", mt: 4, width: '95%', marginLeft: '2.5%' },
-  referralLinkTitle: { color: "white !important", fontSize: "14px", fontWeight: "500 !important", mb: 1 },
+  referralLinkContainer: {
+    background: zubgmid,
+    padding: "15px 15px",
+    borderRadius: "5px",
+    mt: 4,
+    width: "95%",
+    marginLeft: "2.5%",
+  },
+  referralLinkTitle: {
+    color: "white !important",
+    fontSize: "14px",
+    fontWeight: "500 !important",
+    mb: 1,
+  },
   referralLinkInputContainer: { alignItems: "center" },
   referralLinkInput: { width: "100%" },
   referralLinkButton: { marginLeft: 2 },
-  socialButtonsContainer: { alignItems: "center", justifyContent: "space-between", mt: 4 },
-  telegramButton: { fontSize: "14px", color: "white !important", textTransform: "capitalize", fontWeight: "400" },
-  supportButton: { fontSize: "14px", color: "white !important", textTransform: "capitalize", fontWeight: "400" },
-  socialButtonIcon: { margin: "auto", background: "white", borderRadius: "50%", width: "25px", height: "25px", display: "flex", alignItems: "center", justifyContent: "center" },
+  socialButtonsContainer: {
+    alignItems: "center",
+    justifyContent: "space-between",
+    mt: 4,
+  },
+  telegramButton: {
+    fontSize: "14px",
+    color: "white !important",
+    textTransform: "capitalize",
+    fontWeight: "400",
+  },
+  supportButton: {
+    fontSize: "14px",
+    color: "white !important",
+    textTransform: "capitalize",
+    fontWeight: "400",
+  },
+  socialButtonIcon: {
+    margin: "auto",
+    background: "white",
+    borderRadius: "50%",
+    width: "25px",
+    height: "25px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
   socialIcon: { fontSize: "20px", "&>path": { color: "#6da7f4 !important" } },
-  socialIconinfo: { fontSize: "27px", margin: "auto", "&>path": { color: "white !important" } },
-  socialButtonText: { color: "white !important", textTransform: "capitalize", fontWeight: "400", fontSize: "14px" },
-  gameImage: { width: "90px", height: "80px", position: "absolute", top: "-20px", right: "0px" },
-  gameTitle: { fontSize: "22px", fontWeight: "600", color: "white !important", transition: "all 0.3s" },
-  gameDescription: { fontSize: "15px", fontWeight: "400", color: "white !important", mt: 2, transition: "all 0.3s" },
+  socialIconinfo: {
+    fontSize: "27px",
+    margin: "auto",
+    "&>path": { color: "white !important" },
+  },
+  socialButtonText: {
+    color: "white !important",
+    textTransform: "capitalize",
+    fontWeight: "400",
+    fontSize: "14px",
+  },
+  gameImage: {
+    width: "90px",
+    height: "80px",
+    position: "absolute",
+    top: "-20px",
+    right: "0px",
+  },
+  gameTitle: {
+    fontSize: "22px",
+    fontWeight: "600",
+    color: "white !important",
+    transition: "all 0.3s",
+  },
+  gameDescription: {
+    fontSize: "15px",
+    fontWeight: "400",
+    color: "white !important",
+    mt: 2,
+    transition: "all 0.3s",
+  },
   userImage: { width: "50px", height: "50px" },
-  profileBox: { "&>.profile": { width: "80px", height: "80px", borderRadius: "50%" }, position: "relative", mb: "15px" },
+  profileBox: {
+    "&>.profile": { width: "80px", height: "80px", borderRadius: "50%" },
+    position: "relative",
+    mb: "15px",
+  },
   stageBox: { width: "100%" },
-  stageinner: { width: "32%", position: "absolute", top: "0%", left: "0%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" },
-  stageinnerTwo: { width: "32%", position: "absolute", top: "-18%", left: "34%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" },
-  stageinnerThree: { width: "32%", position: "absolute", top: "-4%", right: "0%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" },
-  imgBox: { width: "50px", height: "50px", position: "absolute", top: "-23px", left: "-15px" },
-  thirdimg: { width: "70px", height: "18px", position: "absolute", bottom: "0", left: "7px" },
+  stageinner: {
+    width: "32%",
+    position: "absolute",
+    top: "0%",
+    left: "0%",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  stageinnerTwo: {
+    width: "32%",
+    position: "absolute",
+    top: "-18%",
+    left: "34%",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  stageinnerThree: {
+    width: "32%",
+    position: "absolute",
+    top: "-4%",
+    right: "0%",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  imgBox: {
+    width: "50px",
+    height: "50px",
+    position: "absolute",
+    top: "-23px",
+    left: "-15px",
+  },
+  thirdimg: {
+    width: "70px",
+    height: "18px",
+    position: "absolute",
+    bottom: "0",
+    left: "7px",
+  },
   name: { color: "#8f5206", fontSize: "13px", fontWeight: 500 },
-  rupee: { color: "#8f5206", fontSize: "13px", fontWeight: 500, background: "linear-gradient(180deg, #FAE59F 0%, #C4933F 100%)", padding: "6px 5px", borderRadius: "20px" },
-  wininfoouter: { width: '95%', marginLeft: '2.5%', background: zubgmid, padding: '10px 10px', mt: '25px', borderRadius: '10px' },
-  wininfooutertwo: { alignItems: 'center', justifyContent: 'space-between', '&>img': { width: '100px', height: '50px', borderRadius: '10px', border: '1px solid white', marginRight: '10px' }, '&>div>p:nth-child(1)': { color: 'white', fontSize: '14px', fontWeight: '600', textAlign: 'center' }, '&>div>p:nth-child(2)': { color: 'white', fontSize: '12px', fontWeight: '400', textAlign: 'center' } },
-  wininfoouterone: { width: '45%', alignItems: 'center', justifyContent: 'start', '&>p': { color: 'white', ml: '10px', fontSize: '13px', fontWeight: "500" } },
-  wininfoinner: { alignItems: 'center', justifyContent: 'space-between', background: zubgback, padding: '10px ', borderRadius: '10px' },
-  winner1: { position: 'absolute', left: '42.5%', top: '35%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' },
-  winner2: { position: 'absolute', left: '14.5%', top: '44%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' },
-  winner3: { position: 'absolute', right: '13%', bottom: '25%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' },
-
+  rupee: {
+    color: "#8f5206",
+    fontSize: "13px",
+    fontWeight: 500,
+    background: "linear-gradient(180deg, #FAE59F 0%, #C4933F 100%)",
+    padding: "6px 5px",
+    borderRadius: "20px",
+  },
+  wininfoouter: {
+    width: "95%",
+    marginLeft: "2.5%",
+    background: zubgmid,
+    padding: "10px 10px",
+    mt: "25px",
+    borderRadius: "10px",
+  },
+  wininfooutertwo: {
+    alignItems: "center",
+    justifyContent: "space-between",
+    "&>img": {
+      width: "100px",
+      height: "50px",
+      borderRadius: "10px",
+      border: "1px solid white",
+      marginRight: "10px",
+    },
+    "&>div>p:nth-child(1)": {
+      color: "white",
+      fontSize: "14px",
+      fontWeight: "600",
+      textAlign: "center",
+    },
+    "&>div>p:nth-child(2)": {
+      color: "white",
+      fontSize: "12px",
+      fontWeight: "400",
+      textAlign: "center",
+    },
+  },
+  wininfoouterone: {
+    width: "45%",
+    alignItems: "center",
+    justifyContent: "start",
+    "&>p": { color: "white", ml: "10px", fontSize: "13px", fontWeight: "500" },
+  },
+  wininfoinner: {
+    alignItems: "center",
+    justifyContent: "space-between",
+    background: zubgback,
+    padding: "10px ",
+    borderRadius: "10px",
+  },
+  winner1: {
+    position: "absolute",
+    left: "42.5%",
+    top: "35%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "column",
+  },
+  winner2: {
+    position: "absolute",
+    left: "14.5%",
+    top: "44%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "column",
+  },
+  winner3: {
+    position: "absolute",
+    right: "13%",
+    bottom: "25%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "column",
+  },
 };

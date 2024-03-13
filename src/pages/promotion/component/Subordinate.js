@@ -6,6 +6,7 @@ import empty from '../../../assets/images/empty.png'
 import KeyboardArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardArrowLeftOutlined';
 import Layout from '../../../component/Layout/Layout';
 import { NavLink } from 'react-router-dom';
+import { iconcolorpink, zubgback, zubgmid } from '../../../Shared/color';
 
 
 function Subordinate() {
@@ -20,7 +21,7 @@ function Subordinate() {
 
   return (
     <Layout>
-      <Container sx={{ background: '#292929', width: '100%' }}>
+      <Container sx={{ background: zubgback, width: '100%' }}>
         <Box sx={style.header}>
           <Box component={NavLink} to='/promotion/'>
             <KeyboardArrowLeftOutlinedIcon />
@@ -29,9 +30,9 @@ function Subordinate() {
           <Typography variant="body1" color="initial"> </Typography>
         </Box>
         <Box sx={{
-          width: '95%', background: '#3F3F3F', marginLeft: '2.5%', marginTop: '10px', borderRadius: '5px', color: 'white !important',
+          width: '95%', background: zubgmid, marginLeft: '2.5%', marginTop: '10px', borderRadius: '5px', color: 'white !important',
           '&>div>div>div>button': { color: 'gray' },
-          '&>div>div>div>button.Mui-selected ': { color: '#d9ac4f !important' },
+          '&>div>div>div>button.Mui-selected ': { color: iconcolorpink },
         }}>
           <Tabs value={value} onChange={handleChange} centered>
             <Tab label="Today" />
@@ -66,7 +67,7 @@ export default Subordinate
 
 const style = {
   header: {
-    padding: '8px', background: '#3F3F3F', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+    padding: '8px', background: zubgmid, display: 'flex', alignItems: 'center', justifyContent: 'space-between',
     '&>p': { color: 'white !important' }, '&>a>svg': { color: 'white', fontSize: '25px' }
   },
 };

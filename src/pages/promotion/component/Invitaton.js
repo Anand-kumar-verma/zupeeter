@@ -1,26 +1,22 @@
-import { Container, Typography, Box, Stack, } from '@mui/material'
-import * as React from 'react';
 import KeyboardArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardArrowLeftOutlined';
+import { Box, Container, Stack, Typography, } from '@mui/material';
+import * as React from 'react';
 
 import { NavLink } from 'react-router-dom';
-import posterbg from '../.././../assets/images/posterbg.png'
-import posterlogo from '../.././../assets/images/posterlogo.png'
-import tmsbg from '../.././../assets/images/tms.png'
-import car from '../.././../assets/images/car.png'
-import bank from '../.././../assets/images/bank.png'
-import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Pagination } from 'swiper/modules';
-
-
-
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { iconcolorpink, iconcoloryellow, zubgback, zubgbackgrad, zubgmid } from '../../../Shared/color';
+import bank from '../.././../assets/images/bank.png';
+import car from '../.././../assets/images/car.png';
+import posterlogo from '../.././../assets/images/logo.png';
 
 
 function Invitaton() {
 
   return (
-    <Container sx={{ background: '#292929', width: '100%', }}>
+    <Container sx={{ background: zubgback, width: '100%', }}>
       <Box sx={style.header}>
         <Box component={NavLink} to='/promotion/'>
           <KeyboardArrowLeftOutlinedIcon />
@@ -34,12 +30,12 @@ function Invitaton() {
 
       <Swiper pagination={{ dynamicBullets: false, }} modules={[Pagination]} className="mySwiper"
         slidesPerView={1.2}
-        spaceBetween={5}
+        spaceBetween={10}
         centeredSlides={true}
       >
         <SwiperSlide>
-          <Box sx={{ backgroundImage: `url(${posterbg})`, width: '100%', padding: '30px 15px', backgroundSize: 'contain', backgroundSize: '100% 100%' }}>
-            <Box component='img' src={posterlogo} sx={{ width: '100px !important' }}></Box>
+          <Box sx={{ padding: ' 0px 20px 20px 20px ', background: zubgmid, borderRadius: '10px' }}>
+            <Box component='img' src={posterlogo} sx={{ width: '100px !important', margin: 'auto' }}></Box>
             <Box sx={{
               display: 'flex', alignItems: 'center', justifyContent: 'space-between',
               '&>p': { fontSize: '12px', color: 'white !important', fontWeight: '500' }
@@ -47,14 +43,14 @@ function Invitaton() {
               <Typography variant="body1" color="initial">Welcome to <br /> BDG Game</Typography>
 
               <Box sx={{
-                backgroundImage: `url(${tmsbg})`, padding: '10px', backgroundSize: '100% 100%', textAlign: 'center',
-                '&>p': { color: '#ff3737', fontWeight: '600', fontSize: '12px', }
+                padding: '10px', background: zubgbackgrad, borderRadius: '10px', textAlign: 'center',
+                '&>p': { color: 'white', fontWeight: '600', fontSize: '12px', }
               }}>
                 <Typography variant="body1" color="initial"> Fair <br /> and justice</Typography>
               </Box>
               <Box sx={{
-                backgroundImage: `url(${tmsbg})`, padding: '10px', backgroundSize: '100% 100%', textAlign: 'center',
-                '&>p': { color: '#ff3737', fontWeight: '600', fontSize: '12px', }
+                padding: '10px', background: zubgbackgrad, borderRadius: '10px', textAlign: 'center',
+                '&>p': { color: 'white', fontWeight: '600', fontSize: '12px', }
               }}>
                 <Typography variant="body1" color="initial"> Open and <br /> transparent</Typography>
               </Box>
@@ -81,13 +77,13 @@ function Invitaton() {
               <Typography variant="h6" color="initial">Permanent<br /> commission up to 85%</Typography>
             </Box>
             <Box SX={{ marginTop: '30px', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
-              <Box sx={{ background: 'red', width: '100px', height: '100px', margin: 'auto' }}></Box>
+              <Box sx={{ background: zubgback, width: '100px', height: '100px', margin: 'auto' }}></Box>
             </Box>
           </Box>
         </SwiperSlide>
         <SwiperSlide>
-          <Box sx={{ backgroundImage: `url(${posterbg})`, width: '100%', padding: '30px 15px', backgroundSize: 'contain', backgroundSize: '100% 100%' }}>
-            <Box component='img' src={posterlogo} sx={{ width: '100px !important' }}></Box>
+          <Box sx={{ padding: ' 0px 20px 20px 20px ', background: zubgmid, borderRadius: '10px' }}>
+            <Box component='img' src={posterlogo} sx={{ width: '100px !important', margin: 'auto' }}></Box>
             <Box sx={{
               display: 'flex', alignItems: 'center', justifyContent: 'space-between',
               '&>p': { fontSize: '12px', color: 'white !important', fontWeight: '500' }
@@ -95,14 +91,14 @@ function Invitaton() {
               <Typography variant="body1" color="initial">Welcome to <br /> BDG Game</Typography>
 
               <Box sx={{
-                backgroundImage: `url(${tmsbg})`, padding: '10px', backgroundSize: '100% 100%', textAlign: 'center',
-                '&>p': { color: '#ff3737', fontWeight: '600', fontSize: '12px', }
+                padding: '10px', background: zubgbackgrad, borderRadius: '10px', textAlign: 'center',
+                '&>p': { color: 'white', fontWeight: '600', fontSize: '12px', }
               }}>
                 <Typography variant="body1" color="initial"> Fair <br /> and justice</Typography>
               </Box>
               <Box sx={{
-                backgroundImage: `url(${tmsbg})`, padding: '10px', backgroundSize: '100% 100%', textAlign: 'center',
-                '&>p': { color: '#ff3737', fontWeight: '600', fontSize: '12px', }
+                padding: '10px', background: zubgbackgrad, borderRadius: '10px', textAlign: 'center',
+                '&>p': { color: 'white', fontWeight: '600', fontSize: '12px', }
               }}>
                 <Typography variant="body1" color="initial"> Open and <br /> transparent</Typography>
               </Box>
@@ -129,13 +125,13 @@ function Invitaton() {
               <Typography variant="h6" color="initial">Permanent<br /> commission up to 85%</Typography>
             </Box>
             <Box SX={{ marginTop: '30px', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
-              <Box sx={{ background: 'red', width: '100px', height: '100px', margin: 'auto' }}></Box>
+              <Box sx={{ background: zubgback, width: '100px', height: '100px', margin: 'auto' }}></Box>
             </Box>
           </Box>
         </SwiperSlide>
         <SwiperSlide>
-          <Box sx={{ backgroundImage: `url(${posterbg})`, width: '100%', padding: '30px 15px', backgroundSize: 'contain', backgroundSize: '100% 100%' }}>
-            <Box component='img' src={posterlogo} sx={{ width: '100px !important' }}></Box>
+          <Box sx={{ padding: ' 0px 20px 20px 20px ', background: zubgmid, borderRadius: '10px' }}>
+            <Box component='img' src={posterlogo} sx={{ width: '100px !important', margin: 'auto' }}></Box>
             <Box sx={{
               display: 'flex', alignItems: 'center', justifyContent: 'space-between',
               '&>p': { fontSize: '12px', color: 'white !important', fontWeight: '500' }
@@ -143,14 +139,14 @@ function Invitaton() {
               <Typography variant="body1" color="initial">Welcome to <br /> BDG Game</Typography>
 
               <Box sx={{
-                backgroundImage: `url(${tmsbg})`, padding: '10px', backgroundSize: '100% 100%', textAlign: 'center',
-                '&>p': { color: '#ff3737', fontWeight: '600', fontSize: '12px', }
+                padding: '10px', background: zubgbackgrad, borderRadius: '10px', textAlign: 'center',
+                '&>p': { color: 'white', fontWeight: '600', fontSize: '12px', }
               }}>
                 <Typography variant="body1" color="initial"> Fair <br /> and justice</Typography>
               </Box>
               <Box sx={{
-                backgroundImage: `url(${tmsbg})`, padding: '10px', backgroundSize: '100% 100%', textAlign: 'center',
-                '&>p': { color: '#ff3737', fontWeight: '600', fontSize: '12px', }
+                padding: '10px', background: zubgbackgrad, borderRadius: '10px', textAlign: 'center',
+                '&>p': { color: 'white', fontWeight: '600', fontSize: '12px', }
               }}>
                 <Typography variant="body1" color="initial"> Open and <br /> transparent</Typography>
               </Box>
@@ -177,7 +173,7 @@ function Invitaton() {
               <Typography variant="h6" color="initial">Permanent<br /> commission up to 85%</Typography>
             </Box>
             <Box SX={{ marginTop: '30px', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
-              <Box sx={{ background: 'red', width: '100px', height: '100px', margin: 'auto' }}></Box>
+              <Box sx={{ background: zubgback, width: '100px', height: '100px', margin: 'auto' }}></Box>
             </Box>
           </Box>
         </SwiperSlide>
@@ -188,7 +184,7 @@ function Invitaton() {
         alignItems: 'center', justifyContent: 'space-between', padding: 2,
         '&>p:nth-child(1)': { color: 'white !important', fontSize: '14px', fontWeight: 500 },
         '&>p:nth-child(2)': { color: 'white !important', fontSize: '14px', fontWeight: 500 },
-        '&>p:nth-child(2)>span': { color: '#FFB857', fontSize: '14px', fontWeight: 500 },
+        '&>p:nth-child(2)>span': { color: iconcolorpink, fontSize: '14px', fontWeight: 500 },
       }}>
         <Typography variant="body1" color="initial">Invite friends</Typography>
         <Typography variant="body1" color="initial">Income  <span> 10 billion </span> Commission</Typography>
@@ -211,16 +207,16 @@ export default Invitaton
 
 const style = {
   header: {
-    padding: '8px', background: '#3F3F3F', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+    padding: '8px', background: zubgmid, display: 'flex', alignItems: 'center', justifyContent: 'space-between',
     '&>p': { color: 'white !important' }, '&>a>svg': { color: 'white !important', fontSize: '25px' }
   },
   invitebutton: {
-    width: '100%', background: '#292929', paddingTop: '40px', mt: '-10px',
-    '&>a>p': { width: '80%', marginLeft: '10%', borderRadius: '20px', textAlign: 'center', padding: '10px', background: 'linear-gradient(180deg, #FAE59F 0%, #C4933F 100%)', color: '#8f5206', fontSize: '17px', fontWeight: 600 }
+    width: '100%', background: zubgback, paddingTop: '40px', mt: '-10px',
+    '&>a>p': { width: '80%', marginLeft: '10%', borderRadius: '10px', textAlign: 'center', padding: '10px', background: iconcoloryellow, color: 'white', fontSize: '17px', fontWeight: 600 }
   },
   invitebuttontwo: {
     width: '100%', background: 'transparent', paddingTop: '40px', mt: '-10px', pb: 5,
-    '&>a>p': { width: '80%', marginLeft: '10%', borderRadius: '20px', textAlign: 'center', padding: '10px', background: 'transparent', color: '#8f5206', fontSize: '17px', fontWeight: 600, border: '1px solid #FFB765', }
+    '&>a>p': { width: '80%', marginLeft: '10%', borderRadius: '10px', textAlign: 'center', padding: '10px', background: iconcolorpink, color: 'white', fontSize: '17px', fontWeight: 600, }
   },
 };
 

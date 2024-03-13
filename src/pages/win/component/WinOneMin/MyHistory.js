@@ -1,24 +1,27 @@
-import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
+
+
 import {
   Box,
-  CircularProgress,
   Stack,
   TablePagination,
-  Typography,
+  Typography
 } from "@mui/material";
-import Pagination from "@mui/material/Pagination";
+import axios from "axios";
 import moment from "moment";
 import * as React from "react";
-import { endpoint, rupees } from "../../../../services/urls";
-import { useQuery } from "react-query";
-import axios from "axios";
 import toast from "react-hot-toast";
+import { useQuery } from "react-query";
+import CustomCircularProgress from "../../../../Shared/CustomCircularProgress";
+import { zubgback, zubgbackgrad, zubgmid } from "../../../../Shared/color";
+import history from '../../../../assets/images/rules.png';
+import { endpoint, rupees } from "../../../../services/urls";
+
 
 const MyHistory = ({ gid }) => {
   const login_data = localStorage.getItem("logindata");
   const user_id = JSON.parse(login_data).UserID;
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [page, setPage] = React.useState(1);
+  const [page, setPage] = React.useState(0);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -26,7 +29,7 @@ const MyHistory = ({ gid }) => {
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(1);
+    setPage(0);
   };
 
   const { isLoading: myhistory_loding, data: my_history } = useQuery(
@@ -60,50 +63,40 @@ const MyHistory = ({ gid }) => {
         page * rowsPerPage,
         page * rowsPerPage + rowsPerPage
       ),
-    [page, rowsPerPage,my_history_data]
+    [page, rowsPerPage, my_history_data]
   );
 
-  if (myhistory_loding) return <div className="!w-full flex justify-center"><CircularProgress /></div>;
   return (
     <Box>
       <Stack direction="row" className="onegotextbox">
         <Typography variant="body1" color="initial">
-          <EmojiEventsIcon />
+          <Box component='img' src={history} width={25} sx={{ marginRight: '10px' }}></Box>
           {gid === "1"
             ? " My One GO Record"
             : gid === "2"
-            ? " My Three GO Record"
-            : " My Five GO Record"}
+              ? " My Three GO Record"
+              : " My Five GO Record"}
         </Typography>
       </Stack>
-      <div className="flex flex-col gap-1">
+      <div className="flex flex-col gap-3">
         {visibleRows?.map((i) => {
           return (
-            <div className="!bg-white !bg-opacity-5 p-5 rounded-lg cursor-pointer">
+            <div style={{ background: zubgback, padding: '15px', borderRadius: '10px ', marginBottom: '10px !important' }}>
               <div className="flex justify-between">
+                <Typography variant="body1" sx={{ background: zubgmid, color: 'white !important', padding: '5px 20px', borderRadius: '5px' }}>Bet</Typography>
                 <p
-                  style={{
-                    background:
-                      "linear-gradient(180deg, #FAE59F 0%, #C4933F 100%)",
-                  }}
-                  className="px-[10%] rounded-full"
-                >
-                  Bet
-                </p>
-                <p
-                  className={`${
-                    i?.status === 0
-                      ? "!text-red-400"
-                      : i?.status === "1"
+                  className={`${i?.status === 0
+                    ? "!text-red-400"
+                    : i?.status === "1"
                       ? "!text-green-400"
                       : "!text-blue-400"
-                  }`}
+                    }`}
                 >
                   {i?.status === "0"
                     ? "Pending"
                     : i?.status === "1"
-                    ? "Win"
-                    : "Loss"}
+                      ? "Win"
+                      : "Loss"}
                 </p>
               </div>
               <div className="flex justify-between mt-2">
@@ -129,8 +122,8 @@ const MyHistory = ({ gid }) => {
                   {i?.gameid === "1"
                     ? "1 min"
                     : i?.gameid === "2"
-                    ? "3 min"
-                    : "5 min"}
+                      ? "3 min"
+                      : "5 min"}
                 </p>
               </div>
               <div className="flex justify-between">
@@ -156,8 +149,8 @@ const MyHistory = ({ gid }) => {
 
       <Box className="paginationTable">
         <TablePagination
-          className="!bg-gradient-to-r from-[#F8E19B] to-[#CCA04E] !text-white"
-          rowsPerPageOptions={[2,5, 10, 15]}
+          sx={{ background: zubgbackgrad, color: 'white', borderRadius: '10px', marginTop: '10px', }}
+          rowsPerPageOptions={[2, 5, 10, 15]}
           component="div"
           count={my_history_data?.length}
           rowsPerPage={rowsPerPage}
@@ -166,8 +159,10 @@ const MyHistory = ({ gid }) => {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </Box>
+      <CustomCircularProgress isLoading={myhistory_loding}/>
     </Box>
   );
 };
 
 export default MyHistory;
+

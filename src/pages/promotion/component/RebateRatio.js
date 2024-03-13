@@ -6,6 +6,7 @@ import empty from '../../../assets/images/empty.png'
 import KeyboardArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardArrowLeftOutlined';
 import Layout from '../../../component/Layout/Layout';
 import { NavLink } from 'react-router-dom';
+import { zubgback, zubgbackgrad, zubgmid } from '../../../Shared/color';
 
 
 function RebateRatio() {
@@ -20,7 +21,7 @@ function RebateRatio() {
 
   return (
     <Layout>
-      <Container sx={{ background: '#292929', width: '100%', }}>
+      <Container sx={{ background: zubgback, width: '100%', }}>
         <Box sx={style.header}>
           <Box component={NavLink} to='/promotion'>
             <KeyboardArrowLeftOutlinedIcon />
@@ -32,7 +33,7 @@ function RebateRatio() {
           <Typography variant="body1" color="initial">Lottery commission percentage</Typography>
           <Box>
             <Stack direction='row' sx={{
-              px: '2px', py: '10px', background: '#6F6F6F', alignItems: 'center', justifyContent: 'space-between',
+              px: '2px', py: '10px', background: zubgbackgrad, alignItems: 'center', justifyContent: 'space-between',
               '&>div': { fontSize: '12px', color: 'white !important', width: '20%', textAlign: 'center' },
             }}>
               <Box>Commission level</Box>
@@ -77,7 +78,7 @@ function RebateRatio() {
           <Typography variant="body1" color="initial">Slots commission percentage</Typography>
           <Box>
             <Stack direction='row' sx={{
-              px: '2px', py: '10px', background: '#6F6F6F', alignItems: 'center', justifyContent: 'space-between',
+              px: '2px', py: '10px', background: zubgbackgrad, alignItems: 'center', justifyContent: 'space-between',
               '&>div': { fontSize: '12px', color: 'white !important', width: '20%', textAlign: 'center' },
             }}>
               <Box>Commission level</Box>
@@ -122,7 +123,7 @@ function RebateRatio() {
           <Typography variant="body1" color="initial">Casino commission percentage</Typography>
           <Box>
             <Stack direction='row' sx={{
-              px: '2px', py: '10px', background: '#6F6F6F', alignItems: 'center', justifyContent: 'space-between',
+              px: '2px', py: '10px', background: zubgbackgrad, alignItems: 'center', justifyContent: 'space-between',
               '&>div': { fontSize: '12px', color: 'white !important', width: '20%', textAlign: 'center' },
             }}>
               <Box>Commission level</Box>
@@ -167,7 +168,7 @@ function RebateRatio() {
           <Typography variant="body1" color="initial">Sports commission percentage</Typography>
           <Box>
             <Stack direction='row' sx={{
-              px: '2px', py: '10px', background: '#6F6F6F', alignItems: 'center', justifyContent: 'space-between',
+              px: '2px', py: '10px', background: zubgbackgrad, alignItems: 'center', justifyContent: 'space-between',
               '&>div': { fontSize: '12px', color: 'white !important', width: '20%', textAlign: 'center' },
             }}>
               <Box>Commission level</Box>
@@ -208,11 +209,11 @@ function RebateRatio() {
             </Stack>
           </Box>
         </Box>
-        <Box sx={{ '&>p': { fontSize: '15px', color: 'white !important', py: 1, px: 1 } }}>
+        <Box sx={{ '&>p': { fontSize: '15px', color: 'white !important', py: 1, px: 1, } }}>
           <Typography variant="body1" color="initial">Chess and card commission ratio</Typography>
-          <Box>
+          <Box sx={{ pb: 13 }}>
             <Stack direction='row' sx={{
-              px: '2px', py: '10px', background: '#6F6F6F', alignItems: 'center', justifyContent: 'space-between',
+              px: '2px', py: '10px', background: zubgbackgrad, alignItems: 'center', justifyContent: 'space-between',
               '&>div': { fontSize: '12px', color: 'white !important', width: '20%', textAlign: 'center' },
             }}>
               <Box>Commission level</Box>
@@ -262,11 +263,11 @@ export default RebateRatio
 
 const style = {
   header: {
-    padding: '8px', background: '#3F3F3F', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+    padding: '8px', background: zubgmid, display: 'flex', alignItems: 'center', justifyContent: 'space-between',
     '&>p': { color: 'white !important' }, '&>a>svg': { color: 'white !important', fontSize: '25px' }
   },
   levalBox: {
-    px: '0px', background: '#3F3F3F', display: 'flex !important', alignItems: 'center', justifyContent: 'space-between',
+    px: '0px', background: zubgmid, display: 'flex !important', alignItems: 'center', justifyContent: 'space-between',
     '&>div': {
       fontSize: '12px', color: 'white !important', textAlign: 'center', border: '1px solid #292929', width: '20%', height: '45px',
       display: 'flex', alignItems: 'center', justifyContent: 'center'

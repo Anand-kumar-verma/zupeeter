@@ -4,11 +4,11 @@ export const demomobile = `
 @keyframes slidein {
     0% {
       left: 20px;
-      top: calc(100% -  50px);
+      top: calc(100% -  58px);
     }
     20% {
       left:80px;
-      top: calc(100% -  50px);
+      top: calc(100% -  58px);
     }
     50% {
       left: 40%;
@@ -51,11 +51,11 @@ export const demomobile = `
       }
     50% {
       left: 80%;
-      top: calc(20% - 40px);
+      top: calc(25% - 42px);
     }
     100% {
       left: 100%;
-      top: 20px;
+      top:calc(20% - 42px);
     }
   }
   
@@ -77,18 +77,18 @@ export const demomolap = `
     }
     100% {
       left: 78%;
-      top: calc(42% - 80px);
+      top: calc(20% - 80px);
     }
   }
   
  @keyframes slideafter {
   0% {
     left: 78%;
-    top: calc(42% - 80px);
+    top: calc(20% - 80px);
   }
   25% {
     left: 81%;
-    top: calc(60% - 80px);
+    top: calc(50% - 80px);
   }
   50% {
     left: 84%;
@@ -96,21 +96,21 @@ export const demomolap = `
   }
   75% {
     left: 81%;
-    top: calc(60% - 80px);
+    top: calc(50% - 80px);
   }
   100% {
     left: 78%;
-    top: calc(42% - 80px);
+    top: calc(20% - 80px);
   }
 }
   @keyframes thirdAnimation {
     0% {
         left: 80%;
-        top: calc(42% - 80px);
+        top: calc(20% - 80px);
       }
     100% {
       left: 100%;
-      top: 20px;
+      top: calc(15% - 80px);
     }
   }
   

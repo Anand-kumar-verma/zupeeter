@@ -1,4 +1,3 @@
-import { CircularProgress } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -6,14 +5,13 @@ import { useQueryClient } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
 import { useMediaQuery } from "react-responsive";
 import { useSocket } from "../Shared/SocketContext";
-import air from "../assets/air.png";
-import aviator_game_waiting from "../assets/images/aviator_game_waiting.avif";
 import loderImage from "../assets/loderimage.png";
+import plane1 from "../assets/plan1.svg";
+import plane2 from "../assets/plan2.svg";
 import win from "../assets/win.png";
 import {
   byTimeIsEnableMusic,
   byTimeIsEnableSound,
-  waitingAviatorFun,
 } from "../redux/slices/counterSlice";
 import { endpoint } from "../services/urls";
 import {
@@ -28,10 +26,6 @@ import {
   ButtomDottedPointMoveable,
   LeftDottedPoint,
   LeftDottedPointMoveable,
-  RightDottedPoint,
-  RightDottedPointMoveable,
-  TopDottedPoint,
-  TopDottedPointMoveable,
 } from "./DottedPoint";
 import SpentBetLeft from "./SpentBetLeft";
 import SpentBetRight from "./SpentBetRight";
@@ -48,46 +42,13 @@ const AirPlane = ({ formik, fk }) => {
     y: 0,
   });
   const [combineTime, setcombineTime] = useState("0_0");
-
+  const [initialCordinate, setInitialCordinate] = useState(0);
   let milliseconds = combineTime?.split("_")?.[0].substring(0, 2);
   let seconds = Number(combineTime?.split("_")?.[1]);
   const client = useQueryClient();
-
-  // useEffect(() => {
-  //   socket.on("message", (newMessage) => {
-  //     console.log(newMessage, "This is new message");
-  //     startFly(newMessage);
-  //   });
-
-  //   return () => {
-  //     socket.off("message");
-  //   };
-  // }, []);
-  // useEffect(() => {
-  //   socket.on("seconds", (seconds) => {
-  //     setcombineTime(seconds);
-  //   });
-  //   socket.on("setcolorofdigit", (color_value) => {
-  //     fk.setFieldValue("setcolorofdigit", color_value);
-  //     console.log(color_value, "This is color Value");
-  //   });
-  //   socket.on("setloder", (setloder) => {
-  //     fk.setFieldValue("setloder", setloder);
-  //   });
-  //   socket.on("isFlying", (isFlying) => {
-  //     fk.setFieldValue("isFlying", isFlying);
-  //   });
-  //   return () => {
-  //     socket.off("seconds");
-  //     socket.off("setcolorofdigit");
-  //     socket.off("setloder");
-  //     socket.off("isFlying");
-  //   };
-  // }, []);
-
+  let bool = true;
   useEffect(() => {
     const handleNewMessage = (newMessage) => {
-      console.log(newMessage, "This is new message");
       startFly(newMessage);
     };
 
@@ -157,15 +118,12 @@ const AirPlane = ({ formik, fk }) => {
   }
 
   function startFly(randomFlyingTime) {
+    bool = true;
     dispatch(byTimeIsEnableMusic(true));
-    // fk.setFieldValue("setloder", false);
-    // fk.setFieldValue("isFlying", true);
     fk.setFieldValue("closeButtomDot", true);
     fk.setFieldValue("isEnablingWinner", true);
     const mainDiv = document.getElementsByClassName("maindiv")[0];
     hii(randomFlyingTime);
-
-    // Log the coordinates to the console
 
     const timerInterval = setInterval(() => {
       const airplainimage = document.getElementsByClassName("maindiv")[0];
@@ -176,6 +134,11 @@ const AirPlane = ({ formik, fk }) => {
         x: airplainRect.x - parentRect.x,
         y: airplainRect.y - parentRect.y,
       };
+
+      if (bool) {
+        setInitialCordinate(newBottomLeftCoordinates);
+        bool = false;
+      }
       setBottomLeftCoordinates(newBottomLeftCoordinates);
     }, 10);
 
@@ -213,7 +176,7 @@ const AirPlane = ({ formik, fk }) => {
 
   const setResultFuncton = async () => {
     try {
-      const response = await axios.get(`${endpoint.aviator_result}`);
+      await axios.get(`${endpoint.aviator_result}`);
       client.refetchQueries("allresult");
     } catch (e) {
       toast(e?.message);
@@ -229,7 +192,7 @@ const AirPlane = ({ formik, fk }) => {
     <>
       <div
         className={`${
-          !waiting_aviator && "py-8"
+          !waiting_aviator && "lg:py-8 py-9"
         } moved parentdiv relative lg:h-[60vh]  h-[35vh] w-[99.8%] overflow-hidden  rounded-3xl mt-1 border-[1px] border-white border-opacity-10`}
       >
         <>
@@ -238,162 +201,99 @@ const AirPlane = ({ formik, fk }) => {
             className={`${
               backgroundImage_url ===
               "https://res.cloudinary.com/do7kimovl/image/upload/v1709114502/circle_dafpdo.svg"
-                ? "absolute  -bottom-[250%] left-0 rotate_background_image !z-0 bg-gradient-to-l from-[#541850] to-[#341a55] bg-opacity-5 w-[600%] h-[600%]"
+                ? "absolute  -bottom-[400%] left-0 rotate_background_image !z-0 bg-gradient-to-l from-[#000000] via-[#5a125a] to-[#0a070e] bg-opacity-5 w-[900%] h-[900%]"
                 : "bgimagedynamic !z-0 absolute  top-0 left-0 h-full w-[99.8%]"
             }  object-cover `}
           />
-          {/* {fk.values.isShadowPath &&
-            (isMediumScreen ? (
-              <svg
-                width="100%"
-                height="150%"
-                xmlns="http://www.w3.org/2000/svg"
-                className="z-10 absolute"
-              >
-                {bottomLeftCoordinate.x < 190 ? (
-                  <line
-                    x1="10"
-                    y1="195"
-                    x2={`${bottomLeftCoordinate.x + 10}`}
-                    y2="195"
-                    stroke="rgba(112,9,25, 0.6)"
-                    strokeWidth="2"
-                  />
-                ) : (
-                  <>
-                    <path
-                      d={`
-          M-100 400 
-          C200 200, 200 200, ${bottomLeftCoordinate.x + 10} ${
-                        bottomLeftCoordinate.y + 28
-                      }
-          L${bottomLeftCoordinate.x} 400 
-          L-40 400 
-          Z
-        `}
-                      fill="rgba(112,9,25, 0.6)"
-                      // stroke="#BC0319"
-                      stroke-width="3"
-                      stroke-dasharray="1000 0"
-                    />
-                  </>
-                )}
-              </svg>
-            ) : (
-              <svg
-                width="100%"
-                height="150%"
-                xmlns="http://www.w3.org/2000/svg"
-                className="z-10 absolute"
-              >
-                {bottomLeftCoordinate.x < 100 ? (
-                  <line
-                    x1="10"
-                    y1="145"
-                    x2={`${bottomLeftCoordinate.x + 5}`}
-                    y2="145"
-                    stroke="rgba(112,9,25, 0.6)"
-                    strokeWidth="2"
-                  />
-                ) : (
-                  <>
-                    <path
-                      d={`
-          M-10 185 
-          C50 100, 50 ${
-            bottomLeftCoordinate.x < 150 ? bottomLeftCoordinate.x + 40 : 190
-          }, ${bottomLeftCoordinate.x + 5} ${bottomLeftCoordinate.y}
-          L${bottomLeftCoordinate.x} 200 
-          L-40 200 
-          Z
-        `}
-                      fill="rgba(112,9,25, 0.6)"
-                      // stroke="#BC0319"
-                      stroke-width="3"
-                      stroke-dasharray="1000 0"
-                    />
-                  </>
-                )}
-              </svg>
-            ))} */}
           {fk.values.isShadowPath &&
             (isMediumScreen ? (
               <svg
                 width="100%"
-                height="150%"
+                height="60vh"
                 xmlns="http://www.w3.org/2000/svg"
                 className="z-10 absolute"
               >
-                {bottomLeftCoordinate.x < 350 ? (
-                  <line
-                    x1="0"
-                    y1="0"
-                    x2="0"
-                    y2="0"
-                    stroke="rgba(112,9,25, 0.6)"
-                    strokeWidth="2"
-                    // x1="10"
-                    // y1="262"
-                    // x2={`${bottomLeftCoordinate.x-10}`}
-                    // y2="262"
-                    // stroke="rgba(112,9,25, 0.6)"
-                    // strokeWidth="2"
-                  />
-                ) : (
-                  <svg>
-                    <path
-                      d={`
-          M-500 540 
-          C100 300, 450 300, ${bottomLeftCoordinate.x + 10} ${
-                        bottomLeftCoordinate.y + 28
-                      }
-          L${bottomLeftCoordinate.x + 10} 400 
-          L-90 400 
-          Z
-        `}
-                      fill="rgba(112,9,25, 0.6)"
-                      // stroke="#BC0319"
-                      stroke-width="3"
-                      stroke-dasharray="1000 0"
-                    />
-                  </svg>
-                )}
+                <path
+                  d={`M -10 ${initialCordinate.y + 24} C ${
+                    bottomLeftCoordinate.x < 300
+                      ? bottomLeftCoordinate.x - 40
+                      : 300
+                  } ${initialCordinate.y + 20 }, ${
+                    bottomLeftCoordinate.x < 500
+                      ? bottomLeftCoordinate.x - 20
+                      : 500
+                  } ${initialCordinate.y + 20 }, ${bottomLeftCoordinate.x + 15} ${
+                    bottomLeftCoordinate.y + 24
+                  } L ${bottomLeftCoordinate.x+10} ${initialCordinate.y + 30} L 10 ${
+                    initialCordinate.y + 30
+                  } Z`}
+                  fill="rgba(112,9,25, 0.6)"
+                  // stroke="#BC0319"
+                  stroke-width="3"
+                  stroke-dasharray="1000 0"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d={`M -10 ${initialCordinate.y + 25} C ${
+                    bottomLeftCoordinate.x < 300
+                      ? bottomLeftCoordinate.x - 40
+                      : 300
+                  } ${initialCordinate.y + 23 }, ${
+                    bottomLeftCoordinate.x < 500
+                      ? bottomLeftCoordinate.x - 20
+                      : 500
+                  } ${initialCordinate.y + 23 }, ${bottomLeftCoordinate.x + 15} ${
+                    bottomLeftCoordinate.y + 24
+                  }`}
+                  stroke="#a10019"
+                  stroke-width="4"
+                  fill="none"
+                />
               </svg>
             ) : (
               <svg
                 width="100%"
-                height="150%"
+                height="35vh"
                 xmlns="http://www.w3.org/2000/svg"
                 className="z-10 absolute"
               >
-                {bottomLeftCoordinate.x < 150 ? (
-                  <line
-                    x1="10"
-                    y1="300"
-                    x2={`${bottomLeftCoordinate.x + 5}`}
-                    y2="300"
-                    stroke="rgba(112,9,25, 0.6)"
-                    strokeWidth="2"
-                  />
-                ) : (
-                  <svg>
-                    <path
-                      d={`
-          M-320 260 
-          C100 260, 80 ${
-            bottomLeftCoordinate.x < 150 ? bottomLeftCoordinate.x + 80 : 80
-          }, ${bottomLeftCoordinate.x + 5} ${bottomLeftCoordinate.y}
-          L${bottomLeftCoordinate.x} 200 
-          L-40 200 
-          Z
-        `}
-                      fill="rgba(112,9,25, 0.6)"
-                      // stroke="#BC0319"
-                      stroke-width="3"
-                      stroke-dasharray="1000 0"
-                    />
-                  </svg>
-                )}
+                <path
+                  className="!absolute !bottom-0 !left-0"
+                  d={`M -10 ${initialCordinate.y } C ${
+                    bottomLeftCoordinate.x < 80
+                      ? bottomLeftCoordinate.x - 10
+                      : 80
+                  } ${initialCordinate.y}, ${
+                    bottomLeftCoordinate.x < 120
+                      ? bottomLeftCoordinate.x - 5
+                      : 120
+                  } ${initialCordinate.y },${bottomLeftCoordinate.x + 8} ${
+                    bottomLeftCoordinate.y
+                  } L ${bottomLeftCoordinate.x + 15} ${initialCordinate.y+3} L ${
+                    bottomLeftCoordinate.y
+                  } ${initialCordinate.y+3} Z`}
+                  fill="rgba(112,9,25, 0.6)"
+                  stroke-width="3"
+                  stroke-dasharray="1000 0"
+                  stroke-linejoin="round"
+                />
+                <path
+                  className="!absolute !bottom-0 !left-0"
+                  d={`M -10 ${initialCordinate.y } C ${
+                    bottomLeftCoordinate.x < 80
+                      ? bottomLeftCoordinate.x - 10
+                      : 80
+                  } ${initialCordinate.y}, ${
+                    bottomLeftCoordinate.x < 120
+                      ? bottomLeftCoordinate.x - 5
+                      : 120
+                  } ${initialCordinate.y},${bottomLeftCoordinate.x + 8} ${
+                    bottomLeftCoordinate.y
+                  } `}
+                  stroke="#a10019"
+                  stroke-width="3"
+                  fill="none"
+                />
               </svg>
             ))}
           <div className="maindiv absolute bottom-[20px] left-[20px]  animate-slidein infinite ">
@@ -405,10 +305,10 @@ const AirPlane = ({ formik, fk }) => {
               </p>
             )}
 
-            <div className="relative lg:w-[120px] w-[60px] lg:h-[60px]">
+            <div className="relative lg:w-[120px] w-[80px] lg:h-[60px] !z-50 ">
               <img
-                src={air}
-                className="airplain lg:w-[120px] w-[60px] lg:h-[60px]  h-[30px] text-[#BC0319] "
+                src={Number(milliseconds || 0) % 3 === 0 ? plane1 : plane2}
+                className="airplain  lg:w-[120px] w-[80px] lg:h-[60px]  h-[40px] text-[#a10019] "
               />
             </div>
           </div>
@@ -452,7 +352,9 @@ const AirPlane = ({ formik, fk }) => {
                 />
                 {/* <img src="https://res.cloudinary.com/do7kimovl/image/upload/v1708426809/loderimage_pc4eyd.png" className="w-[46%] h-[46%] rotate-animation" /> */}
                 <p className="lg:text-lg !text-2xl font-thin">
-                  <span className="lg:!text-2xl text-[20px] !font-bold whitespace-nowrap">WAITING FOR NEXT ROUND</span>
+                  <span className="lg:!text-2xl text-[20px] !font-bold whitespace-nowrap">
+                    WAITING FOR NEXT ROUND
+                  </span>
                 </p>
                 <div className="lg:h-[5px] h-[4px] w-[110px] lg:w-[155px] rounded-r-full rounded-l-full relative  bg-[#BC0319] ">
                   <div className="loder-waiting-for-next-round !rounded-full"></div>
@@ -468,11 +370,16 @@ const AirPlane = ({ formik, fk }) => {
         `}
             >
               {fk.values.setcolorofdigit && (
-                <span className="!text-2xl text-white text-center !font-bold">
+                <p className="!text-2xl lg:pr-5 text-white text-center !font-bold w-full">
                   FLEW AWAY!
-                </span>
+                </p>
               )}
-              <span className="!font-semibold">{`${seconds + 1}.${milliseconds}x `}</span>
+              <div className="!font-semibold grid grid-cols-3 lg:w-[225px] w-[190px]">
+                <span className="col-span-2">{`${seconds + 1}.${String(
+                  milliseconds
+                ).padStart(2, "0")}`}</span>
+                <span style={{ marginLeft: "4px" }}>x</span>
+              </div>
             </p>
           )}
         </>

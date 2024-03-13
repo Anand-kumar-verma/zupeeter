@@ -22,6 +22,7 @@ import axios from "axios";
 import { endpoint } from "../../../services/urls";
 import toast from "react-hot-toast";
 import { useQueryClient } from "react-query";
+import CustomCircularProgress from "../../../Shared/CustomCircularProgress";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -94,42 +95,41 @@ const ApplyBetDialogBox = ({
     >
       <Box>
         <Stack
-          className={`${
-            ((type === "green" ||
-              type === 1 ||
-              type === 3 ||
-              type === 7 ||
-              type === 9) &&
-              "!bg-gradient-to-b from-[#B7F8AF] to-[#50CB53]") ||
+          className={`${((type === "green" ||
+            type === 1 ||
+            type === 3 ||
+            type === 7 ||
+            type === 9) &&
+            "!bg-[#30b539]") ||
             ((type === "red" ||
               type === 2 ||
               type === 6 ||
               type === 4 ||
               type === 8) &&
-              "!bg-gradient-to-b from-[#F67682] to-[#B03C47]") ||
+              "!bg-[#FE0000]") ||
             ((type === "voilet" || type === 0 || type === 5) &&
-              "!bg-gradient-to-b from-[#F79CF8] to-[#873088]") ||
+              "!bg-[#710193]") ||
             (type === "small" &&
-              "!bg-gradient-to-b from-[#68A1ED] to-[#21497F]") ||
-            (type === "big" && "!bg-gradient-to-b from-[#FBDA74] to-[#BB9112]")
-          } 
+              "!bg-[#EE1285]") ||
+            (type === "big" && "!bg-[#FBB13B]")
+            } 
             dialog-header `}
         >
           <Box>
-            <Typography variant="body1" color="initial">
+            <Typography variant="body1" color="initial" sx={{ color: 'white !important', fontSize: '15px', fontWeight: '600' }}>
               {(type === "green" && "Join Green") ||
                 (type === "voilet" && "Join Voilet") ||
                 (type === "red" && "Join Red") ||
                 type}
             </Typography>
           </Box>
-          <IconButton onClick={() => setapply_bit_dialog_box(false)}>
+          <IconButton onClick={() => setapply_bit_dialog_box(false)} sx={{ '&>svg>path': { color: 'white', } }}>
             <CloseIcon />
           </IconButton>
         </Stack>
       </Box>
       <Box className="dialogsmallbat">
-        <Typography variant="body1" color="initial">
+        <Typography variant="body1" sx={{ color: 'white !important', }}>
           Contract Money
         </Typography>
         <Box
@@ -140,26 +140,25 @@ const ApplyBetDialogBox = ({
             return (
               <Button
                 onClick={() => handleClickValue(i)}
-                className={`${
-                  ((type === "green" ||
-                    type === 1 ||
-                    type === 3 ||
-                    type === 7 ||
-                    type === 9) &&
-                    "!bg-gradient-to-b from-[#B7F8AF] to-[#50CB53]") ||
+                className={`${((type === "green" ||
+                  type === 1 ||
+                  type === 3 ||
+                  type === 7 ||
+                  type === 9) &&
+                  "!bg-[#30b539]") ||
                   ((type === "red" ||
                     type === 2 ||
                     type === 6 ||
                     type === 4 ||
                     type === 8) &&
-                    "!bg-gradient-to-b from-[#F67682] to-[#B03C47]") ||
+                    "!bg-[#FE0000]") ||
                   ((type === "voilet" || type === 0 || type === 5) &&
-                    "!bg-gradient-to-b from-[#F79CF8] to-[#873088]") ||
+                    "!bg-[#710193]") ||
                   (type === "small" &&
-                    "!bg-gradient-to-b from-[#68A1ED] to-[#21497F]") ||
+                    "!bg-[#EE1285]") ||
                   (type === "big" &&
-                    "!bg-gradient-to-b from-[#FBDA74] to-[#BB9112]")
-                } 
+                    "!bg-[#FBB13B]")
+                  } 
             `}
               >
                 {i}
@@ -191,27 +190,26 @@ const ApplyBetDialogBox = ({
           return (
             <div
               onClick={() => setcalculated_value(value * i)}
-              className={`${
-                ((type === "green" ||
-                  type === 1 ||
-                  type === 3 ||
-                  type === 7 ||
-                  type === 9) &&
-                  "!bg-gradient-to-b from-[#B7F8AF] to-[#50CB53]") ||
+              className={`${((type === "green" ||
+                type === 1 ||
+                type === 3 ||
+                type === 7 ||
+                type === 9) &&
+                "!bg-[#30b539]") ||
                 ((type === "red" ||
                   type === 2 ||
                   type === 6 ||
                   type === 4 ||
                   type === 8) &&
-                  "!bg-gradient-to-b from-[#F67682] to-[#B03C47]") ||
+                  "!bg-[#FE0000]") ||
                 ((type === "voilet" || type === 0 || type === 5) &&
-                  "!bg-gradient-to-b from-[#F79CF8] to-[#873088]") ||
+                  "!bg-[#710193]") ||
                 (type === "small" &&
-                  "!bg-gradient-to-b from-[#68A1ED] to-[#21497F]") ||
+                  "!bg-[#EE1285]") ||
                 (type === "big" &&
-                  "!bg-gradient-to-b from-[#FBDA74] to-[#BB9112]")
-              }
-             !px-3 !py-2 rounded-md  !text-center !text-[#8f5206]
+                  "!bg-[#FBB13B]")
+                }
+             !px-3 !py-2 rounded-md  !text-center !text-[#fff]
             `}
             >
               {i}x
@@ -255,23 +253,14 @@ const ApplyBetDialogBox = ({
           onClick={() => betFunctionStart()}
           loding={true}
         >
-          {loding ? (
-            <span className="flex justify-center items-center">
-              <CircularProgress className={"!h-5 !w-5"} />
-            </span>
-          ) : (
-            "Confirm"
-          )}
+         Confirm
         </Button>
-        <Button
-          className="!text-white"
-          variant="text"
-          color="primary"
-          onClick={() => setapply_bit_dialog_box(false)}
-        >
+        <Button variant="text" onClick={() => setapply_bit_dialog_box(false)}>
           Cancel
         </Button>
       </Stack>
+
+      <CustomCircularProgress isLoading={loding}/>
     </Dialog>
   );
 };

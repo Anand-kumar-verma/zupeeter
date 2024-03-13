@@ -1,95 +1,109 @@
-import React from 'react';
-import { Container, Typography, Box, TextField } from '@mui/material';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { Box, Container, Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import 'swiper/css';
-import 'swiper/css/pagination';
 import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import { zubgback } from '../../Shared/color';
+import ludotwo from '../../assets/images/lodu2.webp';
+import ludothree from '../../assets/images/lodu3.webp';
+import ludofour from '../../assets/images/lodu4.webp';
+import ludofive from '../../assets/images/lodu5.webp';
+import ludosix from '../../assets/images/lodu6.webp';
 import ludo from '../../assets/images/ludo.webp';
-import ludotwo from '../../assets/images/lodu2.webp'
-import ludothree from '../../assets/images/lodu3.webp'
-import ludofour from '../../assets/images/lodu4.webp'
-import ludofive from '../../assets/images/lodu5.webp'
-import ludosix from '../../assets/images/lodu6.webp'
 import Layout from '../../component/Layout/Layout';
 
+
 function Activity() {
+
+  const navigate = useNavigate();
+  const goBack = () => {
+    navigate(-1);
+  };
+
   return (
     <Layout>
-      <Box sx={styles.root}>
-        <Container>
-          <Box sx={{ padding: 2, borderBottom: '1px solid white' }}>
-            <ArrowBackIcon sx={{ color: 'white !important' }} />
-            <TextField fullWidth placeholder='Search here' id="fullWidth" className='searchInput' />
-          </Box>
+      <Container sx={{ background: zubgback, width: '100%', height: '100vh', overflow: 'auto', mb: 7 }}>
+        <Box sx={style.header}>
           <Box >
-            <Box className="coming-text"> Coming Soon</Box>
           </Box>
-          <Box className="bgcardbox">
-            <Box className="bgcardboxda">
-              <Box sx={{ width: '100%', height: "130px", position: 'absolute', top: '-20px', }}>
-                <Box sx={{ width: '60%', height: '90px', marginLeft: '20%' }}>
-                  <Box component='img' src={ludo}></Box>
-                </Box>
-                <Typography variant="body1" color="initial" sx={{ textAlign: 'center', mt: '20px', fontSize: '15px', fontWeight: '500' }}>Ludo Supreme</Typography>
+          <Typography variant="body1" color="initial" sx={{ mt: 2, fontSize: '16px', fontWeight: '600' }}>Activity</Typography>
+          <Box >
+          </Box>
+        </Box>
+        <Box className="bgcardbox">
+          <Box className="bgcardboxda">
+            <Box sx={{ width: '100%', height: "160px", }}>
+              <Box sx={{ width: '60%', height: '50%', marginLeft: '20%', marginTop: '10%' }}>
+                <Box component='img' src={ludo} sx={{ width: '100%', height: '100%' }}></Box>
               </Box>
-            </Box>
-            <Box className="bgcardboxda">
-              <Box sx={{ width: '100%', height: "130px", position: 'absolute', top: '-20px', }}>
-                <Box sx={{ width: '60%', height: '90px', marginLeft: '20%' }}>
-                  <Box component='img' src={ludotwo}></Box>
-                </Box>
-                <Typography variant="body1" color="initial" sx={{ textAlign: 'center', mt: '20px', fontSize: '15px', fontWeight: '500' }}>Ludo Ninja
-                </Typography>
-              </Box>
-            </Box>
-            <Box className="bgcardboxda">
-              <Box sx={{ width: '100%', height: "130px", position: 'absolute', top: '-20px', }}>
-                <Box sx={{ width: '60%', height: '90px', marginLeft: '20%' }}>
-                  <Box component='img' src={ludothree}></Box>
-                </Box>
-                <Typography variant="body1" color="initial" sx={{ textAlign: 'center', mt: '20px', fontSize: '15px', fontWeight: '500' }}>Ludo Turbo
-                </Typography>
-              </Box>
-            </Box>
-            <Box className="bgcardboxda">
-              <Box sx={{ width: '100%', height: "130px", position: 'absolute', top: '-20px', }}>
-                <Box sx={{ width: '60%', height: '90px', marginLeft: '20%' }}>
-                  <Box component='img' src={ludosix}></Box>
-                </Box>
-                <Typography variant="body1" color="initial" sx={{ textAlign: 'center', mt: '20px', fontSize: '15px', fontWeight: '500' }}>Snakes & Ladders Plus
-                </Typography>
-              </Box>
-            </Box>
-            <Box className="bgcardboxda">
-              <Box sx={{ width: '100%', height: "130px", position: 'absolute', top: '-20px', }}>
-                <Box sx={{ width: '60%', height: '90px', marginLeft: '20%' }}>
-                  <Box component='img' src={ludofive}></Box>
-                </Box>
-                <Typography variant="body1" color="initial" sx={{ textAlign: 'center', mt: '20px', fontSize: '15px', fontWeight: '500' }}>Trump Cards Mania
-                </Typography>
-              </Box>
-            </Box>
-            <Box className="bgcardboxda">
-              <Box sx={{ width: '100%', height: "130px", position: 'absolute', top: '-20px', }}>
-                <Box sx={{ width: '60%', height: '90px', marginLeft: '20%' }}>
-                  <Box component='img' src={ludofour}></Box>
-                </Box>
-                <Typography variant="body1" color="initial" sx={{ textAlign: 'center', mt: '20px', fontSize: '15px', fontWeight: '500' }}>Ludo Supreme League</Typography>
-              </Box>
+              <Typography variant="body1" color="initial" sx={{ textAlign: 'center', mt: '10px', fontSize: '15px', fontWeight: '500', color: 'white' }}>Ludo Supreme</Typography>
             </Box>
           </Box>
-        </Container>
-      </Box>
-    </Layout>
-  );
+          <Box className="bgcardboxda">
+            <Box sx={{ width: '100%', height: "160px", }}>
+              <Box sx={{ width: '60%', height: '50%', marginLeft: '20%', marginTop: '10%' }}>
+                <Box component='img' src={ludotwo} sx={{ width: '100%', height: '100%' }}></Box>
+              </Box>
+              <Typography variant="body1" color="initial" sx={{ textAlign: 'center', mt: '10px', fontSize: '15px', fontWeight: '500', color: 'white' }}>Ludo Ninja
+              </Typography>
+            </Box>
+          </Box>
+          <Box className="bgcardboxda">
+            <Box sx={{ width: '100%', height: "160px", }}>
+              <Box sx={{ width: '60%', height: '50%', marginLeft: '20%', marginTop: '10%' }}>
+                <Box component='img' src={ludothree} sx={{ width: '100%', height: '100%' }}></Box>
+              </Box>
+              <Typography variant="body1" color="initial" sx={{ textAlign: 'center', mt: '10px', fontSize: '15px', fontWeight: '500', color: 'white' }}>Ludo Turbo
+              </Typography>
+            </Box>
+          </Box>
+          <Box className="bgcardboxda">
+            <Box sx={{ width: '100%', height: "160px", }}>
+              <Box sx={{ width: '60%', height: '50%', marginLeft: '20%', marginTop: '10%' }}>
+                <Box component='img' src={ludofour} sx={{ width: '100%', height: '100%' }}></Box>
+              </Box>
+              <Typography variant="body1" color="initial" sx={{ textAlign: 'center', mt: '10px', fontSize: '15px', fontWeight: '500', color: 'white' }}>Snakes & Ladders Plus
+              </Typography>
+            </Box>
+          </Box>
+          <Box className="bgcardboxda">
+            <Box sx={{ width: '100%', height: "160px", }}>
+              <Box sx={{ width: '60%', height: '50%', marginLeft: '20%', marginTop: '10%' }}>
+                <Box component='img' src={ludofive} sx={{ width: '100%', height: '100%' }}></Box>
+              </Box>
+              <Typography variant="body1" color="initial" sx={{ textAlign: 'center', mt: '10px', fontSize: '15px', fontWeight: '500', color: 'white' }}>Trump Cards Mania
+              </Typography>
+            </Box>
+          </Box>
+          <Box className="bgcardboxda">
+            <Box sx={{ width: '100%', height: "160px", }}>
+              <Box sx={{ width: '60%', height: '50%', marginLeft: '20%', marginTop: '10%' }}>
+                <Box component='img' src={ludosix} sx={{ width: '100%', height: '100%' }}></Box>
+              </Box>
+              <Typography variant="body1" color="initial" sx={{ textAlign: 'center', mt: '10px', fontSize: '15px', fontWeight: '500', color: 'white' }}>Ludo Supreme League</Typography>
+            </Box>
+          </Box>
+        </Box>
+      </Container >
+    </Layout >
+  )
 }
 
-export default Activity;
+export default Activity
 
-const styles = {
-  root: { background: '#202020', pb: 6, height: '100vh' },
+const style = {
+  header: {
+    padding: '8px', background: zubgback, display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+    '&>p': { color: 'white !important', ml: '-30px' }, '&>a>svg': { color: 'white', fontSize: '25px' }
+  },
   dashboardTitle: { textAlign: 'center', color: 'white !important', fontSize: '21px', fontWeight: '500' },
 };
+
+
+
+
+
+
 
 
 

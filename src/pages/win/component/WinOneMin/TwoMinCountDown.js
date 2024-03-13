@@ -9,22 +9,23 @@ import * as React from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useQueryClient } from "react-query";
-import io from "socket.io-client";
+import { useSocket } from "../../../../Shared/SocketContext";
 import pr0 from "../../../../assets/images/0.png";
 import pr11 from "../../../../assets/images/11.png";
 import pr22 from "../../../../assets/images/22.png";
 import pr33 from "../../../../assets/images/33.png";
 import pr4 from "../../../../assets/images/4.png";
-import { domain, endpoint } from "../../../../services/urls";
+import { endpoint } from "../../../../services/urls";
 import Policy from "../policy/Policy";
-import { useSocket } from "../../../../Shared/SocketContext";
-// const socket = io("https://app.ferryinfotech.in/");
-// const socket = io(domain);
+import countdownfirst from "../../../../assets/countdownfirst.mp3";
+import countdownlast from "../../../../assets/countdownlast.mp3";
+import circle from "../../../../assets/images/circle-arrow.png";
+import howToPlay from "../../../../assets/images/user-guide.png";
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 const TwoMinCountDown = () => {
-  const socket = useSocket()
+  const socket = useSocket();
   const client = useQueryClient();
   const [three_min_time, setThree_min_time] = useState("0_0");
   const show_this_three_min_time_sec = String(
@@ -60,41 +61,43 @@ const TwoMinCountDown = () => {
     },
   });
 
-  // React.useEffect(() => {
-  //   socket.on("threemin", (onemin) => {
-  //     setThree_min_time(onemin);
-  //     if (onemin?.split("_")?.[1] === "5")
-  //       fk.setFieldValue("openTimerDialogBox", true);
-  //     if (onemin?.split("_")?.[1] === "59")
-  //       fk.setFieldValue("openTimerDialogBox", false);
-  //   });
-  //   return () => {
-  //     socket.off("threemin");
-  //   };
-  // }, []);
-
   React.useEffect(() => {
     const handleThreeMin = (threemin) => {
       setThree_min_time(threemin);
-      if (threemin?.split('_')?.[1] === '5') {
-        fk.setFieldValue('openTimerDialogBox', true);
+      if (
+        (threemin?.split("_")?.[1] === "5" ||
+          threemin?.split("_")?.[1] === "4" ||
+          threemin?.split("_")?.[1] === "3" ||
+          threemin?.split("_")?.[1] === "2") &&
+        threemin?.split("_")?.[0] === "0"
+      )
+        handlePlaySound();
+      if (
+        threemin?.split("_")?.[1] === "1" &&
+        threemin?.split("_")?.[0] === "0"
+      )
+        handlePlaySoundLast();
+      if (
+        threemin?.split("_")?.[1] === "5" &&
+        threemin?.split("_")?.[0] === "0"
+      ) {
+        fk.setFieldValue("openTimerDialogBox", true);
       }
-      if (threemin?.split('_')?.[1] === '59') {
-        fk.setFieldValue('openTimerDialogBox', false);
+      if (threemin?.split("_")?.[1] === "59") {
+        fk.setFieldValue("openTimerDialogBox", false);
       }
     };
-  
-    socket.on('threemin', handleThreeMin);
-  
+
+    socket.on("threemin", handleThreeMin);
+
     return () => {
-      socket.off('threemin', handleThreeMin);
+      socket.off("threemin", handleThreeMin);
     };
   }, []);
-  
 
   const oneMinCheckResult = async () => {
     try {
-      const response = await axios.get(`${endpoint.check_result}`);
+      await axios.get(`${endpoint.check_result}`);
       client.refetchQueries("gamehistory");
       client.refetchQueries("gamehistory_chart");
       client.refetchQueries("myhistory");
@@ -106,14 +109,48 @@ const TwoMinCountDown = () => {
   const oneMinColorWinning = async () => {
     console.log("checkresult function hit");
     try {
-      const response = await axios.get(`${endpoint.color_winning}?id=2&gid=2`);
+      await axios.get(`${endpoint.color_winning}?id=2&gid=2`);
     } catch (e) {
       toast(e?.message);
       console.log(e);
     }
   };
+
+  const audioRefMusic = React.useRef(null);
+  const handlePlaySound = async () => {
+    try {
+      if (audioRefMusic?.current?.pause) {
+        await audioRefMusic?.current?.play();
+      } else {
+        await audioRefMusic?.current?.pause();
+      }
+    } catch (error) {
+      // Handle any errors during play
+      console.error("Error during play:", error);
+    }
+  };
+  const audioRefMusiclast = React.useRef(null);
+  const handlePlaySoundLast = async () => {
+    try {
+      if (audioRefMusiclast?.current?.pause) {
+        await audioRefMusiclast?.current?.play();
+      } else {
+        await audioRefMusiclast?.current?.pause();
+      }
+    } catch (error) {
+      // Handle any errors during play
+      console.error("Error during play:", error);
+    }
+  };
+
   return (
     <Box className="countdownbg">
+      <audio ref={audioRefMusic} hidden>
+        <source src={`${countdownfirst}`} type="audio/mp3" />
+      </audio>
+      <audio ref={audioRefMusiclast} hidden>
+        <source src={`${countdownlast}`} type="audio/mp3" />
+      </audio>
       <Box
         sx={{
           display: "flex",
@@ -121,12 +158,28 @@ const TwoMinCountDown = () => {
           justifyContent: "space-between",
         }}
       >
-        <Box sx={{ padding: 1, width: "48%" }} className="win-banner">
+        <Box
+          sx={{
+            width: "50%",
+            borderRight: "1px dashed white",
+            paddingRight: "2%",
+          }}
+          className="win-banner"
+        >
           <Box onClick={() => handleClickOpenpoicy()}>
-            <ArticleIcon />
+            <Box
+              component="img"
+              src={howToPlay}
+              sx={{ width: "25px !important", height: "25px !important" }}
+            ></Box>
             <Typography variant="body1" color="initial">
               How to play
             </Typography>
+            <Box
+              component="img"
+              src={circle}
+              sx={{ width: "15px !important", height: "15px !important" }}
+            ></Box>
           </Box>
           <Dialog
             open={poicy}
@@ -182,7 +235,7 @@ const TwoMinCountDown = () => {
               {show_this_three_min_time_sec?.substring(1, 2)}
             </Box>
           </Stack>
-          <Typography variant="h3" color="initial" className="winTextone">
+          <Typography variant="h3" color="initial" className="winTexttwo">
             202403011253
           </Typography>
         </Box>
@@ -201,17 +254,31 @@ const TwoMinCountDown = () => {
           <div className="flex gap-2 justify-cente !bg-black !bg-opacity-5">
             <div
               style={{
-                background: "linear-gradient(180deg, #FAE59F 0%, #C4933F 100%)",
+                fontSize: 200,
+                borderRadius: 20,
+                background: "rgb(73, 57, 193)",
+                fontWeight: 700,
+                width: 150,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color: "white",
               }}
-              className="p-1 !text-[#8f5206] !px-4 !text-[200px] rounded-xl !font-bold"
             >
               {show_this_three_min_time_sec?.substring(0, 1)}
             </div>
             <div
               style={{
-                background: "linear-gradient(180deg, #FAE59F 0%, #C4933F 100%)",
+                fontSize: 200,
+                borderRadius: 20,
+                background: "rgb(73, 57, 193)",
+                fontWeight: 700,
+                width: 150,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color: "white",
               }}
-              className="p-1 !text-[#8f5206] !px-4 !text-[200px]  rounded-xl !font-bold"
             >
               {show_this_three_min_time_sec?.substring(1, 2)}
             </div>

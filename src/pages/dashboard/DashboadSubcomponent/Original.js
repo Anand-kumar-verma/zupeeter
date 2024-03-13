@@ -1,37 +1,86 @@
+import { Box, Typography } from "@mui/material";
 import React from "react";
-import playnow from "../../../assets/images/playnow.png";
-import { Policy } from "@mui/icons-material";
-import { useNavigate } from "react-router-dom";
-import aviator from "../../../assets/images/aviator.jpg";
+import { NavLink } from "react-router-dom";
+import { zubgback, zubgbackgrad, zubgmid } from "../../../Shared/color";
+import go from "../../../assets/images/go.png";
+import kind from "../../../assets/images/win1/aviater.jpg";
+
 const Original = () => {
-  const navigate = useNavigate();
-  const login_data = localStorage.getItem("logindata");
-  const user_id = JSON.parse(login_data).UserID;
   return (
-    <>
-      <div
-        onClick={() => {
-          navigate(`/playgame`)
-        }
-        }
-        className=" rounded-md !py-0 h-[150px] bg-gradient-to-l from-[#e16082] to-[#df0e46]"
-      >
-        <div className="w-full grid grid-cols-4 place-items- mt-4 cursor-pointer">
-          <div className="col-span-2">
-            <div className=" w-full h-full  flex flex-col justify-center items-center">
-              <p className="text-4xl font-bold !text-white">Aviator</p>
-            </div>
-          </div>
-          <div className="col-span-1 cursor-pointer flex items-center">
-            <img className="" src={playnow} />
-          </div>
-          <div className="col-span-1">
-            <img className="bg-cover h-[150px] w-[100%]" src={aviator} />
-          </div>
-        </div>
-      </div>
-    </>
+    <Box>
+      <Box sx={style.root}>
+        <Box sx={style.roottwo} component={NavLink} to={"/playgame"}>
+          <Box sx={{ width: "70%", height: "100%" }}>
+            <Box sx={style.titleBox} className={"!px-[5%]"}>
+             <Typography variant="body1" color="initial" sx={style.title} className="!text-4xl">
+                  Aviator
+                </Typography>
+              <Box>
+                <Box component="img" width={50} src={go}></Box>
+              </Box>
+            </Box>
+            {/* <Box sx={style.btmbox}>
+              <Box component="img" sx={style.imgone} src={vibrant}></Box>
+            </Box> */}
+          </Box>
+          <Box sx={{ width: "30%", height: "100%" }}>
+            <Box component="img" sx={style.imgtwo} src={kind}></Box>
+          </Box>
+        </Box>
+      </Box>
+    </Box>
   );
 };
 
 export default Original;
+
+const style = {
+  root: {
+    width: "95%",
+    marginLeft: "2.5%",
+    background: zubgmid,
+    marginTop: "20px",
+    padding: "10px",
+    borderRadius: "10px",
+  },
+  roottwo: {
+    mb: "10px",
+    width: "100%",
+    height: "14vh",
+    background: zubgback,
+    borderRadius: "10px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  titleBox: {
+    width: "100%",
+    padding: "10px 0px 0px 10px",
+    height: "100%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  title: {
+    lineHeight: "1.5",
+    textAlign: "start",
+    color: "white",
+    
+    fontWeight: "800",
+    background: zubgbackgrad,
+    "-webkit-background-clip": "text",
+    "-webkit-text-fill-color": "transparent",
+  },
+  imgtwo: { width: "100%", height: "100%", borderRadius: "0px 10px 10px 0px" },
+  imgone: { width: "100%", height: "100%", borderRadius: "0px 0px 0px 10px" },
+  textone: { color: "white", fontSize: "9px" },
+  texttow: { color: "white", fontSize: "10px", mr: "5px" },
+  btmbox: {
+    width: "100%",
+    height: "45%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    textAlign: "center",
+  },
+};

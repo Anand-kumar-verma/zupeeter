@@ -12,14 +12,15 @@ import pr8 from "../../../assets/images/8.png";
 import pr9 from "../../../assets/images/9.png";
 import HelpCenterIcon from '@mui/icons-material/HelpCenter';
 import SearchIcon from '@mui/icons-material/Search';
+import { iconcolorpink, zubgmid } from '../../../Shared/color';
 
 function TrxWin1Min() {
   return (
     <Container sx={{ mt: 2, mb: 5, padding: 1 }}>
-      <Box sx={{ background: `url(${trxbg})`, backgroundSize: '100% 100%', padding: '10px' }}>
+      <Box sx={{ background: zubgmid, padding: '10px', width: '95%', marginLeft: '2.5%', borderRadius: '10px' }}>
         <Stack direction='row' sx={{ alignItems: 'center', justifyContent: 'space-between' }}>
-          <Stack direction='row' sx={{ display: 'flex', alignItems: 'center', '&>p:nth-child(1)': { border: '1px solid #b07b20 ', padding: '0px 5px', borderRadius: '5px' } }}>
-            <Typography variant="body1" color="initial">Period</Typography>
+          <Stack direction='row' sx={{ display: 'flex', alignItems: 'center', '&>p:nth-child(1)': { border: `1px solid  ${iconcolorpink}`, padding: '2px 7px', borderRadius: '5px' } }}>
+            <Typography variant="body1" color="initial" sx={{ color: 'white' }}>Period</Typography>
             <Button startIcon={<HelpCenterIcon />} className='trxwinbtn'>
               How to play</Button>
           </Stack>
@@ -45,12 +46,14 @@ function TrxWin1Min() {
           <Box component="img" src={pr4}></Box>
         </Stack>
       </Box>
-
-      <Box className="trx-play-box">
-        <Box className='trx-rbg-button-box'>
-          <Button>Green</Button>
-          <Button>violet</Button>
-          <Button>Red</Button>
+      <Box sx={{ width: '95%', marginLeft: '2.5%', background: zubgmid, padding: '10px', borderRadius: '10px', mt: '10px' }}>
+        <Box sx={{
+          width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+          '&>button': { width: '32%', padding: '10px 10px ' },
+        }}>
+          <Button className="greembtn">Join Green</Button>
+          <Button className="greemviolet">Join Violet</Button>
+          <Button className="greemred">Join Red</Button>
         </Box>
       </Box>
       <Box className="pridictcolor">
@@ -87,10 +90,10 @@ function TrxWin1Min() {
           );
         })}
       </Box>
-      <Box>
+      <Box >
         <Box className="trx-bet-size">
           <Button variant='outlined'>Random</Button>
-          <Typography variant="body1" color="initial">x1</Typography>
+          <Typography variant="body1" color="initial" onClick={() => alert()}>x1</Typography>
           <Typography variant="body1" color="initial">x5</Typography>
           <Typography variant="body1" color="initial">x10</Typography>
           <Typography variant="body1" color="initial">x20</Typography>

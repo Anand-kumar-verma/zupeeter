@@ -1,40 +1,34 @@
+import { Logout } from "@mui/icons-material";
+import AppsIcon from "@mui/icons-material/Apps";
+import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
+import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
+import CottageIcon from "@mui/icons-material/Cottage";
+import GroupsIcon from "@mui/icons-material/Groups";
+import LockResetIcon from "@mui/icons-material/LockReset";
+import Person2Icon from "@mui/icons-material/Person2";
+import PrivacyTipIcon from "@mui/icons-material/PrivacyTip";
+import RequestQuoteIcon from "@mui/icons-material/RequestQuote";
+import SpaceDashboardIcon from "@mui/icons-material/SpaceDashboard";
+import StarBorderIcon from "@mui/icons-material/StarBorder";
 import {
   Avatar,
   Box,
   Button,
-  CircularProgress,
-  Container,
-  TextField,
-  Typography,
+  Container
 } from "@mui/material";
 import axios from "axios";
-import copy from "clipboard-copy";
 import { useFormik } from "formik";
-import moment from "moment";
-import React, { useState } from "react";
+import React from "react";
 import toast from "react-hot-toast";
 import { useQuery } from "react-query";
+import { useNavigate } from "react-router-dom";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import Icon1 from "../../assets/images/icon1.png";
 import Layout from "../../component/Layout/Layout";
-import { endpoint, rupees } from "../../services/urls";
-import { useNavigate } from "react-router-dom";
-import Icon2 from "../../assets/images/icon2.png";
-import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
-import { Logout } from "@mui/icons-material";
-import GroupsIcon from "@mui/icons-material/Groups";
-import RequestQuoteIcon from "@mui/icons-material/RequestQuote";
-import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
-import CottageIcon from "@mui/icons-material/Cottage";
-import SpaceDashboardIcon from "@mui/icons-material/SpaceDashboard";
-import Person2Icon from "@mui/icons-material/Person2";
-import LockResetIcon from "@mui/icons-material/LockReset";
-import AppsIcon from "@mui/icons-material/Apps";
-import PrivacyTipIcon from "@mui/icons-material/PrivacyTip";
-import StarBorderIcon from "@mui/icons-material/StarBorder";
-import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
+import { endpoint } from "../../services/urls";
+import CustomCircularProgress from "../../Shared/CustomCircularProgress";
+
 function Account() {
   const navigate = useNavigate();
   const login_data = localStorage.getItem("logindata");
@@ -179,17 +173,11 @@ function Account() {
       link: "",
     },
   ];
-  if (isLoading)
-    return (
-      <Layout>
-        <CircularProgress />
-      </Layout>
-    );
+
   return (
     <Layout>
       <Box sx={styles.root}>
-        <Container
-        >
+        <Container>
           <div className="h-screen">
             <div
               style={{
@@ -240,6 +228,7 @@ function Account() {
               })}
             </div>
           </div>
+          <CustomCircularProgress isLoading={isLoading}/>
         </Container>
       </Box>
     </Layout>

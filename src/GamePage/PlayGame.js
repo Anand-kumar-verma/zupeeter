@@ -1,17 +1,30 @@
-import { CircularProgress, LinearProgress, Tab, Tabs } from "@mui/material";
+import ClearIcon from "@mui/icons-material/Clear";
+import {
+  Button,
+  Card,
+  CircularProgress,
+  IconButton,
+  LinearProgress,
+  Tab,
+  Tabs,
+} from "@mui/material";
 import axios from "axios";
 import { useFormik } from "formik";
 import React, { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { CgDetailsMore } from "react-icons/cg";
-import { RxCross2 } from "react-icons/rx";
 import { useQuery } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
 import { useMediaQuery } from "react-responsive";
+import { useNavigate } from "react-router-dom";
+import { useSocket } from "../Shared/SocketContext";
+import aviatorimage from "../assets/aviatorimage.png";
 import crashmusic from "../assets/crashmusic.mp3";
+import plane1 from "../assets/front-aviator-image.svg";
 import howtoplay from "../assets/howtoplay.PNG";
 import {
   just_start_after_waitingFun,
+  please_reconnect_the_serverFun,
   waitingAviatorFun,
 } from "../redux/slices/counterSlice";
 import { endpoint, rupees } from "../services/urls";
@@ -21,15 +34,14 @@ import AccountMenu from "./MenuItems";
 import MyBets from "./MyBets";
 import Top from "./Top";
 import { gray } from "./color";
-import { useSocket } from "../Shared/SocketContext";
-import aviatorimage from "../assets/aviatorimage.png";
-import bg_waiting_image from "../assets/bg_waiting_image.png";
 const PlayGame = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const waiting_aviator = useSelector((state) => state.aviator.waiting_aviator);
   const just_start_after_waiting = useSelector(
     (state) => state.aviator.just_start_after_waiting
   );
+  const [waiting_sec, setWaitingSec] = useState(10);
   const userId = JSON.parse(localStorage.getItem("aviator_data"))?.id;
   const isMediumScreen = useMediaQuery({ minWidth: 800 });
   const [value, setValue] = React.useState(0);
@@ -157,10 +169,14 @@ const PlayGame = () => {
   const backgroundMusic_url = useSelector(
     (state) => state.aviator.backgroundMusic_url
   );
+  const please_reconnect_the_server = useSelector(
+    (state) => state.aviator.please_reconnect_the_server
+  );
 
   useEffect(() => {
     handlePlayMusic();
   }, [isEnableMusic, byTimeEnablingMusic]);
+  
   useEffect(() => {
     handlePlaySound();
   }, [byTimeEnablingSound, isEnableSound]);
@@ -232,6 +248,40 @@ const PlayGame = () => {
     }
   }, [fk.values.setcolorofdigit]);
 
+  useEffect(() => {
+    if (!waiting_aviator) {
+      let sec = 10;
+      const interval = setInterval(() => {
+        setWaitingSec(--sec);
+        if (sec === 0) clearInterval(interval);
+      }, 200);
+    }
+  }, [waiting_aviator]);
+
+  useEffect(() => {
+    const handleBeforeUnload = (event) => {
+      const confirmationMessage =
+        "You are about to leave the dashboard. Are you sure you want to do this?";
+      event.returnValue = confirmationMessage; // Standard for most browsers
+      return confirmationMessage; // For some older browsers
+    };
+
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "hidden") {
+        setTimeout(() => {
+          dispatch(please_reconnect_the_serverFun(true));
+        }, 60 * 1000);
+      }
+    };
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, []);
+
+  
   if (isLoading)
     return (
       <div className="flex justify-center items-center">
@@ -239,27 +289,81 @@ const PlayGame = () => {
       </div>
     );
 
-  if(waiting_aviator) return <>
-     <LinearProgress />
-     <div className="h-full !bg-black w-full flex flex-col justify-center items-center overflow-y-hidden no-scrollbar
-      ">
-    <CircularProgress/>
-    <span className="!text-white">Connecting...</span>
-  </div>
-  </>
-  // just_start_after_waiting
-  if (just_start_after_waiting)
+  if (waiting_aviator)
     return (
       <>
-        <div className="h-full w-full flex flex-col justify-center items-center overflow-y-hidden no-scrollbar">
-          <img src={bg_waiting_image || "https://res.cloudinary.com/do7kimovl/image/upload/v1709897093/bg_waiting_image_b4udpt.png"} className="lg:h-[50%] lg:w-[50%] w-[90%]" />
-          <div className="lg:h-[20px] h-[15px] w-[150px] lg:w-[500px] rounded-r-full rounded-l-full relative  bg-[#C8153C] ">
-            <div className="loder-waiting-for-next-round-start !rounded-full"></div>
-          </div>
+        <LinearProgress />
+        <div
+          className="h-full !bg-black w-full flex flex-col justify-center items-center overflow-y-hidden no-scrollbar
+      "
+        >
+          <CircularProgress />
+          <span className="!text-white">Connecting...</span>
         </div>
       </>
     );
 
+    if (just_start_after_waiting)
+    return (
+      <>
+        <div className="h-full w-full flex flex-col justify-center items-center overflow-y-hidden no-scrollbar">
+          <img src={plane1} className="lg:w-[30%] lg:h-[30%] w-[70%] h-[20%]" />
+          <p className="transparentColor bg-gradient-to-l from-[#ff013c] to-[#C3384E] text-[5rem] font-semibold">
+            Aviator
+          </p>
+          <div className="flex gap-2 items-center">
+            <div className="lg:h-[20px] h-[15px] w-[150px] lg:w-[500px] rounded-r-full rounded-l-full relative  bg-gradient-to-l from-[#ff013c] to-[#C3384E] ">
+              <div className="loder-waiting-for-next-round-start !rounded-full"></div>
+            </div>
+            <p className="!text-[#C3384E] !text-2xl">
+              {String(waiting_sec) + "0"}%
+            </p>
+          </div>
+
+          <p className="!text-[#C3384E] !text-2xl">
+            00:{String(waiting_sec).padStart(2, "0")}
+          </p>
+        </div>
+      </>
+    );
+    // please_reconnect_the_server?
+  if (please_reconnect_the_server)
+    return (
+      <>
+        <div className="!w-[screen] !h-screen flex justify-center items-center no-scrollbar ">
+          <Card className="!bg-white !bg-opacity-5 !rounded-lg !p-4">
+            <p className="flex justify-end">
+              <IconButton
+                onClick={() => {
+                  navigate("/dashboard");
+                }}
+              >
+                <ClearIcon className="!text-white" />
+              </IconButton>
+            </p>
+            <div className="!flex justify-center">
+              <ClearIcon className="!text-[#C3384E] !text-8xl border-[1px] border-[#C3384E] rounded-full" />
+            </div>
+            <p className="!text-white mt-10 text-center">
+              <span className="!font-bold text-xl">Sorry !</span> Server
+              Reconnection Failed
+            </p>
+            <p className="text-center !text-white">
+              Plese refresh the page for continue playing..
+            </p>
+            <div className="flex justify-center mt-5 ">
+              <Button
+                variant="contained"
+                className="!bg-[#C3384E]"
+                onClick={() => window.location.reload()}
+              >
+                OK
+              </Button>
+            </div>
+          </Card>
+        </div>
+      </>
+    );
   return (
     <div className=" h-full">
       <audio ref={audioRefMusic} hidden loop>

@@ -19,6 +19,7 @@ import MyHistory from "./MyHistory";
 import OneMinCountDown from "./OneMinCountDown";
 import ThreeMinCountDown from "./ThreeMinCountDown";
 import TwoMinCountDown from "./TwoMinCountDown";
+import { zubgback, zubgmid } from "../../../../Shared/color";
 
 function WinOneMin({ gid }) {
   const [TabTwo, setTabTwo] = useState(1);
@@ -35,12 +36,12 @@ function WinOneMin({ gid }) {
         <ThreeMinCountDown />
       )}
       <Box
-        sx={{ py: 2, px: 2 }}
-        className={
-          "!bg-white !bg-opacity-5 !my-2 !rounded-lg !flex !flex-col !gap-2"
-        }
+        sx={{ width: '95%', marginLeft: '2.5%', my: '20px', background: zubgmid, padding: '10px', borderRadius: '10px', }}
       >
-        <div className="!grid !grid-cols-3 w-full gap-2">
+        <Box sx={{
+          width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: '20px',
+          '&>button': { width: '32%', padding: '10px 10px ' },
+        }}>
           <Button
             className="greembtn"
             onClick={() => {
@@ -68,9 +69,13 @@ function WinOneMin({ gid }) {
           >
             Join Red
           </Button>
-        </div>
+        </Box>
         {/* pridictcolor */}
-        <Box className="!grid grid-cols-5 gap-2 ">
+        <Box sx={{
+          display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: '20px',
+
+          '&>img': { width: '17%' },
+        }}>
           {[
             { no: 0, img: pr0 },
             { no: 1, img: pr11 },
@@ -91,7 +96,11 @@ function WinOneMin({ gid }) {
             );
           })}
         </Box>
-        <Box className="!grid grid-cols-5 gap-2 ">
+        <Box sx={{
+          display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: '20px',
+
+          '&>img': { width: '17%' },
+        }}>
           {[
             { no: 5, img: pr5 },
             { no: 6, img: pr6 },
@@ -114,7 +123,7 @@ function WinOneMin({ gid }) {
         </Box>
         <div className="!w-full !grid grid-cols-2 gap-2 !mt-2">
           <Button
-            className="!bg-[#5E8CCA] !text-white"
+            className="!bg-[#EE1285] !text-white"
             onClick={() => {
               setapply_bit_dialog_box(true);
               setdialog_type("small");
@@ -123,7 +132,8 @@ function WinOneMin({ gid }) {
             small
           </Button>
           <Button
-            className="!bg-[#DFBC6F] !text-white"
+            sx={{ py: '10px' }}
+            className="!bg-[#FBB13B] !text-white"
             onClick={() => {
               setapply_bit_dialog_box(true);
               setdialog_type("big");
@@ -137,13 +147,13 @@ function WinOneMin({ gid }) {
           {/* small close */}
         </div>
       </Box>
-      <Box className="tableBox">
-        <Box sx={{ background: "#3A3A3A" }}>
+      <Box className="tableBox_wingo">
+        <Box sx={{ background: zubgback, borderRadius: '10px', }}>
           <Stack direction="row">
             <Box
               component={NavLink}
               onClick={() => setTabTwo(1)}
-              className={TabTwo === 1 ? "activewinNav Winnav" : "Winnav"}
+              className={TabTwo === 1 ? "activewinNavtwo Winnavtow" : "Winnavtow"}
             >
               <Typography variant="h3" color="initial">
                 Game History
@@ -152,7 +162,7 @@ function WinOneMin({ gid }) {
             <Box
               component={NavLink}
               onClick={() => setTabTwo(2)}
-              className={TabTwo === 2 ? "activewinNav Winnav" : " Winnav"}
+              className={TabTwo === 2 ? "activewinNavtwo Winnavtow" : "Winnavtow"}
             >
               <Typography variant="h3" color="initial">
                 Chart
@@ -161,7 +171,7 @@ function WinOneMin({ gid }) {
             <Box
               component={NavLink}
               onClick={() => setTabTwo(3)}
-              className={TabTwo === 3 ? "activewinNav Winnav" : " Winnav"}
+              className={TabTwo === 3 ? "activewinNavtwo Winnavtow" : "Winnavtow"}
             >
               <Typography variant="h3" color="initial">
                 My History
@@ -174,14 +184,16 @@ function WinOneMin({ gid }) {
         {TabTwo === 2 && <Chart gid={gid} />}
         {TabTwo === 3 && <MyHistory gid={gid} />}
       </Box>
-      {apply_bit_dialog_box && (
-        <ApplyBetDialogBox
-          apply_bit_dialog_box={apply_bit_dialog_box}
-          setapply_bit_dialog_box={setapply_bit_dialog_box}
-          type={dialog_type}
-          gid={gid}
-        />
-      )}
+      {
+        apply_bit_dialog_box && (
+          <ApplyBetDialogBox
+            apply_bit_dialog_box={apply_bit_dialog_box}
+            setapply_bit_dialog_box={setapply_bit_dialog_box}
+            type={dialog_type}
+            gid={gid}
+          />
+        )
+      }
     </Box>
   );
 }

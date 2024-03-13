@@ -6,21 +6,17 @@ import {
   TextField,
 } from "@mui/material";
 import axios from "axios";
-import copy from "clipboard-copy";
 import { useFormik } from "formik";
-import moment from "moment";
 import React from "react";
 import toast from "react-hot-toast";
 import { useQuery } from "react-query";
+import { useParams } from "react-router-dom";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import Layout from "../../../component/Layout/Layout";
-import { endpoint, rupees } from "../../../services/urls";
-import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
-import { useParams } from "react-router-dom";
+import { endpoint } from "../../../services/urls";
 import ReportTable from "./ReportTable";
-import { TextFields } from "@mui/icons-material";
 function SingleTeamDetails() {
   const { id } = useParams();
   console.log(id);

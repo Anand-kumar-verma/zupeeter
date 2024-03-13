@@ -1,15 +1,16 @@
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Box, CircularProgress, Container, Stack, Typography, } from '@mui/material';
-import Slide from '@mui/material/Slide';
+import { Box, Container, Stack, Typography } from '@mui/material';
 import axios from 'axios';
 import * as React from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useQuery } from 'react-query';
 import { NavLink, useNavigate } from 'react-router-dom';
-import Icon1 from '../../assets/images/icon1.png';
-import Icon2 from '../../assets/images/icon2.png';
-import Time from '../../assets/images/time.png';
+import CustomCircularProgress from '../../Shared/CustomCircularProgress';
+import { zubgback, zubgbackgrad } from "../../Shared/color";
+import cash from "../../assets/images/cash-withdrawal.png";
+import deposit from "../../assets/images/deposit (1).png";
+import Timeactive from '../../assets/images/fast-time (1).png';
+import Timeinactive from '../../assets/images/fast-time.png';
 import Layout from '../../component/Layout/Layout';
 import { endpoint } from '../../services/urls';
 import WinOneMin from './component/WinOneMin/WinOneMin';
@@ -36,70 +37,104 @@ function Win() {
       console.log(e);
     }
   };
+  const amount = data?.data?.data?.wallet || 0;
 
-if(isLoading) return  <Layout><CircularProgress/></Layout>
   return (
-    <Layout>
-      <Box sx={styles.root}>
-        <Container>
-          <Box sx={{ padding: 2, borderBottom: '1px solid white' }}>
-            <ArrowBackIcon sx={{ color: 'white !important' }} onClick={()=>navigate('/dashboard')}/>
-            <Stack direction="row" sx={styles.depositWithdrawContainer}>
-              <Box component={NavLink}>
-                <Box className="serv-item">
-                  <Box component="img" src={Icon1} alt="Deposit" sx={styles.depositWithdrawIcon} />
-                </Box>
-                <Typography variant="body1" color="initial" className='db-header'>Deposit</Typography>
+    <Layout footer={false}>
+      <Container sx={styles.root}>
+        <Box sx={{ padding: 2, }}>
+          <Stack direction="row" sx={styles.depositWithdrawContainer}>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <Box className="serv-item cursor-pointer">
+                <Box
+                  component="img"
+                  src={deposit}
+                  alt="Deposit"
+                  sx={styles.depositWithdrawIcon}
+                  onClick={() => navigate("/wallet/Recharge")}
+                />
               </Box>
-              <Box>
-                <Typography variant="body1" color="initial" className='b-val'>₹ {Number(data?.data?.data?.wallet || 0)?.toFixed(2)}</Typography>
-                <Typography variant="body1" color="initial" className='b-valp'>Available Balance</Typography>
+              <Typography
+                variant="body1"
+                color="initial"
+                className="db-header"
+                sx={{ xolor: "white", textAlign: "center" }}
+              >
+                Deposit
+              </Typography>
+            </Box>
+            <Box>
+              <Typography variant="body1" color="initial" className="b-val">
+                ₹ {amount}
+              </Typography>
+              <Typography variant="body1" color="initial" className="b-valp">
+                Available Balance
+              </Typography>
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <Box className="serv-item">
+                <Box
+                  onClick={() => navigate("/Withdrawal")}
+                  component="img"
+                  src={cash}
+                  alt="Withdraw"
+                  sx={styles.depositWithdrawIcon}
+                  className="!cursor-pointer"
+                />
               </Box>
-              <Box component={NavLink}>
-                <Box className="serv-item">
-                  <Box component="img" src={Icon2} alt="Withdraw" sx={styles.depositWithdrawIcon} />
-                </Box>
-                <Typography variant="body1" color="initial" className='db-header'>Withdraw</Typography>
-              </Box>
-            </Stack>
-          </Box>
-          <Box sx={{ background: '#3A3A3A', mt: '10px' }}>
-            <Stack direction='row' >
-              <Box component={NavLink} onClick={() => setTab(1)} className={Tab === 1 ? 'activewinNav Winnav' : 'Winnav'}>
-                <Box component='img' src={Time}></Box>
-                <Typography variant="h3" color="initial">Win Go 1Min</Typography>
-              </Box>
-              <Box component={NavLink} onClick={() => setTab(2)} className={Tab === 2 ? 'activewinNav Winnav' : ' Winnav'}>
-                <Box component='img' src={Time}></Box>
-                <Typography variant="h3" color="initial">Win Go 3Min</Typography>
-              </Box>
-              <Box component={NavLink} onClick={() => setTab(3)} className={Tab === 3 ? 'activewinNav Winnav' : ' Winnav'}>
-                <Box component='img' src={Time}></Box>
-                <Typography variant="h3" color="initial">Win Go 5Min</Typography>
-              </Box>
-            </Stack>
-          </Box>
-          {
-            Tab === 1 &&
-            <WinOneMin  gid = "1"/>
-          }
-          {
-            Tab === 2 &&<WinOneMin  gid = "2"/>
-          }
-          {
-            Tab === 3 &&<WinOneMin  gid = "3"/>
-
-          }
-        </Container >
-      </Box >
-    </Layout >
+              <Typography variant="body1" color="initial" className="db-header">
+                Withdraw
+              </Typography>
+            </Box>
+          </Stack>
+        </Box>
+        <Box sx={{ background: zubgbackgrad, width: '95%', marginLeft: '2.5%', borderRadius: '10px', padding: '5px' }}>
+          <Stack direction='row' >
+            <Box component={NavLink} onClick={() => setTab(1)} className={Tab === 1 ? 'activewinNav Winnav' : 'Winnav'}>
+              {Tab === 1 ? <Box component='img' src={Timeinactive} width={50}></Box> : <Box component='img' src={Timeactive} width={50}></Box>}
+              <Typography variant="h3" color="initial">Win Go 1Min</Typography>
+            </Box>
+            <Box component={NavLink} onClick={() => setTab(2)} className={Tab === 2 ? 'activewinNav Winnav' : ' Winnav'}>
+              {Tab === 2 ? <Box component='img' src={Timeinactive} width={50}></Box> : <Box component='img' src={Timeactive} width={50}></Box>}
+              <Typography variant="h3" color="initial">Win Go 3Min</Typography>
+            </Box>
+            <Box component={NavLink} onClick={() => setTab(3)} className={Tab === 3 ? 'activewinNav Winnav' : ' Winnav'}>
+              {Tab === 3 ? <Box component='img' src={Timeinactive} width={50}></Box> : <Box component='img' src={Timeactive} width={50}></Box>}
+              <Typography variant="h3" color="initial">Win Go 5Min</Typography>
+            </Box>
+          </Stack>
+        </Box>
+        {
+          Tab === 1 && <WinOneMin gid="1" />
+        }
+        {
+          Tab === 2 && <WinOneMin gid="2" />
+        }
+        {
+          Tab === 3 && <WinOneMin gid="3" />
+        }
+        <CustomCircularProgress isLoading={isLoading}/>
+      </Container>
+    </Layout>
   );
 }
 
 export default Win;
 
 const styles = {
-  root: { background: '#202020', pb: 6, },
+  root: { background: zubgback },
   dashboardTitle: { textAlign: 'center', color: 'white !important', fontSize: '21px', fontWeight: '500' },
   swiperImage: { width: '100%', height: 'auto' },
   depositWithdrawContainer: { alignItems: 'center', justifyContent: 'space-between', mt: 2 },

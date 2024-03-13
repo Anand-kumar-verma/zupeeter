@@ -1,104 +1,170 @@
+import { Box, Typography } from "@mui/material";
 import React from "react";
-import playnow from "../../../assets/images/playnow.png";
-import { Policy } from "@mui/icons-material";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { zubgback, zubgbackgrad, zubgmid } from "../../../Shared/color";
+import SUPER from "../../../assets/images/SUPER.png";
+import go from "../../../assets/images/go.png";
+import jackbot from "../../../assets/images/jackbot-Photoroom.png";
+import royal from "../../../assets/images/royal.png";
+import epicWin from "../../../assets/images/win1/epicWin.jpg";
+import GameChanger from "../../../assets/images/win1/gamechanger.png";
+import jackpot from "../../../assets/images/win1/jackpot.jpg";
+import kind from "../../../assets/images/win1/kind.jpg";
+import megawin from "../../../assets/images/win1/megawin.jpg";
 
 const Lottery = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
   return (
-    <>
-      {/* /// wingo */}
-      <div
-        onClick={() => navigate("/win")}
-        className=" rounded-md !py-0 h-[150px] bg-gradient-to-l from-[#dbe9fa] to-[#6DA7F4]"
-      >
-        <div className="w-full grid grid-cols-4 place-items- mt-4 cursor-pointer">
-          <div className="col-span-2">
-            <div className=" w-full h-full  flex flex-col justify-center items-center">
-              <p className="text-2xl font-bold !text-[#805c0f]">Win Go</p>
-              <p>Guess Number</p>
-              <p>Green/Red/Voilet to win</p>
-            </div>
-          </div>
-          <div className="col-span-1 cursor-pointer flex items-center">
-            <img className="" src={playnow} />
-          </div>
-          <div className="col-span-1">
-            <img
-              className="bg-cover h-[150px] w-[100%]"
-              src="https://ossimg.bdgadminbdg.com/IndiaBDG/lotterycategory/lotterycategory_20240110062051do1k.png"
-            />
-          </div>
-        </div>
-      </div>
-      {/* // k3 lotery */}
-      <div className=" rounded-md !py-0 h-[150px] bg-gradient-to-l from-[#fbdee1] to-[#FF7D89]">
-        <div className="w-full grid grid-cols-4 place-items- mt-4 cursor-pointer">
-          <div className="col-span-2">
-            <div className=" w-full h-full  flex flex-col justify-center items-center">
-              <p className="text-2xl font-bold !text-[#805c0f]">K3 Lotre</p>
-              <p>Guess Number</p>
-              <p>Big/Small/Odd/Even</p>
-            </div>
-          </div>
-          <div className="col-span-1 cursor-pointer flex items-center">
-            <img className="" src={playnow} />
-          </div>
-          <div className="col-span-1">
-            <img
-              className="bg-cover h-[150px] w-[100%]"
-              src="https://ossimg.bdgadminbdg.com/IndiaBDG/lotterycategory/lotterycategory_20240110062051do1k.png"
-            />
-          </div>
-        </div>
-      </div>
-      {/* // k3 lotery */}
-      <div className=" rounded-md !py-0 h-[150px] bg-gradient-to-l from-[#ceedd4] to-[#63f07d]">
-        <div className="w-full grid grid-cols-4 place-items- mt-4 cursor-pointer">
-          <div className="col-span-2">
-            <div className=" w-full h-full  flex flex-col justify-center items-center">
-              <p className="text-2xl font-bold !text-[#805c0f]">5D Lotre</p>
-              <p>Guess Number</p>
-              <p>Big/Small/Odd/Even</p>
-            </div>
-          </div>
-          <div className="col-span-1 cursor-pointer flex items-center">
-            <img className="" src={playnow} />
-          </div>
-          <div className="col-span-1">
-            <img
-              className="bg-cover h-[150px] w-[100%]"
-              src="https://ossimg.bdgadminbdg.com/IndiaBDG/lotterycategory/lotterycategory_20240110062051do1k.png"
-            />
-          </div>
-        </div>
-      </div>
-      {/* // k3 lotery */}
-      <div 
-      onClick={()=>navigate('/trx')}
-      className=" rounded-md !py-0 h-[150px] bg-gradient-to-l from-[#f2ead1] to-[#C4933F]">
-        <div className="w-full grid grid-cols-4 place-items- mt-4 cursor-pointer">
-          <div className="col-span-2">
-            <div className=" w-full h-full  flex flex-col justify-center items-center">
-              <p className="text-2xl font-bold !text-[#805c0f]">Trx Win</p>
-              <p>Guess Number</p>
-              <p>Green/Red/Purple to win</p>
-            </div>
-          </div>
-          <div className="col-span-1 cursor-pointer flex items-center">
-            <img className="" src={playnow} />
-          </div>
-          <div className="col-span-1">
-            <img
-              className="bg-cover h-[150px] w-[100%]"
-              src="https://ossimg.bdgadminbdg.com/IndiaBDG/lotterycategory/lotterycategory_20240110062051do1k.png"
-            />
-          </div>
-        </div>
-      </div>
-    </>
+    <Box>
+      <Box sx={style.root}>
+        <Box sx={style.roottwo} component={NavLink} to={"/win"}>
+          <Box sx={{ width: "70%", height: "100%" }}>
+            <Box sx={style.titleBox}>
+              <Box>
+                <Typography variant="body1" color="initial" sx={style.title}>
+                  Win Go
+                </Typography>
+                <Typography variant="body1" color="initial" sx={style.textone}>
+                  Guess Number Green/Red/Voilet to win
+                </Typography>
+              </Box>
+              <Box>
+                <Box component="img" width={50} src={go}></Box>
+              </Box>
+            </Box>
+            <Box sx={style.btmbox}>
+              <Box component="img" sx={style.imgone} src={SUPER}></Box>
+            </Box>
+          </Box>
+          <Box sx={{ width: "30%", height: "100%" }}>
+            <Box component="img" sx={style.imgtwo} src={epicWin}></Box>
+          </Box>
+        </Box>
+        <Box sx={style.roottwo} component={NavLink}>
+          <Box sx={{ width: "70%", height: "100%" }}>
+            <Box sx={style.titleBox}>
+              <Box>
+                <Typography variant="body1" color="initial" sx={style.title}>
+                  K3 Lottery
+                </Typography>
+                <Typography variant="body1" color="initial" sx={style.textone}>
+                  Guess Number Big /Small / Odd/ Even
+                </Typography>
+              </Box>
+              <Box>
+                <Box component="img" width={50} src={go}></Box>
+              </Box>
+            </Box>
+            <Box sx={style.btmbox}>
+              <Box component="img" sx={style.imgone} src={jackbot}></Box>
+            </Box>
+          </Box>
+          <Box sx={{ width: "30%", height: "100%" }}>
+            <Box component="img" sx={style.imgtwo} src={jackpot}></Box>
+          </Box>
+        </Box>
+        <Box sx={style.roottwo} component={NavLink}>
+          <Box sx={{ width: "70%", height: "100%" }}>
+            <Box sx={style.titleBox}>
+              <Box>
+                <Typography variant="body1" color="initial" sx={style.title}>
+                  5D Lottery
+                </Typography>
+                <Typography variant="body1" color="initial" sx={style.textone}>
+                  Guess Number Big/Small/Odd/Even
+                </Typography>
+              </Box>
+              <Box>
+                <Box component="img" width={50} src={go}></Box>
+              </Box>
+            </Box>
+            <Box sx={style.btmbox}>
+              <Box component="img" sx={style.imgone} src={GameChanger}></Box>
+            </Box>
+          </Box>
+          <Box sx={{ width: "30%", height: "100%" }}>
+            <Box component="img" sx={style.imgtwo} src={megawin}></Box>
+          </Box>
+        </Box>
+        <Box sx={style.roottwo} component={NavLink} to={"/trx"}>
+          <Box sx={{ width: "70%", height: "100%" }}>
+            <Box sx={style.titleBox}>
+              <Box>
+                <Typography variant="body1" color="initial" sx={style.title}>
+                  Trx Win
+                </Typography>
+                <Typography variant="body1" color="initial" sx={style.textone}>
+                  Guess Number Green/Red/Purple to win
+                </Typography>
+              </Box>
+              <Box>
+                <Box component="img" width={50} src={go}></Box>
+              </Box>
+            </Box>
+            <Box sx={style.btmbox}>
+              <Box component="img" sx={style.imgone} src={royal}></Box>
+            </Box>
+          </Box>
+          <Box sx={{ width: "30%", height: "100%" }}>
+            <Box component="img" sx={style.imgtwo} src={kind}></Box>
+          </Box>
+        </Box>
+      </Box>
+    </Box>
   );
 };
 
 export default Lottery;
+
+const style = {
+  root: {
+    width: "95%",
+    marginLeft: "2.5%",
+    background: zubgmid,
+    marginTop: "20px",
+    padding: "10px",
+    borderRadius: "10px",
+  },
+  roottwo: {
+    mb: "10px",
+    width: "100%",
+    height: "14vh",
+    background: zubgback,
+    borderRadius: "10px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  titleBox: {
+    width: "100%",
+    padding: "10px 0px 0px 10px",
+    borderBottom: `2px solid ${zubgmid}`,
+    height: "55%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  title: {
+    lineHeight: "1.5",
+    textAlign: "start",
+    color: "white",
+    fontSize: "25px",
+    fontWeight: "800",
+    background: zubgbackgrad,
+    "-webkit-background-clip": "text",
+    "-webkit-text-fill-color": "transparent",
+  },
+  imgtwo: { width: "100%", height: "100%", borderRadius: "0px 10px 10px 0px" },
+  imgone: { width: "100%", height: "100%", borderRadius: "0px 0px 0px 10px" },
+  textone: { color: "white", fontSize: "9px" },
+  texttow: { color: "white", fontSize: "10px", mr: "5px" },
+  btmbox: {
+    width: "100%",
+    height: "45%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    textAlign: "center",
+  },
+};

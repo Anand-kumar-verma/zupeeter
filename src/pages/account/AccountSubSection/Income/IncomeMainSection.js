@@ -1,21 +1,12 @@
-import { Logout } from "@mui/icons-material";
-import AppsIcon from "@mui/icons-material/Apps";
+import AccessibilityIcon from '@mui/icons-material/Accessibility';
 import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
-import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
-import CottageIcon from "@mui/icons-material/Cottage";
-import GroupsIcon from "@mui/icons-material/Groups";
-import LockResetIcon from "@mui/icons-material/LockReset";
-import Person2Icon from "@mui/icons-material/Person2";
-import PrivacyTipIcon from "@mui/icons-material/PrivacyTip";
-import RequestQuoteIcon from "@mui/icons-material/RequestQuote";
-import SpaceDashboardIcon from "@mui/icons-material/SpaceDashboard";
-import StarBorderIcon from "@mui/icons-material/StarBorder";
+import CenterFocusWeakIcon from '@mui/icons-material/CenterFocusWeak';
+import LogoutIcon from '@mui/icons-material/Logout';
+import VoicemailIcon from '@mui/icons-material/Voicemail';
 import {
-  Avatar,
   Box,
-  Button,
   CircularProgress,
-  Container,
+  Container
 } from "@mui/material";
 import axios from "axios";
 import { useFormik } from "formik";
@@ -26,18 +17,12 @@ import { useNavigate } from "react-router-dom";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import AccessibilityIcon from '@mui/icons-material/Accessibility';
-import CenterFocusWeakIcon from '@mui/icons-material/CenterFocusWeak';
-import VoicemailIcon from '@mui/icons-material/Voicemail';
-import EqualizerIcon from '@mui/icons-material/Equalizer';
 import Layout from "../../../../component/Layout/Layout";
 import { endpoint } from "../../../../services/urls";
-import LogoutIcon from '@mui/icons-material/Logout';
 function IncomeMainSection() {
   const navigate = useNavigate();
   const login_data = localStorage.getItem("logindata");
   const user_id = JSON.parse(login_data).UserID;
-  const [select_type_of_history, setselect_type_of_history] = useState(1);
   const { isLoading, data } = useQuery(["walletamount"], () => walletamount(), {
     refetchOnMount: false,
     refetchOnReconnect: true,

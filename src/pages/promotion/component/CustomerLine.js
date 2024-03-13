@@ -7,6 +7,7 @@ import KeyboardArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardArrowLeft
 import Layout from '../../../component/Layout/Layout';
 import { NavLink } from 'react-router-dom';
 import Customer from '../../../assets/images/customerBg.png'
+import { zubgback, zubgbackgrad, zubgmid } from '../../../Shared/color';
 
 
 function Subordinate() {
@@ -21,7 +22,7 @@ function Subordinate() {
 
   return (
     <Layout>
-      <Container sx={{ background: '#292929', width: '100%', height: '100vh', overflow: 'auto' }}>
+      <Container sx={{ background: zubgback, width: '100%', height: '100vh', overflow: 'auto' }}>
         <Box sx={style.header}>
           <Box component={NavLink} to='/promotion/'>
             <KeyboardArrowLeftOutlinedIcon />
@@ -29,7 +30,7 @@ function Subordinate() {
           <Typography variant="body1" color="initial">Agent line customer service</Typography>
           <Typography variant="body1" color="initial"> </Typography>
         </Box>
-        <Box sx={{ background: '#D9AC4F' }}>
+        <Box sx={{ background: zubgbackgrad }}>
           <Box component='img' src={Customer} sx={{ width: '60%', marginLeft: '20%' }}></Box>
         </Box>
       </Container >
@@ -41,7 +42,7 @@ export default Subordinate
 
 const style = {
   header: {
-    padding: '8px', background: '#3F3F3F', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+    padding: '8px', background: zubgmid, display: 'flex', alignItems: 'center', justifyContent: 'space-between',
     '&>p': { color: 'white !important' }, '&>a>svg': { color: 'white', fontSize: '25px' }
   },
 };

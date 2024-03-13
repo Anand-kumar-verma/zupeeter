@@ -5,6 +5,9 @@ import LayoutAviator from "./GamePage/Layout";
 import MainPage from "./GamePage/MainPage";
 import PlayGame from "./GamePage/PlayGame";
 import "./assets/styles/main.css";
+import CricketUserprofile from "./cricket/profile/CricketUserprofile";
+import CricketDepositHistory from "./cricket/transactionHistory/CricketDepositHistory";
+import Test from "./pages/Test";
 import Account from "./pages/account/Account";
 import BankDetails from "./pages/account/AccountSubSection/BankDetails/BankDetails";
 import BankDetailsReport from "./pages/account/AccountSubSection/BankDetails/BankDetailsReport";
@@ -38,11 +41,15 @@ import PromotionRule from "./pages/promotion/component/PromotionRule";
 import RobateRetio from "./pages/promotion/component/RebateRatio";
 import Subordinate from "./pages/promotion/component/Subordinate";
 import TeamReports from "./pages/promotion/component/TeamReport";
-import Wallet from "./pages/wallet/Wallet";
-import Win from "./pages/win/win";
 import Trx from "./pages/trx/Trx";
+import Wallet from "./pages/wallet/Wallet";
+import DepositeHistory from "./pages/wallet/component/DepositeHistory";
 import WalletRecharge from "./pages/wallet/component/WalletRecharge";
-import Test from "./pages/Test";
+import WithdravalHistory from "./pages/wallet/component/WithdravalHistory";
+import Win from "./pages/win/win";
+import CricketWithdrawlHistory from "./cricket/transactionHistory/CricketWithdrawlHistory";
+import DepositCash from "./cricket/transacton/DepositCash";
+import WithdrawlCash from "./cricket/transacton/WithdrawlCash";
 
 function App() {
   return (
@@ -52,6 +59,9 @@ function App() {
         <Route path="/test" Component={Test}></Route>
         <Route path="/register" Component={Register}></Route>
         <Route path="/dashboard" Component={Dashboard}></Route>
+        <Route path="/depositHistory" Component={DepositeHistory}></Route>
+        <Route path="/Withdrawal" Component={Withdrawl}></Route>
+        <Route path="/withdravalHistory" Component={WithdravalHistory}></Route>
         <Route path="/activity" Component={Activity}></Route>
         <Route path="/win" Component={Win}></Route>
         {/* // promotion */}
@@ -134,6 +144,14 @@ function App() {
           path="/account/:id"
           element={<LayoutAviator component={<Account />} />}
         />
+       
+         <Route path="/cricket/user-profile" Component={CricketUserprofile}></Route>
+         <Route path="/cricket/deposit-history" Component={CricketDepositHistory}></Route>
+         <Route path="/cricket/withdrawl-history" Component={CricketWithdrawlHistory}></Route>
+         <Route path="/cricket/depositCash" Component={DepositCash}></Route>
+         <Route path="/cricket/withdrawlCash" Component={WithdrawlCash}></Route>
+        {/* //////////////// crickert /////////////// */}
+
       </Routes>
     </>
   );

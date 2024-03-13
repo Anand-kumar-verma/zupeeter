@@ -1,7 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+.transparentColor {
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.input-err {
+  border: 1px solid red;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.error {
+  color: red;
+  font-size: 0.8rem;
+  margin-top: 0.2rem;
+}
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
@@ -25,26 +41,26 @@
 
 .dot-slider-container1 {
   background: #267bad;
-  width: 3px;
-  height: 3px;
+  width: 5px;
+  height: 5px;
   position: relative;
   animation-delay: 5s;
   animation: mymove1 1s linear infinite running;
 }
-
+/* mymove1 */
 @keyframes mymove1 {
   from {
     top: 0px;
   }
   to {
-    top: 40px;
+    top: 30px;
   }
 }
 
 .dot-slider-container2 {
   background: #267bad;
-  width: 3px;
-  height: 3px;
+  width: 5px;
+  height: 5px;
   position: relative;
   animation-delay: 5s;
   animation: mymove2 1s linear infinite running;
@@ -52,16 +68,16 @@
 
 @keyframes mymove2 {
   from {
-    top: 40px;
+    top: 30px;
   }
   to {
-    top: 80px;
+    top: 60px;
   }
 }
 .dot-slider-container3 {
   background: #267bad;
-  width: 3px;
-  height: 3px;
+  width: 5px;
+  height: 5px;
   position: relative;
   animation-delay: 5s;
   animation: mymove3 1s linear infinite running;
@@ -69,16 +85,16 @@
 
 @keyframes mymove3 {
   from {
-    top: 80px;
+    top: 60px;
   }
   to {
-    top: 120px;
+    top: 90px;
   }
 }
 .dot-slider-container4 {
   background: #267bad;
-  width: 3px;
-  height: 3px;
+  width: 5px;
+  height: 5px;
   position: relative;
   animation-delay: 5s;
   animation: mymove4 1s linear infinite running;
@@ -86,16 +102,16 @@
 
 @keyframes mymove4 {
   from {
-    top: 120px;
+    top: 90px;
   }
   to {
-    top: 160px;
+    top: 120px;
   }
 }
 .dot-slider-container5 {
   background: #267bad;
-  width: 3px;
-  height: 3px;
+  width: 5px;
+  height: 5px;
   position: relative;
   animation-delay: 5s;
   animation: mymove5 1s linear infinite running;
@@ -103,18 +119,155 @@
 
 @keyframes mymove5 {
   from {
-    top: 160px;
+    top: 120px;
+  }
+  to {
+    top: 150px;
+  }
+}
+.dot-slider-container6 {
+  background: #267bad;
+  width: 5px;
+  height: 5px;
+  position: relative;
+  animation-delay: 5s;
+  animation: mymove6 1s linear infinite running;
+}
+
+@keyframes mymove6 {
+  from {
+    top: 150px;
+  }
+  to {
+    top: 180px;
+  }
+}
+.dot-slider-container7 {
+  background: #267bad;
+  width: 5px;
+  height: 5px;
+  position: relative;
+  animation-delay: 5s;
+  animation: mymove7 1s linear infinite running;
+}
+
+@keyframes mymove7 {
+  from {
+    top: 180px;
   }
   to {
     top: 210px;
   }
 }
 
+.dot-slider-container8 {
+  background: #267bad;
+  width: 5px;
+  height: 5px;
+  position: relative;
+  animation-delay: 5s;
+  animation: mymove8 1s linear infinite running;
+}
+
+@keyframes mymove8 {
+  from {
+    top: 210px;
+  }
+  to {
+    top: 240px;
+  }
+}
+.dot-slider-container9 {
+  background: #267bad;
+  width: 5px;
+  height: 5px;
+  position: relative;
+  animation-delay: 5s;
+  animation: mymove9 1s linear infinite running;
+}
+
+@keyframes mymove9 {
+  from {
+    top: 240px;
+  }
+  to {
+    top: 270px;
+  }
+}
+.dot-slider-container10 {
+  background: #267bad;
+  width: 5px;
+  height: 5px;
+  position: relative;
+  animation-delay: 5s;
+  animation: mymove10 1s linear infinite running;
+}
+
+@keyframes mymove10 {
+  from {
+    top: 270px;
+  }
+  to {
+    top: 310px;
+  }
+}
+.dot-slider-container11 {
+  background: #267bad;
+  width: 5px;
+  height: 5px;
+  position: relative;
+  animation-delay: 5s;
+  animation: mymove11 1s linear infinite running;
+}
+
+@keyframes mymove11 {
+  from {
+    top: 310px;
+  }
+  to {
+    top: 340px;
+  }
+}
+.dot-slider-container12 {
+  background: #267bad;
+  width: 5px;
+  height: 5px;
+  position: relative;
+  animation-delay: 5s;
+  animation: mymove12 1s linear infinite running;
+}
+
+@keyframes mymove12 {
+  from {
+    top: 340px;
+  }
+  to {
+    top: 370px;
+  }
+}
+
+.dot-slider-container13 {
+  background: #267bad;
+  width: 5px;
+  height: 5px;
+  position: relative;
+  animation-delay: 5s;
+  animation: mymove13 1s linear infinite running;
+}
+
+@keyframes mymove13 {
+  from {
+    top: 370px;
+  }
+  to {
+    top: 400px;
+  }
+}
 /* bottom dot slide */
 .dot-slider-container_bottom1 {
   background: white;
-  width: 3px;
-  height: 3px;
+  width: 5px;
+  height: 5px;
   position: absolute;
   animation-delay: 5s;
   animation: mymove_bottom1 3s linear infinite running;
@@ -125,14 +278,14 @@
     right: 0px;
   }
   to {
-    right: 100px;
+    right: 80px;
   }
 }
 
 .dot-slider-container_bottom2 {
   background: white;
-  width: 3px;
-  height: 3px;
+  width: 5px;
+  height: 5px;
   position: absolute;
   animation-delay: 5s;
   animation: mymove_bottom2 3s linear infinite running;
@@ -140,16 +293,16 @@
 
 @keyframes mymove_bottom2 {
   from {
-    right: 100px;
+    right: 80px;
   }
   to {
-    right: 200px;
+    right: 160px;
   }
 }
 .dot-slider-container_bottom3 {
   background: white;
-  width: 3px;
-  height: 3px;
+  width: 5px;
+  height: 5px;
   position: absolute;
   animation-delay: 5s;
   animation: mymove_bottom3 3s linear infinite running;
@@ -157,16 +310,16 @@
 
 @keyframes mymove_bottom3 {
   from {
-    right: 200px;
+    right: 160px;
   }
   to {
-    right: 300px;
+    right: 240px;
   }
 }
 .dot-slider-container_bottom4 {
   background: white;
-  width: 3px;
-  height: 3px;
+  width: 5px;
+  height: 5px;
   position: absolute;
   animation-delay: 5s;
   animation: mymove_bottom4 3s linear infinite running;
@@ -174,16 +327,16 @@
 
 @keyframes mymove_bottom4 {
   from {
-    right: 300px;
+    right: 240px;
   }
   to {
-    right: 400px;
+    right: 320px;
   }
 }
 .dot-slider-container_bottom5 {
   background: white;
-  width: 3px;
-  height: 3px;
+  width: 5px;
+  height: 5px;
   position: absolute;
   animation-delay: 5s;
   animation: mymove_bottom5 3s linear infinite running;
@@ -191,16 +344,16 @@
 
 @keyframes mymove_bottom5 {
   from {
-    right: 400px;
+    right: 320px;
   }
   to {
-    right: 500px;
+    right: 400px;
   }
 }
 .dot-slider-container_bottom6 {
   background: white;
-  width: 3px;
-  height: 3px;
+  width: 5px;
+  height: 5px;
   position: absolute;
   animation-delay: 5s;
   animation: mymove_bottom6 3s linear infinite running;
@@ -208,16 +361,16 @@
 
 @keyframes mymove_bottom6 {
   from {
-    right: 500px;
+    right: 400px;
   }
   to {
-    right: 600px;
+    right: 480px;
   }
 }
 .dot-slider-container_bottom7 {
   background: white;
-  width: 3px;
-  height: 3px;
+  width: 5px;
+  height: 5px;
   position: absolute;
   animation-delay: 5s;
   animation: mymove_bottom7 3s linear infinite running;
@@ -225,16 +378,16 @@
 
 @keyframes mymove_bottom7 {
   from {
-    right: 600px;
+    right: 480px;
   }
   to {
-    right: 700px;
+    right: 560px;
   }
 }
 .dot-slider-container_bottom8 {
   background: white;
-  width: 3px;
-  height: 3px;
+  width: 5px;
+  height: 5px;
   position: absolute;
   animation-delay: 5s;
   animation: mymove_bottom8 3s linear infinite running;
@@ -242,16 +395,16 @@
 
 @keyframes mymove_bottom8 {
   from {
-    right: 700px;
+    right: 560px;
   }
   to {
-    right: 800px;
+    right: 640px;
   }
 }
 .dot-slider-container_bottom9 {
   background: white;
-  width: 3px;
-  height: 3px;
+  width: 5px;
+  height: 5px;
   position: absolute;
   animation-delay: 5s;
   animation: mymove_bottom9 3s linear infinite running;
@@ -259,16 +412,16 @@
 
 @keyframes mymove_bottom9 {
   from {
-    right: 800px;
+    right: 640px;
   }
   to {
-    right: 900px;
+    right: 720px;
   }
 }
 .dot-slider-container_bottom10 {
   background: white;
-  width: 3px;
-  height: 3px;
+  width: 5px;
+  height: 5px;
   position: absolute;
   animation-delay: 5s;
   animation: mymove_bottom10 3s linear infinite running;
@@ -276,10 +429,78 @@
 
 @keyframes mymove_bottom10 {
   from {
-    right: 900px;
+    right: 720px;
   }
   to {
-    right: 1000px;
+    right: 800px;
+  }
+}
+.dot-slider-container_bottom11 {
+  background: white;
+  width: 5px;
+  height: 5px;
+  position: absolute;
+  animation-delay: 5s;
+  animation: mymove_bottom11 3s linear infinite running;
+}
+
+@keyframes mymove_bottom11 {
+  from {
+    right: 800px;
+  }
+  to {
+    right: 880px;
+  }
+}
+.dot-slider-container_bottom12 {
+  background: white;
+  width: 5px;
+  height: 5px;
+  position: absolute;
+  animation-delay: 5s;
+  animation: mymove_bottom12 3s linear infinite running;
+}
+
+@keyframes mymove_bottom12 {
+  from {
+    right: 880px;
+  }
+  to {
+    right: 960px;
+  }
+}
+.dot-slider-container_bottom13 {
+  background: white;
+  width: 5px;
+  height: 5px;
+  position: absolute;
+  animation-delay: 5s;
+  animation: mymove_bottom13 3s linear infinite running;
+}
+
+@keyframes mymove_bottom13 {
+  from {
+    right: 960px;
+  }
+  to {
+    right: 1040px;
+  }
+}
+.dot-slider-container_bottom14 {
+  background: white;
+  width: 5px;
+  height: 5px;
+  position: absolute;
+  animation-delay: 5s;
+  animation: mymove_bottom14 3s linear infinite running;
+}
+
+@keyframes mymove_bottom14 {
+  from {
+    right: 1040px;
+  }
+  to {
+    right: 1120px;
   }
 }
 /* //////////////////////? */
@@ -353,7 +574,7 @@
 
 .custom-tab-indicator {
   background: "blue" !important;
-  height: 3px;
+  height: 5px;
 }
 
 /* //////////// win slider */
@@ -433,12 +654,10 @@
   }
 }
 
-
-
 .scrollable-text {
   height: 10px; /* Set the desired height */
   overflow: hidden;
-  animation: scroll 5s linear infinite ; /* Adjust the animation duration as needed */
+  animation: scroll 5s linear infinite; /* Adjust the animation duration as needed */
 }
 @keyframes scroll {
   0% {
@@ -463,7 +682,6 @@
   }
 }
 
-
 .animation_div {
   animation: animation_div_text 2.5s infinite forwards;
 }
@@ -477,9 +695,4 @@
     height: 90px;
     opacity: 1;
   }
-}
-
-.transparentColor{
-  -webkit-background-clip:text;
-  -webkit-text-fill-color: transparent;
 }

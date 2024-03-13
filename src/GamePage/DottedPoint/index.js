@@ -2,16 +2,23 @@ import React from "react";
 
 export const LeftDottedPointMoveable = () => {
   return (
-    <div className="z-20 absolute top-0 left-0 w-[20px]  h-[calc(100%)]  bg-black flex flex-col items-center overflow-hidden">
-      <div className="absolute h-full  w-full bottom-[20px]  flex flex-col items-center  !border-r-[1px] !border-white !border-opacity-20">
+    <div className="z-20 absolute top-0 !bg-black left-0 w-[20px]  h-[calc(100%)]   flex flex-col items-center overflow-hidden">
+      <div className="absolute overflow-hidden h-full  w-full bottom-[18px] !bg-black  flex flex-col items-center  !border-r-[1px] !border-white !border-opacity-20 ">
         <p className="dot-slider-container1 rounded-full "></p>
         <p className="dot-slider-container2 rounded-full "></p>
         <p className="dot-slider-container3 rounded-full "></p>
         <p className="dot-slider-container4 rounded-full "></p>
         <p className="dot-slider-container5 rounded-full "></p>
         <p className="dot-slider-container6 rounded-full "></p>
+        <p className="dot-slider-container7 rounded-full "></p>
+        <p className="dot-slider-container8 rounded-full "></p>
+        <p className="dot-slider-container9 rounded-full "></p>
+        <p className="dot-slider-container10 rounded-full "></p>
+        <p className="dot-slider-container11 rounded-full "></p>
+        <p className="dot-slider-container12 rounded-full "></p>
+        <p className="dot-slider-container13 rounded-full "></p>
       </div>
-      {/* <p className="dot-slider-container7 rounded-full "></p> */}
+      
     </div>
   );
 };
@@ -61,6 +68,10 @@ export const ButtomDottedPointMoveable = () => {
       <p className="dot-slider-container_bottom8 rounded-full "></p>
       <p className="dot-slider-container_bottom9 rounded-full "></p>
       <p className="dot-slider-container_bottom10 rounded-full "></p>
+      <p className="dot-slider-container_bottom11 rounded-full "></p>
+      <p className="dot-slider-container_bottom12 rounded-full "></p>
+      <p className="dot-slider-container_bottom13 rounded-full "></p>
+      <p className="dot-slider-container_bottom14 rounded-full "></p>
     </div>
   );
 };
@@ -83,7 +94,7 @@ export const ButtomDottedPoint = () => {
 
 export const TopDottedPointMoveable = () => {
   return (
-    <div className="z-20 absolute top-0 right-[20px] w-[100%]  h-[20px] border-b-[1px]  border-white border-opacity-20 bg-black flex  items-center overflow-hidden">
+    <div className="z-20 absolute  top-0 right-[20px] w-[100%]  h-[20px] border-b-[1px]  border-white border-opacity-20 bg-black flex  items-center overflow-hidden">
       <p className="dot-slider-container_bottom1 rounded-full "></p>
       <p className="dot-slider-container_bottom2 rounded-full "></p>
       <p className="dot-slider-container_bottom3 rounded-full "></p>
@@ -99,7 +110,7 @@ export const TopDottedPointMoveable = () => {
 };
 export const TopDottedPoint = () => {
   return (
-    <div className="z-20 absolute top-0  w-[100%]  h-[20px] border-b-[1px]  border-white border-opacity-20  bg-black flex  items-center overflow-hidden">
+    <div className="z-20 absolute top-0   w-[100%]  h-[20px] border-b-[1px]  border-white border-opacity-20  bg-black flex  items-center overflow-hidden">
       <p className="absolute w-[3px] h-[3px] right-[100px] bg-white rounded-full "></p>
       <p className="absolute w-[3px] h-[3px] right-[200px] bg-white rounded-full "></p>
       <p className="absolute w-[3px] h-[3px] right-[300px] bg-white rounded-full "></p>

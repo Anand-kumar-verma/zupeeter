@@ -6,6 +6,7 @@ import KeyboardArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardArrowLeft
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import Layout from '../../../component/Layout/Layout';
 import Leval from '../../../assets/images/leval.png'
+import { iconcolorpink, zubgback, zubgbackgrad, zubgmid } from '../../../Shared/color';
 
 
 
@@ -61,7 +62,7 @@ function PromotionRule() {
           </Box>
         </Box>
         <Box sx={{ px: 2, mt: 5 }}>
-          <Box sx={style.box}>
+          <Box sx={{ ...style.box, mb: 3 }}>
             <Box sx={style.boxNumber}>05</Box>
             <Typography variant="body1" color="initial">
               Commission rates vary depending on your agency level on that day
@@ -75,7 +76,7 @@ function PromotionRule() {
           </Box>
           <Box>
             <Stack direction='row' sx={{
-              px: '2px', py: '10px', background: '#6F6F6F', alignItems: 'center', justifyContent: 'space-between',
+              px: '2px', py: '10px', background: zubgbackgrad, alignItems: 'center', justifyContent: 'space-between',
               '&>div': { fontSize: '12px', color: 'white !important', },
             }}>
               <Box>Rebate level</Box>
@@ -178,7 +179,8 @@ function PromotionRule() {
             </Typography>
           </Box>
         </Box>
-
+        <Box sx={{ padding: 7 }}>
+        </Box>
       </Container>
     </Layout>
   );
@@ -187,17 +189,17 @@ function PromotionRule() {
 export default PromotionRule;
 
 const style = {
-  container: { background: '#292929', width: '100%' },
-  header: { padding: '8px', background: '#3F3F3F', display: 'flex', alignItems: 'center', justifyContent: 'space-between', '& > p': { color: 'white !important', }, '& > a > svg': { color: 'white !important', fontSize: '25px' } },
+  container: { background: zubgback, width: '100%', pb: '60px' },
+  header: { padding: '8px', background: zubgmid, display: 'flex', alignItems: 'center', justifyContent: 'space-between', '& > p': { color: 'white !important', }, '& > a > svg': { color: 'white !important', fontSize: '25px' } },
   contentText: { '& > p:nth-child(1)': { fontSize: '20px', textAlign: 'center', py: 1, color: 'white !important', }, '& > p:nth-child(2)': { fontSize: '15px', textAlign: 'center', color: 'gray' } },
   box: {
-    position: 'relative', border: '1px solid #6F6F6F', borderTopLeftRadius: '10px', borderTopRightRadius: '10px', padding: 2, background: '#3F3F3F',
+    position: 'relative', border: '1px solid #6F6F6F', borderTopLeftRadius: '10px', borderTopRightRadius: '10px', padding: 2, background: zubgmid,
     '&>p': { color: 'white !important', fontSize: '13px', fontWeight: '400', wordSpacing: '1x', lineHeight: '20px' },
     '&>p>a': { color: '#FEA237', fontSize: '13px', fontWeight: '400', wordSpacing: '1x', lineHeight: '20px', display: 'flex', alignItems: 'center' },
   },
-  boxNumber: { color: 'white !important', position: 'absolute', textAlign: 'center', background: '#6F6F6F', clipPath: 'polygon(10% 0, 90% 0, 100% 50%, 90% 100%, 10% 100%, 0 50%)', width: '30%', top: '-13px', left: '35%' },
+  boxNumber: { color: 'white !important', position: 'absolute', textAlign: 'center', background: iconcolorpink, clipPath: 'polygon(10% 0, 90% 0, 100% 50%, 90% 100%, 10% 100%, 0 50%)', width: '30%', top: '-13px', left: '35%' },
   levalBox: {
-    px: '0px', background: '#3F3F3F', display: 'flex !important', alignItems: 'center', justifyContent: 'space-between',
+    px: '0px', background: zubgmid, display: 'flex !important', alignItems: 'center', justifyContent: 'space-between',
     '&>div': {
       fontSize: '12px', color: 'white !important', textAlign: 'center', border: '1px solid #292929', width: '25%', height: '45px',
       display: 'flex', alignItems: 'center', justifyContent: 'center'
