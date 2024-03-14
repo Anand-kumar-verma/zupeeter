@@ -1,27 +1,35 @@
 import { Box, Typography } from "@mui/material";
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { zubgback, zubgbackgrad, zubgmid } from "../../../Shared/color";
 import go from "../../../assets/images/go.png";
+import scr1 from '../../../assets/images/src1.png';
 import kind from "../../../assets/images/win1/aviater.jpg";
 
 const Original = () => {
+  const navigate = useNavigate();
+
+
   return (
     <Box>
       <Box sx={style.root}>
         <Box sx={style.roottwo} component={NavLink} to={"/playgame"}>
-          <Box sx={{ width: "70%", height: "100%" }}>
-            <Box sx={style.titleBox} className={"!px-[5%]"}>
-             <Typography variant="body1" color="initial" sx={style.title} className="!text-4xl">
+          <Box sx={{ width: "70%", height: "100%", position: 'relative' }}>
+            <Box sx={{
+              position: 'absolute', top: 0, left: '0', width: '100%', height: '100%', borderRadius: '10px 0px 0px 10px',
+            }}>
+              <Box component='img' src={scr1} sx={{ width: '100%', height: '100%', borderRadius: '10px 0px 0px 10px', opacity: '0.2' }}></Box>
+            </Box>
+            <Box sx={style.titleBox}>
+              <Box>
+                <Typography variant="body1" color="initial" sx={style.title}>
                   Aviator
                 </Typography>
+              </Box>
               <Box>
-                <Box component="img" width={50} src={go}></Box>
+                <Box component="img" width={65} src={go}></Box>
               </Box>
             </Box>
-            {/* <Box sx={style.btmbox}>
-              <Box component="img" sx={style.imgone} src={vibrant}></Box>
-            </Box> */}
           </Box>
           <Box sx={{ width: "30%", height: "100%" }}>
             <Box component="img" sx={style.imgtwo} src={kind}></Box>
@@ -53,6 +61,7 @@ const style = {
     alignItems: "center",
     justifyContent: "space-between",
   },
+
   titleBox: {
     width: "100%",
     padding: "10px 0px 0px 10px",
@@ -60,20 +69,23 @@ const style = {
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
+    position: 'relative',
   },
+
   title: {
     lineHeight: "1.5",
     textAlign: "start",
     color: "white",
-    
-    fontWeight: "800",
+    fontSize: "45px",
+    fontWeight: "900 !important",
+    fontFamily: "Trade Winds !important",
     background: zubgbackgrad,
     "-webkit-background-clip": "text",
     "-webkit-text-fill-color": "transparent",
   },
   imgtwo: { width: "100%", height: "100%", borderRadius: "0px 10px 10px 0px" },
   imgone: { width: "100%", height: "100%", borderRadius: "0px 0px 0px 10px" },
-  textone: { color: "white", fontSize: "9px" },
+  textone: { color: "white", fontSize: "13px" },
   texttow: { color: "white", fontSize: "10px", mr: "5px" },
   btmbox: {
     width: "100%",
@@ -84,3 +96,4 @@ const style = {
     textAlign: "center",
   },
 };
+

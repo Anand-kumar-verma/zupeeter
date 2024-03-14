@@ -1,243 +1,243 @@
-import { Logout } from "@mui/icons-material";
-import AppsIcon from "@mui/icons-material/Apps";
-import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
-import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
-import CottageIcon from "@mui/icons-material/Cottage";
-import GroupsIcon from "@mui/icons-material/Groups";
-import LockResetIcon from "@mui/icons-material/LockReset";
-import Person2Icon from "@mui/icons-material/Person2";
-import PrivacyTipIcon from "@mui/icons-material/PrivacyTip";
-import RequestQuoteIcon from "@mui/icons-material/RequestQuote";
-import SpaceDashboardIcon from "@mui/icons-material/SpaceDashboard";
-import StarBorderIcon from "@mui/icons-material/StarBorder";
-import {
-  Avatar,
-  Box,
-  Button,
-  Container
-} from "@mui/material";
-import axios from "axios";
-import { useFormik } from "formik";
-import React from "react";
-import toast from "react-hot-toast";
-import { useQuery } from "react-query";
-import { useNavigate } from "react-router-dom";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import Layout from "../../component/Layout/Layout";
-import { endpoint } from "../../services/urls";
-import CustomCircularProgress from "../../Shared/CustomCircularProgress";
+import CachedIcon from '@mui/icons-material/Cached';
+import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
+import { Box, Button, Container, Stack, Typography } from '@mui/material';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { zubgback, zubgbackgrad, zubgmid } from '../../Shared/color';
+import cip from '../../assets/cip.png';
+import card from '../../assets/images/card-payment.png';
+import wtd from '../../assets/images/cash-withdrawal.png';
+import casino from '../../assets/images/casino.png';
+import customer from '../../assets/images/customer-service.png';
+import dpt from '../../assets/images/deposit.png';
+import gift from '../../assets/images/gift-box.png';
+import graph from '../../assets/images/graph.png';
+import hand from '../../assets/images/hand.png';
+import notification from '../../assets/images/notification.png';
+import user2 from '../../assets/images/password (1).png';
+import profile from '../../assets/images/profile.jpg';
+import Rank from '../../assets/images/rank.png';
+import balance from '../../assets/images/send.png';
+import setting from '../../assets/images/settings (1).png';
+import trans from '../../assets/images/translation.png';
+import s from '../../assets/images/wallet.png';
+import Layout from '../../component/Layout/Layout';
+
 
 function Account() {
-  const navigate = useNavigate();
-  const login_data = localStorage.getItem("logindata");
-  const user_id = JSON.parse(login_data).UserID;
-  const { isLoading, data } = useQuery(["walletamount"], () => walletamount(), {
-    refetchOnMount: false,
-    refetchOnReconnect: true,
-  });
-
-  const walletamount = async () => {
-    try {
-      const response = await axios.get(
-        `${endpoint.userwallet}?userid=${user_id}`
-      );
-      return response;
-    } catch (e) {
-      toast(e?.message);
-      console.log(e);
-    }
-  };
-  const initialValues = {
-    referrel_code: "https://gamezone.com/auth/registration/WlcxMjM0NTY3",
-  };
-  const fk = useFormik({
-    initialValues: initialValues,
-    onSubmit: () => {
-      console.log("This is handle submit");
-    },
-  });
-
-  const amount = data?.data?.data?.wallet || 0;
-
-  const page_data = [
-    {
-      icon: (
-        <SpaceDashboardIcon
-          className="!w-[40px] !h-[40px] !text-[#8f5206]"
-          color="#FAE59F"
-        />
-      ),
-      name: "Dashboard",
-      link: "/dashboard",
-    },
-    {
-      icon: (
-        <GroupsIcon
-          className="!w-[40px] !h-[40px] !text-[#8f5206]"
-          color="#FAE59F"
-        />
-      ),
-      name: "My Team",
-      link: "/account-my-team",
-    },
-    {
-      icon: (
-        <RequestQuoteIcon
-          className="!w-[40px] !h-[40px] !text-[#8f5206] "
-          color="#FAE59F"
-        />
-      ),
-      name: "Income",
-      link: "/account-income",
-    },
-    {
-      icon: (
-        <CardGiftcardIcon
-          className="!w-[40px] !h-[40px] !text-[#8f5206]"
-          color="#FAE59F"
-        />
-      ),
-      name: "Betting Bonus",
-      link: "/account-betting-zone",
-    },
-    {
-      icon: (
-        <CottageIcon
-          className="!w-[40px] !h-[40px] !text-[#8f5206]"
-          color="#FAE59F"
-        />
-      ),
-      name: "Bank Details",
-      link: "/account-band-details",
-    },
-    {
-      icon: (
-        <Person2Icon
-          className="!w-[40px] !h-[40px] !text-[#8f5206]"
-          color="#FAE59F"
-        />
-      ),
-      name: "Profile",
-      link: "/account-profile",
-    },
-    {
-      icon: (
-        <LockResetIcon
-          className="!w-[40px] !h-[40px] !text-[#8f5206]"
-          color="#FAE59F"
-        />
-      ),
-      name: "Password",
-      link: "/account-password",
-    },
-    {
-      icon: (
-        <AppsIcon
-          className="!w-[40px] !h-[40px] !text-[#8f5206]"
-          color="#FAE59F"
-        />
-      ),
-      name: "ICO",
-      link: "/account-ico",
-    },
-    {
-      icon: (
-        <PrivacyTipIcon
-          className="!w-[40px] !h-[40px] !text-[#8f5206]"
-          color="#FAE59F"
-        />
-      ),
-      name: "Privacy Policy",
-      link: "/account-privacy-policy",
-    },
-    {
-      icon: (
-        <StarBorderIcon
-          className="!w-[40px] !h-[40px] !text-[#8f5206] "
-          color="#FAE59F"
-        />
-      ),
-      name: "Risk Disclosure Agreement",
-      link: "/account-risk-disclosure-agreement",
-    },
-    {
-      icon: (
-        <CloudDownloadIcon
-          className="!w-[40px] !h-[40px] !text-[#8f5206] "
-          color="#FAE59F"
-        />
-      ),
-      name: "App Download",
-      link: "",
-    },
-  ];
-
+  const navigate = useNavigate()
   return (
     <Layout>
-      <Box sx={styles.root}>
-        <Container>
-          <div className="h-screen">
-            <div
-              style={{
-                background: "linear-gradient(180deg, #FAE59F 0%, #C4933F 100%)",
-              }}
-              className="grid bg-white bg-opacity-80 place-items-center rounded-b-[50px] relative"
-            >
-              <div className="py-[3%] w-full px-[10%] flex justify-between">
-                <div className="flex flex-col justify-center items-center ">
-                  <Avatar />
-                  <span className="text-sm text-black">Edit Profile</span>
-                </div>
-                <div className="flex flex-col justify-center items-center ">
-                  <p>Personal Center</p>
-                  <span className="text-sm text-black">ID:2348902374</span>
-                </div>
-                <div
-                  className="flex flex-col justify-center items-center !cursor-pointer"
-                  onClick={() => {
-                    localStorage.clear();
-                    navigate("/");
-                  }}
-                >
-                  <Logout />
-                  <span className="text-sm text-black">Logout</span>
-                </div>
-              </div>
-              <div className="w-full flex justify-center absolute -bottom-6 ">
-                <div className="w-[80%] grid grid-cols-2 bg-[#D4EDDA] px-2 items-center ">
-                  <p className="">Available Balance (₹):</p>
-                  <Button variant="contained" className="!bg-white">
-                    122.123
-                  </Button>
-                </div>
-              </div>
-            </div>
-            <div className="w-full bg-white bg-opacity-30 rounded-lg  grid grid-cols-3 mt-[10%]">
-              {page_data?.map((i) => {
-                return (
-                  <div
-                    onClick={() => navigate(i?.link)}
-                    className="cursor-pointer  place-items-center flex w-full flex-col items-center rounded-lg py-2"
-                  >
-                    <p>{i?.icon}</p>
-                    <p className="text-[12px] !text-black">{i?.name}</p>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-          <CustomCircularProgress isLoading={isLoading}/>
-        </Container>
-      </Box>
+      <Container sx={style.container}>
+        <Stack direction="row" sx={style.header}>
+          <Box sx={style.profileBox}>
+            <Box component="img" src={profile} sx={style.profileImage} />
+          </Box>
+          <Box sx={style.userInfo}>
+            <Typography variant="" color="initial">
+              BRIJESH KUMAR
+            </Typography>
+            <Typography variant="body1" color="initial">
+              UID | 52414986
+            </Typography>
+          </Box>
+          <Box sx={style.rankImage}>
+            <Box component="img" src={Rank} sx={style.rankImage} />
+          </Box>
+        </Stack>
+        <Box sx={style.balanceContainer}>
+          <Stack direction="row" sx={{ alignItems: 'center' }}>
+            <Box component="img" src={balance} sx={style.cardImage} />
+            <Typography variant="body1" color="initial" sx={style.balanceText}>
+              Total Balance
+            </Typography>
+          </Stack>
+          <Stack direction="row" sx={{ alignItems: 'center', mt: '10px' }}>
+            <Typography variant="body1" color="initial" sx={style.totalBalance}>
+              ₹3,069.32
+            </Typography>
+            <CachedIcon sx={style.cachedIcon} />
+          </Stack>
+          <Stack direction="row" sx={{ alignItems: 'center', justifyContent: 'space-between', mt: '20px' }}>
+            <Box component="img" src={cip} sx={style.cardImage} />
+            <Typography variant="body1" color="initial" sx={style.cardNumber}>
+              **** **** **** ****
+            </Typography>
+          </Stack>
+        </Box>
+        <Box sx={style.actionContainer}>
+          <Box sx={style.actionBox} component={NavLink} to="/wallet">
+            <Box component="img" src={s} sx={style.actionImage} />
+            <Typography variant="body1" color="initial" sx={style.actionText}>
+              Wallet
+            </Typography>
+          </Box>
+          <Box sx={style.actionBox} component={NavLink} to="/wallet/Recharge">
+            <Box component="img" src={dpt} sx={style.actionImage} />
+            <Typography variant="body1" color="initial" sx={style.actionText}>
+              Deposit
+            </Typography>
+          </Box>
+          <Box sx={style.actionBox} component={NavLink} to="/Withdrawal">
+            <Box component="img" src={wtd} sx={style.actionImage} />
+            <Typography variant="body1" color="initial" sx={style.actionText}>
+              Withdraw
+            </Typography>
+          </Box>
+          {/* <Box sx={style.actionBox} component={NavLink} to="/VIP">
+            <Box component="img" src={vip} sx={style.actionImage} />
+            <Typography variant="body1" color="initial" sx={style.actionText}>
+              VIP
+            </Typography>
+          </Box> */}
+        </Box>
+        <Box sx={style.actionContainer} component={NavLink} to={'/bathistory'}>
+          <Box sx={{ width: '49%', background: zubgbackgrad, padding: '10px', borderRadius: '10px', height: '100%', }}>
+            <Stack direction='row' sx={{ alignItems: 'center', }}>
+              <Box component='img' src={casino} sx={{ width: '40px', height: '40px', marginRight: '20px' }}>
+
+              </Box>
+              <Box sx={{
+                '&>:nth-child(1)': { fontSize: '15px', fontWeight: '500', color: 'white' },
+                '&>:nth-child(2)': { fontSize: '12px', fontWeight: '500', color: 'white' },
+              }}>
+                <Typography variant="body1" color="initial">Bet</Typography>
+                <Typography variant="body1" color="initial">My betting history</Typography>
+              </Box>
+            </Stack>
+          </Box>
+          <Box sx={{ width: '49%', background: zubgbackgrad, padding: '10px', borderRadius: '10px', height: '100%', }}>
+            <Stack direction='row' sx={{ alignItems: 'center', }}>
+              <Box component='img' src={card} sx={{ width: '40px', height: '40px', marginRight: '20px' }}>
+              </Box>
+              <Box sx={{
+                '&>:nth-child(1)': { fontSize: '15px', fontWeight: '500', color: 'white' },
+                '&>:nth-child(2)': { fontSize: '10px', fontWeight: '500', color: 'white' },
+              }}>
+                <Typography variant="body1" color="initial">Transaction</Typography>
+                <Typography variant="body1" color="initial">My Transaction history</Typography>
+              </Box>
+            </Stack>
+          </Box>
+        </Box>
+        <Box sx={style.actionContainertwo}>
+          <Stack sx={{ padding: '10px', background: zubgmid, width: '100%', borderRadius: '10px' }}>
+            <Stack component={NavLink} to='/notification' direction='row' sx={{ borderBottom: '1px solid white', padding: '10px', width: '100%', alignItems: 'center', justifyContent: 'space-between' }}>
+              <Stack direction='row' sx={{ alignItems: 'center' }}>
+                <Box component='img' src={notification} sx={{ width: '20px', height: '20px', marginRight: '10px', }}></Box>
+                <Typography variant="body1" color="initial" sx={{ color: 'white', fontSize: '13px', fontWeight: '600' }}>Notification</Typography>
+              </Stack>
+              <Box >
+                <KeyboardDoubleArrowRightIcon sx={{ color: 'white', fontSize: '23px', fontWeight: '600' }} />
+              </Box>
+            </Stack>
+            <Stack component={NavLink} to='/gift' direction='row' sx={{ borderBottom: '1px solid white', padding: ' 10px 10px 10px 5px', width: '100%', alignItems: 'center', justifyContent: 'space-between' }}>
+              <Stack direction='row' sx={{ alignItems: 'center' }}>
+                <Box component='img' src={gift} sx={{ width: '30px', height: '30px', marginRight: '10px', }}></Box>
+                <Typography variant="body1" color="initial" sx={{ color: 'white', fontSize: '13px', fontWeight: '600' }}>Gifts</Typography>
+              </Stack>
+              <Box >
+                <KeyboardDoubleArrowRightIcon sx={{ color: 'white', fontSize: '23px', fontWeight: '600' }} />
+              </Box>
+            </Stack>
+            <Stack component={NavLink} to="/gamestaticks" direction='row' sx={{ borderBottom: '1px solid white', padding: ' 10px 10px 10px 5px', width: '100%', alignItems: 'center', justifyContent: 'space-between' }}>
+              <Stack direction='row' sx={{ alignItems: 'center' }}>
+                <Box component='img' src={graph} sx={{ width: '25px', height: '25px', marginRight: '10px', }}></Box>
+                <Typography variant="body1" color="initial" sx={{ color: 'white', fontSize: '13px', fontWeight: '600' }}>Game statistics</Typography>
+              </Stack>
+              <Box >
+                <KeyboardDoubleArrowRightIcon sx={{ color: 'white', fontSize: '23px', fontWeight: '600' }} />
+              </Box>
+            </Stack>
+            <Stack component={NavLink} to="/Language" direction='row' sx={{ borderBottom: '1px solid white', padding: ' 10px 10px 10px 5px', width: '100%', alignItems: 'center', justifyContent: 'space-between' }}>
+              <Stack direction='row' sx={{ alignItems: 'center' }}>
+                <Box component='img' src={trans} sx={{ width: '25px', height: '25px', marginRight: '10px', }}></Box>
+                <Typography variant="body1" color="initial" sx={{ color: 'white', fontSize: '13px', fontWeight: '600' }}>Language</Typography>
+              </Stack>
+              <Box >
+                <Typography sx={{ color: 'white', fontSize: '13px', fontWeight: '500' }} >English</Typography>
+              </Box>
+            </Stack>
+          </Stack>
+        </Box>
+        <Box
+          sx={{
+            width: '95%', marginLeft: '2.5%', borderRadius: '10px', background: zubgmid, padding: '10px', mt: '10px',
+            '&>:nth-child(1)': { color: 'white', fontSize: '15px', fontWeight: '600', mb: '25px', },
+          }}>
+          <Typography variant="body1" color="initial">Service center</Typography>
+
+          <Stack direction='row' sx={{ alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', }} >
+            <Box component={NavLink} to="/SettingCenter" sx={{
+              width: '30%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', mb: '10px',
+              '&>p': { color: 'white', fontSize: '14px', fontWeight: '500', mt: '5px', }
+            }}>
+              <Box component='img' src={setting} sx={{ width: '40px', height: '40px', }}></Box>
+              <Typography>Settings</Typography>
+            </Box>
+            <Box component={NavLink} to="/feedback" sx={{
+              width: '30%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', mb: '10px',
+              '&>p': { color: 'white', fontSize: '14px', fontWeight: '500', mt: '5px', }
+            }}>
+              <Box component='img' src={hand} sx={{ width: '40px', height: '40px', }}></Box>
+              <Typography>Feedback</Typography>
+            </Box>
+            <Box component={NavLink} to="/gameNotification" sx={{
+              width: '30%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', mb: '10px',
+              '&>p': { color: 'white', fontSize: '14px', fontWeight: '500', mt: '5px', }
+            }}>
+              <Box component='img' src={notification} sx={{ width: '40px', height: '40px', }}></Box>
+              <Typography>Notification</Typography>
+            </Box>
+            <Box component={NavLink} to="/promotion/customerLine/" sx={{
+              width: '50%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', mb: '10px', mt: '15px',
+              '&>p': { color: 'white', fontSize: '14px', fontWeight: '500', mt: '8px', }
+            }}>
+              <Box component='img' src={customer} sx={{ width: '40px', height: '40px', }}></Box>
+              <Typography>24/7 Customer service</Typography>
+            </Box>
+            <Box component={NavLink} to='/SettingCenter/LoginPassword' sx={{
+              width: '50%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', mb: '10px', mt: '15px',
+              '&>p': { color: 'white', fontSize: '14px', fontWeight: '500', mt: '8px', }
+            }}>
+              <Box component='img' src={user2} sx={{ width: '40px', height: '40px', }}></Box>
+              <Typography>Change Password</Typography>
+            </Box>
+          </Stack>
+        </Box>
+        <Box
+          sx={{
+            width: '95%', marginLeft: '2.5%', borderRadius: '10px', background: zubgmid, padding: '10px', mt: '10px',
+          }}>
+          <Button sx={{ background: zubgbackgrad, width: '100%', color: 'white', padding: '10px', borderRadius: '10px' }}
+          onClick={()=>{
+            localStorage.clear();
+            navigate('/');
+          }}
+          >Logout</Button>
+        </Box>
+      </Container>
     </Layout>
   );
 }
 
 export default Account;
 
-const styles = {
-  // root: { background: "#202020", pb: 6 },
-  depositWithdrawIcon: { width: "30px", height: "30px" },
+
+const style = {
+  container: { background: zubgback, mb: '64px' },
+  header: { alignItems: 'center', justifyContent: 'space-evenly', paddingTop: '20px' },
+  profileBox: { width: '80px', height: '80px', borderRadius: '50%', overflow: 'hidden' },
+  profileImage: { width: '100%', height: '100%' },
+  userInfo: { '& > :nth-child(1)': { fontSize: '18px', fontWeight: '600', color: 'white' }, '& > :nth-child(2)': { fontSize: '14px', fontWeight: '400', color: 'white' } },
+  rankImage: { width: '100px', height: '100px' },
+  balanceContainer: { background: zubgmid, borderRadius: '10px', padding: '20px', width: '95%', margin: 'auto', marginTop: '2px' },
+  balanceText: { fontSize: '16px', fontWeight: '500', color: 'white', marginLeft: '10px' },
+  totalBalance: { fontSize: '30px', fontWeight: '600', color: 'white', marginRight: '10px' },
+  cachedIcon: { color: 'white' },
+  cardImage: { width: '50px' },
+  cardNumber: { fontSize: '14px', color: 'white', marginLeft: '10px' },
+  actionContainer: { background: zubgmid, borderRadius: '10px', padding: '10px', width: '95%', margin: 'auto', marginTop: '10px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' },
+  actionBox: { width: '20%' }, actionImage: { width: '30px', height: '30px', margin: 'auto' },
+  actionText: { color: 'white', textAlign: 'center', fontSize: '14px', fontWeight: '500' },
+  actionContainertwo: { background: zubgbackgrad, flexDirection: 'column', borderRadius: '10px', padding: '10px', width: '95%', margin: 'auto', marginTop: '10px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' },
 };

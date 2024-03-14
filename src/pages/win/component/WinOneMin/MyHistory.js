@@ -135,7 +135,7 @@ const MyHistory = ({ gid }) => {
               <div className="flex justify-between">
                 <p className="!text-white !text-[12px]">Time</p>
                 <p className="!text-white !text-[12px]">
-                  {rupees} {moment(i?.datetime)?.format("DD-MM-YYYY")}
+                  {moment(i?.datetime)?.format("DD-MM-YYYY")}
                 </p>
               </div>
               <div className="flex justify-between">
