@@ -22,7 +22,7 @@ const Original = () => {
             </Box>
             <Box sx={style.titleBox}>
               <Box>
-                <Typography variant="body1" color="initial" sx={style.title}>
+                <Typography variant="body1" color="initial" className="gametitle">
                   Aviator
                 </Typography>
               </Box>
@@ -48,11 +48,11 @@ const style = {
     marginLeft: "2.5%",
     background: zubgmid,
     marginTop: "20px",
-    padding: "10px",
+    padding: "1px 10px 10px 10px",
     borderRadius: "10px",
   },
   roottwo: {
-    mb: "10px",
+    mt: "10px",
     width: "100%",
     height: "14vh",
     background: zubgback,

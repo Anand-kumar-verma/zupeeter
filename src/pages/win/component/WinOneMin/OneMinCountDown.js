@@ -20,6 +20,16 @@ import circle from '../../../../assets/images/circle-arrow.png';
 import howToPlay from '../../../../assets/images/user-guide.png';
 import { endpoint } from "../../../../services/urls";
 import Policy from "../policy/Policy";
+import pr5 from "../../../../assets/images/5.png";
+import pr6 from "../../../../assets/images/6.png";
+import pr7 from "../../../../assets/images/7.png";
+import pr8 from "../../../../assets/images/8.png";
+import pr9 from "../../../../assets/images/9.png";
+import { useDispatch } from "react-redux";
+import {
+  dummycounterFun
+} from "../../../../redux/slices/counterSlice";
+import { changeImages } from "../../../../services/schedular";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -29,7 +39,16 @@ const OneMinCountDown = () => {
   const client = useQueryClient();
   const [one_min_time, setOne_min_time] = useState(0);
   const show_this_one_min_time = String(one_min_time).padStart(2, "0");
-  const synth = window.speechSynthesis;
+  const [isImageChange,setIsImageChange] = useState('1_2_3_4_5');
+  const img1 = Number(isImageChange?.split("_")[0])
+  const img2 =Number(isImageChange?.split("_")[1])
+  const img3 =Number(isImageChange?.split("_")[2])
+  const img4 =Number(isImageChange?.split("_")[3])
+  const img5 =Number(isImageChange?.split("_")[4])
+   const dispatch = useDispatch()
+  const image_array = [pr0,pr11,pr22,pr33,pr4,pr5,pr6,pr7,pr8,pr9]
+  React.useEffect(()=>{setIsImageChange(changeImages())},[])
+
   React.useEffect(() => {
     if (show_this_one_min_time === "01") {
       oneMinCheckResult();
@@ -78,9 +97,10 @@ const OneMinCountDown = () => {
   const oneMinCheckResult = async () => {
     try {
       await axios.get(`${endpoint.check_result}`);
+      client.refetchQueries("myhistory");
       client.refetchQueries("gamehistory");
       client.refetchQueries("gamehistory_chart");
-      client.refetchQueries("myhistory");
+      dispatch(dummycounterFun())
     } catch (e) {
       toast(e?.message);
       console.log(e);
@@ -173,11 +193,11 @@ const OneMinCountDown = () => {
             alignItems="center"
             justifyContent="space-between"
           >
-            <Box component="img" src={pr0}></Box>
-            <Box component="img" src={pr11}></Box>
-            <Box component="img" src={pr22}></Box>
-            <Box component="img" src={pr33}></Box>
-            <Box component="img" src={pr4}></Box>
+            <Box component="img" src={image_array[Number(img1)]}></Box>
+            <Box component="img" src={image_array[Number(img2)]}></Box>
+            <Box component="img" src={image_array[Number(img3)]}></Box>
+            <Box component="img" src={image_array[Number(img4)]}></Box>
+            <Box component="img" src={image_array[Number(img5)]}></Box>
           </Stack>
         </Box>
         <Box>
@@ -187,7 +207,7 @@ const OneMinCountDown = () => {
           <Stack direction="row">
             <Box className="timerBoxone">0</Box>
             <Box className="timerBox">0</Box>
-            <Box>:</Box>
+            <Box className={"!text-white !font-bold !text-lg"}>:</Box>
             <Box className="timerBox">
               {show_this_one_min_time?.substring(0, 1)}
             </Box>

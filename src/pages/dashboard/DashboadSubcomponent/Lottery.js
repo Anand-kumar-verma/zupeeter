@@ -29,7 +29,7 @@ const Lottery = () => {
             </Box>
             <Box sx={style.titleBox}>
               <Box>
-                <Typography variant="body1" color="initial" sx={style.title}>
+                <Typography variant="body1" color="initial" className="gametitle">
                   Win Go
                 </Typography>
                 <Typography variant="body1" color="initial" sx={style.textone}>
@@ -54,7 +54,7 @@ const Lottery = () => {
             </Box>
             <Box sx={style.titleBox}>
               <Box>
-                <Typography variant="body1" color="initial" sx={style.title}>
+                <Typography variant="body1" color="initial" className="gametitle">
                   K3 Lottery
                 </Typography>
                 <Typography variant="body1" color="initial" sx={style.textone}>
@@ -79,7 +79,7 @@ const Lottery = () => {
             </Box>
             <Box sx={style.titleBox}>
               <Box>
-                <Typography variant="body1" color="initial" sx={style.title}>
+                <Typography variant="body1" color="initial" className="gametitle">
                   5D Lottery
                 </Typography>
                 <Typography variant="body1" color="initial" sx={style.textone}>
@@ -104,7 +104,7 @@ const Lottery = () => {
             </Box>
             <Box sx={style.titleBox}>
               <Box>
-                <Typography variant="body1" color="initial" sx={style.title}>
+                <Typography variant="body1" color="initial" className="gametitle">
                   Trx Win
                 </Typography>
                 <Typography variant="body1" color="initial" sx={style.textone}>
@@ -133,11 +133,10 @@ const style = {
     marginLeft: "2.5%",
     background: zubgmid,
     marginTop: "20px",
-    padding: "10px",
+    padding: "1px 10px 10px 10px",
     borderRadius: "10px",
   },
   roottwo: {
-    mb: "10px",
     width: "100%",
     height: "14vh",
     background: zubgback,
@@ -145,6 +144,7 @@ const style = {
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
+    mt: '10px'
   },
 
   titleBox: {

@@ -1,7 +1,9 @@
 import CachedIcon from '@mui/icons-material/Cached';
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import { Box, Button, Container, Stack, Typography } from '@mui/material';
+import { useQuery } from "react-query";
 import { NavLink, useNavigate } from 'react-router-dom';
+import CustomCircularProgress from '../../Shared/CustomCircularProgress';
 import { zubgback, zubgbackgrad, zubgmid } from '../../Shared/color';
 import cip from '../../assets/cip.png';
 import card from '../../assets/images/card-payment.png';
@@ -21,10 +23,20 @@ import setting from '../../assets/images/settings (1).png';
 import trans from '../../assets/images/translation.png';
 import s from '../../assets/images/wallet.png';
 import Layout from '../../component/Layout/Layout';
-
+import { MyProfileDataFn } from '../../services/apicalling';
 
 function Account() {
   const navigate = useNavigate()
+  const { isLoading, data } = useQuery(
+    ["myprofile"],
+    () => MyProfileDataFn(),
+    {
+      refetchOnMount: false,
+      refetchOnReconnect: true,
+    }
+  );
+const result = data?.data?.data;
+
   return (
     <Layout>
       <Container sx={style.container}>
@@ -34,10 +46,10 @@ function Account() {
           </Box>
           <Box sx={style.userInfo}>
             <Typography variant="" color="initial">
-              BRIJESH KUMAR
+              {result?.username}
             </Typography>
             <Typography variant="body1" color="initial">
-              UID | 52414986
+              UID | {result?.custid||0}
             </Typography>
           </Box>
           <Box sx={style.rankImage}>
@@ -53,7 +65,7 @@ function Account() {
           </Stack>
           <Stack direction="row" sx={{ alignItems: 'center', mt: '10px' }}>
             <Typography variant="body1" color="initial" sx={style.totalBalance}>
-              ₹3,069.32
+              ₹{(Number(result?.winning_wallet+result?.wallet)||0)?.toFixed(0)}
             </Typography>
             <CachedIcon sx={style.cachedIcon} />
           </Stack>
@@ -161,7 +173,7 @@ function Account() {
         </Box>
         <Box
           sx={{
-            width: '95%', marginLeft: '2.5%', borderRadius: '10px', background: zubgmid, padding: '10px', mt: '10px',
+            width: '95%', marginLeft: '2.5%', borderRadius: '10px', background: zubgmid, padding: '10px', mt: '20px',
             '&>:nth-child(1)': { color: 'white', fontSize: '15px', fontWeight: '600', mb: '25px', },
           }}>
           <Typography variant="body1" color="initial">Service center</Typography>
@@ -171,42 +183,42 @@ function Account() {
               width: '30%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', mb: '10px',
               '&>p': { color: 'white', fontSize: '14px', fontWeight: '500', mt: '5px', }
             }}>
-              <Box component='img' src={setting} sx={{ width: '40px', height: '40px', }}></Box>
+              <Box component='img' src={setting} sx={{ width: '30px', height: '30px', }}></Box>
               <Typography>Settings</Typography>
             </Box>
             <Box component={NavLink} to="/feedback" sx={{
               width: '30%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', mb: '10px',
               '&>p': { color: 'white', fontSize: '14px', fontWeight: '500', mt: '5px', }
             }}>
-              <Box component='img' src={hand} sx={{ width: '40px', height: '40px', }}></Box>
+              <Box component='img' src={hand} sx={{ width: '30px', height: '30px', }}></Box>
               <Typography>Feedback</Typography>
             </Box>
             <Box component={NavLink} to="/gameNotification" sx={{
               width: '30%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', mb: '10px',
               '&>p': { color: 'white', fontSize: '14px', fontWeight: '500', mt: '5px', }
             }}>
-              <Box component='img' src={notification} sx={{ width: '40px', height: '40px', }}></Box>
+              <Box component='img' src={notification} sx={{ width: '30px', height: '30px', }}></Box>
               <Typography>Notification</Typography>
             </Box>
             <Box component={NavLink} to="/promotion/customerLine/" sx={{
               width: '50%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', mb: '10px', mt: '15px',
               '&>p': { color: 'white', fontSize: '14px', fontWeight: '500', mt: '8px', }
             }}>
-              <Box component='img' src={customer} sx={{ width: '40px', height: '40px', }}></Box>
+              <Box component='img' src={customer} sx={{ width: '30px', height: '30px', }}></Box>
               <Typography>24/7 Customer service</Typography>
             </Box>
             <Box component={NavLink} to='/SettingCenter/LoginPassword' sx={{
               width: '50%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', mb: '10px', mt: '15px',
               '&>p': { color: 'white', fontSize: '14px', fontWeight: '500', mt: '8px', }
             }}>
-              <Box component='img' src={user2} sx={{ width: '40px', height: '40px', }}></Box>
+              <Box component='img' src={user2} sx={{ width: '30px', height: '30px', }}></Box>
               <Typography>Change Password</Typography>
             </Box>
           </Stack>
         </Box>
         <Box
           sx={{
-            width: '95%', marginLeft: '2.5%', borderRadius: '10px', background: zubgmid, padding: '10px', mt: '10px',
+            width: '95%', marginLeft: '2.5%', borderRadius: '10px', background: zubgmid, padding: '10px', mt: '20px',
           }}>
           <Button sx={{ background: zubgbackgrad, width: '100%', color: 'white', padding: '10px', borderRadius: '10px' }}
           onClick={()=>{
@@ -215,6 +227,7 @@ function Account() {
           }}
           >Logout</Button>
         </Box>
+        <CustomCircularProgress isLoading={isLoading}/>
       </Container>
     </Layout>
   );
@@ -236,8 +249,8 @@ const style = {
   cachedIcon: { color: 'white' },
   cardImage: { width: '50px' },
   cardNumber: { fontSize: '14px', color: 'white', marginLeft: '10px' },
-  actionContainer: { background: zubgmid, borderRadius: '10px', padding: '10px', width: '95%', margin: 'auto', marginTop: '10px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' },
+  actionContainer: { background: zubgmid, borderRadius: '10px', padding: '10px', width: '95%', margin: 'auto', marginTop: '20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' },
   actionBox: { width: '20%' }, actionImage: { width: '30px', height: '30px', margin: 'auto' },
   actionText: { color: 'white', textAlign: 'center', fontSize: '14px', fontWeight: '500' },
-  actionContainertwo: { background: zubgbackgrad, flexDirection: 'column', borderRadius: '10px', padding: '10px', width: '95%', margin: 'auto', marginTop: '10px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' },
+  actionContainertwo: { background: zubgbackgrad, flexDirection: 'column', borderRadius: '10px', padding: '10px', width: '95%', margin: 'auto', marginTop: '20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' },
 };

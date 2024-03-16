@@ -14,9 +14,11 @@ import HelpCenterIcon from '@mui/icons-material/HelpCenter';
 import SearchIcon from '@mui/icons-material/Search';
 import { iconcolorpink, zubgmid } from '../../../Shared/color';
 
+
+
 function TrxWin1Min() {
   return (
-    <Container sx={{ mt: 2, mb: 5, padding: 1 }}>
+    <Container sx={{ mt: '20px', mb: 5, padding: 1 }}>
       <Box sx={{ background: zubgmid, padding: '10px', width: '95%', marginLeft: '2.5%', borderRadius: '10px' }}>
         <Stack direction='row' sx={{ alignItems: 'center', justifyContent: 'space-between' }}>
           <Stack direction='row' sx={{ display: 'flex', alignItems: 'center', '&>p:nth-child(1)': { border: `1px solid  ${iconcolorpink}`, padding: '2px 7px', borderRadius: '5px' } }}>
@@ -46,7 +48,7 @@ function TrxWin1Min() {
           <Box component="img" src={pr4}></Box>
         </Stack>
       </Box>
-      <Box sx={{ width: '95%', marginLeft: '2.5%', background: zubgmid, padding: '10px', borderRadius: '10px', mt: '10px' }}>
+      <Box sx={{ width: '95%', marginLeft: '2.5%', background: zubgmid, padding: '10px', borderRadius: '10px', mt: '20px' }}>
         <Box sx={{
           width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
           '&>button': { width: '32%', padding: '10px 10px ' },

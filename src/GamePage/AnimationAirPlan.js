@@ -115,6 +115,83 @@ export const demomolap = `
   }
   
 `;
+export const demomolaponesec = `
+@keyframes slideinlap {
+    0% {
+      left: 20px;
+      top: calc(100% - 80px);
+    }
+  25% {
+      left:20%;
+      top: calc(80% - 80px);
+    }
+    50% {
+      left: 40%;
+      top: calc(60% - 80px);
+    }
+    75% {
+      left: 60%;
+      top: calc(40% - 80px);
+    }
+    100% {
+      left: 80%;
+      top: calc(20% - 80px);
+    }
+  }
+  @keyframes thirdAnimation {
+    0% {
+        left: 80%;
+        top: calc(20% - 80px);
+      }
+    100% {
+      left: 100%;
+      top: calc(15% - 80px);
+    }
+  }
+`;
+
+export const demomobilesec = `
+@keyframes slideinlap {
+    0% {
+      left: 20px;
+      top: calc(100% -  58px);
+    }
+    25% {
+      left:20%;
+      top: calc(80% -  58px);
+    }
+    50% {
+      left: 40%;
+      top: calc(60% - 40px);
+    }
+    75% {
+      left: 60%;
+      top: calc(40% - 42px);
+    }
+    100% {
+      left: 80%;
+      top: calc(30% - 42px);
+    }
+  }
+
+  @keyframes thirdAnimation {
+    0% {
+        left: 80%;
+        top: calc(30% - 42px);
+      }
+    50% {
+      left: 85%;
+      top: calc(25% - 42px);
+    }
+    100% {
+      left: 100%;
+      top:calc(20% - 42px);
+    }
+  }
+  
+`;
+
+
 // 50% {
 //   left: 70%;
 //   top: calc(30% - 100px);
@@ -153,4 +230,13 @@ export function animationUpTo_5_sec(mainDiv, animationAdded,dispatch,fk) {
     mainDiv.style.animation = `thirdAnimation .5s linear forwards running`;
    
   });
+}
+export function animationUpTo_1_sec(mainDiv, animationAdded,dispatch,fk) {
+  mainDiv.style.animation = `slideinlap ${animationAdded-.8}s linear forwards running`;
+
+  mainDiv.addEventListener("animationend", () => {
+    mainDiv.style.animation = `thirdAnimation .5s linear forwards running`;
+   
+  });
+
 }

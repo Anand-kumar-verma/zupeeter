@@ -12,6 +12,7 @@ import { Provider } from "react-redux";
 import store from "./redux/store/store";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { SocketProvider } from "./Shared/SocketContext";
+import { zubgback, zubgmid } from "./Shared/color";
 const queryClient = new QueryClient();
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -23,19 +24,19 @@ root.render(
         <ThemeProvider theme={theme}>
           <App />
           <Toaster
-            toastOptions={{
-              className: "",
-              style: {
-                border: "1px solid green",
-                color: "white",
-                fontSize: "15px",
-                marginTop: "100px",
-                borderRadius: "50px",
-                background: "linear-gradient(180deg, #007AFF 0%, #C4933F 100%)",
-              },
-            }}
-            limit={1}
-          />
+              toastOptions={{
+                className: "",
+                style: {
+                  border: `1px solid ${zubgback}`,
+                  color: "white",
+                  fontSize: "15px",
+                  marginTop: "100px",
+                  borderRadius: "50px",
+                  background: zubgmid,
+                },
+              }}
+              limit={1}
+            />
         </ThemeProvider>
       </BrowserRouter>
     </QueryClientProvider>

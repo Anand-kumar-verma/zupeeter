@@ -90,7 +90,20 @@ export default TeamReports
 
 const style = {
   header: {
-    padding: '8px', background: zubgmid, display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-    '&>p': { color: 'white !important' }, '&>a>svg': { color: 'white', fontSize: '25px' }
+    padding: '15px 8px',
+    background: zubgmid,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    '& > p': {
+      fontSize: '20px',
+      fontWeight: '600',
+      textAlign: 'center',
+      color: 'white',
+    },
+    '& > a > svg': {
+      color: 'white',
+      fontSize: '35px'
+    }
   },
 };

@@ -261,7 +261,7 @@ function CricketUserprofile() {
            className="!w-full !grid lg:!grid-cols-4 !grid-cols-2 !gap-[4px] !mt-5"
           >
             {[
-              { img: rechargeIcon, item: "Deposit",nav:"/cricket/depositCash" },
+              { img: rechargeIcon, item: "Deposit",nav:"/cricket/fund-deposit-request-form" },
               { img: withdrow, item: "Withdraw",nav:"/cricket/withdrawlCash" },
               { img: wdhistory, item: "Deposit history",nav:"/cricket/deposit-history"  },
               { img: deposite, item: "Withdrawal history",nav:"/cricket/withdrawl-history"  },

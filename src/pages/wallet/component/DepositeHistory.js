@@ -6,7 +6,7 @@ import { Box, Button, Container, IconButton, Stack, Typography } from '@mui/mate
 import * as React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { zubgback, zubgbackgrad, zubgmid } from '../../../Shared/color';
-import deposit from '../../../assets/images/history.png';
+import deposit from '../../../assets/images/user-guide.png';
 import Layout from '../../../component/Layout/Layout';
 
 
@@ -19,7 +19,7 @@ function DepositeHistory() {
 
   return (
     <Layout>
-      <Container sx={{ background: zubgback, width: '100%', height: '100vh', overflow: 'auto', mb: 7 }}>
+      <Container sx={{ background: zubgback, width: '100%', height: '100vh', overflow: 'auto', mb: 5 }}>
         <Box sx={style.header}>
           <Box component={NavLink} onClick={goBack}>
             <KeyboardArrowLeftOutlinedIcon />
@@ -32,7 +32,7 @@ function DepositeHistory() {
 
 
         <Box>
-          < Box sx={{ padding: '10px', width: '95%', margin: 'auto', mt: 2, background: zubgmid, borderRadius: '10px', mb: 5 }}>
+          < Box sx={{ padding: '10px', width: '95%', margin: 'auto', background: zubgmid, borderRadius: '10px', mb: 5 }}>
             <Stack direction='row' sx={{ alignItems: 'center', mb: '20px' }}>
               <Box component='img' src={deposit} width={30}></Box>
               <Typography variant="body1" color="initial" sx={{ fontSize: '15px ', color: 'white', ml: '10px' }}>Deposit history</Typography>
@@ -153,8 +153,21 @@ export default DepositeHistory
 
 const style = {
   header: {
-    padding: '8px', background: zubgback, display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-    '&>p': { color: 'white !important', ml: '-30px' }, '&>a>svg': { color: 'white', fontSize: '25px' }
+    padding: '15px 8px',
+    background: zubgback,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    '& > p': {
+      fontSize: '20px',
+      fontWeight: '600',
+      textAlign: 'center',
+      color: 'white',
+    },
+    '& > a > svg': {
+      color: 'white',
+      fontSize: '35px'
+    }
   },
   wthui: {
     textAlign: 'center', width: '32%', minHeight: '15vh', background: zubgmid, borderRadius: '10px', mb: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -169,6 +182,6 @@ const style = {
     width: '95%', margin: 'auto', my: '10px', display: 'flex', flexWrap: "wrap", alignItems: 'center', justifyContent: 'space-between'
   },
   paytmbtn: { mb: 2, background: zubgback, color: 'white !important', width: '31%', border: "1px solid white", padding: '10px', '&:hover': { background: zubgbackgrad, border: "1px solid transparent", } },
-  paytmbtntwo: { borderRadius: '30px', textTransform: 'capitalize', mb: 2, background: zubgbackgrad, color: 'white !important', width: '100%', mt: '20px', border: "1px solid white", padding: '10px', '&:hover': { background: zubgbackgrad, border: "1px solid transparent", } },
+  paytmbtntwo: { borderRadius: '5px', textTransform: 'capitalize', mb: 2, background: zubgbackgrad, color: 'white !important', width: '100%', mt: 2, border: "1px solid white", padding: '10px', '&:hover': { background: zubgbackgrad, border: "1px solid transparent", } },
   rechargeinstext: { mb: '10px', alignItems: 'center', justifyContent: 'start', '&>p': { marginLeft: '10px', color: 'white !important', fontSize: '14px' }, }
 };

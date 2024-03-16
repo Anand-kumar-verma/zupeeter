@@ -20,7 +20,7 @@ function Gift() {
           <Box component={NavLink} onClick={() => goBack()}>
             <KeyboardArrowLeftOutlinedIcon />
           </Box>
-          <Typography variant="body1" color="initial">Notification</Typography>
+          <Typography variant="body1" color="initial">Gift</Typography>
           <Typography variant="body1" color="initial"> </Typography>
         </Box>
         <Box sx={{ width: '95%', marginLeft: '2.5%', background: zubgmid, borderRadius: '10px', padding: '10px', mt: '10px', }}>
@@ -50,13 +50,26 @@ export default Gift;
 export const style = {
   container: { background: zubgback, width: '100%', height: '100vh', overflow: 'auto', },
   header: {
-    padding: '8px', background: zubgmid, display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-    '&>p': { color: 'white !important', }, '&>a>svg': { color: 'white', fontSize: '25px', },
+    padding: '15px 8px',
+    background: zubgback,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    '& > p': {
+      fontSize: '20px',
+      fontWeight: '600',
+      textAlign: 'center',
+      color: 'white',
+    },
+    '& > a > svg': {
+      color: 'white',
+      fontSize: '35px'
+    }
   },
   notificationBox: {
     width: '95%', marginLeft: '2.5%', borderRadius: '10px', background: zubgmid, padding: '10px', mt: '10px',
     '&>div>div>p': { color: 'white', fontSize: '14px', marginLeft: '10px', fontWeight: '500', },
-    '&>p': { color: 'white', fontSize: '13px', marginLeft: '0px', fontWeight: '500', mt: '10px', },
+    '&>p': { color: 'white', fontSize: '13px', marginLeft: '0px', fontWeight: '500', mt: '20px', },
     '&>div>div>svg': { color: 'white', fontSize: '24px', }, '&>div>svg': { color: 'white', fontSize: '24px', },
   },
   notificationStack: { alignItems: 'center', justifyContent: 'space-between', },

@@ -1,7 +1,10 @@
-import { Box, Button, Stack, Typography } from "@mui/material";
+import { Box, Button, Dialog, Stack, Typography } from "@mui/material";
 import * as React from "react";
 import { useState } from "react";
+import { useQueryClient } from "react-query";
+import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
+import { zubgback, zubgmid } from "../../../../Shared/color";
 import pr0 from "../../../../assets/images/0.png";
 import pr11 from "../../../../assets/images/11.png";
 import pr22 from "../../../../assets/images/22.png";
@@ -19,12 +22,15 @@ import MyHistory from "./MyHistory";
 import OneMinCountDown from "./OneMinCountDown";
 import ThreeMinCountDown from "./ThreeMinCountDown";
 import TwoMinCountDown from "./TwoMinCountDown";
-import { zubgback, zubgmid } from "../../../../Shared/color";
+import WinLossPopup from "./WinLossPopup";
 
 function WinOneMin({ gid }) {
   const [TabTwo, setTabTwo] = useState(1);
   const [apply_bit_dialog_box, setapply_bit_dialog_box] = React.useState(false);
   const [dialog_type, setdialog_type] = React.useState("");
+
+
+
 
   return (
     <Box className="mainBox">
@@ -36,12 +42,25 @@ function WinOneMin({ gid }) {
         <ThreeMinCountDown />
       )}
       <Box
-        sx={{ width: '95%', marginLeft: '2.5%', my: '20px', background: zubgmid, padding: '10px', borderRadius: '10px', }}
+        sx={{
+          width: "95%",
+          marginLeft: "2.5%",
+          my: "20px",
+          background: zubgmid,
+          padding: "10px",
+          borderRadius: "10px",
+        }}
       >
-        <Box sx={{
-          width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: '20px',
-          '&>button': { width: '32%', padding: '10px 10px ' },
-        }}>
+        <Box
+          sx={{
+            width: "100%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            mb: "20px",
+            "&>button": { width: "32%", padding: "10px 10px " },
+          }}
+        >
           <Button
             className="greembtn"
             onClick={() => {
@@ -71,11 +90,16 @@ function WinOneMin({ gid }) {
           </Button>
         </Box>
         {/* pridictcolor */}
-        <Box sx={{
-          display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: '20px',
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            mb: "20px",
 
-          '&>img': { width: '17%' },
-        }}>
+            "&>img": { width: "17%" },
+          }}
+        >
           {[
             { no: 0, img: pr0 },
             { no: 1, img: pr11 },
@@ -96,11 +120,16 @@ function WinOneMin({ gid }) {
             );
           })}
         </Box>
-        <Box sx={{
-          display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: '20px',
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            mb: "20px",
 
-          '&>img': { width: '17%' },
-        }}>
+            "&>img": { width: "17%" },
+          }}
+        >
           {[
             { no: 5, img: pr5 },
             { no: 6, img: pr6 },
@@ -132,7 +161,7 @@ function WinOneMin({ gid }) {
             small
           </Button>
           <Button
-            sx={{ py: '10px' }}
+            sx={{ py: "10px" }}
             className="!bg-[#FBB13B] !text-white"
             onClick={() => {
               setapply_bit_dialog_box(true);
@@ -148,12 +177,14 @@ function WinOneMin({ gid }) {
         </div>
       </Box>
       <Box className="tableBox_wingo">
-        <Box sx={{ background: zubgback, borderRadius: '10px', }}>
+        <Box sx={{ background: zubgback, borderRadius: "10px" }}>
           <Stack direction="row">
             <Box
               component={NavLink}
               onClick={() => setTabTwo(1)}
-              className={TabTwo === 1 ? "activewinNavtwo Winnavtow" : "Winnavtow"}
+              className={
+                TabTwo === 1 ? "activewinNavtwo Winnavtow" : "Winnavtow"
+              }
             >
               <Typography variant="h3" color="initial">
                 Game History
@@ -162,7 +193,9 @@ function WinOneMin({ gid }) {
             <Box
               component={NavLink}
               onClick={() => setTabTwo(2)}
-              className={TabTwo === 2 ? "activewinNavtwo Winnavtow" : "Winnavtow"}
+              className={
+                TabTwo === 2 ? "activewinNavtwo Winnavtow" : "Winnavtow"
+              }
             >
               <Typography variant="h3" color="initial">
                 Chart
@@ -171,7 +204,9 @@ function WinOneMin({ gid }) {
             <Box
               component={NavLink}
               onClick={() => setTabTwo(3)}
-              className={TabTwo === 3 ? "activewinNavtwo Winnavtow" : "Winnavtow"}
+              className={
+                TabTwo === 3 ? "activewinNavtwo Winnavtow" : "Winnavtow"
+              }
             >
               <Typography variant="h3" color="initial">
                 My History
@@ -179,21 +214,19 @@ function WinOneMin({ gid }) {
             </Box>
           </Stack>
         </Box>
-
+        
         {TabTwo === 1 && <GameHistory gid={gid} />}
         {TabTwo === 2 && <Chart gid={gid} />}
         {TabTwo === 3 && <MyHistory gid={gid} />}
       </Box>
-      {
-        apply_bit_dialog_box && (
-          <ApplyBetDialogBox
-            apply_bit_dialog_box={apply_bit_dialog_box}
-            setapply_bit_dialog_box={setapply_bit_dialog_box}
-            type={dialog_type}
-            gid={gid}
-          />
-        )
-      }
+      {apply_bit_dialog_box && (
+        <ApplyBetDialogBox
+          apply_bit_dialog_box={apply_bit_dialog_box}
+          setapply_bit_dialog_box={setapply_bit_dialog_box}
+          type={dialog_type}
+          gid={gid}
+        />
+      )}
     </Box>
   );
 }

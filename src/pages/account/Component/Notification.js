@@ -161,8 +161,21 @@ export default Notification;
 export const style = {
   container: { background: zubgback, width: '100%', height: '100vh', overflow: 'auto', },
   header: {
-    padding: '8px', background: zubgmid, display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-    '&>p': { color: 'white !important', }, '&>a>svg': { color: 'white', fontSize: '25px', },
+    padding: '15px 8px',
+    background: zubgback,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    '& > p': {
+      fontSize: '20px',
+      fontWeight: '600',
+      textAlign: 'center',
+      color: 'white',
+    },
+    '& > a > svg': {
+      color: 'white',
+      fontSize: '35px'
+    }
   },
   notificationBox: {
     width: '95%', marginLeft: '2.5%', borderRadius: '10px', background: zubgmid, padding: '10px', mt: '10px',

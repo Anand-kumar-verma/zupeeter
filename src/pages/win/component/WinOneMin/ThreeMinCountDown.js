@@ -15,19 +15,36 @@ import pr11 from "../../../../assets/images/11.png";
 import pr22 from "../../../../assets/images/22.png";
 import pr33 from "../../../../assets/images/33.png";
 import pr4 from "../../../../assets/images/4.png";
+import pr5 from "../../../../assets/images/5.png";
+import pr6 from "../../../../assets/images/6.png";
+import pr7 from "../../../../assets/images/7.png";
+import pr8 from "../../../../assets/images/8.png";
+import pr9 from "../../../../assets/images/9.png";
 import { endpoint } from "../../../../services/urls";
 import Policy from "../policy/Policy";
 import countdownfirst from "../../../../assets/countdownfirst.mp3";
 import countdownlast from "../../../../assets/countdownlast.mp3";
 import circle from "../../../../assets/images/circle-arrow.png";
 import howToPlay from "../../../../assets/images/user-guide.png";
+import { useDispatch } from "react-redux";
+import { dummycounterFun } from "../../../../redux/slices/counterSlice";
+import { changeImages } from "../../../../services/schedular";
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 const ThreeMinCountDown = () => {
   const socket = useSocket();
+  const dispatch = useDispatch();
   const client = useQueryClient();
   const [one_min_time, setOne_min_time] = useState("0_0");
+  const [isImageChange, setIsImageChange] = useState("1_2_3_4_5");
+  const img1 = Number(isImageChange?.split("_")[0]);
+  const img2 = Number(isImageChange?.split("_")[1]);
+  const img3 = Number(isImageChange?.split("_")[2]);
+  const img4 = Number(isImageChange?.split("_")[3]);
+  const img5 = Number(isImageChange?.split("_")[4]);
+  const image_array = [pr0, pr11, pr22, pr33, pr4, pr5, pr6, pr7, pr8, pr9];
+  React.useEffect(()=>{setIsImageChange(changeImages())},[])
   const show_this_three_min_time_sec = String(
     one_min_time?.split("_")?.[1]
   ).padStart(2, "0");
@@ -35,12 +52,12 @@ const ThreeMinCountDown = () => {
     one_min_time?.split("_")?.[0]
   ).padStart(2, "0");
 
-  React.useEffect(() => {
-    if (show_this_three_min_time_sec === "01") {
-      oneMinCheckResult();
-      oneMinColorWinning();
-    }
-  }, [show_this_three_min_time_sec]);
+  // React.useEffect(() => {
+  //   if (show_this_three_min_time_sec === "01") {
+  //     oneMinCheckResult();
+  //     oneMinColorWinning();
+  //   }
+  // }, [show_this_three_min_time_sec]);
 
   const [poicy, setpoicy] = React.useState(false);
   const handleClickOpenpoicy = () => {
@@ -63,22 +80,33 @@ const ThreeMinCountDown = () => {
 
   React.useEffect(() => {
     const handleFiveMin = (fivemin) => {
-      console.log(fivemin, "This is new message");
       setOne_min_time(fivemin);
       if (
-       ( fivemin?.split("_")?.[1] === "5" ||
-        fivemin?.split("_")?.[1] === "4" ||
-        fivemin?.split("_")?.[1] === "3" ||
-        fivemin?.split("_")?.[1] === "2")&&fivemin?.split("_")?.[0] === "0"
+        (fivemin?.split("_")?.[1] === "5" ||
+          fivemin?.split("_")?.[1] === "4" ||
+          fivemin?.split("_")?.[1] === "3" ||
+          fivemin?.split("_")?.[1] === "2") &&
+        fivemin?.split("_")?.[0] === "0"
       )
         handlePlaySound();
-      if (fivemin?.split("_")?.[1] === "1"&&fivemin?.split("_")?.[0] === "0") handlePlaySoundLast();
+      if (fivemin?.split("_")?.[1] === "1" && fivemin?.split("_")?.[0] === "0")
+        handlePlaySoundLast();
 
-      if (fivemin?.split("_")?.[1] === "5"&&fivemin?.split("_")?.[0] === "0") {
+      if (
+        fivemin?.split("_")?.[1] === "5" &&
+        fivemin?.split("_")?.[0] === "0"
+      ) {
         fk.setFieldValue("openTimerDialogBox", true);
       }
       if (fivemin?.split("_")?.[1] === "0") {
         fk.setFieldValue("openTimerDialogBox", false);
+      }
+      if (
+        fivemin?.split("_")?.[1] === "0" &&
+        fivemin?.split("_")?.[0] === "0"
+      ) {
+        oneMinCheckResult();
+        oneMinColorWinning();
       }
     };
 
@@ -95,6 +123,7 @@ const ThreeMinCountDown = () => {
       client.refetchQueries("gamehistory");
       client.refetchQueries("gamehistory_chart");
       client.refetchQueries("myhistory");
+      dispatch(dummycounterFun());
     } catch (e) {
       toast(e?.message);
       console.log(e);
@@ -202,11 +231,11 @@ const ThreeMinCountDown = () => {
             alignItems="center"
             justifyContent="space-between"
           >
-            <Box component="img" src={pr0}></Box>
-            <Box component="img" src={pr11}></Box>
-            <Box component="img" src={pr22}></Box>
-            <Box component="img" src={pr33}></Box>
-            <Box component="img" src={pr4}></Box>
+            <Box component="img" src={image_array[Number(img1)]}></Box>
+            <Box component="img" src={image_array[Number(img2)]}></Box>
+            <Box component="img" src={image_array[Number(img3)]}></Box>
+            <Box component="img" src={image_array[Number(img4)]}></Box>
+            <Box component="img" src={image_array[Number(img5)]}></Box>
           </Stack>
         </Box>
         <Box>
@@ -220,7 +249,7 @@ const ThreeMinCountDown = () => {
             <Box className="timerBox">
               {show_this_three_min_time_min?.substring(1, 2)}
             </Box>
-            <Box>:</Box>
+            <Box className={"!text-white !font-bold !text-lg"}>:</Box>
             <Box className="timerBox">
               {show_this_three_min_time_sec?.substring(0, 1)}
             </Box>

@@ -1,29 +1,20 @@
-import { Container, Typography, Box, Stack } from '@mui/material'
-import sort from '../../assets/images/data-flow.png'
-import EmojiPeopleOutlinedIcon from '@mui/icons-material/EmojiPeopleOutlined';
-import promotionbg from '../../assets/images/promotionbg.png'
-import copycode from '../../assets/images/copy_code.png'
-import team_port from '../../assets/images/team_port.png'
-import commission from '../../assets/images/commission-.png'
-import invite_reg from '../../assets/images/invite_reg.png'
-import server from '../../assets/images/server.png'
-import rebateRatio from '../../assets/images/rebateRatio.png'
-import Groups2OutlinedIcon from '@mui/icons-material/Groups2Outlined';
 import ArrowForwardIosOutlinedIcon from '@mui/icons-material/ArrowForwardIosOutlined';
-import download from '../../assets/images/download.png'
-import Layout from '../../component/Layout/Layout';
+import EmojiPeopleOutlinedIcon from '@mui/icons-material/EmojiPeopleOutlined';
+import Groups2OutlinedIcon from '@mui/icons-material/Groups2Outlined';
+import { Box, Container, Stack, Typography } from '@mui/material';
 import { NavLink } from 'react-router-dom';
 import { zubgback, zubgbackgrad, zubgmid } from '../../Shared/color';
-import copy from '../../assets/images/copy.png'
-import donut from '../../assets/images/database.png'
-import coin from '../../assets/images/settings.png'
-import book from '../../assets/images/rules.png'
-import customer from '../../assets/images/24-hours-service.png'
-import money from '../../assets/images/salary.png'
-import data from '../../assets/images/data-analytics.png'
+import customer from '../../assets/images/24-hours-service.png';
+import copy from '../../assets/images/copy.png';
+import data from '../../assets/images/data-analytics.png';
+import sort from '../../assets/images/data-flow.png';
+import donut from '../../assets/images/database.png';
+import book from '../../assets/images/rules.png';
+import money from '../../assets/images/salary.png';
+import coin from '../../assets/images/settings.png';
+import Layout from '../../component/Layout/Layout';
 
 
-// sajdf;l
 
 function Promotion() {
   return (
@@ -33,7 +24,7 @@ function Promotion() {
           <Typography variant="body1" color="initial"> </Typography>
           <Typography variant="body1" color="initial" className='!text-white'>Agency</Typography>
           <Box component={NavLink} to='/promotion/Subordinate/'>
-            <Box component='img' src={sort} ></Box>
+            <Box component='img' src={sort} width={30}></Box>
           </Box>
         </Box>
         <Box sx={style.commitionboxOuter}>
@@ -203,8 +194,8 @@ function Promotion() {
             </Box>
           </Box>
         </Box>
-      </Container >
-    </Layout >
+      </Container>
+    </Layout>
   )
 }
 
@@ -212,8 +203,17 @@ export default Promotion
 
 const style = {
   header: {
-    padding: '8px', background: zubgback, display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-    '&>p': { color: 'white' }, '&>a>img': { width: '30px' }
+    padding: '15px 8px',
+    background: zubgback,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    '& > p': {
+      fontSize: '20px',
+      fontWeight: '600',
+      textAlign: 'center',
+      color: 'white',
+    },
   },
   commitionboxOuter: { width: '100%', height: '20vh', background: zubgmid, '&>img': { width: '100%', height: '100%' }, },
   commitionbox: { margin: 'auto', width: '70%', textAlign: 'center', py: 2, '&>p:nth-child(1)': { fontSize: '25px', fontWeight: '500' }, '&>p:nth-child(2)': { fontSize: '13px', fontWeight: '400', padding: '5px 0px', background: zubgbackgrad, borderRadius: '20px' }, '&>p:nth-child(3)': { fontSize: '13px', fontWeight: '400', marginTop: '5px' } },
@@ -234,11 +234,11 @@ const style = {
   invitebtn: { mt: '20px', '&>a>p': { width: '80%', marginLeft: '10%', borderRadius: '20px', textAlign: 'center', padding: '10px', background: zubgbackgrad, color: 'white', fontSize: '17px', fontWeight: 600 } },
   invitbox: {
     width: '95%', background: zubgmid, padding: '10px', mb: '20px', borderRadius: '10px', marginLeft: '2.5%', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-    '&>div>img': { width: '35px', marginRight: '10px' },
+    '&>div>img': { width: '30px', marginRight: '10px' },
     '&>div>p': { fontSize: "14px", color: 'white !important' },
     '&>div': { alignItems: 'center' },
     '&>div:nth-child(2)>p': { marginRight: '20px', color: 'white !important' },
-    '&>div:nth-child(2)>svg': { color: 'gray', fontSize: "14px", marginRight: '10px', color: 'white !important' }
+    '&>div:nth-child(2)>svg': {  fontSize: "14px", marginRight: '10px', color: 'white !important' }
   },
   promotionBox: {
     display: 'flex', alignItems: 'center', justifyContent: 'space-between',
@@ -251,11 +251,11 @@ const style = {
     '&>div:nth-child(2)>div:nth-child(1)': { my: '10px', borderRight: '1px solid gray', width: '50%', textAlign: "center" },
     '&>div:nth-child(2)>div:nth-child(2)': { my: '10px', width: '50%', textAlign: "center" },
     '&>div:nth-child(2)>div>p:nth-child(1)': { color: 'white !important' },
-    '&>div:nth-child(2)>div>p:nth-child(2)': { color: 'gray', fontSize: '13px', fontWeight: 500, color: 'white !important' },
+    '&>div:nth-child(2)>div>p:nth-child(2)': {  fontSize: '13px', fontWeight: 500, color: 'white !important' },
     '&>div:nth-child(3)>div:nth-child(1)': { my: '10px', borderRight: '1px solid gray', width: '50%', textAlign: "center" },
     '&>div:nth-child(3)>div:nth-child(2)': { my: '10px', width: '50%', textAlign: "center" },
     '&>div:nth-child(3)>div>p:nth-child(1)': { color: 'white !important' },
-    '&>div:nth-child(3)>div>p:nth-child(2)': { color: 'gray', fontSize: '13px', fontWeight: 500, color: 'white !important' },
+    '&>div:nth-child(3)>div>p:nth-child(2)': {  fontSize: '13px', fontWeight: 500, color: 'white !important' },
   },
   promotionBoxOutertwo: {
     width: '90%', background: zubgback, padding: '10px', borderRadius: '5px', marginLeft: '5%', paddingBottom: '70px',

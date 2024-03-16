@@ -2,19 +2,7 @@ import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
 import FitbitIcon from "@mui/icons-material/Fitbit";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import TelegramIcon from "@mui/icons-material/Telegram";
-import {
-  Avatar,
-  Box,
-  Button,
-  CircularProgress,
-  Container,
-  Dialog,
-  DialogContent,
-  Slide,
-  Stack,
-  TextField,
-  Typography
-} from "@mui/material";
+import { Avatar, Box, Button, Container, Dialog, DialogContent, Slide, Stack, TextField, Typography } from "@mui/material";
 import axios from "axios";
 import copy from "clipboard-copy";
 import { useFormik } from "formik";
@@ -26,9 +14,9 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import "swiper/css";
 import "swiper/css/navigation";
-import "swiper/css/pagination";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
+import CustomCircularProgress from "../../Shared/CustomCircularProgress";
 import { gray, zubgback, zubgbackgrad, zubgmid } from "../../Shared/color";
 import one from "../../assets/images/1.jpg";
 import two from "../../assets/images/2.jpg";
@@ -40,7 +28,6 @@ import position2 from "../../assets/images/positio2.png";
 import position3 from "../../assets/images/position3.png";
 import position1 from "../../assets/images/positoin1.png";
 import pro1 from "../../assets/images/pr1.jpg";
-import pro1c from "../../assets/images/pr1c.jpg";
 import pro2 from "../../assets/images/pr2.jpg";
 import pro3 from "../../assets/images/pr3.jpg";
 import stage from "../../assets/images/stage-podium1.jpeg";
@@ -50,22 +37,21 @@ import winp3 from "../../assets/images/winp3.jpg";
 import winp4 from "../../assets/images/winp4.jpg";
 import winp5 from "../../assets/images/winp5.jpg";
 import winp6 from "../../assets/images/winp6.jpg";
+import sajid from '../../assets/sajid.PNG';
+import tanveer from '../../assets/tanveer.PNG';
 import Layout from "../../component/Layout/Layout";
-import {
-  please_reconnect_the_serverFun,
-  waitingAviatorFun,
-} from "../../redux/slices/counterSlice";
+import { please_reconnect_the_serverFun, waitingAviatorFun, } from "../../redux/slices/counterSlice";
 import { endpoint } from "../../services/urls";
 import Lottery from "./DashboadSubcomponent/Lottery";
 import Original from "./DashboadSubcomponent/Original";
-import Notification from "./Notification";
-import CustomCircularProgress from "../../Shared/CustomCircularProgress";
-import sajid from '../../assets/sajid.PNG'
-import tanveer from '../../assets/tanveer.PNG'
 import Sports from "./DashboadSubcomponent/Sports";
+import Notification from "./Notification";
+
+
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
+
 
 function Dashboard() {
   const dispatch = useDispatch();
@@ -143,7 +129,7 @@ function Dashboard() {
       setpoicy(true);
     }
   }, []);
-  
+
   useEffect(() => {
     dispatch(waitingAviatorFun(true));
     dispatch(please_reconnect_the_serverFun(false));
@@ -185,7 +171,7 @@ function Dashboard() {
                 style={{ color: "white" }}
               >
                 <FitbitIcon />
-                <span className="text-[14px]">Welcome to zupeeter game</span>
+                <span className="text-[14px]">Welcome To Fun Games</span>
               </div>
               <div className="flex gap-1 items-center cursor-pointer">
                 <CloudDownloadIcon sx={{ color: "white" }} />
@@ -284,9 +270,9 @@ function Dashboard() {
                 Deposit
               </Typography>
             </Box>
-            <Box>
+            <Box sx={{ textAlign: 'center' }}>
               <Typography variant="body1" color="initial" className="b-val">
-                ₹ {amount}
+                ₹ {Number(amount||0)?.toFixed(2)}
               </Typography>
               <Typography variant="body1" color="initial" className="b-valp">
                 Available Balance
@@ -373,8 +359,10 @@ function Dashboard() {
                     //   zubgmid,
                     background: zubgbackgrad,
                     padding: "10px",
+                    marginBottom: "10px",
+                    width: '95%'
                   }}
-                  className="cursor-pointer rounded-lg w-full flex flex-col items-center justify-center"
+                  className="cursor-pointer rounded-lg  flex flex-col items-center justify-center"
                 >
                   <img className="w-[90px] h-[90px] " src={i?.img} />
                   <p className="!text-sm font-bold" style={{ color: "white" }}>
@@ -513,8 +501,8 @@ function Dashboard() {
               marginLeft: "2.5%",
               borderRadius: "10px",
               mt: "20px",
-              mb: "30px",
-              height: "35vh",
+              mb: "20px",
+              height: "40vh",
               backgroundImage: `url(${stage})`,
               backgroundSize: "100% 100%",
               position: "relative",
@@ -650,7 +638,7 @@ function Dashboard() {
           )}
         </Container>
       </Box>
-      <CustomCircularProgress isLoading={isLoading}/>
+      <CustomCircularProgress isLoading={isLoading} />
     </Layout>
   );
 }
@@ -694,7 +682,7 @@ const styles = {
   socialButtonsContainer: {
     alignItems: "center",
     justifyContent: "space-between",
-    mt: 4,
+    mt: 2,
   },
   telegramButton: {
     fontSize: "14px",
@@ -815,7 +803,7 @@ const styles = {
     marginLeft: "2.5%",
     background: zubgmid,
     padding: "10px 10px",
-    mt: "25px",
+    mt: "20px",
     borderRadius: "10px",
   },
   wininfooutertwo: {

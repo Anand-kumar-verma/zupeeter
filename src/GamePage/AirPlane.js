@@ -15,11 +15,14 @@ import {
 } from "../redux/slices/counterSlice";
 import { endpoint } from "../services/urls";
 import {
+  animationUpTo_1_sec,
   animationUpTo_5_sec,
   animationabove_10_sec,
   animationupto_10_sec,
   demomobile,
+  demomobilesec,
   demomolap,
+  demomolaponesec,
 } from "./AnimationAirPlan";
 import {
   ButtomDottedPoint,
@@ -71,6 +74,7 @@ const AirPlane = ({ formik, fk }) => {
 
     const handleSetLoader = (setloder) => {
       fk.setFieldValue("setloder", setloder);
+      setcombineTime('0_0');
     };
 
     const handleIsFlying = (isFlying) => {
@@ -94,9 +98,22 @@ const AirPlane = ({ formik, fk }) => {
     const mainDiv = document.getElementsByClassName("maindiv")[0];
     const style = document.createElement("style");
     console.log(isMediumScreen, "Hii");
-    style.innerHTML = !isMediumScreen ? demomobile : demomolap;
+    if(randomFlyingTime<10){
+      if(!isMediumScreen)  style.innerHTML = demomobilesec
+      else  style.innerHTML = demomolaponesec
+    }else{
+      if(!isMediumScreen)  style.innerHTML = demomobile
+      else  style.innerHTML = demomolap
+    }
     document.head.appendChild(style);
-    if (randomFlyingTime <= 5) {
+    if(randomFlyingTime<10){
+      animationUpTo_1_sec(mainDiv, randomFlyingTime, dispatch, fk)
+      setTimeout(() => {
+        dispatch(byTimeIsEnableSound(true));
+        fk.setFieldValue("isShadowPath", false);
+      }, (randomFlyingTime - 0.3) * 1000);
+    }
+    else if (randomFlyingTime <= 5) {
       animationUpTo_5_sec(mainDiv, randomFlyingTime, dispatch, fk);
       setTimeout(() => {
         dispatch(byTimeIsEnableSound(true));
@@ -168,7 +185,7 @@ const AirPlane = ({ formik, fk }) => {
     }, randomFlyingTime * 1000 + 6000);
 
     setTimeout(() => {
-      fk.setFieldValue("isShadowPath", true);
+      randomFlyingTime >= 3 &&  fk.setFieldValue("isShadowPath", true);
     }, 800);
 
     return () => clearInterval(timerInterval);

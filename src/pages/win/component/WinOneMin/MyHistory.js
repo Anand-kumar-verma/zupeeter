@@ -15,6 +15,7 @@ import CustomCircularProgress from "../../../../Shared/CustomCircularProgress";
 import { zubgback, zubgbackgrad, zubgmid } from "../../../../Shared/color";
 import history from '../../../../assets/images/rules.png';
 import { endpoint, rupees } from "../../../../services/urls";
+import { MyHistoryFn } from "../../../../services/apicalling";
 
 
 const MyHistory = ({ gid }) => {
@@ -41,20 +42,8 @@ const MyHistory = ({ gid }) => {
     }
   );
 
-  const MyHistoryFn = async () => {
-    try {
-      const response = await axios.get(
-        `${endpoint.my_history}?userid=${user_id}&limit=0`
-      );
-      return response;
-    } catch (e) {
-      toast(e?.message);
-      console.log(e);
-    }
-  };
-
   const my_history_data = my_history?.data?.data?.filter(
-    (i) => i?.gameid === Number(gid)
+    (i) => i?.gameid === String(gid)
   );
 
   const visibleRows = React.useMemo(
@@ -65,6 +54,8 @@ const MyHistory = ({ gid }) => {
       ),
     [page, rowsPerPage, my_history_data]
   );
+
+console.log(visibleRows,"This is visible rows");
 
   return (
     <Box>
@@ -85,7 +76,7 @@ const MyHistory = ({ gid }) => {
               <div className="flex justify-between">
                 <Typography variant="body1" sx={{ background: zubgmid, color: 'white !important', padding: '5px 20px', borderRadius: '5px' }}>Bet</Typography>
                 <p
-                  className={`${i?.status === 0
+                  className={`${i?.status === "0"
                     ? "!text-red-400"
                     : i?.status === "1"
                       ? "!text-green-400"
@@ -108,12 +99,14 @@ const MyHistory = ({ gid }) => {
               <div className="flex justify-between">
                 <p className="!text-white !text-[12px]">Bet Type</p>
                 <p className={`!text-white !text-[12px]`}>
-                  {(i?.color === String(10) && "Green") ||
-                    (i?.color === String(30) && "Red") ||
+                  {(["10","1","3","7","9"]?.includes(i?.color) && "Green") ||
+                    (["30","2","4","6","8"]?.includes(i?.color) && "Red") ||
                     (i?.color === String(20) && "Voilet") ||
                     (i?.color === String(40) && "Big") ||
                     (i?.color === String(50) && "Small") ||
-                    i?.color}
+                    (i?.color === String(0) && "Red Voilet") ||
+                    (i?.color === String(5) && "Green Voilet")
+                    }
                 </p>
               </div>
               <div className="flex justify-between">

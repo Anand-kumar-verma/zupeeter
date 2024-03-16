@@ -74,6 +74,7 @@ const ApplyBetDialogBox = ({
       if (response?.data?.error === "200") {
         toast.success(response?.data?.msg);
         setapply_bit_dialog_box(false);
+        localStorage.setItem("betApplied",`${gid}_true`)
       } else {
         toast(response?.data?.msg);
       }

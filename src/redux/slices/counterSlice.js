@@ -19,6 +19,7 @@ export const slice = createSlice({
     waiting_aviator: true,
     just_start_after_waiting:true,
     please_reconnect_the_server:false,
+    dummycounter:1,
   },
   reducers: {
     // main music and sound enabling and dessabling
@@ -52,6 +53,9 @@ export const slice = createSlice({
         console.log("Sannad",actions.payload)
       state.please_reconnect_the_server = actions.payload;
     },
+    dummycounterFun: (state) => {
+      state.dummycounter += 1;
+    },
   },
 });
 
@@ -64,7 +68,8 @@ export const {
   backgroundMusicFun,
   waitingAviatorFun,
   just_start_after_waitingFun,
-  please_reconnect_the_serverFun
+  please_reconnect_the_serverFun,
+  dummycounterFun
 } = slice.actions;
 
 // export const incrementAsync = amount => dispatch => {

@@ -106,13 +106,21 @@ export const style = {
     overflow: 'auto',
   },
   header: {
-    padding: '8px',
+    padding: '15px 8px',
     background: zubgmid,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    '&>p': { color: 'white !important', },
-    '&>a>svg': { color: 'white', fontSize: '25px', },
+    '& > p': {
+      fontSize: '20px',
+      fontWeight: '600',
+      textAlign: 'center',
+      color: 'white',
+    },
+    '& > a > svg': {
+      color: 'white',
+      fontSize: '35px'
+    }
   },
   profileImage: {
     width: '60px',
@@ -132,7 +140,7 @@ export const style = {
     marginLeft: '2.5%',
     borderRadius: '10px',
     background: zubgmid,
-    mt: '10px',
+    mt: '20px',
   },
   securityBox: {
     padding: '10px 10px',
@@ -140,7 +148,7 @@ export const style = {
     marginLeft: '2.5%',
     borderRadius: '10px',
     background: zubgmid,
-    mt: '10px',
+    mt: '20px',
   },
   securityTitle: {
     color: 'white',

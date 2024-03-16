@@ -189,8 +189,24 @@ function PromotionRule() {
 export default PromotionRule;
 
 const style = {
-  container: { background: zubgback, width: '100%', pb: '60px' },
-  header: { padding: '8px', background: zubgmid, display: 'flex', alignItems: 'center', justifyContent: 'space-between', '& > p': { color: 'white !important', }, '& > a > svg': { color: 'white !important', fontSize: '25px' } },
+  container: { background: zubgback, width: '100%', pb: '50px' },
+  header: {
+    padding: '15px 8px',
+    background: zubgmid,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    '& > p': {
+      fontSize: '20px',
+      fontWeight: '600',
+      textAlign: 'center',
+      color: 'white',
+    },
+    '& > a > svg': {
+      color: 'white',
+      fontSize: '35px'
+    }
+  },
   contentText: { '& > p:nth-child(1)': { fontSize: '20px', textAlign: 'center', py: 1, color: 'white !important', }, '& > p:nth-child(2)': { fontSize: '15px', textAlign: 'center', color: 'gray' } },
   box: {
     position: 'relative', border: '1px solid #6F6F6F', borderTopLeftRadius: '10px', borderTopRightRadius: '10px', padding: 2, background: zubgmid,

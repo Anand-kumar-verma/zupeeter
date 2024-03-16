@@ -111,7 +111,7 @@ function Trx() {
             Tab === 3 &&
             <TrxWin5Min />
           }
-        </Box >
+        </Box>
       </Container>
     </Layout>
   );

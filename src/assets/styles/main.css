@@ -7,7 +7,7 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: #202020;
+  background-color: #0F0232;
 }
 
 a {
@@ -208,7 +208,7 @@ img {
   border: none;
 }
 
-/* swiper css */
+/* / swiper css / */
 
 .swiper {
   width: 100%;
@@ -220,7 +220,7 @@ img {
   font-size: 18px;
   background: #fff;
 
-  /* Center slide text vertically */
+  /* / Center slide text vertically / */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -233,7 +233,7 @@ img {
   object-fit: cover;
 }
 
-/* end swipre css */
+/* / end swipre css / */
 
 .serv-item {
   width: 45px;
@@ -248,7 +248,7 @@ img {
 }
 
 .db-header {
-  /* margin-left: -5px !important; */
+  /* / margin-left: -5px !important; / */
   color: white !important;
   font-size: 14px !important;
   font-weight: 400;
@@ -274,10 +274,10 @@ img {
 
 .whitebtn {
   background: linear-gradient(1turn, #ec038b, #fb6468 44%, #fbb936) !important;
-  padding: 12px 27px !important;
+  padding: 20px 27px !important;
   height: 35px !important;
   color: white !important;
-  margin-left: 13% !important;
+  margin-left: 2% !important;
 }
 
 .dbinput>div>input {
@@ -294,13 +294,13 @@ img {
 }
 
 .telegrambtn {
-  background: #6da7f4 !important;
+  background: #EE1285 !important;
   width: 49%;
   padding: 10px;
 }
 
 .supportbtn {
-  background: #0F0232 !important;
+  background: #FBB13B !important;
   width: 49%;
   padding: 10px;
 }
@@ -380,7 +380,7 @@ img {
 
 
 
-/*  */
+
 
 
 .Winnav h3 {
@@ -416,7 +416,7 @@ img {
   color: white;
 }
 
-/*  */
+
 
 .Winnavtow h3 {
   font-size: 14px;
@@ -483,8 +483,8 @@ img {
 }
 
 .win-banner>div>img {
-  width: 35px;
-  height: 35px;
+  width: 27px;
+  height: 27px;
 }
 
 .winTextone {
@@ -609,12 +609,14 @@ img {
   margin-bottom: 70px !important;
   padding: 10px !important;
 }
+
 .tableBox_wingo {
   width: 95%;
   margin-left: 2.5%;
   background-color: #4939c1 !important;
   border-radius: 10px;
   padding: 10px !important;
+  margin-bottom: 20px;
 }
 
 .onegotextbox {
@@ -1056,7 +1058,7 @@ img {
 }
 
 
-/* ///// trx css */
+/* / ///// trx css / */
 
 .trxwinbtn {
   text-transform: capitalize !important;
@@ -1181,6 +1183,17 @@ img {
   width: 48%;
 }
 
+.gametitle {
+  line-height: 1.5 !important;
+  text-align: start !important;
+  font-size: 35px !important;
+  font-weight: 900 !important;
+  font-family: Trade Winds !important;
+  background: linear-gradient(1turn, #ec038b, #fb6468 44%, #fbb936) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
 @media screen and (max-width: 450px) {
   .trxwinbtn {
     padding: 5px 7px !important;
@@ -1202,7 +1215,14 @@ img {
     padding: 2px 5px;
     border-radius: 5px;
   }
+
+  .gametitle {
+    font-size: 25px !important;
+    font-weight: 700 !important;
+  }
+
 }
+
 
 .walletBox>h2 {
   font-size: 30px !important;
@@ -1274,4 +1294,75 @@ img {
 
 .swiper-pagination {
   display: none !important;
+}
+
+.crlg {
+  padding-top: 123px !important;
+  font-size: 25px !important;
+  font-weight: 600 !important;
+  color: white !important;
+}
+
+.winerpoint {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin-top: 10px !important;
+}
+
+.winerpoint>p:nth-child(1) {
+  font-size: 13px !important;
+  color: white !important;
+  font-weight: 600 !important;
+  margin-right: 5px !important;
+}
+
+.winerpoint>p:nth-child(2) {
+  font-size: 13px !important;
+  color: white !important;
+  font-weight: 600 !important;
+  margin-right: 5px !important;
+  background: green !important;
+  padding: 7px 10px !important;
+  border-radius: 5px !important;
+}
+
+.winerpoint>p:nth-child(4) {
+  font-size: 13px !important;
+  color: white !important;
+  font-weight: 600 !important;
+  margin-right: 5px !important;
+  background: green !important;
+  padding: 7px 10px !important;
+  border-radius: 5px !important;
+}
+
+.bonustext {
+  text-align: center !important;
+  font-size: 35px !important;
+  font-weight: 600 !important;
+  margin-top: 17px !important;
+}
+
+.bonusamt {
+  font-size: 35px !important;
+  font-weight: 600 !important;
+  margin-top: -12px !important;
+  text-align: center !important;
+}
+
+.bonuspr {
+  text-align: center !important;
+  margin-top: 13px !important;
+  color: white !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+}
+
+.bonuscl {
+  text-align: center !important;
+  margin-top: 10px !important;
+  color: white !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
 }

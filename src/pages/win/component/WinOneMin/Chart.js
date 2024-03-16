@@ -10,7 +10,7 @@ import history from "../../../../assets/images/rules.png";
 import { endpoint } from "../../../../services/urls";
 
 const Chart = ({ gid }) => {
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [page, setPage] = React.useState(0);
   const [cor, setcor] = React.useState([]);
   const [visibleRows, setVisibleRows] = React.useState([]);
@@ -109,7 +109,7 @@ const Chart = ({ gid }) => {
           Statistic(last 100 Periods)
         </Typography>
       </Stack>
-      <div className="relative !h-[36vh] overflow-auto !w-[100%] no-scrollbar !overflow-x-hidden">
+      <div className="relative !h-[68vh] overflow-auto !w-[100%] no-scrollbar !overflow-x-hidden">
         <div className="absolute !w-[100%] !bg-red-800">
           {visibleRows?.map((i, indexi) => {
             return (
@@ -290,8 +290,8 @@ const Chart = ({ gid }) => {
                       y1={cor?.[index]?.y}
                       x2={cor?.[index - 1]?.x}
                       y2={cor?.[index - 1]?.y}
-                      stroke="#a10019"
-                      stroke-width="4"
+                      stroke="#FBAC3D"
+                      stroke-width="2"
                       fill="none"
                     />
                   )
@@ -308,7 +308,7 @@ const Chart = ({ gid }) => {
             color: "white",
             borderRadius: "0px 0px 10px 10px",
           }}
-          rowsPerPageOptions={[5, 10, 15]}
+          rowsPerPageOptions={[10]}
           component="div"
           count={game_history_data?.length}
           rowsPerPage={rowsPerPage}
