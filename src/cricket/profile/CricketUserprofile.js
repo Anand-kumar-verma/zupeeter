@@ -2,7 +2,7 @@ import CachedIcon from "@mui/icons-material/Cached";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 import { Box, Container, Stack, Typography } from "@mui/material";
 import { NavLink, useNavigate } from "react-router-dom";
-import { zubgback, zubgbackgrad, zubgback_cricket } from "../../Shared/color";
+import { zubgback, zubgbackgrad, zubgback_cricket, zubgcrickblue, zubgcrickorange } from "../../Shared/color";
 import cip from "../../assets/cip.png";
 import deposit from "../../assets/deposit.png";
 import card from "../../assets/images/card-payment.png";
@@ -55,7 +55,7 @@ function CricketUserprofile() {
             },
             value: {
               fontSize: "16px",
-              color:'white'
+              color: 'white'
             },
             total: {
               show: true,
@@ -91,7 +91,7 @@ function CricketUserprofile() {
               sx={style.profileImage}
             />
           </Box>
-          <Box sx={style.userInfo}>
+          <Box sx={style.userInfo} onClick={() => navigate('/cricket/registration')}>
             <Typography variant="" color="initial">
               Rohit Sharma
             </Typography>
@@ -99,15 +99,12 @@ function CricketUserprofile() {
               UID | 52414986
             </Typography>
           </Box>
-          <Box sx={style.rankImage}>
-            <Box component="img" src={winofthematch} sx={style.rankImage} />
-          </Box>
         </Stack>
-        <Box
-          sx={style.balanceContainer}
-          className={" !grid lg:!grid-cols-2 !grid-cols-1 !gap-2 !bg-[#3883BF] !bg-opacity-20"}
-        >
-          <div className=" !bg-white !bg-opacity-5 rounded-lg p-2">
+        <Box sx={style.balanceContainer}>
+          <Box sx={{
+            color: "white !important",
+            background: '#ffffff47', padding: '10px', borderRadius: '5px',
+          }}>
             <Stack direction="row" sx={{ alignItems: "center" }}>
               <Box component="img" src={balance} sx={style.cardImage} />
               <Typography
@@ -128,28 +125,24 @@ function CricketUserprofile() {
               </Typography>
               <CachedIcon sx={style.cachedIcon} />
             </Stack>
-            <Stack direction="row" sx={{ alignItems: "center", mt: "10px" }}>
+            <Stack direction="row" sx={{ alignItems: "center", mt: "10px", justifyContent: 'space-between' }}>
               <Box component="img" src={cip} sx={style.cardImage} />
               <Typography variant="body1" color="initial" sx={style.cardNumber}>
                 *** *** *** ***
               </Typography>
             </Stack>
-          </div>
-          <div className=" !bg-white !bg-opacity-5 rounded-lg p-2">
+          </Box>
+          <Box sx={{ background: zubgcrickorange, mt: 1.2, borderRadius: '5px', }}>
             <ReactApexChart
               options={state.options}
               series={state.series}
               type="radialBar"
             />
-          </div>
+          </Box>
         </Box>
-
         <Box
           className="wallet-track-box"
-          sx={{
-            backgroundImage:
-              'url("https://media.istockphoto.com/id/936417012/vector/cricket-stadium-vector-background.jpg?s=612x612&w=0&k=20&c=ktPUWBDjsTAYT0cjroYMkgJG3AQPLPuSOO1Vd8Urgyg=")',
-          }}
+          sx={{ background: zubgcrickorange }}
         >
           <Stack
             direction="row"
@@ -180,7 +173,7 @@ function CricketUserprofile() {
                     fontSize: "20px",
                     fontWeight: "700",
                     color: "white !important",
-                    background: zubgback_cricket,
+                    background: zubgcrickblue,
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
@@ -214,7 +207,7 @@ function CricketUserprofile() {
               <Box
                 sx={{
                   margin: "auto",
-                  background: zubgbackgrad,
+                  background: zubgcrickorange,
                   width: "100px",
                   height: "100px",
                   borderRadius: "50%",
@@ -228,7 +221,7 @@ function CricketUserprofile() {
                     fontSize: "20px",
                     fontWeight: "700",
                     color: "white !important",
-                    background: zubgback_cricket,
+                    background: zubgcrickblue,
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
@@ -258,18 +251,18 @@ function CricketUserprofile() {
           </Stack>
           <Stack
             direction="row"
-           className="!w-full !grid lg:!grid-cols-4 !grid-cols-2 !gap-[4px] !mt-5"
+            className="!w-full !grid lg:!grid-cols-4 !grid-cols-2 !gap-[4px] !mt-5"
           >
             {[
-              { img: rechargeIcon, item: "Deposit",nav:"/cricket/fund-deposit-request-form" },
-              { img: withdrow, item: "Withdraw",nav:"/cricket/withdrawlCash" },
-              { img: wdhistory, item: "Deposit history",nav:"/cricket/deposit-history"  },
-              { img: deposite, item: "Withdrawal history",nav:"/cricket/withdrawl-history"  },
+              { img: rechargeIcon, item: "Deposit", nav: "/cricket/fund-deposit-request-form" },
+              { img: withdrow, item: "Withdraw", nav: "/cricket/withdrawlCash" },
+              { img: wdhistory, item: "Deposit history", nav: "/cricket/deposit-history" },
+              { img: deposite, item: "Withdrawal history", nav: "/cricket/withdrawl-history" },
             ].map((i) => {
               return (
                 <Box
                   sx={{
-                    
+
                     display: "flex",
                     alignItems: "center",
                     flexDirection: "column",
@@ -279,9 +272,9 @@ function CricketUserprofile() {
                       color: "white",
                       textAlign: "center",
                     },
-                    
+
                     "&>a>img": { margin: "auto" },
-                    
+
                   }}
                   className={"!bg-white !bg-opacity-30 !rounded-lg !py-2"}
                 >
@@ -301,7 +294,7 @@ function CricketUserprofile() {
             className={"!cursor-pointer"}
             onClick={() => navigate("/cricket/deposit-history")}
             sx={{
-              background: zubgbackgrad,
+              background: zubgcrickblue,
               padding: "10px",
               borderRadius: "10px",
             }}
@@ -340,7 +333,7 @@ function CricketUserprofile() {
             className={"!cursor-pointer"}
             onClick={() => navigate("/cricket/withdrawl-history")}
             sx={{
-              background: zubgbackgrad,
+              background: zubgcrickblue,
               padding: "10px",
               borderRadius: "10px",
             }}
@@ -380,7 +373,7 @@ function CricketUserprofile() {
           <Stack
             sx={{
               padding: "10px",
-              background: zubgback_cricket,
+              background: zubgcrickorange,
               width: "100%",
               borderRadius: "10px",
               // backgroundImage:
@@ -396,7 +389,7 @@ function CricketUserprofile() {
                 alignItems: "center",
                 justifyContent: "space-between",
               }}
-              
+
             >
               <Stack direction="row" sx={{ alignItems: "center" }}>
                 <Box
@@ -427,7 +420,7 @@ function CricketUserprofile() {
                 alignItems: "center",
                 justifyContent: "space-between",
               }}
-              
+
             >
               <Stack direction="row" sx={{ alignItems: "center" }}>
                 <Box
@@ -458,7 +451,7 @@ function CricketUserprofile() {
                 alignItems: "center",
                 justifyContent: "space-between",
               }}
-              
+
             >
               <Stack direction="row" sx={{ alignItems: "center" }}>
                 <Box
@@ -489,7 +482,7 @@ function CricketUserprofile() {
                 alignItems: "center",
                 justifyContent: "space-between",
               }}
-              
+
             >
               <Stack direction="row" sx={{ alignItems: "center" }}>
                 <Box
@@ -522,7 +515,7 @@ function CricketUserprofile() {
                 alignItems: "center",
                 justifyContent: "space-between",
               }}
-              
+
             >
               <Stack direction="row" sx={{ alignItems: "center" }}>
                 <Box
@@ -556,11 +549,14 @@ function CricketUserprofile() {
 export default CricketUserprofile;
 
 const style = {
-  container: { background: zubgback },
+  container: { background: '#fff' },
   header: {
+    width: '95%',
+    marginLeft: '2.5%',
+    px: '10px',
     alignItems: "center",
-    justifyContent: "space-evenly",
-    paddingTop: "20px",
+    justifyContent: "space-between",
+    py: "20px",
   },
   profileBox: {
     width: "80px",
@@ -573,21 +569,21 @@ const style = {
     "& > :nth-child(1)": {
       fontSize: "18px",
       fontWeight: "600",
-      color: "white",
+      color: "black",
     },
     "& > :nth-child(2)": {
       fontSize: "14px",
       fontWeight: "400",
-      color: "white",
+      color: "black",
     },
   },
   rankImage: { width: "100px", height: "100px" },
   balanceContainer: {
-    background: zubgback_cricket,
+    background: zubgcrickorange,
     borderRadius: "10px",
-    padding: "20px",
-    margin: "auto",
-    marginTop: "2px",
+    padding: "10px",
+    width: '95%',
+    marginLeft: '2.5%',
   },
   balanceText: {
     fontSize: "16px",
@@ -624,7 +620,7 @@ const style = {
     fontWeight: "500",
   },
   actionContainertwo: {
-    background: zubgbackgrad,
+    background: zubgcrickblue,
     flexDirection: "column",
     borderRadius: "10px",
     padding: "10px",

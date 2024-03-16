@@ -1,55 +1,65 @@
-import CachedIcon from '@mui/icons-material/Cached';
-import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
-import { Box, Button, Container, Stack, Typography } from '@mui/material';
+import CachedIcon from "@mui/icons-material/Cached";
+import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
+import { Box, Button, Container, Stack, Typography } from "@mui/material";
+import { useState } from "react";
 import { useQuery } from "react-query";
-import { NavLink, useNavigate } from 'react-router-dom';
-import CustomCircularProgress from '../../Shared/CustomCircularProgress';
-import { zubgback, zubgbackgrad, zubgmid } from '../../Shared/color';
-import cip from '../../assets/cip.png';
-import card from '../../assets/images/card-payment.png';
-import wtd from '../../assets/images/cash-withdrawal.png';
-import casino from '../../assets/images/casino.png';
-import customer from '../../assets/images/customer-service.png';
-import dpt from '../../assets/images/deposit.png';
-import gift from '../../assets/images/gift-box.png';
-import graph from '../../assets/images/graph.png';
-import hand from '../../assets/images/hand.png';
-import notification from '../../assets/images/notification.png';
-import user2 from '../../assets/images/password (1).png';
-import profile from '../../assets/images/profile.jpg';
-import Rank from '../../assets/images/rank.png';
-import balance from '../../assets/images/send.png';
-import setting from '../../assets/images/settings (1).png';
-import trans from '../../assets/images/translation.png';
-import s from '../../assets/images/wallet.png';
-import Layout from '../../component/Layout/Layout';
-import { MyProfileDataFn } from '../../services/apicalling';
-
+import { NavLink, useNavigate } from "react-router-dom";
+import CustomCircularProgress from "../../Shared/CustomCircularProgress";
+import { zubgback, zubgbackgrad, zubgmid } from "../../Shared/color";
+import cip from "../../assets/cip.png";
+import dp1 from "../../assets/dp1.png";
+import dp2 from "../../assets/dp2.png";
+import dp3 from "../../assets/dp3.png";
+import dp4 from "../../assets/dp4.png";
+import card from "../../assets/images/card-payment.png";
+import wtd from "../../assets/images/cash-withdrawal.png";
+import casino from "../../assets/images/casino.png";
+import customer from "../../assets/images/customer-service.png";
+import dpt from "../../assets/images/deposit.png";
+import gift from "../../assets/images/gift-box.png";
+import graph from "../../assets/images/graph.png";
+import hand from "../../assets/images/hand.png";
+import notification from "../../assets/images/notification.png";
+import user2 from "../../assets/images/password (1).png";
+import Rank from "../../assets/images/rank.png";
+import balance from "../../assets/images/send.png";
+import setting from "../../assets/images/settings (1).png";
+import trans from "../../assets/images/translation.png";
+import s from "../../assets/images/wallet.png";
+import Layout from "../../component/Layout/Layout";
+import { MyProfileDataFn } from "../../services/apicalling";
 function Account() {
-  const navigate = useNavigate()
-  const { isLoading, data } = useQuery(
-    ["myprofile"],
-    () => MyProfileDataFn(),
-    {
-      refetchOnMount: false,
-      refetchOnReconnect: true,
-    }
-  );
-const result = data?.data?.data;
-
+  const navigate = useNavigate();
+  const profile_data = localStorage.getItem("profile_data");
+  const [imageNumber, setImageNumber] = useState(profile_data || "1");
+  const { isLoading, data } = useQuery(["myprofile"], () => MyProfileDataFn(), {
+    refetchOnMount: false,
+    refetchOnReconnect: true,
+  });
+  const result = data?.data?.data;
+  const imge_array = [
+    { id: 1, img: dp1 },
+    { id: 2, img: dp2 },
+    { id: 3, img: dp3 },
+    { id: 4, img: dp4 },
+  ];
   return (
     <Layout>
       <Container sx={style.container}>
         <Stack direction="row" sx={style.header}>
           <Box sx={style.profileBox}>
-            <Box component="img" src={profile} sx={style.profileImage} />
+            <Box
+              component="img"
+              src={imge_array[Number(Number(imageNumber) - 1 || 0)]?.img}
+              sx={style.profileImage}
+            />
           </Box>
           <Box sx={style.userInfo}>
             <Typography variant="" color="initial">
               {result?.username}
             </Typography>
             <Typography variant="body1" color="initial">
-              UID | {result?.custid||0}
+              UID | {result?.custid || 0}
             </Typography>
           </Box>
           <Box sx={style.rankImage}>
@@ -57,19 +67,32 @@ const result = data?.data?.data;
           </Box>
         </Stack>
         <Box sx={style.balanceContainer}>
-          <Stack direction="row" sx={{ alignItems: 'center' }}>
+          <Stack direction="row" sx={{ alignItems: "center" }}>
             <Box component="img" src={balance} sx={style.cardImage} />
             <Typography variant="body1" color="initial" sx={style.balanceText}>
               Total Balance
             </Typography>
           </Stack>
-          <Stack direction="row" sx={{ alignItems: 'center', mt: '10px' }}>
+          <Stack direction="row" sx={{ alignItems: "center", mt: "10px" }}>
             <Typography variant="body1" color="initial" sx={style.totalBalance}>
-              ₹{(Number(result?.winning_wallet+result?.wallet)||0)?.toFixed(0)}
+              ₹
+              {(
+                Number(
+                  Number(result?.winning_wallet || 0) +
+                    Number(result?.wallet || 0)
+                ) || 0
+              )?.toFixed(0)}
             </Typography>
             <CachedIcon sx={style.cachedIcon} />
           </Stack>
-          <Stack direction="row" sx={{ alignItems: 'center', justifyContent: 'space-between', mt: '20px' }}>
+          <Stack
+            direction="row"
+            sx={{
+              alignItems: "center",
+              justifyContent: "space-between",
+              mt: "20px",
+            }}
+          >
             <Box component="img" src={cip} sx={style.cardImage} />
             <Typography variant="body1" color="initial" sx={style.cardNumber}>
               **** **** **** ****
@@ -102,132 +125,409 @@ const result = data?.data?.data;
             </Typography>
           </Box> */}
         </Box>
-        <Box sx={style.actionContainer} component={NavLink} to={'/bathistory'}>
-          <Box sx={{ width: '49%', background: zubgbackgrad, padding: '10px', borderRadius: '10px', height: '100%', }}>
-            <Stack direction='row' sx={{ alignItems: 'center', }}>
-              <Box component='img' src={casino} sx={{ width: '40px', height: '40px', marginRight: '20px' }}>
-
-              </Box>
-              <Box sx={{
-                '&>:nth-child(1)': { fontSize: '15px', fontWeight: '500', color: 'white' },
-                '&>:nth-child(2)': { fontSize: '12px', fontWeight: '500', color: 'white' },
-              }}>
-                <Typography variant="body1" color="initial">Bet</Typography>
-                <Typography variant="body1" color="initial">My betting history</Typography>
+        <Box sx={style.actionContainer} component={NavLink} to={"/bathistory"}>
+          <Box
+            sx={{
+              width: "49%",
+              background: zubgbackgrad,
+              padding: "10px",
+              borderRadius: "10px",
+              height: "100%",
+            }}
+          >
+            <Stack direction="row" sx={{ alignItems: "center" }}>
+              <Box
+                component="img"
+                src={casino}
+                sx={{ width: "40px", height: "40px", marginRight: "20px" }}
+              ></Box>
+              <Box
+                sx={{
+                  "&>:nth-child(1)": {
+                    fontSize: "15px",
+                    fontWeight: "500",
+                    color: "white",
+                  },
+                  "&>:nth-child(2)": {
+                    fontSize: "12px",
+                    fontWeight: "500",
+                    color: "white",
+                  },
+                }}
+              >
+                <Typography variant="body1" color="initial">
+                  Bet
+                </Typography>
+                <Typography variant="body1" color="initial">
+                  My betting history
+                </Typography>
               </Box>
             </Stack>
           </Box>
-          <Box sx={{ width: '49%', background: zubgbackgrad, padding: '10px', borderRadius: '10px', height: '100%', }}>
-            <Stack direction='row' sx={{ alignItems: 'center', }}>
-              <Box component='img' src={card} sx={{ width: '40px', height: '40px', marginRight: '20px' }}>
-              </Box>
-              <Box sx={{
-                '&>:nth-child(1)': { fontSize: '15px', fontWeight: '500', color: 'white' },
-                '&>:nth-child(2)': { fontSize: '10px', fontWeight: '500', color: 'white' },
-              }}>
-                <Typography variant="body1" color="initial">Transaction</Typography>
-                <Typography variant="body1" color="initial">My Transaction history</Typography>
+          <Box
+            sx={{
+              width: "49%",
+              background: zubgbackgrad,
+              padding: "10px",
+              borderRadius: "10px",
+              height: "100%",
+            }}
+          >
+            <Stack direction="row" sx={{ alignItems: "center" }}>
+              <Box
+                component="img"
+                src={card}
+                sx={{ width: "40px", height: "40px", marginRight: "20px" }}
+              ></Box>
+              <Box
+                sx={{
+                  "&>:nth-child(1)": {
+                    fontSize: "15px",
+                    fontWeight: "500",
+                    color: "white",
+                  },
+                  "&>:nth-child(2)": {
+                    fontSize: "10px",
+                    fontWeight: "500",
+                    color: "white",
+                  },
+                }}
+              >
+                <Typography variant="body1" color="initial">
+                  Transaction
+                </Typography>
+                <Typography variant="body1" color="initial">
+                  My Transaction history
+                </Typography>
               </Box>
             </Stack>
           </Box>
         </Box>
         <Box sx={style.actionContainertwo}>
-          <Stack sx={{ padding: '10px', background: zubgmid, width: '100%', borderRadius: '10px' }}>
-            <Stack component={NavLink} to='/notification' direction='row' sx={{ borderBottom: '1px solid white', padding: '10px', width: '100%', alignItems: 'center', justifyContent: 'space-between' }}>
-              <Stack direction='row' sx={{ alignItems: 'center' }}>
-                <Box component='img' src={notification} sx={{ width: '20px', height: '20px', marginRight: '10px', }}></Box>
-                <Typography variant="body1" color="initial" sx={{ color: 'white', fontSize: '13px', fontWeight: '600' }}>Notification</Typography>
+          <Stack
+            sx={{
+              padding: "10px",
+              background: zubgmid,
+              width: "100%",
+              borderRadius: "10px",
+            }}
+          >
+            <Stack
+              component={NavLink}
+              to="/notification"
+              direction="row"
+              sx={{
+                borderBottom: "1px solid white",
+                padding: "10px",
+                width: "100%",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
+              <Stack direction="row" sx={{ alignItems: "center" }}>
+                <Box
+                  component="img"
+                  src={notification}
+                  sx={{ width: "20px", height: "20px", marginRight: "10px" }}
+                ></Box>
+                <Typography
+                  variant="body1"
+                  color="initial"
+                  sx={{ color: "white", fontSize: "13px", fontWeight: "600" }}
+                >
+                  Notification
+                </Typography>
               </Stack>
-              <Box >
-                <KeyboardDoubleArrowRightIcon sx={{ color: 'white', fontSize: '23px', fontWeight: '600' }} />
+              <Box>
+                <KeyboardDoubleArrowRightIcon
+                  sx={{ color: "white", fontSize: "23px", fontWeight: "600" }}
+                />
               </Box>
             </Stack>
-            <Stack component={NavLink} to='/gift' direction='row' sx={{ borderBottom: '1px solid white', padding: ' 10px 10px 10px 5px', width: '100%', alignItems: 'center', justifyContent: 'space-between' }}>
-              <Stack direction='row' sx={{ alignItems: 'center' }}>
-                <Box component='img' src={gift} sx={{ width: '30px', height: '30px', marginRight: '10px', }}></Box>
-                <Typography variant="body1" color="initial" sx={{ color: 'white', fontSize: '13px', fontWeight: '600' }}>Gifts</Typography>
+            <Stack
+              component={NavLink}
+              to="/gift"
+              direction="row"
+              sx={{
+                borderBottom: "1px solid white",
+                padding: " 10px 10px 10px 5px",
+                width: "100%",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
+              <Stack direction="row" sx={{ alignItems: "center" }}>
+                <Box
+                  component="img"
+                  src={gift}
+                  sx={{ width: "30px", height: "30px", marginRight: "10px" }}
+                ></Box>
+                <Typography
+                  variant="body1"
+                  color="initial"
+                  sx={{ color: "white", fontSize: "13px", fontWeight: "600" }}
+                >
+                  Gifts
+                </Typography>
               </Stack>
-              <Box >
-                <KeyboardDoubleArrowRightIcon sx={{ color: 'white', fontSize: '23px', fontWeight: '600' }} />
+              <Box>
+                <KeyboardDoubleArrowRightIcon
+                  sx={{ color: "white", fontSize: "23px", fontWeight: "600" }}
+                />
               </Box>
             </Stack>
-            <Stack component={NavLink} to="/gamestaticks" direction='row' sx={{ borderBottom: '1px solid white', padding: ' 10px 10px 10px 5px', width: '100%', alignItems: 'center', justifyContent: 'space-between' }}>
-              <Stack direction='row' sx={{ alignItems: 'center' }}>
-                <Box component='img' src={graph} sx={{ width: '25px', height: '25px', marginRight: '10px', }}></Box>
-                <Typography variant="body1" color="initial" sx={{ color: 'white', fontSize: '13px', fontWeight: '600' }}>Game statistics</Typography>
+            <Stack
+              component={NavLink}
+              to="/gamestaticks"
+              direction="row"
+              sx={{
+                borderBottom: "1px solid white",
+                padding: " 10px 10px 10px 5px",
+                width: "100%",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
+              <Stack direction="row" sx={{ alignItems: "center" }}>
+                <Box
+                  component="img"
+                  src={graph}
+                  sx={{ width: "25px", height: "25px", marginRight: "10px" }}
+                ></Box>
+                <Typography
+                  variant="body1"
+                  color="initial"
+                  sx={{ color: "white", fontSize: "13px", fontWeight: "600" }}
+                >
+                  Game statistics
+                </Typography>
               </Stack>
-              <Box >
-                <KeyboardDoubleArrowRightIcon sx={{ color: 'white', fontSize: '23px', fontWeight: '600' }} />
+              <Box>
+                <KeyboardDoubleArrowRightIcon
+                  sx={{ color: "white", fontSize: "23px", fontWeight: "600" }}
+                />
               </Box>
             </Stack>
-            <Stack component={NavLink} to="/Language" direction='row' sx={{ borderBottom: '1px solid white', padding: ' 10px 10px 10px 5px', width: '100%', alignItems: 'center', justifyContent: 'space-between' }}>
-              <Stack direction='row' sx={{ alignItems: 'center' }}>
-                <Box component='img' src={trans} sx={{ width: '25px', height: '25px', marginRight: '10px', }}></Box>
-                <Typography variant="body1" color="initial" sx={{ color: 'white', fontSize: '13px', fontWeight: '600' }}>Language</Typography>
+            <Stack
+              component={NavLink}
+              to="/Language"
+              direction="row"
+              sx={{
+                borderBottom: "1px solid white",
+                padding: " 10px 10px 10px 5px",
+                width: "100%",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
+              <Stack direction="row" sx={{ alignItems: "center" }}>
+                <Box
+                  component="img"
+                  src={trans}
+                  sx={{ width: "25px", height: "25px", marginRight: "10px" }}
+                ></Box>
+                <Typography
+                  variant="body1"
+                  color="initial"
+                  sx={{ color: "white", fontSize: "13px", fontWeight: "600" }}
+                >
+                  Language
+                </Typography>
               </Stack>
-              <Box >
-                <Typography sx={{ color: 'white', fontSize: '13px', fontWeight: '500' }} >English</Typography>
+              <Box>
+                <Typography
+                  sx={{ color: "white", fontSize: "13px", fontWeight: "500" }}
+                >
+                  English
+                </Typography>
               </Box>
             </Stack>
           </Stack>
         </Box>
         <Box
           sx={{
-            width: '95%', marginLeft: '2.5%', borderRadius: '10px', background: zubgmid, padding: '10px', mt: '20px',
-            '&>:nth-child(1)': { color: 'white', fontSize: '15px', fontWeight: '600', mb: '25px', },
-          }}>
-          <Typography variant="body1" color="initial">Service center</Typography>
+            width: "95%",
+            marginLeft: "2.5%",
+            borderRadius: "10px",
+            background: zubgmid,
+            padding: "10px",
+            mt: "20px",
+            "&>:nth-child(1)": {
+              color: "white",
+              fontSize: "15px",
+              fontWeight: "600",
+              mb: "25px",
+            },
+          }}
+        >
+          <Typography variant="body1" color="initial">
+            Service center
+          </Typography>
 
-          <Stack direction='row' sx={{ alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', }} >
-            <Box component={NavLink} to="/SettingCenter" sx={{
-              width: '30%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', mb: '10px',
-              '&>p': { color: 'white', fontSize: '14px', fontWeight: '500', mt: '5px', }
-            }}>
-              <Box component='img' src={setting} sx={{ width: '30px', height: '30px', }}></Box>
+          <Stack
+            direction="row"
+            sx={{
+              alignItems: "center",
+              justifyContent: "space-between",
+              flexWrap: "wrap",
+            }}
+          >
+            <Box
+              component={NavLink}
+              to="/SettingCenter"
+              sx={{
+                width: "30%",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                mb: "10px",
+                "&>p": {
+                  color: "white",
+                  fontSize: "14px",
+                  fontWeight: "500",
+                  mt: "5px",
+                },
+              }}
+            >
+              <Box
+                component="img"
+                src={setting}
+                sx={{ width: "30px", height: "30px" }}
+              ></Box>
               <Typography>Settings</Typography>
             </Box>
-            <Box component={NavLink} to="/feedback" sx={{
-              width: '30%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', mb: '10px',
-              '&>p': { color: 'white', fontSize: '14px', fontWeight: '500', mt: '5px', }
-            }}>
-              <Box component='img' src={hand} sx={{ width: '30px', height: '30px', }}></Box>
+            <Box
+              component={NavLink}
+              to="/feedback"
+              sx={{
+                width: "30%",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                mb: "10px",
+                "&>p": {
+                  color: "white",
+                  fontSize: "14px",
+                  fontWeight: "500",
+                  mt: "5px",
+                },
+              }}
+            >
+              <Box
+                component="img"
+                src={hand}
+                sx={{ width: "30px", height: "30px" }}
+              ></Box>
               <Typography>Feedback</Typography>
             </Box>
-            <Box component={NavLink} to="/gameNotification" sx={{
-              width: '30%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', mb: '10px',
-              '&>p': { color: 'white', fontSize: '14px', fontWeight: '500', mt: '5px', }
-            }}>
-              <Box component='img' src={notification} sx={{ width: '30px', height: '30px', }}></Box>
+            <Box
+              component={NavLink}
+              to="/gameNotification"
+              sx={{
+                width: "30%",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                mb: "10px",
+                "&>p": {
+                  color: "white",
+                  fontSize: "14px",
+                  fontWeight: "500",
+                  mt: "5px",
+                },
+              }}
+            >
+              <Box
+                component="img"
+                src={notification}
+                sx={{ width: "30px", height: "30px" }}
+              ></Box>
               <Typography>Notification</Typography>
             </Box>
-            <Box component={NavLink} to="/promotion/customerLine/" sx={{
-              width: '50%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', mb: '10px', mt: '15px',
-              '&>p': { color: 'white', fontSize: '14px', fontWeight: '500', mt: '8px', }
-            }}>
-              <Box component='img' src={customer} sx={{ width: '30px', height: '30px', }}></Box>
+            <Box
+              component={NavLink}
+              to="/promotion/customerLine/"
+              sx={{
+                width: "50%",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                mb: "10px",
+                mt: "15px",
+                "&>p": {
+                  color: "white",
+                  fontSize: "14px",
+                  fontWeight: "500",
+                  mt: "8px",
+                },
+              }}
+            >
+              <Box
+                component="img"
+                src={customer}
+                sx={{ width: "30px", height: "30px" }}
+              ></Box>
               <Typography>24/7 Customer service</Typography>
             </Box>
-            <Box component={NavLink} to='/SettingCenter/LoginPassword' sx={{
-              width: '50%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', mb: '10px', mt: '15px',
-              '&>p': { color: 'white', fontSize: '14px', fontWeight: '500', mt: '8px', }
-            }}>
-              <Box component='img' src={user2} sx={{ width: '30px', height: '30px', }}></Box>
+            <Box
+              component={NavLink}
+              to="/SettingCenter/LoginPassword"
+              sx={{
+                width: "50%",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                mb: "10px",
+                mt: "15px",
+                "&>p": {
+                  color: "white",
+                  fontSize: "14px",
+                  fontWeight: "500",
+                  mt: "8px",
+                },
+              }}
+            >
+              <Box
+                component="img"
+                src={user2}
+                sx={{ width: "30px", height: "30px" }}
+              ></Box>
               <Typography>Change Password</Typography>
             </Box>
           </Stack>
         </Box>
         <Box
           sx={{
-            width: '95%', marginLeft: '2.5%', borderRadius: '10px', background: zubgmid, padding: '10px', mt: '20px',
-          }}>
-          <Button sx={{ background: zubgbackgrad, width: '100%', color: 'white', padding: '10px', borderRadius: '10px' }}
-          onClick={()=>{
-            localStorage.clear();
-            navigate('/');
+            width: "95%",
+            marginLeft: "2.5%",
+            borderRadius: "10px",
+            background: zubgmid,
+            padding: "10px",
+            mt: "20px",
           }}
-          >Logout</Button>
+        >
+          <Button
+            sx={{
+              background: zubgbackgrad,
+              width: "100%",
+              color: "white",
+              padding: "10px",
+              borderRadius: "10px",
+            }}
+            onClick={() => {
+              localStorage.clear();
+              navigate("/");
+            }}
+          >
+            Logout
+          </Button>
         </Box>
-        <CustomCircularProgress isLoading={isLoading}/>
+        <CustomCircularProgress isLoading={isLoading} />
       </Container>
     </Layout>
   );
@@ -235,22 +535,85 @@ const result = data?.data?.data;
 
 export default Account;
 
-
 const style = {
-  container: { background: zubgback, mb: '64px' },
-  header: { alignItems: 'center', justifyContent: 'space-evenly', paddingTop: '20px' },
-  profileBox: { width: '80px', height: '80px', borderRadius: '50%', overflow: 'hidden' },
-  profileImage: { width: '100%', height: '100%' },
-  userInfo: { '& > :nth-child(1)': { fontSize: '18px', fontWeight: '600', color: 'white' }, '& > :nth-child(2)': { fontSize: '14px', fontWeight: '400', color: 'white' } },
-  rankImage: { width: '100px', height: '100px' },
-  balanceContainer: { background: zubgmid, borderRadius: '10px', padding: '20px', width: '95%', margin: 'auto', marginTop: '2px' },
-  balanceText: { fontSize: '16px', fontWeight: '500', color: 'white', marginLeft: '10px' },
-  totalBalance: { fontSize: '30px', fontWeight: '600', color: 'white', marginRight: '10px' },
-  cachedIcon: { color: 'white' },
-  cardImage: { width: '50px' },
-  cardNumber: { fontSize: '14px', color: 'white', marginLeft: '10px' },
-  actionContainer: { background: zubgmid, borderRadius: '10px', padding: '10px', width: '95%', margin: 'auto', marginTop: '20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' },
-  actionBox: { width: '20%' }, actionImage: { width: '30px', height: '30px', margin: 'auto' },
-  actionText: { color: 'white', textAlign: 'center', fontSize: '14px', fontWeight: '500' },
-  actionContainertwo: { background: zubgbackgrad, flexDirection: 'column', borderRadius: '10px', padding: '10px', width: '95%', margin: 'auto', marginTop: '20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' },
+  container: { background: zubgback, mb: "64px" },
+  header: {
+    alignItems: "center",
+    justifyContent: "space-evenly",
+    paddingTop: "20px",
+  },
+  profileBox: {
+    width: "80px",
+    height: "80px",
+    borderRadius: "50%",
+    overflow: "hidden",
+  },
+  profileImage: { width: "100%", height: "100%" },
+  userInfo: {
+    "& > :nth-child(1)": {
+      fontSize: "18px",
+      fontWeight: "600",
+      color: "white",
+    },
+    "& > :nth-child(2)": {
+      fontSize: "14px",
+      fontWeight: "400",
+      color: "white",
+    },
+  },
+  rankImage: { width: "100px", height: "100px" },
+  balanceContainer: {
+    background: zubgmid,
+    borderRadius: "10px",
+    padding: "20px",
+    width: "95%",
+    margin: "auto",
+    marginTop: "2px",
+  },
+  balanceText: {
+    fontSize: "16px",
+    fontWeight: "500",
+    color: "white",
+    marginLeft: "10px",
+  },
+  totalBalance: {
+    fontSize: "30px",
+    fontWeight: "600",
+    color: "white",
+    marginRight: "10px",
+  },
+  cachedIcon: { color: "white" },
+  cardImage: { width: "50px" },
+  cardNumber: { fontSize: "14px", color: "white", marginLeft: "10px" },
+  actionContainer: {
+    background: zubgmid,
+    borderRadius: "10px",
+    padding: "10px",
+    width: "95%",
+    margin: "auto",
+    marginTop: "20px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  actionBox: { width: "20%" },
+  actionImage: { width: "30px", height: "30px", margin: "auto" },
+  actionText: {
+    color: "white",
+    textAlign: "center",
+    fontSize: "14px",
+    fontWeight: "500",
+  },
+  actionContainertwo: {
+    background: zubgbackgrad,
+    flexDirection: "column",
+    borderRadius: "10px",
+    padding: "10px",
+    width: "95%",
+    margin: "auto",
+    marginTop: "20px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
 };

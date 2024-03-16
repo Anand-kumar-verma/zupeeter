@@ -22,8 +22,8 @@ import { NavLink, useNavigate } from "react-router-dom";
 import CustomCircularProgress from "../../Shared/CustomCircularProgress";
 import { signupSchemaValidataon } from "../../Shared/Validation";
 import { zubgbackgrad } from "../../Shared/color";
-import logo from "../../assets/images/logo.png";
-import poster from "../../assets/images/poster4.jpg";
+import logo from "../../assets/images/club-8-copyright.png";
+import poster from "../../assets/images/poster6.jpg";
 import { endpoint } from "../../services/urls";
 
 function CricketRegistrationForm() {
@@ -117,13 +117,12 @@ function CricketRegistrationForm() {
           <Box sx={{ width: "100%" }}>
             <Box
               component="img"
-              src={"https://bcciplayerimages.s3.ap-south-1.amazonaws.com/ipl/IPLHeadshot2023/6.png"}
+              src={logo}
               sx={{ width: "150px", margin: "auto" }}
             ></Box>
           </Box>
           <Box
             sx={{
-              mt: "2vh",
               background: "white",
               borderRadius: "10px",
               padding: "20px 10px",

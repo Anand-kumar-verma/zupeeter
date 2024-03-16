@@ -1347,13 +1347,13 @@ img {
 .bonusamt {
   font-size: 35px !important;
   font-weight: 600 !important;
-  margin-top: -12px !important;
+  /* margin-top: -12px !important; */
   text-align: center !important;
 }
 
 .bonuspr {
   text-align: center !important;
-  margin-top: 13px !important;
+  margin-top: 8px !important;
   color: white !important;
   font-size: 15px !important;
   font-weight: 600 !important;
@@ -1365,4 +1365,68 @@ img {
   color: white !important;
   font-size: 15px !important;
   font-weight: 600 !important;
+}
+
+.playnow {
+  background-color: #FF204E !important;
+  background-image: none !important;
+  border-radius: 4px !important;
+  box-shadow: #fff 4px 4px 0 0, #000 4px 4px 0 1px !important;
+  box-sizing: border-box !important;
+  color: #fff !important;
+  cursor: pointer !important;
+  display: inline-block !important;
+  font-family: ITCAvantGardeStd-Bk, Arial, sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  line-height: 20px !important;
+  margin: 0 5px 10px 0 !important;
+  overflow: visible !important;
+  padding: 12px 40px !important;
+  text-align: center !important;
+  text-transform: none !important;
+  touch-action: manipulation !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  vertical-align: middle !important;
+  white-space: nowrap !important;
+}
+
+.playnow:focus {
+  text-decoration: none !important;
+}
+
+.playnow:hover {
+  text-decoration: none !important;
+}
+
+.playnow:active {
+  box-shadow: rgba(0, 0, 0, .125) 0 3px 5px inset !important;
+  outline: 0 !important;
+}
+
+.playnow:not([disabled]):active {
+  box-shadow: #fff 2px 2px 0 0, #000 2px 2px 0 1px !important;
+  transform: translate(2px, 2px) !important;
+}
+
+@media (min-width: 768px) {
+  .playnow {
+    padding: 12px 50px !important;
+  }
+}
+
+
+.live {
+  background: #FF204E !important;
+  width: 50% !important;
+  border: none !important;
+  color: white !important;
+}
+
+.upcoming {
+  background: gray !important;
+  width: 50% !important;
+  border: none !important;
+  color: white !important;
 }

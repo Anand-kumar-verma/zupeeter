@@ -12,7 +12,6 @@ const WinLossPopup = () => {
   const [loding, setloding] = useState(false);
   const [status, setstatus] = useState("");
   const MyHistoryFn = async () => {
-    console.log("Win loss function ishitting now")
     setloding(true);
     try {
       const response = await axios.get(
@@ -68,14 +67,14 @@ const WinLossPopup = () => {
           small
         </Typography>
       </Box> */}
-      <Typography variant="body1" color="initial" className={`bonustext ${status?.status === "1" ? "!text-green-500":"!text-red-500"}`}>
+      <Typography variant="body1" color="initial" className={`bonustext ${status?.status === "1" ? "!text-white":"!text-white"}`}>
         {(status?.status === "1" && "Bonus") ||
           (status?.status === "2" && "Loss Amount")}
       </Typography>
-      <Typography variant="body1" color="initial" className={`bonusamt ${status?.status === "1" ? "!text-green-500":"!text-red-500"}`}>
+      <Typography variant="body1" color="initial" className={`bonusamt  ${status?.status === "1" ? "!text-white":"!text-white"}`}>
         ₹ {Number(status?.amount || 0)?.toFixed(2) || 0}
       </Typography>
-      <Typography variant="body1" color="initial" className={`bonuspr ${status?.status === "1" ? "!text-pink-500":"!text-red-500"}`}>
+      <Typography variant="body1" color="initial" className={`bonuspr ${status?.status === "1" ? "!text-pink-500":"!text-white"}`}>
         Period{" "}
         {(status?.gameid === "1" && "One") ||
           (status?.gameid === "3" && "Three") ||

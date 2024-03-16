@@ -36,3 +36,15 @@ export const cashDepositFn = async(reqbody)=>{
     console.log(e)
   }
 }
+
+export const getAllBetsAviator = async () => {
+  try {
+    const response = await axios.get(
+      `${endpoint.total_bet_history}`
+    );
+   return response
+  } catch (e) {
+    toast(e?.message);
+    console.log(e);
+  }
+};

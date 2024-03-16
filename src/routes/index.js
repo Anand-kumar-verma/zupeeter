@@ -41,6 +41,7 @@ import DepositCash from "../cricket/transacton/DepositCash";
 import WithdrawlCash from "../cricket/transacton/WithdrawlCash";
 import CricketWalletFundDepositForm from "../cricket/transacton/CricketWalletFundDepositForm";
 import CricketRegistrationForm from "../cricket/cricketauth/CricketRegistrationForm";
+import Cricket from "../cricket/Dashboard/Cricket";
 
 export const routes = [
     {
@@ -214,5 +215,9 @@ export const routes = [
     {
         path:"/cricket/registration",
         component:<CricketRegistrationForm/>
+    },
+    {
+        path: "/cricket",
+        component: <Cricket/>
     },
 ]

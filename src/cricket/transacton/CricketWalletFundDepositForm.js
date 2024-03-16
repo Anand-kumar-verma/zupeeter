@@ -1,20 +1,29 @@
 import KeyboardArrowLeftOutlinedIcon from "@mui/icons-material/KeyboardArrowLeftOutlined";
 import {
-    Box,
-    Button,
-    Container,
-    FormControl,
-    MenuItem,
-    OutlinedInput,
-    Stack,
-    TextField,
-    Typography
+  Box,
+  Button,
+  Container,
+  FormControl,
+  MenuItem,
+  OutlinedInput,
+  Stack,
+  TextField,
+  Typography,
 } from "@mui/material";
 import { useFormik } from "formik";
 import * as React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { zubgback, zubgback_cricket, zubgbackgrad, zubgmid } from "../../Shared/color";
+import {
+  zubgback,
+  zubgback_cricket,
+  zubgbackgrad,
+  zubgcrickblue,
+  zubgcrickorange,
+  zubgmid,
+} from "../../Shared/color";
 import Layout from "../../component/Layout/Layout";
+import { rupees } from "../../services/urls";
+import moment from "moment";
 
 function CricketWalletFundDepositForm() {
   const navigate = useNavigate();
@@ -37,7 +46,7 @@ function CricketWalletFundDepositForm() {
   });
   return (
     <Layout footer={false}>
-      <Container sx={style.container}>
+      <Container className="no-scrollbar" sx={style.container}>
         <Box sx={style.header}>
           <Box component={NavLink} onClick={() => goBack()}>
             <KeyboardArrowLeftOutlinedIcon />
@@ -53,7 +62,7 @@ function CricketWalletFundDepositForm() {
           sx={{
             width: "95%",
             marginLeft: "2.5%",
-            background: zubgback,
+            background: zubgcrickorange,
             borderRadius: "10px",
             padding: "10px",
             mt: "10px",
@@ -92,7 +101,7 @@ function CricketWalletFundDepositForm() {
                     style: {
                       borderColor: "#4939c1",
                       borderWidth: "1px",
-                      color: "white", // Set text color to white
+                      color: "white",
                     },
                   }}
                 >
@@ -104,7 +113,9 @@ function CricketWalletFundDepositForm() {
             <Box mt={2}>
               <FormControl fullWidth>
                 <Stack direction="row" className="loginlabel">
-                  <Typography variant="h3">Select Service Provider Type</Typography>
+                  <Typography variant="h3">
+                    Select Service Provider Type
+                  </Typography>
                 </Stack>
                 <TextField
                   placeholder="Select Deposit Type"
@@ -127,36 +138,55 @@ function CricketWalletFundDepositForm() {
                   <MenuItem value="D">D</MenuItem>
                 </TextField>
               </FormControl>
-              <div className="!flex !justify-between !text-white !pt-5">
+              {/* <div className="!flex !justify-between !text-white !pt-5">
                 <p>Status:</p>
                 <p className="!text-green-500">Success</p>
               </div>
               <div className="!flex !justify-between !text-white">
                 <p>Go For Login:</p>
                 <p className="!text-blue-500 !cursor-pointer" onClick={()=>navigate('/cricket/registration')}>Click here for login</p>
-              </div>
+              </div> */}
               <Button sx={style.paytmbtntwo}>Submit</Button>
             </Box>{" "}
           </Box>
         </Box>
-        <Box
-          sx={{
-            width: "95%",
-            marginLeft: "2.5%",
-            background: zubgback,
-            borderRadius: "10px",
-            padding: "10px",
-            mt: "10px",
-          }}
-        >
-            <div className="!flex !justify-between"> 
-            <span>Deposit</span>
-            <span>Expire</span>
+        {[1, 2, 3, 4, 5, 56, 6]?.map((i, index) => {
+          return (
+            <Box
+              sx={{
+                width: "95%",
+                marginLeft: "2.5%",
+                background: zubgcrickblue,
+                borderRadius: "10px",
+                padding: "10px",
+                mt: "10px",
+                color: "white",
+              }}
+            >
+              <div className="!flex !justify-between">
+                <span>Deposit</span>
+                <span>Expired</span>
+                <span>{rupees} 1000</span>
+              </div>
+              <div className="!flex !justify-between !text-[12px]">
+                <span>Deposit Type</span>
+                <span>{i % 2 === 0 ? "Recharge" : "New ID"}</span>
 
-            </div>
-        </Box>
-       
-
+              </div>
+              <div className="!flex !justify-between !text-[12px]">
+                <span>Provider</span>
+                <span>{i % 2 === 0 ? "A" : "B"}</span>
+              </div>
+              <div className="!text-[10px] !w-full !flex !justify-between">
+                <span>
+                  {moment(Date.now()).format("DD-MM-YYYY")}{" "}
+                  {moment(Date.now()).format("HH:mm")}
+                </span>
+                <span className="!text-red-500">Pending</span>
+              </div>
+            </Box>
+          );
+        })}
       </Container>
     </Layout>
   );
@@ -166,14 +196,14 @@ export default CricketWalletFundDepositForm;
 
 export const style = {
   container: {
-    background: zubgback_cricket,
+    background: 'white',
     width: "100%",
     height: "100vh",
     overflow: "auto",
   },
   header: {
     padding: "15px 8px",
-    background: zubgback_cricket,
+    background: zubgcrickblue,
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
@@ -216,12 +246,12 @@ export const style = {
     borderRadius: "5px",
     textTransform: "capitalize",
     mb: 2,
-    background: zubgmid,
+    background: zubgcrickblue,
     color: "white !important",
     width: "100%",
     mt: "20px",
     border: "1px solid white",
     padding: "10px",
-    "&:hover": { background: zubgbackgrad, border: "1px solid transparent" },
+    "&:hover": { background: zubgcrickblue, border: "1px solid transparent" },
   },
 };

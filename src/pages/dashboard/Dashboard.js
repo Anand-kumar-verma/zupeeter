@@ -46,7 +46,7 @@ import Lottery from "./DashboadSubcomponent/Lottery";
 import Original from "./DashboadSubcomponent/Original";
 import Sports from "./DashboadSubcomponent/Sports";
 import Notification from "./Notification";
-
+import aviator_game_image from '../../assets/aviator_game_image.png'
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -97,8 +97,8 @@ function Dashboard() {
       img: "https://ossimg.bdgadminbdg.com/IndiaBDG/gamecategory/gamecategory_202401100619315n2k.png",
     },
     {
-      name: "Original",
-      img: "https://ossimg.bdgadminbdg.com/IndiaBDG/gamecategory/gamecategory_20240110061847fevc.png",
+      name: "Aviator",
+      img: aviator_game_image,
     },
     {
       name: "Sports",
@@ -374,7 +374,7 @@ function Dashboard() {
           </div>
           <Box id='games' >
             <div id="game_lottery">{type_of_game === "Lottery" && <Lottery />}</div>
-            <div id="game_original">{type_of_game === "Original" && <Original />}</div>
+            <div id="game_original">{type_of_game === "Aviator" && <Original />}</div>
             <div id="game_sports">{type_of_game === "Sports" && <Sports />}</div>
           </Box>
           <Box sx={styles.wininfoouter}>

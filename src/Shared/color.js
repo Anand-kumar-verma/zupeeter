@@ -22,7 +22,10 @@ export const bgcolorlight = '#3F3F3F !important'
 
 export const zubgback = '#0F0232';
 export const zubgback_cricket = '#3883BF';
-export const zubgbackgrad = 'linear-gradient(1turn,#ec038b,#fb6468 44%,#fbb936)'
-export const zubgmid = '#4939c1'
-export const iconcoloryellow = '#FBB13B'
-export const iconcolorpink = '#EE1285'
+export const zubgbackgrad = 'linear-gradient(1turn,#ec038b,#fb6468 44%,#fbb936)';
+export const zubgmid = '#4939c1';
+export const iconcoloryellow = '#FBB13B';
+
+export const iconcolorpink = '#EE1285';
+export const zubgcrickblue = '#613EF0';
+export const zubgcrickorange = '#FF5000';
