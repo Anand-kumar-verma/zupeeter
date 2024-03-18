@@ -166,6 +166,7 @@ const AirPlane = ({ formik, fk }) => {
     setTimeout(() => {
       // fk.setFieldValue("setcolorofdigit", true);
       fk.setFieldValue("isShadowPath", false);
+      localStorage.removeItem("spent_amount1");
       // fk.setFieldValue("isStart1", false);
       // fk.setFieldValue("isStart2", false);
       // fk.setFieldValue("isFlying", false);

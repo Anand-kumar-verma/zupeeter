@@ -21,6 +21,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 const SpentBetLeft = ({ milliseconds, seconds, fk, formik }) => {
   const client = useQueryClient();
+  const spent_amount1 = localStorage.getItem("spent_amount1");
   const pre_amount =
     client.getQueriesData("walletamount_aviator")?.[0]?.[1]?.data?.wallet || 0;
   const [loding, setloding] = useState(false);
@@ -52,6 +53,16 @@ const SpentBetLeft = ({ milliseconds, seconds, fk, formik }) => {
       const response = await axios.get(
         `${endpoint.bet_now}?userid=${reqbody?.userid}&amount=${reqbody?.amount}`
       );
+      console.log("response", response);
+      if (response?.data?.message === "Bet placed successfully") {
+        localStorage.setItem("spent_amount1", reqbody?.amount);
+        client.refetchQueries("historydata");
+        client.refetchQueries("walletamount_aviator");
+        // startFly("left");
+        
+        fk.setFieldValue("isStart1", true);
+        getHistory();
+      }
       toast.success(response?.data?.message, {
         position: "top-center",
         topOffset: "20%",
@@ -63,18 +74,16 @@ const SpentBetLeft = ({ milliseconds, seconds, fk, formik }) => {
       });
       console.log(e);
     }
-    localStorage.setItem("spent_amount1", reqbody?.amount);
-    client.refetchQueries("historydata");
-    client.refetchQueries("walletamount_aviator");
-    // startFly("left");
-    fk.setFieldValue("isStart1", true);
     leftbitfk.setFieldValue("isbetActive", false);
-    getHistory();
     setloding(false);
   };
 
   useEffect(() => {
-    fk.values.isFlying && leftbitfk?.values?.isbetActive && spentBit();
+    if(fk.values.isFlying && leftbitfk?.values?.isbetActive) {
+      spentBit();
+    }else{
+     !leftbitfk?.values?.isbetActive && fk.setFieldValue("isStart1",false)
+    }
   }, [fk.values.isFlying]);
 
   const getHistory = async () => {
@@ -278,7 +287,7 @@ const SpentBetLeft = ({ milliseconds, seconds, fk, formik }) => {
                   return;
                 }
                 // cash out
-                if (fk.values.isStart1 && fk.values.isFlying) {
+                if (fk.values.isStart1 && fk.values.isFlying ) {
                   fk.setFieldValue("isStart1", false);
                   if (pre_amount) cashOut(seconds, milliseconds);
                 }
@@ -300,7 +309,7 @@ const SpentBetLeft = ({ milliseconds, seconds, fk, formik }) => {
             ${
               fk.values.waitingForNextTime1
                 ? "bg-[#BC0319]"
-                : fk.values.isStart1 && fk.values.isFlying
+                : fk.values.isStart1 && fk.values.isFlying && spent_amount1
                 ? "bg-gradient-to-t from-[#d47e3c] to-[#e59c6f]"
                 : fk.values.isStart1 && !fk.values.isFlying
                 ? "bg-[#BC0319]"
@@ -320,7 +329,7 @@ const SpentBetLeft = ({ milliseconds, seconds, fk, formik }) => {
                       fk.values.isStart1 && !fk.values.isFlying && "py-4"
                     }`}
                   >
-                    {fk.values.isStart1 && fk.values.isFlying && pre_amount
+                    {fk.values.isStart1 && fk.values.isFlying && pre_amount  && spent_amount1
                       ? "Cash Out"
                       : fk.values.isStart1 && !fk.values.isFlying
                       ? "Cancel"
@@ -332,7 +341,7 @@ const SpentBetLeft = ({ milliseconds, seconds, fk, formik }) => {
                   >
                     {fk.values.isStart1 && !fk.values.isFlying
                       ? ""
-                      : fk.values.isStart1
+                      : fk.values.isStart1 
                       ? `${
                           betValue * seconds +
                             Number(milliseconds?.toString()?.substring(0, 1)) ||

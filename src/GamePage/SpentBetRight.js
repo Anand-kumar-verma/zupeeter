@@ -12,6 +12,8 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 const SpentBetRight = ({ milliseconds, seconds, fk, formik }) => {
   const client = useQueryClient();
+  const spent_amount2 = localStorage.getItem("spent_amount2");
+
   const pre_amount =
     client.getQueriesData("walletamount_aviator")?.[0]?.[1]?.data?.wallet || 0;
   const [loding, setloding] = useState(false);
@@ -44,6 +46,13 @@ const SpentBetRight = ({ milliseconds, seconds, fk, formik }) => {
       const response = await axios.get(
         `${endpoint.bet_now}?userid=${reqbody?.userid}&amount=${reqbody?.amount}`
       );
+      if (response?.data?.message === "Bet placed successfully") {
+        localStorage.setItem("spent_amount2", reqbody?.amount);
+        client.refetchQueries("historydata");
+        client.refetchQueries("walletamount_aviator");
+        fk.setFieldValue("isStart2", true);
+        getHistory();
+      }
       toast.success(response?.data?.message, {
         position: "top-center",
         topOffset: "20%",
@@ -55,16 +64,17 @@ const SpentBetRight = ({ milliseconds, seconds, fk, formik }) => {
       });
       console.log(e);
     }
-    localStorage.setItem("spent_amount2", reqbody?.amount);
-    client.refetchQueries("historydata");
-    client.refetchQueries("walletamount_aviator");
+
     rightbitfk.setFieldValue("isbetActive", false);
-    fk.setFieldValue("isStart2", true);
-    getHistory();
+
     setloding(false);
   };
   useEffect(() => {
-    fk.values.isFlying && rightbitfk?.values?.isbetActive && spentBit();
+    if(fk.values.isFlying && rightbitfk?.values?.isbetActive){
+      spentBit()
+    }else{
+      !rightbitfk?.values?.isbetActive  && fk.setFieldValue("isStart2",false)
+    }
   }, [fk.values.isFlying]);
 
   const getHistory = async () => {
@@ -257,7 +267,7 @@ const SpentBetRight = ({ milliseconds, seconds, fk, formik }) => {
             ${
               fk.values.waitingForNextTime2
                 ? "bg-[#BC0319]"
-                : fk.values.isStart2 && fk.values.isFlying
+                : fk.values.isStart2 && fk.values.isFlying && spent_amount2
                 ? "bg-gradient-to-t from-[#d47e3c] to-[#e59c6f]"
                 : fk.values.isStart2 && !fk.values.isFlying
                 ? "bg-[#BC0319]"
@@ -277,7 +287,7 @@ const SpentBetRight = ({ milliseconds, seconds, fk, formik }) => {
                       fk.values.isStart2 && !fk.values.isFlying && "py-4"
                     }`}
                   >
-                    {fk.values.isStart2 && fk.values.isFlying && pre_amount
+                    {fk.values.isStart2 && fk.values.isFlying && pre_amount && spent_amount2
                       ? "Cash Out"
                       : fk.values.isStart2 && !fk.values.isFlying
                       ? "Cancel"
