@@ -57,11 +57,9 @@ const Chart = ({ gid }) => {
   }, [page, rowsPerPage, game_history?.data?.data]);
 
   React.useEffect(() => {
-    setTimeout(() => {
+    if (visibleRows) {
       const parent = document.getElementById("parent");
-
       const parentRect = parent.getBoundingClientRect();
-
       const newCor = visibleRows?.map((element, index) => {
         const childId =
           element.number === "0"
@@ -92,9 +90,8 @@ const Chart = ({ gid }) => {
         return { x: centerX, y: centerY };
       });
       setcor(newCor);
-    }, 2000);
+    }
   }, [visibleRows]);
-
 
   return (
     <Box className="chartTable">
@@ -121,14 +118,14 @@ const Chart = ({ gid }) => {
                 }}
               >
                 <div className="flex justify-between">
-                <span
-                  className={`
+                  <span
+                    className={`
                  !bg-gradient-to-t from-[#FE63FF] to-[#007AFF]
                   transparentColor font-bold text-lg
-                 `} 
-                      >
-                        {i?.gamesno}
-                      </span>
+                 `}
+                  >
+                    {i?.gamesno}
+                  </span>
                   {/* // main box of chart form 0 to 9 */}
                   <Box className="flex items-center justify-between !w-[80%]  lg:!w-[70%]">
                     {/* /// 0   //// */}
