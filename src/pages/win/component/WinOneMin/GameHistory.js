@@ -21,6 +21,7 @@ import CustomCircularProgress from "../../../../Shared/CustomCircularProgress";
 const GameHistory = ({ gid }) => {
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [page, setPage] = React.useState(0);
+  
   const { isLoading, data: game_history } = useQuery(
     ["gamehistory", gid],
     () => GameHistoryFn(gid),

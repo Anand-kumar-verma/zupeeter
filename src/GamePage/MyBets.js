@@ -1,7 +1,7 @@
-import { CircularProgress, Divider } from '@mui/material';
+import { CircularProgress } from '@mui/material';
 import axios from 'axios';
 import moment from 'moment';
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react';
 import toast from 'react-hot-toast';
 import { BiMessageRounded } from 'react-icons/bi';
 import { BsSignTurnRight } from 'react-icons/bs';

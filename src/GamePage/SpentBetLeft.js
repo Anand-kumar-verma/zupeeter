@@ -413,7 +413,7 @@ const SpentBetLeft = ({ milliseconds, seconds, fk, formik }) => {
 export default SpentBetLeft;
 
 // {openCustomDialogBox && (
-//   <Dialog
+//   <Dialog   
 //     open={openCustomDialogBox}
 //     TransitionComponent={Transition}
 //     keepMounted

@@ -4,7 +4,6 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import {
   Box,
   Button,
-  CircularProgress,
   DialogContentText,
   IconButton,
   Stack,
@@ -15,14 +14,14 @@ import Checkbox from "@mui/material/Checkbox";
 import Dialog from "@mui/material/Dialog";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Slide from "@mui/material/Slide";
+import axios from "axios";
 import * as React from "react";
 import { useState } from "react";
-import Policy from "./policy/Policy";
-import axios from "axios";
-import { endpoint } from "../../../services/urls";
 import toast from "react-hot-toast";
 import { useQueryClient } from "react-query";
 import CustomCircularProgress from "../../../Shared/CustomCircularProgress";
+import { endpoint } from "../../../services/urls";
+import Policy from "./policy/Policy";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -40,12 +39,14 @@ const ApplyBetDialogBox = ({
   const [Rules, setRules] = useState(false);
   const [calculated_value, setcalculated_value] = useState(1);
   const [loding, setLoding] = useState(false);
+
   const handleClickValue = (value) => {
     if (value === 0) {
       return setValue(1);
     }
     setValue(value);
   };
+
   const handleClickOpenRules = () => {
     setRules(true);
   };
@@ -74,7 +75,7 @@ const ApplyBetDialogBox = ({
       if (response?.data?.error === "200") {
         toast.success(response?.data?.msg);
         setapply_bit_dialog_box(false);
-        localStorage.setItem("betApplied",`${gid}_true`)
+        localStorage.setItem("betApplied", `${gid}_true`);
       } else {
         toast(response?.data?.msg);
       }
@@ -96,12 +97,13 @@ const ApplyBetDialogBox = ({
     >
       <Box>
         <Stack
-          className={`${((type === "green" ||
-            type === 1 ||
-            type === 3 ||
-            type === 7 ||
-            type === 9) &&
-            "!bg-[#30b539]") ||
+          className={`${
+            ((type === "green" ||
+              type === 1 ||
+              type === 3 ||
+              type === 7 ||
+              type === 9) &&
+              "!bg-[#30b539]") ||
             ((type === "red" ||
               type === 2 ||
               type === 6 ||
@@ -110,27 +112,37 @@ const ApplyBetDialogBox = ({
               "!bg-[#FE0000]") ||
             ((type === "voilet" || type === 0 || type === 5) &&
               "!bg-[#710193]") ||
-            (type === "small" &&
-              "!bg-[#EE1285]") ||
+            (type === "small" && "!bg-[#EE1285]") ||
             (type === "big" && "!bg-[#FBB13B]")
-            } 
+          } 
             dialog-header `}
         >
           <Box>
-            <Typography variant="body1" color="initial" sx={{ color: 'white !important', fontSize: '15px', fontWeight: '600' }}>
+            <Typography
+              variant="body1"
+              color="initial"
+              sx={{
+                color: "white !important",
+                fontSize: "15px",
+                fontWeight: "600",
+              }}
+            >
               {(type === "green" && "Join Green") ||
                 (type === "voilet" && "Join Voilet") ||
                 (type === "red" && "Join Red") ||
                 type}
             </Typography>
           </Box>
-          <IconButton onClick={() => setapply_bit_dialog_box(false)} sx={{ '&>svg>path': { color: 'white', } }}>
+          <IconButton
+            onClick={() => setapply_bit_dialog_box(false)}
+            sx={{ "&>svg>path": { color: "white" } }}
+          >
             <CloseIcon />
           </IconButton>
         </Stack>
       </Box>
       <Box className="dialogsmallbat">
-        <Typography variant="body1" sx={{ color: 'white !important', }}>
+        <Typography variant="body1" sx={{ color: "white !important" }}>
           Contract Money
         </Typography>
         <Box
@@ -140,13 +152,17 @@ const ApplyBetDialogBox = ({
           {[1, 10, 100, 1000]?.map((i) => {
             return (
               <Button
-                onClick={() => handleClickValue(i)}
-                className={`${((type === "green" ||
-                  type === 1 ||
-                  type === 3 ||
-                  type === 7 ||
-                  type === 9) &&
-                  "!bg-[#30b539]") ||
+                onClick={() => {
+                  handleClickValue(i);
+                  setcalculated_value(i);
+                }}
+                className={`${
+                  ((type === "green" ||
+                    type === 1 ||
+                    type === 3 ||
+                    type === 7 ||
+                    type === 9) &&
+                    "!bg-[#30b539]") ||
                   ((type === "red" ||
                     type === 2 ||
                     type === 6 ||
@@ -155,11 +171,9 @@ const ApplyBetDialogBox = ({
                     "!bg-[#FE0000]") ||
                   ((type === "voilet" || type === 0 || type === 5) &&
                     "!bg-[#710193]") ||
-                  (type === "small" &&
-                    "!bg-[#EE1285]") ||
-                  (type === "big" &&
-                    "!bg-[#FBB13B]")
-                  } 
+                  (type === "small" && "!bg-[#EE1285]") ||
+                  (type === "big" && "!bg-[#FBB13B]")
+                } 
             `}
               >
                 {i}
@@ -186,17 +200,18 @@ const ApplyBetDialogBox = ({
           <AddIcon />
         </IconButton>
       </Stack>
-      <Box className=" !grid !grid-cols-6 gap-1 !pt-8" sx={{ px: 2 }}>
+      <Box className=" !grid !grid-cols-6 lg:gap-1 gap-[1px] !pt-8 lg:px-2 px-1">
         {[1, 5, 10, 20, 50, 100]?.map((i) => {
           return (
             <div
               onClick={() => setcalculated_value(value * i)}
-              className={`${((type === "green" ||
-                type === 1 ||
-                type === 3 ||
-                type === 7 ||
-                type === 9) &&
-                "!bg-[#30b539]") ||
+              className={`${
+                ((type === "green" ||
+                  type === 1 ||
+                  type === 3 ||
+                  type === 7 ||
+                  type === 9) &&
+                  "!bg-[#30b539]") ||
                 ((type === "red" ||
                   type === 2 ||
                   type === 6 ||
@@ -205,11 +220,9 @@ const ApplyBetDialogBox = ({
                   "!bg-[#FE0000]") ||
                 ((type === "voilet" || type === 0 || type === 5) &&
                   "!bg-[#710193]") ||
-                (type === "small" &&
-                  "!bg-[#EE1285]") ||
-                (type === "big" &&
-                  "!bg-[#FBB13B]")
-                }
+                (type === "small" && "!bg-[#EE1285]") ||
+                (type === "big" && "!bg-[#FBB13B]")
+              }
              !px-3 !py-2 rounded-md  !text-center !text-[#fff]
             `}
             >
@@ -254,14 +267,14 @@ const ApplyBetDialogBox = ({
           onClick={() => betFunctionStart()}
           loding={true}
         >
-         Confirm
+          Confirm
         </Button>
         <Button variant="text" onClick={() => setapply_bit_dialog_box(false)}>
           Cancel
         </Button>
       </Stack>
 
-      <CustomCircularProgress isLoading={loding}/>
+      <CustomCircularProgress isLoading={loding} />
     </Dialog>
   );
 };

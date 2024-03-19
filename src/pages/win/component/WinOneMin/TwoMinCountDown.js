@@ -42,15 +42,25 @@ const TwoMinCountDown = () => {
   const img3 = Number(isImageChange?.split("_")[2]);
   const img4 = Number(isImageChange?.split("_")[3]);
   const img5 = Number(isImageChange?.split("_")[4]);
-  const image_array = [pr0,pr11,pr22,pr33,pr4,pr5,pr6,pr7,pr8,pr9]
-  React.useEffect(()=>{setIsImageChange(changeImages())},[])
+  const image_array = [pr0, pr11, pr22, pr33, pr4, pr5, pr6, pr7, pr8, pr9];
+  
+  React.useEffect(() => {
+    setIsImageChange(changeImages());
+  }, []);
 
-  const show_this_three_min_time_sec = String(
-    three_min_time?.split("_")?.[1]
-  ).padStart(2, "0");
-  const show_this_three_min_time_min = String(
-    three_min_time?.split("_")?.[0]
-  ).padStart(2, "0");
+  const nextStpe =
+    client.getQueriesData("gamehistory")?.[0]?.[1]?.data?.data?.[0]?.gamesno ||
+    0;
+
+  const show_this_three_min_time_sec = React.useMemo(
+    () => String(three_min_time?.split("_")?.[1]).padStart(2, "0"),
+    [three_min_time]
+  );
+
+  const show_this_three_min_time_min = React.useMemo(
+    () => String(three_min_time?.split("_")?.[0]).padStart(2, "0"),
+    [three_min_time]
+  );
 
   // React.useEffect(() => {
   //   if (show_this_three_min_time_sec === "01") {
@@ -119,7 +129,6 @@ const TwoMinCountDown = () => {
     };
   }, []);
 
-
   const oneMinCheckResult = async () => {
     try {
       await axios.get(`${endpoint.check_result}`);
@@ -171,12 +180,18 @@ const TwoMinCountDown = () => {
 
   return (
     <Box className="countdownbg">
-      <audio ref={audioRefMusic} hidden>
-        <source src={`${countdownfirst}`} type="audio/mp3" />
-      </audio>
-      <audio ref={audioRefMusiclast} hidden>
-        <source src={`${countdownlast}`} type="audio/mp3" />
-      </audio>
+      {React.useMemo(() => {
+        return (
+          <>
+            <audio ref={audioRefMusic} hidden>
+              <source src={`${countdownfirst}`} type="audio/mp3" />
+            </audio>
+            <audio ref={audioRefMusiclast} hidden>
+              <source src={`${countdownlast}`} type="audio/mp3" />
+            </audio>
+          </>
+        );
+      }, [audioRefMusic, audioRefMusiclast])}
       <Box
         sx={{
           display: "flex",
@@ -192,77 +207,101 @@ const TwoMinCountDown = () => {
           }}
           className="win-banner"
         >
-          <Box onClick={() => handleClickOpenpoicy()}>
-            <Box
-              component="img"
-              src={howToPlay}
-              sx={{ width: "25px !important", height: "25px !important" }}
-            ></Box>
-            <Typography variant="body1" color="initial">
-              How to play
-            </Typography>
-            <Box
-              component="img"
-              src={circle}
-              sx={{ width: "15px !important", height: "15px !important" }}
-            ></Box>
-          </Box>
-          <Dialog
-            open={poicy}
-            TransitionComponent={Transition}
-            onClose={handleClosepolicy}
-            className="dialogsmall"
-          >
-            <Box>
-              <Stack className="dialog-header-policy">
-                <Box>
-                  <Typography variant="body1" color="initial">
-                    Policy
-                  </Typography>
-                </Box>
-                <IconButton onClick={handleClosepolicy}>
-                  <CloseIcon />
-                </IconButton>
-              </Stack>
-            </Box>
-            <Policy />
-          </Dialog>
-          <Typography variant="body1" color="initial">
-            Win Go 1Min
-          </Typography>
-          <Stack
-            direction="row"
-            alignItems="center"
-            justifyContent="space-between"
-          >
-            <Box component="img" src={image_array[Number(img1)]}></Box>
-            <Box component="img" src={image_array[Number(img2)]}></Box>
-            <Box component="img" src={image_array[Number(img3)]}></Box>
-            <Box component="img" src={image_array[Number(img4)]}></Box>
-            <Box component="img" src={image_array[Number(img5)]}></Box>
-          </Stack>
+          {React.useMemo(() => {
+            return (
+              <Box onClick={() => handleClickOpenpoicy()}>
+                <Box
+                  component="img"
+                  src={howToPlay}
+                  sx={{ width: "25px !important", height: "25px !important" }}
+                ></Box>
+                <Typography variant="body1" color="initial">
+                  How to play
+                </Typography>
+                <Box
+                  component="img"
+                  src={circle}
+                  sx={{ width: "15px !important", height: "15px !important" }}
+                ></Box>
+              </Box>
+            );
+          }, [])}
+          {poicy && (
+            <Dialog
+              open={poicy}
+              TransitionComponent={Transition}
+              onClose={handleClosepolicy}
+              className="dialogsmall"
+            >
+              <Box>
+                <Stack className="dialog-header-policy">
+                  <Box>
+                    <Typography variant="body1" color="initial">
+                      Policy
+                    </Typography>
+                  </Box>
+                  <IconButton onClick={handleClosepolicy}>
+                    <CloseIcon />
+                  </IconButton>
+                </Stack>
+              </Box>
+              <Policy />
+            </Dialog>
+          )}
+          {React.useMemo(() => {
+            return (
+              <>
+                <Typography variant="body1" color="initial">
+                  Win Go 1Min
+                </Typography>
+                <Stack
+                  direction="row"
+                  alignItems="center"
+                  justifyContent="space-between"
+                >
+                  <Box component="img" src={image_array[Number(img1)]}></Box>
+                  <Box component="img" src={image_array[Number(img2)]}></Box>
+                  <Box component="img" src={image_array[Number(img3)]}></Box>
+                  <Box component="img" src={image_array[Number(img4)]}></Box>
+                  <Box component="img" src={image_array[Number(img5)]}></Box>
+                </Stack>
+              </>
+            );
+          }, [img1, img2, img3, img4, img5])}
         </Box>
         <Box>
           <Typography variant="h3" color="initial" className="winTextone">
             Time remaining
           </Typography>
           <Stack direction="row">
-            <Box className="timerBoxone">
-              {show_this_three_min_time_min?.substring(0, 1)}
-            </Box>
-            <Box className="timerBox">
-              {show_this_three_min_time_min?.substring(1, 2)}
-            </Box>
+            {React.useMemo(() => {
+              return (
+                <>
+                  <Box className="timerBoxone">
+                    {show_this_three_min_time_min?.substring(0, 1)}
+                  </Box>
+                  <Box className="timerBox">
+                    {show_this_three_min_time_min?.substring(1, 2)}
+                  </Box>
+                </>
+              );
+            }, [show_this_three_min_time_min])}
             <Box className={"!text-white !font-bold !text-lg"}>:</Box>
-            <Box className="timerBox">
-              {show_this_three_min_time_sec?.substring(0, 1)}
-            </Box>
-            <Box className="timerBoxfour">
-              {show_this_three_min_time_sec?.substring(1, 2)}
-            </Box>
+            {React.useMemo(() => {
+              return (
+                <>
+                  <Box className="timerBox">
+                    {show_this_three_min_time_sec?.substring(0, 1)}
+                  </Box>
+                  <Box className="timerBoxfour">
+                    {show_this_three_min_time_sec?.substring(1, 2)}
+                  </Box>
+                </>
+              );
+            }, [show_this_three_min_time_sec])}
           </Stack>
           <Typography variant="h3" color="initial" className="winTexttwo">
-            202403011253
+            {Number(nextStpe) + 1}
           </Typography>
         </Box>
       </Box>

@@ -170,22 +170,22 @@ export const demomobilesec = `
     }
     100% {
       left: 80%;
-      top: calc(30% - 42px);
+      top: calc(20% - 42px);
     }
   }
 
   @keyframes thirdAnimation {
     0% {
         left: 80%;
-        top: calc(30% - 42px);
+        top: calc(20% - 42px);
       }
     50% {
-      left: 85%;
-      top: calc(25% - 42px);
+      left: 90%;
+      top: calc(15% - 42px);
     }
     100% {
       left: 100%;
-      top:calc(20% - 42px);
+      top:calc(10% - 42px);
     }
   }
   

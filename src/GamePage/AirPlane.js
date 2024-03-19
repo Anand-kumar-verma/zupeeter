@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import toast from "react-hot-toast";
 import { useQueryClient } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
@@ -74,7 +74,7 @@ const AirPlane = ({ formik, fk }) => {
 
     const handleSetLoader = (setloder) => {
       fk.setFieldValue("setloder", setloder);
-      setcombineTime('0_0');
+      setcombineTime("0_0");
     };
 
     const handleIsFlying = (isFlying) => {
@@ -98,22 +98,21 @@ const AirPlane = ({ formik, fk }) => {
     const mainDiv = document.getElementsByClassName("maindiv")[0];
     const style = document.createElement("style");
     console.log(isMediumScreen, "Hii");
-    if(randomFlyingTime<10){
-      if(!isMediumScreen)  style.innerHTML = demomobilesec
-      else  style.innerHTML = demomolaponesec
-    }else{
-      if(!isMediumScreen)  style.innerHTML = demomobile
-      else  style.innerHTML = demomolap
+    if (randomFlyingTime < 10) {
+      if (!isMediumScreen) style.innerHTML = demomobilesec;
+      else style.innerHTML = demomolaponesec;
+    } else {
+      if (!isMediumScreen) style.innerHTML = demomobile;
+      else style.innerHTML = demomolap;
     }
     document.head.appendChild(style);
-    if(randomFlyingTime<10){
-      animationUpTo_1_sec(mainDiv, randomFlyingTime, dispatch, fk)
+    if (randomFlyingTime < 10) {
+      animationUpTo_1_sec(mainDiv, randomFlyingTime, dispatch, fk);
       setTimeout(() => {
         dispatch(byTimeIsEnableSound(true));
         fk.setFieldValue("isShadowPath", false);
       }, (randomFlyingTime - 0.3) * 1000);
-    }
-    else if (randomFlyingTime <= 5) {
+    } else if (randomFlyingTime <= 5) {
       animationUpTo_5_sec(mainDiv, randomFlyingTime, dispatch, fk);
       setTimeout(() => {
         dispatch(byTimeIsEnableSound(true));
@@ -186,7 +185,7 @@ const AirPlane = ({ formik, fk }) => {
     }, randomFlyingTime * 1000 + 6000);
 
     setTimeout(() => {
-      randomFlyingTime >= 3 &&  fk.setFieldValue("isShadowPath", true);
+      randomFlyingTime >= 3 && fk.setFieldValue("isShadowPath", true);
     }, 800);
 
     return () => clearInterval(timerInterval);
@@ -214,15 +213,19 @@ const AirPlane = ({ formik, fk }) => {
         } moved parentdiv relative lg:h-[60vh]  h-[35vh] w-[99.8%] overflow-hidden  rounded-3xl mt-1 border-[1px] border-white border-opacity-10`}
       >
         <>
-          <img
-            src={backgroundImage_url}
-            className={`${
-              backgroundImage_url ===
-              "https://res.cloudinary.com/do7kimovl/image/upload/v1709114502/circle_dafpdo.svg"
-                ? "absolute  -bottom-[400%] left-0 rotate_background_image !z-0 bg-gradient-to-l from-[#000000] via-[#5a125a] to-[#0a070e] bg-opacity-5 w-[900%] h-[900%]"
-                : "bgimagedynamic !z-0 absolute  top-0 left-0 h-full w-[99.8%]"
-            }  object-cover `}
-          />
+          {useMemo(() => {
+            return (
+              <img
+                src={backgroundImage_url}
+                className={`${
+                  backgroundImage_url ===
+                  "https://res.cloudinary.com/do7kimovl/image/upload/v1709114502/circle_dafpdo.svg"
+                    ? "absolute  -bottom-[400%] left-0 rotate_background_image !z-0 bg-gradient-to-l from-[#000000] via-[#5a125a] to-[#0a070e] bg-opacity-5 w-[900%] h-[900%]"
+                    : "bgimagedynamic !z-0 absolute  top-0 left-0 h-full w-[99.8%]"
+                }  object-cover `}
+              />
+            );
+          })}
           {fk.values.isShadowPath &&
             (isMediumScreen ? (
               <svg
@@ -236,13 +239,15 @@ const AirPlane = ({ formik, fk }) => {
                     bottomLeftCoordinate.x < 300
                       ? bottomLeftCoordinate.x - 40
                       : 300
-                  } ${initialCordinate.y + 20 }, ${
+                  } ${initialCordinate.y + 20}, ${
                     bottomLeftCoordinate.x < 500
                       ? bottomLeftCoordinate.x - 20
                       : 500
-                  } ${initialCordinate.y + 20 }, ${bottomLeftCoordinate.x + 15} ${
-                    bottomLeftCoordinate.y + 24
-                  } L ${bottomLeftCoordinate.x+10} ${initialCordinate.y + 30} L 10 ${
+                  } ${initialCordinate.y + 20}, ${
+                    bottomLeftCoordinate.x + 17
+                  } ${bottomLeftCoordinate.y + 22} L ${
+                    bottomLeftCoordinate.x + 10
+                  } ${initialCordinate.y + 30} L 10 ${
                     initialCordinate.y + 30
                   } Z`}
                   fill="rgba(112,9,25, 0.6)"
@@ -256,13 +261,13 @@ const AirPlane = ({ formik, fk }) => {
                     bottomLeftCoordinate.x < 300
                       ? bottomLeftCoordinate.x - 40
                       : 300
-                  } ${initialCordinate.y + 23 }, ${
+                  } ${initialCordinate.y + 23}, ${
                     bottomLeftCoordinate.x < 500
                       ? bottomLeftCoordinate.x - 20
                       : 500
-                  } ${initialCordinate.y + 23 }, ${bottomLeftCoordinate.x + 15} ${
-                    bottomLeftCoordinate.y + 24
-                  }`}
+                  } ${initialCordinate.y + 23}, ${
+                    bottomLeftCoordinate.x + 17
+                  } ${bottomLeftCoordinate.y + 21}`}
                   stroke="#a10019"
                   stroke-width="4"
                   fill="none"
@@ -277,7 +282,7 @@ const AirPlane = ({ formik, fk }) => {
               >
                 <path
                   className="!absolute !bottom-0 !left-0"
-                  d={`M -10 ${initialCordinate.y } C ${
+                  d={`M -10 ${initialCordinate.y} C ${
                     bottomLeftCoordinate.x < 80
                       ? bottomLeftCoordinate.x - 10
                       : 80
@@ -285,11 +290,11 @@ const AirPlane = ({ formik, fk }) => {
                     bottomLeftCoordinate.x < 120
                       ? bottomLeftCoordinate.x - 5
                       : 120
-                  } ${initialCordinate.y },${bottomLeftCoordinate.x + 8} ${
-                    bottomLeftCoordinate.y
-                  } L ${bottomLeftCoordinate.x + 15} ${initialCordinate.y+3} L ${
-                    bottomLeftCoordinate.y
-                  } ${initialCordinate.y+3} Z`}
+                  } ${initialCordinate.y},${bottomLeftCoordinate.x + 12} ${
+                    bottomLeftCoordinate.y - 1
+                  } L ${bottomLeftCoordinate.x + 15} ${
+                    initialCordinate.y + 3
+                  } L ${bottomLeftCoordinate.y} ${initialCordinate.y + 3} Z`}
                   fill="rgba(112,9,25, 0.6)"
                   stroke-width="3"
                   stroke-dasharray="1000 0"
@@ -297,7 +302,7 @@ const AirPlane = ({ formik, fk }) => {
                 />
                 <path
                   className="!absolute !bottom-0 !left-0"
-                  d={`M -10 ${initialCordinate.y } C ${
+                  d={`M -10 ${initialCordinate.y} C ${
                     bottomLeftCoordinate.x < 80
                       ? bottomLeftCoordinate.x - 10
                       : 80
@@ -305,8 +310,8 @@ const AirPlane = ({ formik, fk }) => {
                     bottomLeftCoordinate.x < 120
                       ? bottomLeftCoordinate.x - 5
                       : 120
-                  } ${initialCordinate.y},${bottomLeftCoordinate.x + 8} ${
-                    bottomLeftCoordinate.y
+                  } ${initialCordinate.y},${bottomLeftCoordinate.x + 12} ${
+                    bottomLeftCoordinate.y - 1
                   } `}
                   stroke="#a10019"
                   stroke-width="3"
@@ -315,42 +320,58 @@ const AirPlane = ({ formik, fk }) => {
               </svg>
             ))}
           <div className="maindiv absolute bottom-[20px] left-[20px]  animate-slidein infinite ">
-            {fk.values.isEnablingWinner && (
-              <p className="winslider z-20 rounded-full px-4 py-1">
-                {[...Array(3)].map((_, index) => (
-                  <img key={index} src={win} className="w-10 h-10 absolute" />
-                ))}
-              </p>
-            )}
+            {useMemo(() => {
+              return (
+                fk.values.isEnablingWinner && (
+                  <p className="winslider z-20 rounded-full px-4 py-1">
+                    {[...Array(3)].map((_, index) => (
+                      <img
+                        key={index}
+                        src={win}
+                        className="w-10 h-10 absolute"
+                      />
+                    ))}
+                  </p>
+                )
+              );
+            }, [fk.values.isEnablingWinner])}
 
-            <div className="relative lg:w-[120px] w-[80px] lg:h-[60px] !z-50 ">
-              <img
-                src={Number(milliseconds || 0) % 3 === 0 ? plane1 : plane2}
-                className="airplain  lg:w-[120px] w-[80px] lg:h-[60px]  h-[40px] text-[#a10019] "
-              />
-            </div>
+            {useMemo(() => {
+              return (
+                <div className="relative lg:w-[120px] w-[80px] lg:h-[60px] !z-50 ">
+                  <img
+                    src={Number(milliseconds || 0) % 3 === 0 ? plane1 : plane2}
+                    className="airplain  lg:w-[120px] w-[80px] lg:h-[60px]  h-[40px] text-[#a10019] "
+                  />
+                </div>
+              );
+            }, [milliseconds])}
           </div>
           {/* fk.values.isFlying */}
-          {fk.values.isFlying && (
-            <>
-              {/* !fk.values.closeButtomDot */}
-              {!fk.values.closeButtomDot ? (
+          {useMemo(() => {
+            return (
+              fk.values.isFlying && (
                 <>
-                  <LeftDottedPointMoveable />
-                  <ButtomDottedPointMoveable />
-                  {/* <TopDottedPointMoveable />
+                  {/* !fk.values.closeButtomDot */}
+                  {!fk.values.closeButtomDot ? (
+                    <>
+                      <LeftDottedPointMoveable />
+                      <ButtomDottedPointMoveable />
+                      {/* <TopDottedPointMoveable />
                   <RightDottedPointMoveable /> */}
-                </>
-              ) : (
-                <>
-                  <LeftDottedPoint />
-                  <ButtomDottedPoint />
-                  {/* <TopDottedPoint />
+                    </>
+                  ) : (
+                    <>
+                      <LeftDottedPoint />
+                      <ButtomDottedPoint />
+                      {/* <TopDottedPoint />
                   <RightDottedPoint /> */}
+                    </>
+                  )}
                 </>
-              )}
-            </>
-          )}
+              )
+            );
+          }, [fk.values.isFlying, fk.values.closeButtomDot])}
           <div className="absolute w-[100%] bottom-0 left-0"></div>
           {/* fk.values.setloder */}
           {fk.values.setloder ? (

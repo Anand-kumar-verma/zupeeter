@@ -5,7 +5,7 @@ export const rupees = "₹"
  export const baseUrl = "https://admin.gameszone.life"
 
 
-  // export const domain = "http://192.168.175.149:9000"
+// export const domain = "http://192.168.175.149:9000"
 // export const domain = "https://app.ferryinfotech.in/"
 export const domain = "https://aviator-backend-p1xp.onrender.com/"
 
@@ -21,6 +21,7 @@ export const endpoint ={
   check_result:`${baseUrl}/api/checkresult`,
   color_winning:`${baseUrl}/api/colour_winning`,
   cash_deposit:`${baseUrl}/api/deposit`,
+  payment_url:"https://vpayout.com/Upi_controller/insert_fund_request_online",
 
   // aviator urls
   aviator_login:`${baseUrl}/api/aviator/login`,

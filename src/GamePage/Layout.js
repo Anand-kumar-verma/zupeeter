@@ -1,11 +1,11 @@
-import React from "react";
-import Navigation from "./Naviagation";
+import React, { useEffect } from "react";
 import { useMediaQuery } from 'react-responsive';
-import MobileNavigation from "./MobileNavigation";
 
 const LayoutAviator = ({ component }) => {
   const isMediumScreen = useMediaQuery({ minWidth: 800 })
-
+  useEffect(()=>{
+    window.scrollTo(0, 0);
+  },[])
   return (
     <div className="h-screen w-screen">
       {/* <div className="h-[5vh]">{isMediumScreen ?<Navigation />:<MobileNavigation/>}</div> */}

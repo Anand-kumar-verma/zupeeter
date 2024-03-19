@@ -28,12 +28,20 @@ import payNameIcon2 from "../../../assets/payNameIcon2.png";
 import Layout from "../../../component/Layout/Layout";
 import { cashDepositFn } from "../../../services/apicalling";
 import { useFormik } from "formik";
+import axios from "axios";
+import { endpoint, rupees } from "../../../services/urls";
+import toast from "react-hot-toast";
+import moment from "moment";
 
 function WalletRecharge() {
   const audioRefMusic = React.useRef(null);
   const login_data = localStorage.getItem("logindata");
-const user_id = JSON.parse(login_data).UserID;
- const [loding ,setloding] =React.useState(false)
+  const aviator_data = localStorage.getItem("aviator_data");
+  const user_name = JSON.parse(aviator_data)?.username;
+  const user_id = JSON.parse(login_data)?.UserID;
+  const [deposit_req_data, setDeposit_req_data] = React.useState();
+  const [loding, setloding] = React.useState(false);
+  const [show_time, set_show_time] = React.useState("0_0");
   const navigate = useNavigate();
   const goBack = () => {
     navigate(-1);
@@ -55,34 +63,88 @@ const user_id = JSON.parse(login_data).UserID;
       console.error("Error during play:", error);
     }
   };
-  
-async function depositFunction(){
-  setloding(true)
-  cashDepositFn({
-    userid: user_id,
-    amount: 10,
-    transection_id: 123,
-    status: "success",
-  })
-  setloding(false)
-}
 
-const initialValues= {
-  amount:10,
-}
-
-const fk = useFormik({
-  initialValues:initialValues,
-  onSubmit:()=>{
-    console.log(fk.values)
+  async function depositFunction() {
+    setloding(true);
+    cashDepositFn({
+      userid: user_id,
+      amount: 10,
+      transection_id: 123,
+      status: "success",
+    });
+    setloding(false);
   }
-})
+
+  const initialValues = {
+    amount: 100,
+  };
+
+  const fk = useFormik({
+    initialValues: initialValues,
+    onSubmit: () => {
+      const fd = new FormData();
+      fd.append("UserID", "7704002732");
+      fd.append("Email", "mailto:sunlottery@gmail.com");
+      fd.append("txtamt", fk.values.amount);
+      fd.append("Name", user_name);
+      fd.append("TransactionID", `${Date.now()}${user_id}`);
+
+      getDepositResponse(fd);
+    },
+  });
+
+  async function getDepositResponse(fd) {
+    setloding(true);
+    try {
+      const response = await axios.post(`${endpoint.payment_url}`, fd);
+      console.log(response, "THis is api response");
+
+      if (response?.data?.status === "SUCCESS") {
+        setDeposit_req_data(response?.data);
+        toast.success("Payment Request Success!");
+      }
+    } catch (e) {
+      toast(e?.message);
+      console.log(e);
+    }
+    setloding(false);
+  }
+
+  // console.log(deposit_req_data, "This is response");
+
+  React.useEffect(() => {
+    if (deposit_req_data) {
+      let min = 0;
+      let sec = 59;
+      const interval = setInterval(() => {
+        set_show_time(`${min}_${sec}`);
+        sec--;
+
+        if (sec < 0) {
+          sec = 59;
+          min--;
+
+          if (min < 0) {
+            sec = 59;
+            min = 0;
+            clearInterval(interval);
+            setDeposit_req_data();
+            set_show_time("0_0");
+          }
+        }
+      }, 1000);
+    }
+  }, [deposit_req_data]);
 
   return (
     <Layout>
-      <audio ref={audioRefMusic} hidden>
-        <source src={`${audiovoice}`} type="audio/mp3" />
-      </audio>
+      {React.useMemo(() => {
+        return (
+          <audio ref={audioRefMusic} hidden>
+            <source src={`${audiovoice}`} type="audio/mp3" />
+          </audio>
+        );
+      }, [])}
       <Container
         className="no-scrollbar"
         sx={{
@@ -191,158 +253,167 @@ const fk = useFormik({
           </Box>
         </Box>
         <Box>
-          <Box
-            sx={{
-              padding: "10px",
-              width: "95%",
-              margin: "auto",
-              mt: "20px",
-              background: zubgmid,
-              borderRadius: "10px",
-              mb: 2,
-            }}
-          >
-            <Stack direction="row" sx={{ alignItems: "center", mb: "20px" }}>
-              <Box component="img" src={quickpay} width={30}></Box>
-              <Typography
-                variant="body1"
-                color="initial"
-                sx={{ fontSize: "15px ", color: "white", ml: "10px" }}
-              >
-                {" "}
-                Select channel
-              </Typography>
-            </Stack>
-            <Stack
-              direction="row"
-              sx={{
-                alignItems: "center",
-                justifyContent: "space-between",
-                flexWrap: "wrap",
-                mt: "10px",
-              }}
-            >
-              <Box
-                sx={{
-                  width: "48%",
-                  background: zubgbackgrad,
-                  padding: "15px 20px",
-                  borderRadius: "10px",
-                  mb: "10px",
-                  "&>p": { fontSize: "14px", color: "white" },
-                }}
-              >
-                <Typography variant="body1" color="initial">
-                  IMpay-QR
-                </Typography>
-                <Typography variant="body1" color="initial">
-                  Balance:100 - 50K
-                </Typography>
-              </Box>
-              <Box
-                sx={{
-                  width: "48%",
-                  background: zubgback,
-                  padding: "15px 20px",
-                  borderRadius: "10px",
-                  mb: "10px",
-                  "&>p": { fontSize: "14px", color: "white" },
-                }}
-              >
-                <Typography variant="body1" color="initial">
-                  TYpay-QR
-                </Typography>
-                <Typography variant="body1" color="initial">
-                  Balance:500 - 50K
-                </Typography>
-              </Box>
-              <Box
-                sx={{
-                  width: "48%",
-                  background: zubgback,
-                  padding: "15px 20px",
-                  borderRadius: "10px",
-                  mb: "10px",
-                  "&>p": { fontSize: "14px", color: "white" },
-                }}
-              >
-                <Typography variant="body1" color="initial">
-                  HeyPay-APP
-                </Typography>
-                <Typography variant="body1" color="initial">
-                  Balance:100 - 50K
-                </Typography>
-              </Box>
-              <Box
-                sx={{
-                  width: "48%",
-                  background: zubgback,
-                  padding: "15px 20px",
-                  borderRadius: "10px",
-                  mb: "10px",
-                  "&>p": { fontSize: "14px", color: "white" },
-                }}
-              >
-                <Typography variant="body1" color="initial">
-                  UPIpay-APP
-                </Typography>
-                <Typography variant="body1" color="initial">
-                  Balance:100 - 50K
-                </Typography>
-              </Box>
-              <Box
-                sx={{
-                  width: "48%",
-                  background: zubgback,
-                  padding: "15px 20px",
-                  borderRadius: "10px",
-                  mb: "10px",
-                  "&>p": { fontSize: "14px", color: "white" },
-                }}
-              >
-                <Typography variant="body1" color="initial">
-                  BYpay-APP
-                </Typography>
-                <Typography variant="body1" color="initial">
-                  Balance:100 - 50K
-                </Typography>
-              </Box>
-              <Box
-                sx={{
-                  width: "48%",
-                  background: zubgback,
-                  padding: "15px 20px",
-                  borderRadius: "10px",
-                  mb: "10px",
-                  "&>p": { fontSize: "14px", color: "white" },
-                }}
-              >
-                <Typography variant="body1" color="initial">
-                  OKpay-QR
-                </Typography>
-                <Typography variant="body1" color="initial">
-                  Balance:500 - 50K
-                </Typography>
-              </Box>
-              <Box
-                sx={{
-                  width: "48%",
-                  background: zubgback,
-                  padding: "15px 20px",
-                  borderRadius: "10px",
-                  mb: "10px",
-                  "&>p": { fontSize: "14px", color: "white" },
-                }}
-              >
-                <Typography variant="body1" color="initial">
-                  MGpay-QR
-                </Typography>
-                <Typography variant="body1" color="initial">
-                  Balance:500 - 100K
-                </Typography>
-              </Box>
-            </Stack>
-          </Box>
+          {React.useMemo(() => {
+            return (
+              <>
+                <Box
+                  sx={{
+                    padding: "10px",
+                    width: "95%",
+                    margin: "auto",
+                    mt: "20px",
+                    background: zubgmid,
+                    borderRadius: "10px",
+                    mb: 2,
+                  }}
+                >
+                  <Stack
+                    direction="row"
+                    sx={{ alignItems: "center", mb: "20px" }}
+                  >
+                    <Box component="img" src={quickpay} width={30}></Box>
+                    <Typography
+                      variant="body1"
+                      color="initial"
+                      sx={{ fontSize: "15px ", color: "white", ml: "10px" }}
+                    >
+                      {" "}
+                      Select channel
+                    </Typography>
+                  </Stack>
+                  <Stack
+                    direction="row"
+                    sx={{
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      flexWrap: "wrap",
+                      mt: "10px",
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        width: "48%",
+                        background: zubgbackgrad,
+                        padding: "15px 20px",
+                        borderRadius: "10px",
+                        mb: "10px",
+                        "&>p": { fontSize: "14px", color: "white" },
+                      }}
+                    >
+                      <Typography variant="body1" color="initial">
+                        IMpay-QR
+                      </Typography>
+                      <Typography variant="body1" color="initial">
+                        Balance:100 - 50K
+                      </Typography>
+                    </Box>
+                    <Box
+                      sx={{
+                        width: "48%",
+                        background: zubgback,
+                        padding: "15px 20px",
+                        borderRadius: "10px",
+                        mb: "10px",
+                        "&>p": { fontSize: "14px", color: "white" },
+                      }}
+                    >
+                      <Typography variant="body1" color="initial">
+                        TYpay-QR
+                      </Typography>
+                      <Typography variant="body1" color="initial">
+                        Balance:500 - 50K
+                      </Typography>
+                    </Box>
+                    <Box
+                      sx={{
+                        width: "48%",
+                        background: zubgback,
+                        padding: "15px 20px",
+                        borderRadius: "10px",
+                        mb: "10px",
+                        "&>p": { fontSize: "14px", color: "white" },
+                      }}
+                    >
+                      <Typography variant="body1" color="initial">
+                        HeyPay-APP
+                      </Typography>
+                      <Typography variant="body1" color="initial">
+                        Balance:100 - 50K
+                      </Typography>
+                    </Box>
+                    <Box
+                      sx={{
+                        width: "48%",
+                        background: zubgback,
+                        padding: "15px 20px",
+                        borderRadius: "10px",
+                        mb: "10px",
+                        "&>p": { fontSize: "14px", color: "white" },
+                      }}
+                    >
+                      <Typography variant="body1" color="initial">
+                        UPIpay-APP
+                      </Typography>
+                      <Typography variant="body1" color="initial">
+                        Balance:100 - 50K
+                      </Typography>
+                    </Box>
+                    <Box
+                      sx={{
+                        width: "48%",
+                        background: zubgback,
+                        padding: "15px 20px",
+                        borderRadius: "10px",
+                        mb: "10px",
+                        "&>p": { fontSize: "14px", color: "white" },
+                      }}
+                    >
+                      <Typography variant="body1" color="initial">
+                        BYpay-APP
+                      </Typography>
+                      <Typography variant="body1" color="initial">
+                        Balance:100 - 50K
+                      </Typography>
+                    </Box>
+                    <Box
+                      sx={{
+                        width: "48%",
+                        background: zubgback,
+                        padding: "15px 20px",
+                        borderRadius: "10px",
+                        mb: "10px",
+                        "&>p": { fontSize: "14px", color: "white" },
+                      }}
+                    >
+                      <Typography variant="body1" color="initial">
+                        OKpay-QR
+                      </Typography>
+                      <Typography variant="body1" color="initial">
+                        Balance:500 - 50K
+                      </Typography>
+                    </Box>
+                    <Box
+                      sx={{
+                        width: "48%",
+                        background: zubgback,
+                        padding: "15px 20px",
+                        borderRadius: "10px",
+                        mb: "10px",
+                        "&>p": { fontSize: "14px", color: "white" },
+                      }}
+                    >
+                      <Typography variant="body1" color="initial">
+                        MGpay-QR
+                      </Typography>
+                      <Typography variant="body1" color="initial">
+                        Balance:500 - 100K
+                      </Typography>
+                    </Box>
+                  </Stack>
+                </Box>
+              </>
+            );
+          }, [])}
 
           <Box
             sx={{
@@ -355,32 +426,77 @@ const fk = useFormik({
               mb: 2,
             }}
           >
-            <Stack direction="row" sx={{ alignItems: "center", mb: "20px" }}>
-              <Box component="img" src={payment} width={30}></Box>
-              <Typography
-                variant="body1"
-                color="initial"
-                sx={{ fontSize: "15px ", color: "white", ml: "10px" }}
-              >
-                Deposit amount
-              </Typography>
-            </Stack>
-            <Stack
-              direction="row"
-              sx={{
-                alignItems: "center",
-                justifyContent: "space-between",
-                flexWrap: "wrap",
-                mt: "10px",
-              }}
-            >
-              <Button sx={style.paytmbtn} onClick={()=>fk.setFieldValue("amount",500)}> ₹ 500</Button>
-              <Button sx={style.paytmbtn} onClick={()=>fk.setFieldValue("amount",1000)}> ₹ 1K</Button>
-              <Button sx={style.paytmbtn} onClick={()=>fk.setFieldValue("amount",5000)}> ₹ 5K</Button>
-              <Button sx={style.paytmbtn} onClick={()=>fk.setFieldValue("amount",10000)}> ₹ 10K</Button>
-              <Button sx={style.paytmbtn} onClick={()=>fk.setFieldValue("amount",15000)}> ₹ 15K</Button>
-              <Button sx={style.paytmbtn} onClick={()=>fk.setFieldValue("amount",20000)}> ₹ 20K</Button>
-            </Stack>
+            {React.useMemo(() => {
+              return (
+                <>
+                  <Stack
+                    direction="row"
+                    sx={{ alignItems: "center", mb: "20px" }}
+                  >
+                    <Box component="img" src={payment} width={30}></Box>
+                    <Typography
+                      variant="body1"
+                      color="initial"
+                      sx={{ fontSize: "15px ", color: "white", ml: "10px" }}
+                    >
+                      Deposit amount
+                    </Typography>
+                  </Stack>
+                  <Stack
+                    direction="row"
+                    sx={{
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      flexWrap: "wrap",
+                      mt: "10px",
+                    }}
+                  >
+                    <Button
+                      sx={style.paytmbtn}
+                      onClick={() => fk.setFieldValue("amount", 500)}
+                    >
+                      {" "}
+                      ₹ 500
+                    </Button>
+                    <Button
+                      sx={style.paytmbtn}
+                      onClick={() => fk.setFieldValue("amount", 1000)}
+                    >
+                      {" "}
+                      ₹ 1K
+                    </Button>
+                    <Button
+                      sx={style.paytmbtn}
+                      onClick={() => fk.setFieldValue("amount", 5000)}
+                    >
+                      {" "}
+                      ₹ 5K
+                    </Button>
+                    <Button
+                      sx={style.paytmbtn}
+                      onClick={() => fk.setFieldValue("amount", 10000)}
+                    >
+                      {" "}
+                      ₹ 10K
+                    </Button>
+                    <Button
+                      sx={style.paytmbtn}
+                      onClick={() => fk.setFieldValue("amount", 15000)}
+                    >
+                      {" "}
+                      ₹ 15K
+                    </Button>
+                    <Button
+                      sx={style.paytmbtn}
+                      onClick={() => fk.setFieldValue("amount", 20000)}
+                    >
+                      {" "}
+                      ₹ 20K
+                    </Button>
+                  </Stack>
+                </>
+              );
+            }, [])}
             <Stack
               direction="row"
               sx={{
@@ -407,70 +523,114 @@ const fk = useFormik({
                   </InputAdornment>
                 }
               />
-              <Button sx={style.paytmbtntwo}
-              onClick={fk.handleSubmit}
-              >Deposit</Button>
+              {!deposit_req_data ? (
+                <Button sx={style.paytmbtntwo} onClick={fk.handleSubmit}>
+                  Deposit
+                </Button>
+              ) : (
+                <div style={style.paytmbtntwo} className="mt-5">
+                  <div className="flex w-full justify-between items-center">
+                    <span>21321</span>
+                    <div>
+                      <Button
+                        variant="contained"
+                        onClick={() =>
+                          window.open(deposit_req_data?.upi_deep_link, "_blank")
+                        }
+                      >
+                        Pay Now
+                      </Button>
+                      <span>
+                        {" "}
+                        {show_time.split("_")?.[0]}:
+                        {show_time.split("_")?.[1]?.padEnd(2, "0")}
+                      </span>
+                    </div>
+                    <span> {rupees} 123</span>
+                  </div>
+                  <div className="!h-[1px] w-full !bg-red-500 !mt-2"></div>
+                  <div className="flex w-full justify-between !text-[15px]">
+                    <span>Status</span>
+                    <span className="!text-red-600 ">Pending</span>
+                  </div>
+                  <div className="flex w-full justify-between !text-[12px]">
+                    <span>Date</span>
+                    <span>{moment(new Date()).format("DD-MM-YYYY")}</span>
+                  </div>
+                  <div className="flex w-full justify-between !text-[12px]">
+                    <span>Time</span>
+                    <span>{moment(new Date()).format("HH:mm:ss")}</span>
+                  </div>
+                </div>
+              )}
             </Stack>
           </Box>
-          <Box
-            sx={{
-              padding: "10px",
-              width: "95%",
-              margin: "auto",
-              mt: "20px",
-              background: zubgmid,
-              borderRadius: "10px",
-              mb: 5,
-            }}
-          >
-            <Stack direction="row" sx={{ alignItems: "center", mb: "20px" }}>
-              <Box component="img" src={user} width={30}></Box>
-              <Typography
-                variant="body1"
-                color="initial"
-                sx={{ fontSize: "15px ", color: "white", ml: "10px" }}
+          {React.useMemo(() => {
+            return (
+              <Box
+                sx={{
+                  padding: "10px",
+                  width: "95%",
+                  margin: "auto",
+                  mt: "20px",
+                  background: zubgmid,
+                  borderRadius: "10px",
+                  mb: 5,
+                }}
               >
-                {" "}
-                Recharge instructions
-              </Typography>
-            </Stack>
-            <Box
-              sx={{
-                border: "1px solid white",
-                padding: 2,
-                borderRadius: "10px",
-              }}
-            >
-              <Stack direction="row" sx={style.rechargeinstext}>
-                <Box component="img" src={dot} width={15}></Box>
-                <Typography variant="body1" color="initial">
-                  If the transfer time is up, please fill out the deposit form
-                  again.
-                </Typography>
-              </Stack>
-              <Stack direction="row" sx={style.rechargeinstext}>
-                <Box component="img" src={dot} width={15}></Box>
-                <Typography variant="body1" color="initial">
-                  The transfer amount must match the order you created,
-                  otherwise the money cannot be credited successfully.
-                </Typography>
-              </Stack>
-              <Stack direction="row" sx={style.rechargeinstext}>
-                <Box component="img" src={dot} width={15}></Box>
-                <Typography variant="body1" color="initial">
-                  If you transfer the wrong amount, our company will not be
-                  responsible for the lost amount!
-                </Typography>
-              </Stack>
-              <Stack direction="row" sx={style.rechargeinstext}>
-                <Box component="img" src={dot} width={15}></Box>
-                <Typography variant="body1" color="initial">
-                  Note: do not cancel the deposit order after the money has been
-                  transferred.
-                </Typography>
-              </Stack>
-            </Box>
-          </Box>
+                <Stack
+                  direction="row"
+                  sx={{ alignItems: "center", mb: "20px" }}
+                >
+                  <Box component="img" src={user} width={30}></Box>
+                  <Typography
+                    variant="body1"
+                    color="initial"
+                    sx={{ fontSize: "15px ", color: "white", ml: "10px" }}
+                  >
+                    {" "}
+                    Recharge instructions
+                  </Typography>
+                </Stack>
+                <Box
+                  sx={{
+                    border: "1px solid white",
+                    padding: 2,
+                    borderRadius: "10px",
+                  }}
+                >
+                  <Stack direction="row" sx={style.rechargeinstext}>
+                    <Box component="img" src={dot} width={15}></Box>
+                    <Typography variant="body1" color="initial">
+                      If the transfer time is up, please fill out the deposit
+                      form again.
+                    </Typography>
+                  </Stack>
+                  <Stack direction="row" sx={style.rechargeinstext}>
+                    <Box component="img" src={dot} width={15}></Box>
+                    <Typography variant="body1" color="initial">
+                      The transfer amount must match the order you created,
+                      otherwise the money cannot be credited successfully.
+                    </Typography>
+                  </Stack>
+                  <Stack direction="row" sx={style.rechargeinstext}>
+                    <Box component="img" src={dot} width={15}></Box>
+                    <Typography variant="body1" color="initial">
+                      If you transfer the wrong amount, our company will not be
+                      responsible for the lost amount!
+                    </Typography>
+                  </Stack>
+                  <Stack direction="row" sx={style.rechargeinstext}>
+                    <Box component="img" src={dot} width={15}></Box>
+                    <Typography variant="body1" color="initial">
+                      Note: do not cancel the deposit order after the money has
+                      been transferred.
+                    </Typography>
+                  </Stack>
+                </Box>
+              </Box>
+            );
+          }, [])}
         </Box>
         <CustomCircularProgress isLoading={loding} />
       </Container>
