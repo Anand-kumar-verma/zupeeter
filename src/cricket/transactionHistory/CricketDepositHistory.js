@@ -4,7 +4,7 @@ import KeyboardArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardArrowLeft
 import { Box, Button, Container, IconButton, Stack, Typography } from '@mui/material';
 import * as React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { zubgback, zubgbackgrad, zubgback_cricket, zubgcrickorange, zubgcrickblue } from '../../Shared/color';
+import { zubgbackgrad, zubgcrickblue, zubgcrickorange } from '../../Shared/color';
 import deposit from '../../assets/images/history.png';
 import Layout from '../../component/Layout/Layout';
 

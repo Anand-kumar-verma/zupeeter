@@ -6,16 +6,14 @@ import {
   TablePagination,
   Typography
 } from "@mui/material";
-import axios from "axios";
 import moment from "moment";
 import * as React from "react";
-import toast from "react-hot-toast";
 import { useQuery } from "react-query";
 import CustomCircularProgress from "../../../../Shared/CustomCircularProgress";
 import { zubgback, zubgbackgrad, zubgmid } from "../../../../Shared/color";
 import history from '../../../../assets/images/rules.png';
-import { endpoint, rupees } from "../../../../services/urls";
 import { MyHistoryFn } from "../../../../services/apicalling";
+import { rupees } from "../../../../services/urls";
 
 
 const MyHistory = ({ gid }) => {

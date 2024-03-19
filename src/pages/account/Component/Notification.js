@@ -1,13 +1,11 @@
-import { Container, Typography, Box, IconButton, InputAdornment, OutlinedInput, FormControl, Select, Stack, Button } from '@mui/material';
-import * as React from 'react';
-import SearchIcon from '@mui/icons-material/Search';
-import KeyboardArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardArrowLeftOutlined';
-import Layout from '../../../component/Layout/Layout';
-import { NavLink } from 'react-router-dom';
-import { zubgback, zubgbackgrad, zubgmid } from '../../../Shared/color';
-import LocalPostOfficeIcon from '@mui/icons-material/LocalPostOffice';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { useNavigate } from 'react-router-dom';
+import KeyboardArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardArrowLeftOutlined';
+import LocalPostOfficeIcon from '@mui/icons-material/LocalPostOffice';
+import { Box, Container, Stack, Typography } from '@mui/material';
+import * as React from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { zubgback, zubgmid } from '../../../Shared/color';
+import Layout from '../../../component/Layout/Layout';
 
 function Notification() {
   const navigate = useNavigate();

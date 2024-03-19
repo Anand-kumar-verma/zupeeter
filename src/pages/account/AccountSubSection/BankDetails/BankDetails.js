@@ -1,8 +1,8 @@
 import CottageIcon from '@mui/icons-material/Cottage';
 import {
-    Box,
-    CircularProgress,
-    Container
+  Box,
+  CircularProgress,
+  Container
 } from "@mui/material";
 import axios from "axios";
 import { useFormik } from "formik";

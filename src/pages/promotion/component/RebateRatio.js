@@ -1,24 +1,12 @@
-import { Container, Typography, Box, Stack } from '@mui/material'
-import * as React from 'react';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import empty from '../../../assets/images/empty.png'
 import KeyboardArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardArrowLeftOutlined';
-import Layout from '../../../component/Layout/Layout';
+import { Box, Container, Stack, Typography } from '@mui/material';
+import * as React from 'react';
 import { NavLink } from 'react-router-dom';
 import { zubgback, zubgbackgrad, zubgmid } from '../../../Shared/color';
+import Layout from '../../../component/Layout/Layout';
 
 
 function RebateRatio() {
-
-
-  const [value, setValue] = React.useState(0);
-  console.log(value)
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-
-
   return (
     <Layout>
       <Container sx={{ background: zubgback, width: '100%', }}>

@@ -37,6 +37,8 @@ const TwoMinCountDown = () => {
   const client = useQueryClient();
   const [three_min_time, setThree_min_time] = useState("0_0");
   const [isImageChange, setIsImageChange] = useState("1_2_3_4_5");
+  const [poicy, setpoicy] = React.useState(false);
+
   const img1 = Number(isImageChange?.split("_")[0]);
   const img2 = Number(isImageChange?.split("_")[1]);
   const img3 = Number(isImageChange?.split("_")[2]);
@@ -69,7 +71,6 @@ const TwoMinCountDown = () => {
   //   }
   // }, [show_this_three_min_time_sec]);
 
-  const [poicy, setpoicy] = React.useState(false);
   const handleClickOpenpoicy = () => {
     setpoicy(true);
   };

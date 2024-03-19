@@ -50,7 +50,6 @@ function SingleTeamDetails() {
     },
   });
 
-  const amount = data?.data?.data?.wallet || 0;
   if (isLoading)
     return (
       <Layout>

@@ -1,25 +1,22 @@
 
 import {
-    Box,
-    CircularProgress,
-    Container
+  Box,
+  CircularProgress,
+  Container
 } from "@mui/material";
 import axios from "axios";
 import { useFormik } from "formik";
-import React, { useState } from "react";
+import React from "react";
 import toast from "react-hot-toast";
 import { useQuery } from "react-query";
-import { useNavigate } from "react-router-dom";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { endpoint } from "../../../../../services/urls";
 import Layout from "../../../../../component/Layout/Layout";
+import { endpoint } from "../../../../../services/urls";
 function TeamSalaryBonus() {
-  const navigate = useNavigate();
   const login_data = localStorage.getItem("logindata");
   const user_id = JSON.parse(login_data).UserID;
-  const [select_type_of_history, setselect_type_of_history] = useState(1);
   const { isLoading, data } = useQuery(["walletamount"], () => walletamount(), {
     refetchOnMount: false,
     refetchOnReconnect: true,
