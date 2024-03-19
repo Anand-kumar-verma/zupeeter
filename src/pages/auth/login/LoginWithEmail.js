@@ -18,14 +18,14 @@ import { useFormik } from "formik";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { NavLink, useNavigate } from "react-router-dom";
-import * as uuid from "uuid";
+// import * as uuid from "uuid";
 import CustomCircularProgress from "../../../Shared/CustomCircularProgress";
 import { LoginEmailSchemaValidaton } from "../../../Shared/Validation";
 import { zubgmid } from "../../../Shared/color";
 import { endpoint } from "../../../services/urls";
 
 function LoginWithEmail() {
-  const device_id = uuid.v4();
+  // const device_id = uuid.v4();
   const [loding, setloding] = useState(false);
   const [showPassword, setShowPassword] = React.useState(false);
   const navigate = useNavigate();
@@ -37,7 +37,7 @@ function LoginWithEmail() {
   const initialValue = {
     email: "",
     pass: "",
-    device_id: device_id || uuid.v4(),
+    // device_id: device_id || uuid.v4(),
   };
 
   const fk = useFormik({
@@ -49,7 +49,7 @@ function LoginWithEmail() {
         const reqbody = {
           username: fk.values.email || fk.values.mob,
           password: fk.values.pass,
-          device_id: device_id,
+          // device_id: device_id,
         };
         console.log(reqbody);
         loginFunction(reqbody);

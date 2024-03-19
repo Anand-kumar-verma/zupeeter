@@ -18,14 +18,14 @@ import { useFormik } from "formik";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { NavLink, useNavigate } from "react-router-dom";
-import * as uuid from "uuid";
+// import * as uuid from "uuid";
 import { LoginMobileSchemaValidaton } from "../../../Shared/Validation";
 import { zubgmid } from "../../../Shared/color";
 import { endpoint } from "../../../services/urls";
 import CustomCircularProgress from "../../../Shared/CustomCircularProgress";
 
 function LoginWithMobile() {
-  const device_id = uuid.v4();
+  // const device_id = uuid.v4();
   const [showPassword, setShowPassword] = React.useState(false);
   const [loding, setloding] = useState(false);
   const navigate = useNavigate();
@@ -37,7 +37,7 @@ function LoginWithMobile() {
   const initialValue = {
     mob: "",
     pass: "",
-    device_id: device_id || uuid.v4(),
+    // device_id: device_id || uuid.v4(),
   };
 
   const fk = useFormik({
@@ -47,7 +47,7 @@ function LoginWithMobile() {
       const reqbody = {
         username: fk.values.mob,
         password: fk.values.pass,
-        device_id: device_id,
+        // device_id: device_id,
       };
       console.log(reqbody);
       loginFunction(reqbody);
