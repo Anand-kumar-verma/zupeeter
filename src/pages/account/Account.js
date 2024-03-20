@@ -37,6 +37,7 @@ function Account() {
     refetchOnReconnect: true,
   });
   const result = data?.data?.data;
+  
   const imge_array = [
     { id: 1, img: dp1 },
     { id: 2, img: dp2 },

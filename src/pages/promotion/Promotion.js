@@ -5,7 +5,7 @@ import { Box, Container, Stack, Typography } from '@mui/material';
 import { NavLink } from 'react-router-dom';
 import { zubgback, zubgbackgrad, zubgmid } from '../../Shared/color';
 import customer from '../../assets/images/24-hours-service.png';
-import copy from '../../assets/images/copy.png';
+import copyIimage from '../../assets/images/copy.png';
 import data from '../../assets/images/data-analytics.png';
 import sort from '../../assets/images/data-flow.png';
 import donut from '../../assets/images/database.png';
@@ -13,10 +13,26 @@ import book from '../../assets/images/rules.png';
 import money from '../../assets/images/salary.png';
 import coin from '../../assets/images/settings.png';
 import Layout from '../../component/Layout/Layout';
-
+import { MyProfileDataFn } from '../../services/apicalling';
+import { useQuery } from 'react-query';
+import toast from 'react-hot-toast';
+import copy from "clipboard-copy";
 
 
 function Promotion() {
+
+  const { isLoading, data } = useQuery(["myprofile"], () => MyProfileDataFn(), {
+    refetchOnMount: false,
+    refetchOnReconnect: true,
+  });
+
+  const result = data?.data?.data;
+
+  const functionTOCopy = (value) => {
+    console.log("function hit")
+    copy(value);
+    toast.success("Copied to clipboard!");
+  };
   return (
     <Layout>
       <Container>
@@ -53,7 +69,7 @@ function Promotion() {
                 </Box>
                 <Box sx={style.subcordinatelist}>
                   <Typography variant="body1" color="initial" className='!text-white'>0</Typography>
-                  <Typography variant="body1" color="initial" className='!text-white'>  Deposit number</Typography>
+                  <Typography variant="body1" color="initial" className='!text-white'>  Number of Deposit Members</Typography>
                 </Box>
                 <Box sx={style.subcordinatelist}>
                   <Typography variant="body1" color="initial" className='!text-white'>0</Typography>
@@ -72,7 +88,7 @@ function Promotion() {
                 </Box>
                 <Box sx={style.subcordinatelist}>
                   <Typography variant="body1" color="initial">0</Typography>
-                  <Typography variant="body1" color="initial">  Deposit number</Typography>
+                  <Typography variant="body1" color="initial">  Number of Deposit Members</Typography>
                 </Box>
                 <Box sx={style.subcordinatelist}>
                   <Typography variant="body1" color="initial">0</Typography>
@@ -94,11 +110,14 @@ function Promotion() {
             <Box sx={style.invitbox}>
               <Stack direction='row'>
                 {/* <Box component='img' src={copycode}></Box> */}
-                <Box component='img' src={copy}></Box>
+                <Box component='img' src={copyIimage}
+                className='!cursor-pointer'
+                onClick={()=>functionTOCopy(result?.referral_code)}
+                ></Box>
                 <Typography variant="body1" color="initial">Copy invitation code</Typography>
               </Stack>
               <Stack direction='row'>
-                <Typography variant="body1" color="initial">rTbxj1559682</Typography>
+                <Typography variant="body1" color="initial">{result?.referral_code}</Typography>
                 <ArrowForwardIosOutlinedIcon />
               </Stack>
             </Box>

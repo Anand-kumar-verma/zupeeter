@@ -20,6 +20,7 @@ function Login() {
   useEffect(()=>{
     (logindata && aviator_data) && navigate('/dashboard')
   },[])
+  
   return (
     <Container
       sx={{

@@ -16,6 +16,7 @@
     "@tsparticles/slim": "^3.3.0",
     "axios": "^1.6.7",
     "clipboard-copy": "^4.0.1",
+    "crypto-js": "^4.2.0",
     "device-uuid": "^1.0.4",
     "formik": "^2.4.5",
     "moment": "^2.30.1",

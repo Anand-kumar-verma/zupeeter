@@ -22,8 +22,8 @@ export const endpoint ={
   color_winning:`${baseUrl}/api/colour_winning`,
   cash_deposit:`${baseUrl}/api/deposit`,
   payment_url:"https://vpayout.com/Upi_controller/insert_fund_request_online",
+  get_name_by_referral_code:`${baseUrl}/api/get-user-reffral-name`,
 
-  // aviator urls
   aviator_login:`${baseUrl}/api/aviator/login`,
   get_data_by_user_id:`${baseUrl}/api/userProfile`,
   aviator_result:`${baseUrl}/api/aviator/result_cron`,

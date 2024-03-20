@@ -3,10 +3,10 @@ import FitbitIcon from "@mui/icons-material/Fitbit";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import TelegramIcon from "@mui/icons-material/Telegram";
 import { Avatar, Box, Button, Container, Dialog, DialogContent, Slide, Stack, TextField, Typography } from "@mui/material";
-import axios from "axios";
 import copy from "clipboard-copy";
+import CryptoJS from 'crypto-js';
 import { useFormik } from "formik";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { RxCross2 } from "react-icons/rx";
 import { useQuery } from "react-query";
@@ -18,6 +18,7 @@ import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import CustomCircularProgress from "../../Shared/CustomCircularProgress";
 import { gray, zubgback, zubgbackgrad, zubgmid } from "../../Shared/color";
+import aviator_game_image from '../../assets/aviator_game_image.png';
 import one from "../../assets/images/1.jpg";
 import two from "../../assets/images/2.jpg";
 import three from "../../assets/images/3.jpg";
@@ -41,14 +42,11 @@ import sajid from '../../assets/sajid.PNG';
 import tanveer from '../../assets/tanveer.PNG';
 import Layout from "../../component/Layout/Layout";
 import { please_reconnect_the_serverFun, waitingAviatorFun, } from "../../redux/slices/counterSlice";
-import { endpoint } from "../../services/urls";
+import { MyProfileDataFn, get_user_data_fn, walletamount } from "../../services/apicalling";
 import Lottery from "./DashboadSubcomponent/Lottery";
 import Original from "./DashboadSubcomponent/Original";
 import Sports from "./DashboadSubcomponent/Sports";
 import Notification from "./Notification";
-import aviator_game_image from '../../assets/aviator_game_image.png'
-import { MyProfileDataFn, walletamount } from "../../services/apicalling";
-
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -57,12 +55,14 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 function Dashboard() {
   const dispatch = useDispatch();
   const isAvailableUser = sessionStorage.getItem("isAvailableUser");
+  const aviator_data = localStorage.getItem("aviator_data");
   const navigate = useNavigate();
   const [data_array, setdata_array] = React.useState([1, 2, 3, 4]);
   const [poicy, setpoicy] = React.useState(false);
   const [type_of_game, settype_of_game] = React.useState("");
   const login_data = localStorage.getItem("logindata");
   const user_id = JSON.parse(login_data).UserID;
+  const [referal_code,setReferral_code] = useState('')
   const functionTOCopy = (value) => {
     copy(value);
     toast.success("Copied to clipboard!");
@@ -72,7 +72,7 @@ function Dashboard() {
     refetchOnReconnect: true,
   });
 
-  const amount = data?.data?.data?.wallet || 0;
+  const newdata = data?.data?.data || 0;
 
   const { isLoading:profile_loding, data:profile } = useQuery(["myprofile"], () => MyProfileDataFn(), {
     refetchOnMount: false,
@@ -81,11 +81,15 @@ function Dashboard() {
 
   const result = profile?.data?.data;
 
-
-
+  useEffect(()=>{
+    console.log(result?.referral_code,"nandn")
+    setReferral_code(CryptoJS.AES.encrypt(JSON.stringify(result?.referral_code), 'anand').toString())
+    console.log(referal_code,"converted value")
+  },[result])
+  
   const initialValues = {
-    // referrel_code: "https://play.ferryinfotech.in/register/WlcxMjM0NTY3",
-     referrel_code: `http://192.168.18.183:3000/register?ref=${result?.referral_code}`,
+    //  referrel_code: `https://play.ferryinfotech.in/register?ref=${referal_code}`,
+    referrel_code: `https://play.ferryinfotech.in/register?ref=${referal_code}`,
   };
 
   const fk = useFormik({
@@ -96,33 +100,7 @@ function Dashboard() {
     },
   });
 
-  const game_data = [
-    {
-      name: "Lottery",
-      img: "https://ossimg.bdgadminbdg.com/IndiaBDG/gamecategory/gamecategory_202401100619315n2k.png",
-    },
-    {
-      name: "Aviator",
-      img: aviator_game_image,
-    },
-    {
-      name: "Sports",
-      img: "https://ossimg.bdgadminbdg.com/IndiaBDG/gamecategory/gamecategory_20240110061915xrqy.png",
 
-    },
-    {
-      name: "Slots",
-      img: "https://ossimg.bdgadminbdg.com/IndiaBDG/gamecategory/gamecategory_20240110061937gbid.png",
-    },
-    {
-      name: "Popular",
-      img: "https://ossimg.bdgadminbdg.com/IndiaBDG/gamecategory/gamecategory_202401100619464x51.png",
-    },
-    {
-      name: "Casino",
-      img: "https://ossimg.bdgadminbdg.com/IndiaBDG/gamecategory/gamecategory_20240110061909hwqs.png",
-    },
-  ];
  
 
   const handleClosepolicy = () => {
@@ -157,6 +135,40 @@ function Dashboard() {
     }
   };
 
+  useEffect(()=>{
+    !aviator_data &&  get_user_data_fn()
+  },[aviator_data])
+
+
+
+
+  const game_data = [
+    {
+      name: "Lottery",
+      img: "https://ossimg.bdgadminbdg.com/IndiaBDG/gamecategory/gamecategory_202401100619315n2k.png",
+    },
+    {
+      name: "Aviator",
+      img: aviator_game_image,
+    },
+    {
+      name: "Sports",
+      img: "https://ossimg.bdgadminbdg.com/IndiaBDG/gamecategory/gamecategory_20240110061915xrqy.png",
+
+    },
+    {
+      name: "Slots",
+      img: "https://ossimg.bdgadminbdg.com/IndiaBDG/gamecategory/gamecategory_20240110061937gbid.png",
+    },
+    {
+      name: "Popular",
+      img: "https://ossimg.bdgadminbdg.com/IndiaBDG/gamecategory/gamecategory_202401100619464x51.png",
+    },
+    {
+      name: "Casino",
+      img: "https://ossimg.bdgadminbdg.com/IndiaBDG/gamecategory/gamecategory_20240110061909hwqs.png",
+    },
+  ];
   return (
     <Layout>
       <Box sx={styles.root}>
@@ -277,7 +289,7 @@ function Dashboard() {
             </Box>
             <Box sx={{ textAlign: 'center' }}>
               <Typography variant="body1" color="initial" className="b-val">
-                ₹ {Number(amount||0)?.toFixed(2)}
+                ₹ {Number(Number(newdata?.wallet || 0)+Number(newdata?.winning || 0))?.toFixed(2)}
               </Typography>
               <Typography variant="body1" color="initial" className="b-valp">
                 Available Balance

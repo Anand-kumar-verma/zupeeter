@@ -12,26 +12,26 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
+import axios from "axios";
+import { useFormik } from "formik";
+import moment from "moment";
 import * as React from "react";
+import toast from "react-hot-toast";
+import { useQuery, useQueryClient } from "react-query";
 import { NavLink, useNavigate } from "react-router-dom";
 import CustomCircularProgress from "../../../Shared/CustomCircularProgress";
 import { zubgback, zubgbackgrad, zubgmid } from "../../../Shared/color";
 import audiovoice from "../../../assets/bankvoice.mp3";
 import cip from "../../../assets/cip.png";
 import dot from "../../../assets/images/circle-arrow.png";
-import quickpay from "../../../assets/images/deposit.png";
 import payment from "../../../assets/images/payment (1).png";
 import playgame from "../../../assets/images/playgame.jpg";
 import balance from "../../../assets/images/send.png";
 import user from "../../../assets/images/user-guide.png";
 import payNameIcon2 from "../../../assets/payNameIcon2.png";
 import Layout from "../../../component/Layout/Layout";
-import { cashDepositFn } from "../../../services/apicalling";
-import { useFormik } from "formik";
-import axios from "axios";
+import { cashDepositFn, walletamount } from "../../../services/apicalling";
 import { endpoint, rupees } from "../../../services/urls";
-import toast from "react-hot-toast";
-import moment from "moment";
 
 function WalletRecharge() {
   const audioRefMusic = React.useRef(null);
@@ -42,6 +42,7 @@ function WalletRecharge() {
   const [deposit_req_data, setDeposit_req_data] = React.useState();
   const [loding, setloding] = React.useState(false);
   const [show_time, set_show_time] = React.useState("0_0");
+  const [amount,setAmount] = React.useState({wallet:0,winning:0})
   const navigate = useNavigate();
   const goBack = () => {
     navigate(-1);
@@ -50,7 +51,7 @@ function WalletRecharge() {
   React.useEffect(() => {
     handlePlaySound();
   }, []);
-
+ const client = useQueryClient()
   const handlePlaySound = async () => {
     try {
       if (audioRefMusic?.current?.pause) {
@@ -63,15 +64,54 @@ function WalletRecharge() {
       console.error("Error during play:", error);
     }
   };
+ 
 
-  async function depositFunction() {
+   const walletamountFn = async () => {
+    try {
+      const response = await axios.get(
+        `${endpoint.userwallet}?userid=${user_id}`
+      );
+
+      setAmount(response?.data?.data)
+      // console.log(response,"response")
+    } catch (e) {
+      toast(e?.message);
+      console.log(e);
+    }
+  };
+
+  React.useEffect(()=>{
+    walletamountFn()
+  },[])
+
+
+  async function depositFunction(amnt) {
+    if(!amnt){
+      toast("Please Enter the amount")
+      return;
+    }
     setloding(true);
-    cashDepositFn({
-      userid: user_id,
-      amount: 10,
-      transection_id: 123,
-      status: "success",
-    });
+    // cashDepositFn();
+  const reqbody = {
+    userid: user_id,
+    amount: amnt || 1000,
+    transection_id: 123,
+    status: "success",
+  }
+
+    try{
+      const res = axios.get(`${endpoint.cash_deposit}`,{
+        params:reqbody
+      })
+      if(res){
+        walletamountFn();
+        // client.refetchQueries("walletamount_new");
+        client.refetchQueries("walletamount");
+        toast("Deposit Amount Successfully")
+      }
+  }catch(e){
+    console.log(e)
+  }
     setloding(false);
   }
 
@@ -89,7 +129,8 @@ function WalletRecharge() {
       fd.append("Name", user_name);
       fd.append("TransactionID", `${Date.now()}${user_id}`);
 
-      getDepositResponse(fd);
+      // getDepositResponse(fd);
+      depositFunction(fk.values.amount)
     },
   });
 
@@ -218,7 +259,7 @@ function WalletRecharge() {
               }}
             >
               {" "}
-              ₹3,069.32
+              ₹ {Number(Number(amount?.wallet || 0)+Number(amount?.winning || 0))?.toFixed(2)}
             </Typography>
             <CachedIcon sx={{ color: "white" }} />
           </Stack>
@@ -253,7 +294,7 @@ function WalletRecharge() {
           </Box>
         </Box>
         <Box>
-          {React.useMemo(() => {
+          {/* {React.useMemo(() => {
             return (
               <>
                 <Box
@@ -413,8 +454,7 @@ function WalletRecharge() {
                 </Box>
               </>
             );
-          }, [])}
-
+          }, [])} */}
           <Box
             sx={{
               padding: "10px",

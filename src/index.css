@@ -18,6 +18,11 @@ input::-webkit-inner-spin-button {
   font-size: 0.8rem;
   margin-top: 0.2rem;
 }
+.no-error {
+  color: #FDB03C;
+  font-size: 0.8rem;
+  margin-top: 0.2rem;
+}
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }

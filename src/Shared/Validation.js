@@ -32,6 +32,9 @@ export const signupSchemaValidataon = Yup.object().shape({
   password: Yup.string()
     .min(3, "Password must be 3 characters at minimum")
     .required("Password is required"),
+  confirmed_password: Yup.string()
+    .min(3, "Password must be 3 characters at minimum")
+    .required("Password is required"),
   mobile: Yup.string()
     .matches(
       /^[0-9]{10}$/,

@@ -37,6 +37,7 @@ function LoginWithMobile() {
   const initialValue = {
     mob: "",
     pass: "",
+    isAllowCheckBox:false
     // device_id: device_id || uuid.v4(),
   };
 
@@ -44,6 +45,11 @@ function LoginWithMobile() {
     initialValues: initialValue,
     validationSchema: LoginMobileSchemaValidaton,
     onSubmit: () => {
+      if(!fk.values.isAllowCheckBox) {
+        toast("Plese Check Remember Password!")
+        return
+      }
+      
       const reqbody = {
         username: fk.values.mob,
         password: fk.values.pass,
@@ -69,9 +75,10 @@ function LoginWithMobile() {
         localStorage.setItem("logindata", JSON.stringify(response?.data));
         sessionStorage.setItem("isAvailableUser", true);
         sessionStorage.setItem("isAvailableCricketUser", true);
-        get_user_data(response?.data?.UserID);
+        // get_user_data(response?.data?.UserID);
         setloding(false);
         navigate("/dashboard");
+        window.location.reload()
       }
     } catch (e) {
       toast.error(e?.message);
@@ -178,7 +185,8 @@ function LoginWithMobile() {
         <FormControl fullWidth>
           <FormControlLabel
             required
-            control={<Checkbox sx={{ color: "black !important" }} />}
+            onClick={()=>fk.setFieldValue("isAllowCheckBox",!fk.values.isAllowCheckBox)}
+            control={<Checkbox checked={fk.values.isAllowCheckBox} sx={{ color: "black !important" }} />}
             label="Remember password"
             sx={{ color: "white" }}
           />

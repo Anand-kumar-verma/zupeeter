@@ -14,6 +14,44 @@ export const MyProfileDataFn = async () => {
   }
 };
 
+export const get_user_data_fn = async () => {
+  // console.log(id);
+  try {
+    const response = await axios.get(
+      `${endpoint.get_data_by_user_id}?id=${user_id}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+      }
+    );
+    console.log(response, "This is response");
+    if (response?.data?.error === "200") {
+      localStorage.setItem(
+        "aviator_data",
+        JSON.stringify(response?.data?.data)
+      );
+    }
+    sessionStorage.setItem("isAvailableUser", true);
+  } catch (e) {
+    toast(e?.message);
+    console.error(e);
+  }
+};
+
+export const CandidateNameFn = async (reqbody) => {
+  try {
+    const response = await axios.get(`${endpoint.get_name_by_referral_code}`,{
+      params:reqbody
+    });
+    return response;
+  } catch (e) {
+    toast(e?.message);
+    console.log(e);
+  }
+};
+
 export const MyHistoryFn = async () => {
   try {
     const response = await axios.get(
@@ -31,6 +69,9 @@ export const cashDepositFn = async(reqbody)=>{
       const res = axios.get(`${endpoint.cash_deposit}`,{
         params:reqbody
       })
+      if(res){
+        toast("Deposit Amount Successfully")
+      }
       return res
   }catch(e){
     console.log(e)

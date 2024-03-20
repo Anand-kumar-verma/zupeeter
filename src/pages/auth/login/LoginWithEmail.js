@@ -11,7 +11,7 @@ import {
   OutlinedInput,
   Stack,
   TextField,
-  Typography
+  Typography,
 } from "@mui/material";
 import axios from "axios";
 import { useFormik } from "formik";
@@ -37,6 +37,7 @@ function LoginWithEmail() {
   const initialValue = {
     email: "",
     pass: "",
+    isAllowCheckBox:false
     // device_id: device_id || uuid.v4(),
   };
 
@@ -44,6 +45,10 @@ function LoginWithEmail() {
     initialValues: initialValue,
     validationSchema: LoginEmailSchemaValidaton,
     onSubmit: () => {
+      if(!fk.values.isAllowCheckBox) {
+        toast("Plese Check Remember Password!")
+        return
+      }
       console.log(fk.values);
       if (fk.values.pass && (fk.values.mob || fk.values.email)) {
         const reqbody = {
@@ -58,7 +63,7 @@ function LoginWithEmail() {
   });
 
   const loginFunction = async (reqbody) => {
-    setloding(true)
+    setloding(true);
     try {
       const response = await axios.post(endpoint.login, reqbody, {
         headers: {
@@ -73,53 +78,56 @@ function LoginWithEmail() {
         localStorage.setItem("logindata", JSON.stringify(response?.data));
         sessionStorage.setItem("isAvailableUser", true);
         sessionStorage.setItem("isAvailableCricketUser", true);
-        get_user_data(response?.data?.UserID);
-        setloding(false)
+        // get_user_data(response?.data?.UserID);
+        setloding(false);
         navigate("/dashboard");
+        window.location.reload();
+
       }
     } catch (e) {
       toast.error(e?.message);
       console.error(e);
     }
-    setloding(false)
+    setloding(false);
   };
 
-  const get_user_data = async (id) => {
-    console.log(id);
+  // const get_user_data = async (id) => {
+  //   console.log(id);
+  //   try {
+  //     const response = await axios.get(
+  //       `${endpoint.get_data_by_user_id}?id=${id}`,
+  //       {
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           "Access-Control-Allow-Origin": "*",
+  //         },
+  //       }
+  //     );
+  //     console.log(response, "This is response");
+  //     if (response?.data?.error === "200") {
+  //       localStorage.setItem(
+  //         "aviator_data",
+  //         JSON.stringify(response?.data?.data)
+  //       );
+  //     }
+  //     sessionStorage.setItem("isAvailableUser", true);
+  //     window.location.reload();
+  //   } catch (e) {
+  //     toast(e?.message);
+  //     console.error(e);
+  //   }
+  // };
+
+  useEffect(() => {
     try {
-      const response = await axios.get(
-        `${endpoint.get_data_by_user_id}?id=${id}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-          },
-        }
+      const res = axios.get(
+        "https://vpayout.com/Upi_controllercallback/check_transaction_status"
       );
-      console.log(response, "This is response");
-
-      if (response?.data?.error === "200") {
-        localStorage.setItem(
-          "aviator_data",
-          JSON.stringify(response?.data?.data)
-        );
-      }
-      sessionStorage.setItem("isAvailableUser",true);
+      console.log(res, "response of new API");
     } catch (e) {
-      toast(e?.message);
-      console.error(e);
+      console.log(e);
     }
-  };
-
-
-  useEffect(()=>{
- try{
-    const res = axios. get("https://ssecarts.com/api/v1/customer/profile_data");
-    console.log(res,"response of new API")
- }catch(e){
-  console.log(e)
- }
-  },[])
+  }, []);
 
   return (
     <Box
@@ -191,7 +199,8 @@ function LoginWithEmail() {
         <FormControl fullWidth>
           <FormControlLabel
             required
-            control={<Checkbox sx={{ color: "black !important" }} />}
+            onClick={()=>fk.setFieldValue("isAllowCheckBox",!fk.values.isAllowCheckBox)}
+            control={<Checkbox checked={fk.values.isAllowCheckBox} sx={{ color: "black !important" }} />}
             label="Remember password"
             sx={{ color: "white" }}
           />
@@ -205,7 +214,7 @@ function LoginWithEmail() {
           className="btnLogin"
           onClick={fk.handleSubmit}
         >
-Let's go
+          Let's go
         </Button>
 
         <Button
@@ -217,7 +226,7 @@ Let's go
           Register
         </Button>
       </Stack>
-      <CustomCircularProgress isLoading={loding}/>
+      <CustomCircularProgress isLoading={loding} />
     </Box>
   );
 }
