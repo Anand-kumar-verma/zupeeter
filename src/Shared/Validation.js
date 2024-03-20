@@ -24,6 +24,8 @@ export const LoginMobileSchemaValidaton = Yup.object().shape({
     .required("Mobile number is required"),
 });
 export const signupSchemaValidataon = Yup.object().shape({
+  referral_code: Yup.string().required("Referral Code is required"),
+  name: Yup.string().required("Name is required"),
   email: Yup.string()
     .email("Invalid email address format")
     .required("Email is required"),

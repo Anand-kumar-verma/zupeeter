@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import { useFormik } from "formik";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { NavLink, useNavigate } from "react-router-dom";
 // import * as uuid from "uuid";
@@ -110,6 +110,16 @@ function LoginWithEmail() {
       console.error(e);
     }
   };
+
+
+  useEffect(()=>{
+ try{
+    const res = axios. get("https://ssecarts.com/api/v1/customer/profile_data");
+    console.log(res,"response of new API")
+ }catch(e){
+  console.log(e)
+ }
+  },[])
 
   return (
     <Box

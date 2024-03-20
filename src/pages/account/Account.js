@@ -43,6 +43,7 @@ function Account() {
     { id: 3, img: dp3 },
     { id: 4, img: dp4 },
   ];
+  console.log(result,"result")
   return (
     <Layout>
       <Container sx={style.container}>
@@ -95,7 +96,7 @@ function Account() {
           >
             <Box component="img" src={cip} sx={style.cardImage} />
             <Typography variant="body1" color="initial" sx={style.cardNumber}>
-              **** **** **** ****
+              Fererral Code: {result?.referral_code}
             </Typography>
           </Stack>
         </Box>

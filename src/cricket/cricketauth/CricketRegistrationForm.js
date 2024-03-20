@@ -5,6 +5,7 @@ import {
   Button,
   Checkbox,
   Container,
+  Dialog,
   FormControl,
   FormControlLabel,
   IconButton,
@@ -25,9 +26,12 @@ import { zubgbackgrad } from "../../Shared/color";
 import logo from "../../assets/images/club-8-copyright.png";
 import poster from "../../assets/images/poster6.jpg";
 import { endpoint } from "../../services/urls";
-
+import CopyAllIcon from "@mui/icons-material/CopyAll";
+import copy from "clipboard-copy";
 function CricketRegistrationForm() {
   const navigate = useNavigate();
+  const [openDialogBox, setOpenDialogBox] = useState(false);
+  const [id_pass, set_id_pass] = useState(" _ ");
   const [showPassword, setShowPassword] = React.useState(false);
   const [show_confirm_password, set_show_confirm_password] =
     React.useState(false);
@@ -38,6 +42,10 @@ function CricketRegistrationForm() {
 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
+  };
+  const functionTOCopy = (value) => {
+    copy(value);
+    toast.success("Copied to clipboard!");
   };
   const initialValue = {
     email: "",
@@ -160,47 +168,87 @@ function CricketRegistrationForm() {
               onSubmit={fk.handleSubmit}
             >
               <Box mt={3} className="">
-                {/* <FormControl fullWidth>
-                <Stack direction="row" className="loginlabel">
-                  <Typography variant="h3">Select Service Provider Type</Typography>
-                </Stack>
-                <TextField
-                  placeholder="Select Deposit Type"
-                  select
-                  id="service_provider"
-                  name="service_provider"
-                  value={fk.values.service_provider}
-                  onChange={fk.handleChange}
-                  InputProps={{
-                    style: {
-                      borderColor: "#4939c1",
-                      borderWidth: "1px",
-                      color: "white", // Set text color to white
-                    },
-                  }}
-                >
-                  <MenuItem value="A">A</MenuItem>
-                  <MenuItem value="B">B</MenuItem>
-                  <MenuItem value="C">C</MenuItem>
-                  <MenuItem value="D">D</MenuItem>
-                </TextField>
-              </FormControl> */}
+              
                 <p className="!text-white">Service Provider:</p>
                 <div className="grid grid-cols-2 !border-2 !border-blue-100 !p-1">
-                  <p className="!text-white  !border-r !border-b !border-white">Provider A</p>
-                  <p className="!text-blue-900 !cursor-pointer !border-b !border-white !text-center">Details</p>
-
-                  <p className="!text-white  !border-r !border-b !border-white">Provider B</p>
-                  <p className="!text-blue-900 !cursor-pointer !border-b !border-white !text-center">Details</p>
-                  <p className="!text-white  !border-r !border-b !border-white">Provider C</p>
-                  <p className="!text-blue-900 !cursor-pointer !border-b !border-white !text-center">Details</p>
-                  <p className="!text-white  !border-r !border-b !border-white">Provider D</p>
-                  <p className="!text-blue-900 !cursor-pointer !border-b !border-white !text-center">Details</p>
-                  <p className="!text-white  !border-r !border-b !border-white">Provider E</p>
-                  <p className="!text-blue-900 !cursor-pointer !border-b !border-white !text-center">Details</p>
+                  <p
+                    className="!text-white  !border-r !border-b !border-white !cursor-pointer"
+                    onClick={() => {
+                      set_id_pass("Tpl3535_Abcd5656");
+                      setOpenDialogBox(true);
+                    }}
+                  >
+                    silverexch
+                  </p>
+                  <a
+                    href="https://www.silverexch.com/"
+                    className="!text-blue-900 !cursor-pointer !border-b !border-white !text-center"
+                  >
+                    Details
+                  </a>
+                  <p
+                    className="!text-white  !border-r !border-b !border-white !cursor-pointer"
+                    onClick={() => {
+                      set_id_pass("Dk3070_Abcd5656");
+                      setOpenDialogBox(true);
+                    }}
+                  >
+                    lordsexch
+                  </p>
+                  <a
+                    href="https://lordsexch.com/"
+                    className="!text-blue-900 !cursor-pointer !border-b !border-white !text-center"
+                  >
+                    Details
+                  </a>
+                  <p
+                    className="!text-white  !border-r !border-b !border-white !cursor-pointer"
+                    onClick={() => {
+                      set_id_pass("Mah3030_Abcd5656");
+                      setOpenDialogBox(true);
+                    }}
+                  >
+                    tenexch
+                  </p>
+                  <a
+                    href="https://tenexch.com/"
+                    className="!text-blue-900 !cursor-pointer !border-b !border-white !text-center"
+                  >
+                    Details
+                  </a>
+                  <p
+                    className="!text-white  !border-r !border-b !border-white !cursor-pointer"
+                    onClick={() => {
+                      set_id_pass("Rrakesh20_Abcd5656");
+                      setOpenDialogBox(true);
+                    }}
+                  >
+                    lotusbook247
+                  </p>
+                  <a
+                    href="https://www.lotusbook247.com/"
+                    className="!text-blue-900 !cursor-pointer !border-b !border-white !text-center"
+                  >
+                    Details
+                  </a>
+                  <p
+                    className="!text-white  !border-r !border-b !border-white !cursor-pointer"
+                    onClick={() => {
+                      set_id_pass("Droo_Abcd1234");
+                      setOpenDialogBox(true);
+                    }}
+                  >
+                    diamondexch99
+                  </p>
+                  <a
+                    href="https://www.diamondexch99.com/"
+                    className="!text-blue-900 !cursor-pointer !border-b !border-white !text-center"
+                  >
+                    Details
+                  </a>
                 </div>
               </Box>
-              <Box mt={2}>
+              {/* <Box mt={2}>
                 <FormControl fullWidth>
                   <Stack direction="row" className="loginlabel">
                     <Typography variant="h3">Mobile</Typography>
@@ -332,23 +380,41 @@ function CricketRegistrationForm() {
                 <Button
                   component={NavLink}
                   className="btnLogin"
-                //   onClick={fk.handleSubmit}
                 >
                   Submit
                 </Button>
-                {/* <Button
-                  component={NavLink}
-                //   to="/"
-                  className="btnregister"
-                  mt={2}
-                >
-                  Log in
-                </Button> */}
-              </Stack>
+              </Stack> */}
             </Box>
           </Box>
         </Box>
       </Box>
+      {openDialogBox && (
+        <Dialog open={openDialogBox} onClose={() => setOpenDialogBox(false)}>
+          <Box mt={3} className="!text-black !p-5 !w-[20vw]">
+            <p className="!text-black">Service Provider:</p>
+            <div className="grid grid-cols-2 !border-2 !border-black !p-1">
+              <p className="!text-black  !border-r !border-b !border-black">
+                ID
+              </p>
+              <p className="!text-black !cursor-pointer !border-b !border-black !text-center flex w-full justify-between px-1">
+                <span>{id_pass?.split("_")?.[0]}</span>{" "}
+                <CopyAllIcon
+                  onClick={() => functionTOCopy(id_pass?.split("_")?.[0])}
+                />
+              </p>
+              <p className="!text-black  !border-r !border-b !border-black">
+                Password
+              </p>
+              <p className="!text-blue-900 !cursor-pointer !border-b !border-black !text-center flex w-full justify-between px-1">
+                <span>{id_pass?.split("_")?.[1]}</span>{" "}
+                <CopyAllIcon
+                  onClick={() => functionTOCopy(id_pass?.split("_")?.[1])}
+                />
+              </p>
+            </div>
+          </Box>
+        </Dialog>
+      )}
       <CustomCircularProgress isLoading={loding} />
     </Container>
   );

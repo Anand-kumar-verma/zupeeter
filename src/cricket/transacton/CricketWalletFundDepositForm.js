@@ -34,8 +34,8 @@ function CricketWalletFundDepositForm() {
 
   const initialValue = {
     amount: "",
-    deposit_type: "",
-    service_provider: "",
+    deposit_type: "Select Deposit Type",
+    service_provider: "Select Service Provider",
   };
 
   const fk = useFormik({
@@ -62,17 +62,18 @@ function CricketWalletFundDepositForm() {
           sx={{
             width: "95%",
             marginLeft: "2.5%",
-            background: zubgcrickorange,
+            // background: zubgcrickorange,
             borderRadius: "10px",
             padding: "10px",
             mt: "10px",
           }}
+          className={"!bg-slate-400"}
         >
           <Box mt={2} component="form">
             <Box mt={2}>
               <FormControl fullWidth>
                 <Stack direction="row" className="loginlabel">
-                  <Typography variant="h3">Enter Amount</Typography>
+                  <p  className={"!text-black"}>Enter Amount</p>
                 </Stack>
                 <OutlinedInput
                   placeholder="Enter Amount"
@@ -88,7 +89,7 @@ function CricketWalletFundDepositForm() {
             <Box mt={2}>
               <FormControl fullWidth>
                 <Stack direction="row" className="loginlabel">
-                  <Typography variant="h3">Select Deposit Type</Typography>
+                  <p  className={"!text-black"}>Select Deposit Type</p>
                 </Stack>
                 <TextField
                   placeholder="Select Deposit Type"
@@ -105,7 +106,8 @@ function CricketWalletFundDepositForm() {
                     },
                   }}
                 >
-                  <MenuItem value="New Id">New Id</MenuItem>
+                  <MenuItem  value="Select Deposit Type">Select Deposit Type</MenuItem>
+                  <MenuItem  value="New Id">New Id</MenuItem>
                   <MenuItem value="Recharge">Recharge</MenuItem>
                 </TextField>
               </FormControl>
@@ -113,9 +115,9 @@ function CricketWalletFundDepositForm() {
             <Box mt={2}>
               <FormControl fullWidth>
                 <Stack direction="row" className="loginlabel">
-                  <Typography variant="h3">
+                  <p  className={"!text-black"}>
                     Select Service Provider Type
-                  </Typography>
+                  </p>
                 </Stack>
                 <TextField
                   placeholder="Select Deposit Type"
@@ -132,10 +134,12 @@ function CricketWalletFundDepositForm() {
                     },
                   }}
                 >
-                  <MenuItem value="A">A</MenuItem>
-                  <MenuItem value="B">B</MenuItem>
-                  <MenuItem value="C">C</MenuItem>
-                  <MenuItem value="D">D</MenuItem>
+                  <MenuItem value="Select Service Provider">Select Service Provider</MenuItem>
+                  <MenuItem value="silverexch">silverexch</MenuItem>
+                  <MenuItem value="lordsexch">lordsexch</MenuItem>
+                  <MenuItem value="tenexch">tenexch</MenuItem>
+                  <MenuItem value="lotusbook247">lotusbook247</MenuItem>
+                  <MenuItem value="diamondexch99">diamondexch99</MenuItem>
                 </TextField>
               </FormControl>
               {/* <div className="!flex !justify-between !text-white !pt-5">

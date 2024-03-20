@@ -1,25 +1,25 @@
 import CachedIcon from "@mui/icons-material/Cached";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 import { Box, Container, Stack, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
+import ReactApexChart from "react-apexcharts";
+import toast from "react-hot-toast";
 import { NavLink, useNavigate } from "react-router-dom";
-import { zubgback, zubgbackgrad, zubgback_cricket, zubgcrickblue, zubgcrickorange } from "../../Shared/color";
+import { zubgcrickblue, zubgcrickorange } from "../../Shared/color";
 import cip from "../../assets/cip.png";
 import deposit from "../../assets/deposit.png";
 import card from "../../assets/images/card-payment.png";
-import gift from "../../assets/images/gift-box.png";
-import graph from "../../assets/images/graph.png";
-import notification from "../../assets/images/notification.png";
-import balance from "../../assets/images/send.png";
-import trans from "../../assets/images/translation.png";
-import winofthematch from "../../assets/winofthematch.png";
-import { useEffect, useState } from "react";
-import SplashScreen from "../SplashScreen";
 import withdrow from "../../assets/images/cash-withdrawal.png";
 import rechargeIcon from "../../assets/images/deposit.png";
+import gift from "../../assets/images/gift-box.png";
+import graph from "../../assets/images/graph.png";
 import wdhistory from "../../assets/images/history.png";
+import notification from "../../assets/images/notification.png";
 import deposite from "../../assets/images/payment.png";
+import balance from "../../assets/images/send.png";
+import trans from "../../assets/images/translation.png";
 import Layout from "../../component/Layout/Layout";
-import ReactApexChart from "react-apexcharts";
+import SplashScreen from "../SplashScreen";
 function CricketUserprofile() {
   const [showSplashScreen, setShowSplashScreen] = useState(false);
   const isAvailableUser = sessionStorage.getItem("isAvailableCricketUser");
@@ -91,7 +91,9 @@ function CricketUserprofile() {
               sx={style.profileImage}
             />
           </Box>
-          <Box sx={style.userInfo} onClick={() => navigate('/cricket/registration')}>
+          <Box sx={style.userInfo} 
+          // onClick={() => navigate('/cricket/registration')}
+          >
             <Typography variant="" color="initial">
               Rohit Sharma
             </Typography>
@@ -156,97 +158,13 @@ function CricketUserprofile() {
               sx={{ width: "49%" }}
               className={"!bg-white !bg-opacity-20 !rounded-lg !py-2"}
             >
-              <Box
-                sx={{
-                  margin: "auto",
-                  background: "white",
-                  width: "100px",
-                  height: "100px",
-                  borderRadius: "50%",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <Box
-                  sx={{
-                    fontSize: "20px",
-                    fontWeight: "700",
-                    color: "white !important",
-                    background: zubgcrickblue,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    width: "80px",
-                    height: "80px",
-                    borderRadius: "50%",
-                  }}
-                >
-                  0%
-                </Box>
-              </Box>
-              <Box
-                sx={{
-                  textAlign: "center",
-                  mt: "15px",
-                  "&>p": { color: "white", fontSize: "12px" },
-                }}
-              >
-                <Typography variant="body1" color="initial">
-                  ₹ 0.00
-                </Typography>
-                <Typography variant="body1" color="initial">
-                  Main Wallet
-                </Typography>
-              </Box>
+             <p className="pl-5 !font-bold !text-blue-600 cursor-pointer" onClick={()=>toast("You haven't subscribed.")}>Login</p>
             </Box>
             <Box
               sx={{ width: "49%" }}
               className={"!bg-white !bg-opacity-20 !rounded-lg  !py-2"}
             >
-              <Box
-                sx={{
-                  margin: "auto",
-                  background: zubgcrickorange,
-                  width: "100px",
-                  height: "100px",
-                  borderRadius: "50%",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <Box
-                  sx={{
-                    fontSize: "20px",
-                    fontWeight: "700",
-                    color: "white !important",
-                    background: zubgcrickblue,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    width: "80px",
-                    height: "80px",
-                    borderRadius: "50%",
-                  }}
-                >
-                  100%
-                </Box>
-              </Box>
-              <Box
-                sx={{
-                  textAlign: "center",
-                  mt: "15px",
-                  "&>p": { color: "white", fontSize: "12px" },
-                }}
-              >
-                <Typography variant="body1" color="initial">
-                  ₹ 3,077.72
-                </Typography>
-                <Typography variant="body1" color="initial">
-                  3rd party wallets
-                </Typography>
-              </Box>
+             <p className="pl-5 !font-bold !text-blue-600 cursor-pointer" onClick={() => navigate('/cricket/registration')}>Demo for Login</p>
             </Box>
           </Stack>
           <Stack

@@ -47,6 +47,7 @@ import Original from "./DashboadSubcomponent/Original";
 import Sports from "./DashboadSubcomponent/Sports";
 import Notification from "./Notification";
 import aviator_game_image from '../../assets/aviator_game_image.png'
+import { MyProfileDataFn, walletamount } from "../../services/apicalling";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -71,26 +72,30 @@ function Dashboard() {
     refetchOnReconnect: true,
   });
 
-  const walletamount = async () => {
-    try {
-      const response = await axios.get(
-        `${endpoint.userwallet}?userid=${user_id}`
-      );
-      return response;
-    } catch (e) {
-      toast(e?.message);
-      console.log(e);
-    }
-  };
+  const amount = data?.data?.data?.wallet || 0;
+
+  const { isLoading:profile_loding, data:profile } = useQuery(["myprofile"], () => MyProfileDataFn(), {
+    refetchOnMount: false,
+    refetchOnReconnect: true,
+  });
+
+  const result = profile?.data?.data;
+
+
+
   const initialValues = {
-    referrel_code: "https://zupeeter.com/auth/registration/WlcxMjM0NTY3",
+    // referrel_code: "https://play.ferryinfotech.in/register/WlcxMjM0NTY3",
+     referrel_code: `http://192.168.18.183:3000/register?ref=${result?.referral_code}`,
   };
+
   const fk = useFormik({
     initialValues: initialValues,
+    enableReinitialize:true,
     onSubmit: () => {
       console.log("This is handle submit");
     },
   });
+
   const game_data = [
     {
       name: "Lottery",
@@ -118,7 +123,7 @@ function Dashboard() {
       img: "https://ossimg.bdgadminbdg.com/IndiaBDG/gamecategory/gamecategory_20240110061909hwqs.png",
     },
   ];
-  const amount = data?.data?.data?.wallet || 0;
+ 
 
   const handleClosepolicy = () => {
     setpoicy(false);
@@ -311,7 +316,7 @@ function Dashboard() {
                 id="referrel_code"
                 name="referrel_code"
                 value={fk.values.referrel_code}
-                onChange={fk.handleChange}
+                // onChange={fk.handleChange}
                 sx={styles.referralLinkInput}
               />
               <Button

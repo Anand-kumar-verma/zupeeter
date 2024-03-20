@@ -48,3 +48,15 @@ export const getAllBetsAviator = async () => {
     console.log(e);
   }
 };
+
+export const walletamount = async () => {
+  try {
+    const response = await axios.get(
+      `${endpoint.userwallet}?userid=${user_id}`
+    );
+    return response;
+  } catch (e) {
+    toast(e?.message);
+    console.log(e);
+  }
+};

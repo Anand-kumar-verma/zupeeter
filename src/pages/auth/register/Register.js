@@ -19,7 +19,7 @@ import axios from "axios";
 import { useFormik } from "formik";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { zubgbackgrad } from "../../../Shared/color";
 import logo from "../../../assets/images/logo.png";
 import poster from "../../../assets/images/poster4.jpg";
@@ -28,6 +28,9 @@ import { signupSchemaValidataon } from "../../../Shared/Validation";
 import CustomCircularProgress from "../../../Shared/CustomCircularProgress";
 
 function Register() {
+  const [searchParams] = useSearchParams();
+  const refParam = searchParams.get('ref');
+
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = React.useState(false);
   const [show_confirm_password, set_show_confirm_password] =
@@ -43,13 +46,15 @@ function Register() {
   const initialValue = {
     email: "",
     mobile: "",
+    name:"",
     password: "",
     confirmed_password: "",
-    referral_code: "",
+    referral_code:refParam ||  "",
   };
 
   const fk = useFormik({
     initialValues: initialValue,
+    enableReinitialize:true,
     validationSchema: signupSchemaValidataon,
     onSubmit: () => {
       if(fk.values.password !== fk.values.confirmed_password) return toast("Password and confirm password should be same.")
@@ -164,7 +169,7 @@ function Register() {
                     <Typography variant="h3">Referral Code</Typography>
                   </Stack>
                   <TextField
-                    id="fullWidth"
+                    id="referral_code"
                     placeholder="Enter Referral Code"
                     className="loginfields"
                     name="referral_code"
@@ -172,6 +177,29 @@ function Register() {
                     onChange={fk.handleChange}
                     onKeyDown={(e) => e.key === "Enter" && fk.handleSubmit()}
                   />
+                   {fk.touched.referral_code && fk.errors.referral_code && (
+                    <div className="error">{fk.errors.referral_code}</div>
+                  )}
+                </FormControl>
+              </Box>
+              <Box mt={2}>
+                <FormControl fullWidth>
+                  <Stack direction="row" className="loginlabel">
+                    <Typography variant="h3">Name</Typography>
+                  </Stack>
+                  <TextField
+                    id="name"
+                    placeholder="Enter Mobile Number"
+                    className="loginfields"
+                    name="name"
+                    type="text"
+                    value={fk.values.name}
+                    onChange={fk.handleChange}
+                    onKeyDown={(e) => e.key === "Enter" && fk.handleSubmit()}
+                  />
+                  {fk.touched.name && fk.errors.name && (
+                    <div className="error">{fk.errors.name}</div>
+                  )}
                 </FormControl>
               </Box>
               <Box mt={2}>

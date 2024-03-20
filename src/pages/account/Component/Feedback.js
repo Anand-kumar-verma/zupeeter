@@ -1,31 +1,15 @@
 import KeyboardArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardArrowLeftOutlined';
-import { Box, Button, Container, FormControl, IconButton, InputAdornment, OutlinedInput, Stack, TextField, Typography } from '@mui/material';
+import { Box, Button, Container, FormControl, TextField, Typography } from '@mui/material';
 import * as React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { zubgback, zubgbackgrad, zubgmid } from '../../../Shared/color';
 import Layout from '../../../component/Layout/Layout';
-import Giftimg from '../../../assets/images/gift-removebg-preview.png'
-import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 function Feedback() {
   const navigate = useNavigate();
 
   const goBack = () => {
     navigate(-1);
-  };
-  const [showoldPassword, setShowoldPassword] = React.useState(false);
-  const [showPassword, setShowPassword] = React.useState(false);
-  const [show_confirm_password, set_show_confirm_password] =
-    React.useState(false);
-  const [agree, setAgree] = React.useState(false);
-
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
-  const handleClickShowoldPassword = () => setShowoldPassword((show) => !show);
-  const handle_confirm_ClickShowPassword = () =>
-    set_show_confirm_password(!show_confirm_password);
-
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
   };
   return (
     <Layout>
