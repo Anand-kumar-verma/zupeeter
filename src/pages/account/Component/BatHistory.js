@@ -23,6 +23,7 @@ import Lottery from "../../../assets/images/lottery.png";
 import Layout from "../../../component/Layout/Layout";
 import { MyHistoryFn, getAllBetsAviator } from "../../../services/apicalling";
 import { rupees } from "../../../services/urls";
+import aviator_game_image from "../../../assets/aviator_game_image.png";
 
 function BatHistorys() {
   const [selectedGame, setSelectedGame] = React.useState("Lottery");
@@ -50,7 +51,7 @@ function BatHistorys() {
     ["my_all_history", selectedGame],
     () =>
       (selectedGame === "Lottery" && MyHistoryFn()) ||
-      (selectedGame === "Original" && getAllBetsAviator()),
+      (selectedGame === "Aviator" && getAllBetsAviator()),
     {
       refetchOnMount: false,
       refetchOnReconnect: true,
@@ -87,9 +88,8 @@ function BatHistorys() {
       "Win Go 3 Min",
       "Win Go 5 Min",
     ]) ||
-    (selectedGame === "Original" && ["Aviator"]) ||
+    (selectedGame === "Aviator" && ["Aviator"]) ||
     [];
-console.log(visibleRows)
   return (
     <Layout>
       <Container
@@ -114,7 +114,6 @@ console.log(visibleRows)
         </Box>
 
         <Box
-          
           sx={{
             mt: "20px",
             background: zubgbackgrad,
@@ -124,10 +123,19 @@ console.log(visibleRows)
           className="!w-[95%] !grid lg:!grid-cols-4 !grid-cols-2 !place-items-center "
         >
           {[
-            { img: Lottery, item: "Lottery" },
-            { img: colorpr, item: "Original" },
-            { img: Lottery, item: "Sports" },
-            { img: colorpr, item: "Slots" },
+            {
+              img: "https://ossimg.bdgadminbdg.com/IndiaBDG/gamecategory/gamecategory_202401100619315n2k.png",
+              item: "Lottery",
+            },
+            { img: aviator_game_image, item: "Aviator" },
+            {
+              img: "https://ossimg.bdgadminbdg.com/IndiaBDG/gamecategory/gamecategory_20240110061915xrqy.png",
+              item: "Sports",
+            },
+            {
+              img: "https://ossimg.bdgadminbdg.com/IndiaBDG/gamecategory/gamecategory_20240110061937gbid.png",
+              item: "Slots",
+            },
           ]?.map((i, index) => {
             return (
               <Box
@@ -141,14 +149,12 @@ console.log(visibleRows)
                   justifyContent: "space-between",
                   flexDirection: "column",
                 }}
-                className={selectedGame===i.item && "!bg-white !bg-opacity-20"}
+                className={
+                  selectedGame === i.item && "!bg-white !bg-opacity-20"
+                }
                 onClick={() => setSelectedGame(i.item)}
               >
-                <Box
-                  component="img"
-                  src={i.img}
-                  sx={{  height: "55px" }}
-                ></Box>
+                <Box component="img" src={i.img} sx={{ height: "55px" }}></Box>
                 <p className="!text-center !text-white">{i.item}</p>
               </Box>
             );
@@ -320,7 +326,7 @@ console.log(visibleRows)
             <CustomCircularProgress isLoading={myhistory_loding} />
           </Box>
         )}
-        {selectedGame === "Original" && (
+        {selectedGame === "Aviator" && (
           <Box
             className={"lg:!mb-[14%] !mb-[18%]"}
             sx={{ background: zubgmid }}
@@ -345,7 +351,7 @@ console.log(visibleRows)
                     <div className="flex justify-between">
                       <p className="!text-white !text-[12px]">CashOut Amount</p>
                       <p className={`!text-white !text-[12px]`}>
-                       {rupees} {Number(i?.cashout_amount||0).toFixed(2)}
+                        {rupees} {Number(i?.cashout_amount || 0).toFixed(2)}
                       </p>
                     </div>
                     <div className="flex justify-between">
@@ -363,7 +369,7 @@ console.log(visibleRows)
                     <div className="flex justify-between">
                       <p className="!text-white !text-[12px]">Time</p>
                       <p className="!text-white !text-[12px]">
-                      {moment(i?.datetime)?.format("HH:mm:ss")}
+                        {moment(i?.datetime)?.format("HH:mm:ss")}
                       </p>
                     </div>
                   </div>

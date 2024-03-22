@@ -3,17 +3,25 @@ import "../src/index.css";
 import "./App.css";
 import "./assets/styles/main.css";
 import { routes } from "./routes";
+import Login from "./pages/auth/login/Login";
 
-function App() {
+const App = () => {
+  const isAuthenticated = localStorage.getItem("logindata"); // Check if the user is authenticated
+
   return (
-    <>
-      <Routes>
-        {routes?.map((i, index) => {
-          return <Route key={index} path={i?.path} element={i?.component}/>;
-        })}
-      </Routes>
-    </>
+    <Routes>
+      <Route path="/" element={<Login />} />
+      {isAuthenticated ? (
+        routes?.map((route, index) => {
+          return (
+            <Route key={index} path={route?.path} element={route?.component} />
+          );
+        })
+      ) : (
+        <Route path="/" element=<Login /> />
+      )}
+    </Routes>
   );
-}
+};
 
 export default App;

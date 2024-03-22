@@ -42,3 +42,33 @@ export const signupSchemaValidataon = Yup.object().shape({
     )
     .required("Mobile number is required"),
 });
+export const withdrawAmountSchemaValidaton = Yup.object().shape({
+  amount: Yup.string().required("Amount is required"),
+  email: Yup.string()
+    .email("Invalid email address format")
+    .required("Email is required"),
+  mobile: Yup.string()
+    .matches(/^[0-9]{10}$/, {
+      message:
+        "Invalid mobile number format. It must be a 10-digit number without dots.",
+    })
+    .max(10, "Mobile should not be more than 10 character")
+    .test(
+      "no-dots",
+      "Dots are not allowed in the mobile number.",
+      (value) => !/\./.test(value)
+    )
+    .required("Mobile number is required"),
+  description: Yup.string()
+    .min(20, "Description must be 20 characters at minimum")
+    .required("Password is required"),
+  bank_name: Yup.string()
+    .min(8, "Bank Name must be 8 characters at minimum")
+    .required("Bank Name is required"),
+  name: Yup.string().required("Holder Name is required"),
+  ifsc: Yup.string()
+    .min(11, "IFSC must be 11 characters at minimum")
+    .max(11, "IFSC should not be more than 11 character")
+    .required("IFSC is required"),
+  account_number: Yup.string().required("Account Number is required"),
+});

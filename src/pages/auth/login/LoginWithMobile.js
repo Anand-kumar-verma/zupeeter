@@ -23,6 +23,7 @@ import { LoginMobileSchemaValidaton } from "../../../Shared/Validation";
 import { zubgmid } from "../../../Shared/color";
 import { endpoint } from "../../../services/urls";
 import CustomCircularProgress from "../../../Shared/CustomCircularProgress";
+import { storeCookies } from "../../../Shared/CookieStorage";
 
 function LoginWithMobile() {
   // const device_id = uuid.v4();
@@ -77,6 +78,7 @@ function LoginWithMobile() {
         sessionStorage.setItem("isAvailableCricketUser", true);
         // get_user_data(response?.data?.UserID);
         setloding(false);
+        storeCookies()
         navigate("/dashboard");
         window.location.reload()
       }

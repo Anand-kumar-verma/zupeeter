@@ -5,9 +5,10 @@ export const rupees = "₹"
  export const baseUrl = "https://admin.gameszone.life"
 
 
-// export const domain = "http://192.168.175.149:9000"
+// export const domain = "http://192.168.18.183:9000"
 // export const domain = "https://app.ferryinfotech.in/"
 export const domain = "https://aviator-backend-p1xp.onrender.com/"
+// export const domain = "https://app.sunlottery.fun/"
 
 
 export const endpoint ={
@@ -23,7 +24,17 @@ export const endpoint ={
   cash_deposit:`${baseUrl}/api/deposit`,
   payment_url:"https://vpayout.com/Upi_controller/insert_fund_request_online",
   get_name_by_referral_code:`${baseUrl}/api/get-user-reffral-name`,
+  payment_request:`${baseUrl}/api/deposit-request`,
+  registration_bonus:`${baseUrl}/api/welcom-bonus`,
+  deposit_history:`${baseUrl}/api/deposit-history`,
+  deposit_bonus:`${baseUrl}/api/deposit-bonus`,
+  referral_bonus:`${baseUrl}/api/refral-bonus`,
+  daily_self_bet_income:`${baseUrl}/api/daily-self-bet-income`,
+  daily_wallet_income:`${baseUrl}/api/daily-wallet-income`,
 
+
+  // https://admin.gameszone.life/api/daily-wallet-income?user_id=86
+  // aviator API's
   aviator_login:`${baseUrl}/api/aviator/login`,
   get_data_by_user_id:`${baseUrl}/api/userProfile`,
   aviator_result:`${baseUrl}/api/aviator/result_cron`,

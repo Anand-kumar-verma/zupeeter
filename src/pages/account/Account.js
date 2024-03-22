@@ -37,14 +37,14 @@ function Account() {
     refetchOnReconnect: true,
   });
   const result = data?.data?.data;
-  
+
   const imge_array = [
     { id: 1, img: dp1 },
     { id: 2, img: dp2 },
     { id: 3, img: dp3 },
     { id: 4, img: dp4 },
   ];
-  console.log(result,"result")
+  console.log(result, "result");
   return (
     <Layout>
       <Container sx={style.container}>
@@ -157,12 +157,8 @@ function Account() {
                   },
                 }}
               >
-                <Typography variant="body1" color="initial">
-                  Bet
-                </Typography>
-                <Typography variant="body1" color="initial">
-                  My betting history
-                </Typography>
+                <p className="!text-sm">Bet</p>
+                <p className="!text-[10px]">My betting history</p>
               </Box>
             </Stack>
           </Box>
@@ -195,12 +191,8 @@ function Account() {
                   },
                 }}
               >
-                <Typography variant="body1" color="initial">
-                  Transaction
-                </Typography>
-                <Typography variant="body1" color="initial">
-                  My Transaction history
-                </Typography>
+                <p className="!text-sm">Transaction</p>
+                <p className="!text-[10px]">My Transaction history</p>
               </Box>
             </Stack>
           </Box>
@@ -366,142 +358,60 @@ function Account() {
             Service center
           </Typography>
 
-          <Stack
-            direction="row"
-            sx={{
-              alignItems: "center",
-              justifyContent: "space-between",
-              flexWrap: "wrap",
-            }}
-          >
-            <Box
-              component={NavLink}
-              to="/SettingCenter"
-              sx={{
-                width: "30%",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-                mb: "10px",
-                "&>p": {
-                  color: "white",
-                  fontSize: "14px",
-                  fontWeight: "500",
-                  mt: "5px",
-                },
-              }}
-            >
-              <Box
-                component="img"
-                src={setting}
-                sx={{ width: "30px", height: "30px" }}
-              ></Box>
-              <Typography>Settings</Typography>
-            </Box>
-            <Box
-              component={NavLink}
-              to="/feedback"
-              sx={{
-                width: "30%",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-                mb: "10px",
-                "&>p": {
-                  color: "white",
-                  fontSize: "14px",
-                  fontWeight: "500",
-                  mt: "5px",
-                },
-              }}
-            >
-              <Box
-                component="img"
-                src={hand}
-                sx={{ width: "30px", height: "30px" }}
-              ></Box>
-              <Typography>Feedback</Typography>
-            </Box>
-            <Box
-              component={NavLink}
-              to="/gameNotification"
-              sx={{
-                width: "30%",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-                mb: "10px",
-                "&>p": {
-                  color: "white",
-                  fontSize: "14px",
-                  fontWeight: "500",
-                  mt: "5px",
-                },
-              }}
-            >
-              <Box
-                component="img"
-                src={notification}
-                sx={{ width: "30px", height: "30px" }}
-              ></Box>
-              <Typography>Notification</Typography>
-            </Box>
-            <Box
-              component={NavLink}
-              to="/promotion/customerLine/"
-              sx={{
-                width: "50%",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-                mb: "10px",
-                mt: "15px",
-                "&>p": {
-                  color: "white",
-                  fontSize: "14px",
-                  fontWeight: "500",
-                  mt: "8px",
-                },
-              }}
-            >
-              <Box
-                component="img"
-                src={customer}
-                sx={{ width: "30px", height: "30px" }}
-              ></Box>
-              <Typography>24/7 Customer service</Typography>
-            </Box>
-            <Box
-              component={NavLink}
-              to="/SettingCenter/LoginPassword"
-              sx={{
-                width: "50%",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-                mb: "10px",
-                mt: "15px",
-                "&>p": {
-                  color: "white",
-                  fontSize: "14px",
-                  fontWeight: "500",
-                  mt: "8px",
-                },
-              }}
-            >
-              <Box
-                component="img"
-                src={user2}
-                sx={{ width: "30px", height: "30px" }}
-              ></Box>
-              <Typography>Change Password</Typography>
-            </Box>
-          </Stack>
+          <div className="!w-full !grid !grid-cols-3 !place-items-center">
+            {[
+              {
+                to: "/account/income-main",
+                name: "Income",
+                logo: balance,
+              },
+              { to: "/SettingCenter", name: "Setting", logo: setting },
+              {
+                to: "/gameNotification",
+                name: "Notification",
+                logo: notification,
+              },
+              {
+                to: "/SettingCenter/LoginPassword",
+                name: "Change Password",
+                logo: user2,
+              },
+              {
+                to: "/promotion/customerLine/",
+                name: "Customer service",
+                logo: customer,
+              },
+              { to: "/feedback", name: "Feedback", logo: hand },
+            ]?.map((i) => {
+              return (
+                <Box
+                  component={NavLink}
+                  to={i.to}
+                  sx={{
+                    width: "30%",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    mb: "10px",
+                    "&>p": {
+                      color: "white",
+                      fontSize: "14px",
+                      fontWeight: "500",
+                      mt: "5px",
+                    },
+                  }}
+                >
+                  <Box
+                    component="img"
+                    src={i.logo}
+                    sx={{ width: "30px", height: "30px" }}
+                  ></Box>
+                  <Typography>{i.name}</Typography>
+                </Box>
+              );
+            })}
+          </div>
         </Box>
         <Box
           sx={{

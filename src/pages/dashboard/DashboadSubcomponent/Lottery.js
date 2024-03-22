@@ -11,6 +11,7 @@ import epicWin from "../../../assets/images/win1/epicWin.jpg";
 import jackpot from "../../../assets/images/win1/jackpot.jpg";
 import kind from "../../../assets/images/win1/kind.jpg";
 import megawin from "../../../assets/images/win1/megawin.jpg";
+import toast from "react-hot-toast";
 
 
 
@@ -45,7 +46,7 @@ const Lottery = () => {
             <Box component="img" sx={style.imgtwo} src={epicWin}></Box>
           </Box>
         </Box>
-        <Box sx={style.roottwo} component={NavLink} to={"/win"}>
+        <Box sx={style.roottwo} component={NavLink}  onClick={()=>toast("Comming Soon !")}>
           <Box sx={{ width: "70%", height: "100%", position: 'relative' }}>
             <Box sx={{
               position: 'absolute', top: 0, left: '0', width: '100%', height: '100%', borderRadius: '10px 0px 0px 10px',
@@ -70,7 +71,7 @@ const Lottery = () => {
             <Box component="img" sx={style.imgtwo} src={jackpot}></Box>
           </Box>
         </Box>
-        <Box sx={style.roottwo} component={NavLink} to={"/win"}>
+        <Box sx={style.roottwo} component={NavLink} onClick={()=>toast("Comming Soon !")}>
           <Box sx={{ width: "70%", height: "100%", position: 'relative' }}>
             <Box sx={{
               position: 'absolute', top: 0, left: '0', width: '100%', height: '100%', borderRadius: '10px 0px 0px 10px',
@@ -95,7 +96,7 @@ const Lottery = () => {
             <Box component="img" sx={style.imgtwo} src={megawin}></Box>
           </Box>
         </Box>
-        <Box sx={style.roottwo} component={NavLink} to={"/trx"}>
+        <Box sx={style.roottwo} component={NavLink} onClick={()=>toast("Comming Soon !")}>
           <Box sx={{ width: "70%", height: "100%", position: 'relative' }}>
             <Box sx={{
               position: 'absolute', top: 0, left: '0', width: '100%', height: '100%', borderRadius: '10px 0px 0px 10px',

@@ -69,7 +69,7 @@ const MyHistory = ({ gid }) => {
             : " My Five GO Record"}
         </Typography>
       </Stack>
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-[2px]">
         {visibleRows?.map((i) => {
           return (
             <div>
@@ -125,7 +125,7 @@ const MyHistory = ({ gid }) => {
                   </p>
                   <div className="!w-full !grid !grid-cols-2 !px-2">
                     <span>Period</span>
-                    <span>202403141441</span>
+                    <span>{i?.gamesno}</span>
                     <span>Contract Money</span>
                     <span>1.00</span>
                     <span>Contract Count</span>
@@ -135,11 +135,13 @@ const MyHistory = ({ gid }) => {
                     <span>Fee</span>
                     <span>0.03234</span>
                     <span>Open Price</span>
-                    <span>202403141441</span>
+                    <span>{i?.gamesno}</span>
                     <span>Result</span>
-                    <span>undefined 
-                    <span 
-                    className={`
+                    
+                    <span>
+                      undefined
+                      <span
+                        className={`
                   ${
                     (i?.number === "0" &&
                       "!bg-gradient-to-t from-red-400 to-violet-400") ||
@@ -163,8 +165,12 @@ const MyHistory = ({ gid }) => {
                   }
                   transparentColor font-bold text-xl
                   `}
-                    >Green</span>
-                     {i?.number <= 4 ? "Small" : "Big"}</span>
+                      >
+                        Green
+                      </span>
+                      {i?.number <= 4 ? "Small" : "Big"}
+                    </span>
+
                     <span>Select</span>
                     <span
                       className={`
@@ -202,7 +208,7 @@ const MyHistory = ({ gid }) => {
                         ? "Red"
                         : i?.number === "20"
                         ? "Voilet"
-                        : i?.num}
+                        : i?.number}
                     </span>
                     <span>Status</span>
                     <span

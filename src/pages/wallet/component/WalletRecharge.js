@@ -6,6 +6,7 @@ import {
   Box,
   Button,
   Container,
+  Dialog,
   IconButton,
   InputAdornment,
   OutlinedInput,
@@ -32,8 +33,10 @@ import payNameIcon2 from "../../../assets/payNameIcon2.png";
 import Layout from "../../../component/Layout/Layout";
 import { cashDepositFn, walletamount } from "../../../services/apicalling";
 import { endpoint, rupees } from "../../../services/urls";
-
+import * as uuid from "uuid";
+import QRCode from "react-qr-code";
 function WalletRecharge() {
+  // console.log(uuid.v4(), "This is response");
   const audioRefMusic = React.useRef(null);
   const login_data = localStorage.getItem("logindata");
   const aviator_data = localStorage.getItem("aviator_data");
@@ -42,7 +45,10 @@ function WalletRecharge() {
   const [deposit_req_data, setDeposit_req_data] = React.useState();
   const [loding, setloding] = React.useState(false);
   const [show_time, set_show_time] = React.useState("0_0");
-  const [amount,setAmount] = React.useState({wallet:0,winning:0})
+  const [amount, setAmount] = React.useState({ wallet: 0, winning: 0 });
+  const [ipAddress, setIpAddress] = React.useState(null);
+  const client = useQueryClient();
+
   const navigate = useNavigate();
   const goBack = () => {
     navigate(-1);
@@ -51,7 +57,7 @@ function WalletRecharge() {
   React.useEffect(() => {
     handlePlaySound();
   }, []);
- const client = useQueryClient()
+
   const handlePlaySound = async () => {
     try {
       if (audioRefMusic?.current?.pause) {
@@ -64,15 +70,14 @@ function WalletRecharge() {
       console.error("Error during play:", error);
     }
   };
- 
 
-   const walletamountFn = async () => {
+  const walletamountFn = async () => {
     try {
       const response = await axios.get(
         `${endpoint.userwallet}?userid=${user_id}`
       );
 
-      setAmount(response?.data?.data)
+      setAmount(response?.data?.data);
       // console.log(response,"response")
     } catch (e) {
       toast(e?.message);
@@ -80,43 +85,43 @@ function WalletRecharge() {
     }
   };
 
-  React.useEffect(()=>{
-    walletamountFn()
-  },[])
-
+  React.useEffect(() => {
+    walletamountFn();
+  }, []);
 
   async function depositFunction(amnt) {
-    if(!amnt){
-      toast("Please Enter the amount")
+    if (!amnt) {
+      toast("Please Enter the amount");
       return;
     }
     setloding(true);
     // cashDepositFn();
-  const reqbody = {
-    userid: user_id,
-    amount: amnt || 1000,
-    transection_id: 123,
-    status: "success",
-  }
+    const reqbody = {
+      userid: user_id,
+      amount: amnt || 1000,
+      transection_id: 123,
+      status: "success",
+    };
 
-    try{
-      const res = axios.get(`${endpoint.cash_deposit}`,{
-        params:reqbody
-      })
-      if(res){
+    try {
+      const res = axios.get(`${endpoint.cash_deposit}`, {
+        params: reqbody,
+      });
+      if (res) {
         walletamountFn();
         // client.refetchQueries("walletamount_new");
         client.refetchQueries("walletamount");
-        toast("Deposit Amount Successfully")
+        toast("Deposit Amount Successfully");
       }
-  }catch(e){
-    console.log(e)
-  }
+    } catch (e) {
+      console.log(e);
+    }
     setloding(false);
   }
 
   const initialValues = {
     amount: 100,
+    all_data: { t_id: "", amount: "", date: "" },
   };
 
   const fk = useFormik({
@@ -129,17 +134,45 @@ function WalletRecharge() {
       fd.append("Name", user_name);
       fd.append("TransactionID", `${Date.now()}${user_id}`);
 
-      // getDepositResponse(fd);
-      depositFunction(fk.values.amount)
+      getDepositResponse(fd);
+      paymentRequest(fd, fk.values.amount);
+      fk.setFieldValue("all_data", {
+        t_id: fd.get("TransactionID") || "",
+        amount: fk.values.amount,
+        date: new Date(),
+      });
     },
   });
+
+  async function paymentRequest(fd, amnt) {
+    if (!amnt) {
+      toast("Please Enter the amount");
+      return;
+    }
+    setloding(true);
+    const reqbody = {
+      user_id: user_id,
+      amount: amnt || 1000,
+      transection_id: fd.get("TransactionID"),
+    };
+    const fdata = new FormData();
+    fdata.append("user_id", reqbody.user_id);
+    fdata.append("amount", reqbody.amount);
+    fdata.append("transection_id", reqbody.transection_id);
+    try {
+      const res = axios.post(`${endpoint.payment_request}`, fdata);
+      console.log(res, "responsedatarequestr");
+    } catch (e) {
+      console.log(e);
+    }
+    setloding(false);
+  }
 
   async function getDepositResponse(fd) {
     setloding(true);
     try {
       const response = await axios.post(`${endpoint.payment_url}`, fd);
-      console.log(response, "THis is api response");
-
+      console.log(response?.data, "-------");
       if (response?.data?.status === "SUCCESS") {
         setDeposit_req_data(response?.data);
         toast.success("Payment Request Success!");
@@ -151,11 +184,24 @@ function WalletRecharge() {
     setloding(false);
   }
 
-  // console.log(deposit_req_data, "This is response");
+  // React.useEffect(() => {
+  //   const fetchIpAddress = async () => {
+  //     try {
+  //       const response = await axios.get('https://api.ipify.org?format=json');
+  //       setIpAddress(response.data.ip);
+  //     } catch (error) {
+  //       console.error('Error fetching IP address:', error);
+  //     }
+  //   };
+
+  //   fetchIpAddress();
+  // }, []);
+
+  // console.log(ipAddress,deposit_req_data,"hiiii");
 
   React.useEffect(() => {
     if (deposit_req_data) {
-      let min = 0;
+      let min = 1;
       let sec = 59;
       const interval = setInterval(() => {
         set_show_time(`${min}_${sec}`);
@@ -167,7 +213,8 @@ function WalletRecharge() {
 
           if (min < 0) {
             sec = 59;
-            min = 0;
+            min = 1;
+            console.log("Anand Kumar Verma");
             clearInterval(interval);
             setDeposit_req_data();
             set_show_time("0_0");
@@ -259,7 +306,10 @@ function WalletRecharge() {
               }}
             >
               {" "}
-              ₹ {Number(Number(amount?.wallet || 0)+Number(amount?.winning || 0))?.toFixed(2)}
+              ₹{" "}
+              {Number(
+                Number(amount?.wallet || 0) + Number(amount?.winning || 0)
+              )?.toFixed(2)}
             </Typography>
             <CachedIcon sx={{ color: "white" }} />
           </Stack>
@@ -570,7 +620,7 @@ function WalletRecharge() {
               ) : (
                 <div style={style.paytmbtntwo} className="mt-5">
                   <div className="flex w-full justify-between items-center">
-                    <span>21321</span>
+                    <span>{fk.values.all_data?.t_id}</span>
                     <div>
                       <Button
                         variant="contained"
@@ -586,7 +636,10 @@ function WalletRecharge() {
                         {show_time.split("_")?.[1]?.padEnd(2, "0")}
                       </span>
                     </div>
-                    <span> {rupees} 123</span>
+                    <span>
+                      {" "}
+                      {rupees} {fk.values.all_data?.amount}
+                    </span>
                   </div>
                   <div className="!h-[1px] w-full !bg-red-500 !mt-2"></div>
                   <div className="flex w-full justify-between !text-[15px]">
@@ -595,11 +648,15 @@ function WalletRecharge() {
                   </div>
                   <div className="flex w-full justify-between !text-[12px]">
                     <span>Date</span>
-                    <span>{moment(new Date()).format("DD-MM-YYYY")}</span>
+                    <span>
+                      {moment(fk.values.all_data?.date).format("DD-MM-YYYY")}
+                    </span>
                   </div>
                   <div className="flex w-full justify-between !text-[12px]">
                     <span>Time</span>
-                    <span>{moment(new Date()).format("HH:mm:ss")}</span>
+                    <span>
+                      {moment(fk.values.all_data?.date).format("HH:mm:ss")}
+                    </span>
                   </div>
                 </div>
               )}
@@ -673,6 +730,19 @@ function WalletRecharge() {
           }, [])}
         </Box>
         <CustomCircularProgress isLoading={loding} />
+        {/* deposit_req_data */}
+        {deposit_req_data && (
+          <Dialog open={deposit_req_data}>
+            <div className="!bg-white !p-2">
+            <QRCode value={deposit_req_data?.upi_qr_code} />
+              <p className="!text-center">
+                {" "}
+                {show_time.split("_")?.[0]}:
+                {show_time.split("_")?.[1]?.padEnd(2, "0")}
+              </p>
+            </div>
+          </Dialog>
+        )}
       </Container>
     </Layout>
   );

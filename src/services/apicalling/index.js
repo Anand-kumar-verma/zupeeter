@@ -3,7 +3,6 @@ import { endpoint } from "../urls";
 import toast from "react-hot-toast";
 const login_data = localStorage.getItem("logindata");
 const user_id = login_data && JSON.parse(login_data)?.UserID;
-
 export const MyProfileDataFn = async () => {
   try {
     const response = await axios.get(`${endpoint.profiledata}?id=${user_id}`);
@@ -13,9 +12,7 @@ export const MyProfileDataFn = async () => {
     console.log(e);
   }
 };
-
 export const get_user_data_fn = async () => {
-  // console.log(id);
   try {
     const response = await axios.get(
       `${endpoint.get_data_by_user_id}?id=${user_id}`,
@@ -39,7 +36,6 @@ export const get_user_data_fn = async () => {
     console.error(e);
   }
 };
-
 export const CandidateNameFn = async (reqbody) => {
   try {
     const response = await axios.get(`${endpoint.get_name_by_referral_code}`,{
@@ -51,7 +47,6 @@ export const CandidateNameFn = async (reqbody) => {
     console.log(e);
   }
 };
-
 export const MyHistoryFn = async () => {
   try {
     const response = await axios.get(
@@ -63,7 +58,6 @@ export const MyHistoryFn = async () => {
     console.log(e);
   }
 };
-
 export const cashDepositFn = async(reqbody)=>{
   try{
       const res = axios.get(`${endpoint.cash_deposit}`,{
@@ -77,7 +71,6 @@ export const cashDepositFn = async(reqbody)=>{
     console.log(e)
   }
 }
-
 export const getAllBetsAviator = async () => {
   try {
     const response = await axios.get(
@@ -89,11 +82,76 @@ export const getAllBetsAviator = async () => {
     console.log(e);
   }
 };
-
 export const walletamount = async () => {
   try {
     const response = await axios.get(
       `${endpoint.userwallet}?userid=${user_id}`
+    );
+    return response;
+  } catch (e) {
+    toast(e?.message);
+    console.log(e);
+  }
+};
+export const depositHistoryFunction = async () => {
+  try {
+    const response = await axios.get(
+      `${endpoint.deposit_history}?user_id=${user_id}`
+    );
+    return response;
+  } catch (e) {
+    toast(e?.message);
+    console.log(e);
+  }
+};
+export const registrationBonusFn = async () => {
+  try {
+    const response = await axios.get(
+      `${endpoint.registration_bonus}?user_id=${user_id}`
+    );
+    return response;
+  } catch (e) {
+    toast(e?.message);
+    console.log(e);
+  }
+};
+export const depositBonusFn = async () => {
+  try {
+    const response = await axios.get(
+      `${endpoint.deposit_bonus}?user_id=${user_id}`
+    );
+    return response;
+  } catch (e) {
+    toast(e?.message);
+    console.log(e);
+  }
+};
+export const referralBonusFn = async () => {
+  try {
+    const response = await axios.get(
+      `${endpoint.referral_bonus}?user_id=${user_id}`
+    );
+    return response;
+  } catch (e) {
+    toast(e?.message);
+    console.log(e);
+  }
+};
+export const dailySelfBetIncomeFn = async () => {
+  try {
+    const response = await axios.get(
+      `${endpoint.daily_self_bet_income}?user_id=${user_id}`
+    );
+    return response;
+  } catch (e) {
+    toast(e?.message);
+    console.log(e);
+  }
+};
+export const dailyWalletIncomeFn = async () => {
+  try {
+    const response = await axios.get(
+      `${endpoint.daily_wallet_income}?user_id=${user_id}`
     );
     return response;
   } catch (e) {

@@ -4,7 +4,6 @@ import {
   Box,
   Button,
   Checkbox,
-  CircularProgress,
   Container,
   FormControl,
   FormControlLabel,
@@ -16,33 +15,24 @@ import {
   Typography,
 } from "@mui/material";
 import axios from "axios";
+import crypto from "crypto-js";
 import { useFormik } from "formik";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import {
-  NavLink,
-  useNavigate,
-  useParams,
-  useSearchParams,
-} from "react-router-dom";
+import { useQuery } from "react-query";
+import { NavLink, useNavigate } from "react-router-dom";
+import { storeCookies } from "../../../Shared/CookieStorage";
+import CustomCircularProgress from "../../../Shared/CustomCircularProgress";
+import { signupSchemaValidataon } from "../../../Shared/Validation";
 import { zubgbackgrad } from "../../../Shared/color";
 import logo from "../../../assets/images/logo.png";
 import poster from "../../../assets/images/poster4.jpg";
+import { CandidateNameFn } from "../../../services/apicalling";
 import { endpoint } from "../../../services/urls";
-import { signupSchemaValidataon } from "../../../Shared/Validation";
-import CustomCircularProgress from "../../../Shared/CustomCircularProgress";
-import { CandidateNameFn, MyProfileDataFn } from "../../../services/apicalling";
-import { useQuery } from "react-query";
-import crypto from 'crypto-js';
 
 function Register() {
-  const [searchParams] = useSearchParams();
-  console.log(searchParams?.get("ref"),"value")
-  const refValue =  searchParams?.get("ref")?.split(" ")
- 
-  const refParam = searchParams?.get("ref") && crypto.AES.decrypt(searchParams?.get("ref")?.replace(" ","+"), 'anand')?.toString(crypto.enc.Utf8)
-  console.log(searchParams?.get("ref")?.replace(" ","+"),"hii")
-  console.log(refParam,"valudddddddd")
+  const url = new URL(window.location.href);
+  const [refParam, setrefParam] = useState("");
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = React.useState(false);
   const [show_confirm_password, set_show_confirm_password] =
@@ -55,13 +45,24 @@ function Register() {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
+
+  useEffect(() => {
+    const value =
+      url.searchParams.get("ref") &&
+      crypto.AES.decrypt(
+        url.searchParams.get("ref")?.split(" ")?.join("+"),
+        "anand"
+      )?.toString(crypto.enc.Utf8);
+    setrefParam(value);
+  }, [url.searchParams.get("ref")]);
+
   const initialValue = {
     email: "",
     mobile: "",
     name: "",
     password: "",
     confirmed_password: "",
-    referral_code: refParam?.substring(1,refParam.length-1) || "",
+    referral_code: refParam?.substring(1, refParam.length - 1) || "",
   };
 
   const fk = useFormik({
@@ -79,7 +80,7 @@ function Register() {
         password: fk.values.password,
         confirmed_password: fk.values.confirmed_password,
         referral_code: fk.values.referral_code,
-        name:fk.values.name,
+        name: fk.values.name,
         privacy_policy: false,
       };
 
@@ -106,11 +107,12 @@ function Register() {
         },
       });
 
-      if(response?.data?.status === "200"){
+      if (response?.data?.status === "200") {
         localStorage.setItem("logindata", JSON.stringify(response?.data));
         sessionStorage.setItem("isAvailableUser", true);
         sessionStorage.setItem("isAvailableCricketUser", true);
         navigate("/dashboard");
+        storeCookies();
         document.location.reload();
       }
 
@@ -215,7 +217,7 @@ function Register() {
                   {fk.touched.referral_code && fk.errors.referral_code ? (
                     <div className="error">{fk.errors.referral_code}</div>
                   ) : result ? (
-                    <div className="no-error">{result}</div>
+                    <div className="no-error">Referral From: {result}</div>
                   ) : (
                     <div className="error">Invalid Referral Id</div>
                   )}
@@ -228,7 +230,7 @@ function Register() {
                   </Stack>
                   <TextField
                     id="name"
-                    placeholder="Enter Mobile Number"
+                    placeholder="Enter NameAnand Kumar Verma"
                     className="loginfields"
                     name="name"
                     type="text"

@@ -2,9 +2,20 @@ import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
 import FitbitIcon from "@mui/icons-material/Fitbit";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import TelegramIcon from "@mui/icons-material/Telegram";
-import { Avatar, Box, Button, Container, Dialog, DialogContent, Slide, Stack, TextField, Typography } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  Button,
+  Container,
+  Dialog,
+  DialogContent,
+  Slide,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
 import copy from "clipboard-copy";
-import CryptoJS from 'crypto-js';
+import CryptoJS from "crypto-js";
 import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -18,7 +29,7 @@ import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import CustomCircularProgress from "../../Shared/CustomCircularProgress";
 import { gray, zubgback, zubgbackgrad, zubgmid } from "../../Shared/color";
-import aviator_game_image from '../../assets/aviator_game_image.png';
+import aviator_game_image from "../../assets/aviator_game_image.png";
 import one from "../../assets/images/1.jpg";
 import two from "../../assets/images/2.jpg";
 import three from "../../assets/images/3.jpg";
@@ -38,19 +49,26 @@ import winp3 from "../../assets/images/winp3.jpg";
 import winp4 from "../../assets/images/winp4.jpg";
 import winp5 from "../../assets/images/winp5.jpg";
 import winp6 from "../../assets/images/winp6.jpg";
-import sajid from '../../assets/sajid.PNG';
-import tanveer from '../../assets/tanveer.PNG';
+import sajid from "../../assets/sajid.PNG";
+import tanveer from "../../assets/tanveer.PNG";
 import Layout from "../../component/Layout/Layout";
-import { please_reconnect_the_serverFun, waitingAviatorFun, } from "../../redux/slices/counterSlice";
-import { MyProfileDataFn, get_user_data_fn, walletamount } from "../../services/apicalling";
+import {
+  please_reconnect_the_serverFun,
+  waitingAviatorFun,
+} from "../../redux/slices/counterSlice";
+import {
+  MyProfileDataFn,
+  get_user_data_fn,
+  walletamount,
+} from "../../services/apicalling";
 import Lottery from "./DashboadSubcomponent/Lottery";
 import Original from "./DashboadSubcomponent/Original";
 import Sports from "./DashboadSubcomponent/Sports";
 import Notification from "./Notification";
+import { checkTokenValidity } from "../../Shared/CookieStorage";
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
-
 
 function Dashboard() {
   const dispatch = useDispatch();
@@ -62,7 +80,16 @@ function Dashboard() {
   const [type_of_game, settype_of_game] = React.useState("");
   const login_data = localStorage.getItem("logindata");
   const user_id = JSON.parse(login_data).UserID;
-  const [referal_code,setReferral_code] = useState('')
+  const [referal_code, setReferral_code] = useState("");
+
+  useEffect(() => {
+    if (!checkTokenValidity()) {
+      localStorage.clear();
+      sessionStorage.clear();
+      window.location.href = "/"; // Redirect to login page
+    }
+  }, []);
+
   const functionTOCopy = (value) => {
     copy(value);
     toast.success("Copied to clipboard!");
@@ -74,19 +101,28 @@ function Dashboard() {
 
   const newdata = data?.data?.data || 0;
 
-  const { isLoading:profile_loding, data:profile } = useQuery(["myprofile"], () => MyProfileDataFn(), {
-    refetchOnMount: false,
-    refetchOnReconnect: true,
-  });
+  const { isLoading: profile_loding, data: profile } = useQuery(
+    ["myprofile"],
+    () => MyProfileDataFn(),
+    {
+      refetchOnMount: false,
+      refetchOnReconnect: true,
+    }
+  );
 
   const result = profile?.data?.data;
 
-  useEffect(()=>{
-    console.log(result?.referral_code,"nandn")
-    setReferral_code(CryptoJS.AES.encrypt(JSON.stringify(result?.referral_code), 'anand').toString())
-    console.log(referal_code,"converted value")
-  },[result])
-  
+  useEffect(() => {
+    console.log(result?.referral_code, "nandn");
+    setReferral_code(
+      CryptoJS.AES.encrypt(
+        JSON.stringify(result?.referral_code),
+        "anand"
+      ).toString()
+    );
+    console.log(referal_code, "converted value");
+  }, [result]);
+
   const initialValues = {
     //  referrel_code: `https://play.ferryinfotech.in/register?ref=${referal_code}`,
     referrel_code: `https://play.ferryinfotech.in/register?ref=${referal_code}`,
@@ -94,14 +130,11 @@ function Dashboard() {
 
   const fk = useFormik({
     initialValues: initialValues,
-    enableReinitialize:true,
+    enableReinitialize: true,
     onSubmit: () => {
       console.log("This is handle submit");
     },
   });
-
-
- 
 
   const handleClosepolicy = () => {
     setpoicy(false);
@@ -127,20 +160,16 @@ function Dashboard() {
     }, 3000);
   }, []);
 
-
   const scrollToSection = (sectionId) => {
     const section = document.getElementById(sectionId);
     if (section) {
-      section.scrollIntoView({ behavior: 'smooth' });
+      section.scrollIntoView({ behavior: "smooth" });
     }
   };
 
-  useEffect(()=>{
-    !aviator_data &&  get_user_data_fn()
-  },[aviator_data])
-
-
-
+  useEffect(() => {
+    !aviator_data && get_user_data_fn();
+  }, [aviator_data]);
 
   const game_data = [
     {
@@ -154,7 +183,6 @@ function Dashboard() {
     {
       name: "Sports",
       img: "https://ossimg.bdgadminbdg.com/IndiaBDG/gamecategory/gamecategory_20240110061915xrqy.png",
-
     },
     {
       name: "Slots",
@@ -287,9 +315,12 @@ function Dashboard() {
                 Deposit
               </Typography>
             </Box>
-            <Box sx={{ textAlign: 'center' }}>
+            <Box sx={{ textAlign: "center" }}>
               <Typography variant="body1" color="initial" className="b-val">
-                ₹ {Number(Number(newdata?.wallet || 0)+Number(newdata?.winning || 0))?.toFixed(2)}
+                ₹{" "}
+                {Number(
+                  Number(newdata?.wallet || 0) + Number(newdata?.winning || 0)
+                )?.toFixed(2)}
               </Typography>
               <Typography variant="body1" color="initial" className="b-valp">
                 Available Balance
@@ -369,7 +400,16 @@ function Dashboard() {
             {game_data?.map((i) => {
               return (
                 <a
-                  onClick={() => { scrollToSection('games'); settype_of_game(i?.name); }}
+                  onClick={() => {
+                    if (
+                      i.name === "Slots" ||
+                      i.name === "Popular" ||
+                      i.name === "Casino"
+                    )
+                      return toast("Comming Soon !");
+                    scrollToSection("games");
+                    settype_of_game(i?.name);
+                  }}
                   href={`#${i?.name}`}
                   style={{
                     // background:
@@ -377,7 +417,7 @@ function Dashboard() {
                     background: zubgbackgrad,
                     padding: "10px",
                     marginBottom: "10px",
-                    width: '95%'
+                    width: "95%",
                   }}
                   className="cursor-pointer rounded-lg  flex flex-col items-center justify-center"
                 >
@@ -389,10 +429,16 @@ function Dashboard() {
               );
             })}
           </div>
-          <Box id='games' >
-            <div id="game_lottery">{type_of_game === "Lottery" && <Lottery />}</div>
-            <div id="game_original">{type_of_game === "Aviator" && <Original />}</div>
-            <div id="game_sports">{type_of_game === "Sports" && <Sports />}</div>
+          <Box id="games">
+            <div id="game_lottery">
+              {type_of_game === "Lottery" && <Lottery />}
+            </div>
+            <div id="game_original">
+              {type_of_game === "Aviator" && <Original />}
+            </div>
+            <div id="game_sports">
+              {type_of_game === "Sports" && <Sports />}
+            </div>
           </Box>
           <Box sx={styles.wininfoouter}>
             <Typography
@@ -567,7 +613,9 @@ function Dashboard() {
               <Box
                 component="img"
                 // src={pro1c}
-                src={"https://lh3.googleusercontent.com/a/ACg8ocJ_lQQ7XjcLthKctAe1u5A6Fv8JJUQ0ugECmc7RkiZmKfI=s360-c-no"}
+                src={
+                  "https://lh3.googleusercontent.com/a/ACg8ocJ_lQQ7XjcLthKctAe1u5A6Fv8JJUQ0ugECmc7RkiZmKfI=s360-c-no"
+                }
                 sx={{
                   width: "50px",
                   borderRadius: "50%",
@@ -646,11 +694,24 @@ function Dashboard() {
               aria-describedby="alert-dialog-slide-description"
               PaperProps={{ className: `!max-w-[1000px] ${gray}` }}
             >
-              <div style={{ background: zubgmid, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '15px' }}>
-                <p style={{ color: 'white', fontSize: '14px' }}>Notification</p>
-                <RxCross2 style={{ color: 'white' }} onClick={handleClosepolicy} />
+              <div
+                style={{
+                  background: zubgmid,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  padding: "15px",
+                }}
+              >
+                <p style={{ color: "white", fontSize: "14px" }}>Notification</p>
+                <RxCross2
+                  style={{ color: "white" }}
+                  onClick={handleClosepolicy}
+                />
               </div>
-              <DialogContent style={{ background: zubgback }}><Notification handleClosepolicy={handleClosepolicy} /></DialogContent>
+              <DialogContent style={{ background: zubgback }}>
+                <Notification handleClosepolicy={handleClosepolicy} />
+              </DialogContent>
             </Dialog>
           )}
         </Container>

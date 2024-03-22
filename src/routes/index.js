@@ -11,7 +11,6 @@ import Mail from "../pages/account/Component/Mail";
 import Notification from "../pages/account/Component/Notification";
 import SettingCenter from "../pages/account/Component/SettingCenter";
 import Activity from "../pages/activity/Activity";
-import Login from "../pages/auth/login/Login";
 import Register from "../pages/auth/register/Register";
 import Dashboard from "../pages/dashboard/Dashboard";
 import Withdrawl from "../pages/dashboard/Withdrawl";
@@ -42,6 +41,15 @@ import WithdrawlCash from "../cricket/transacton/WithdrawlCash";
 import CricketWalletFundDepositForm from "../cricket/transacton/CricketWalletFundDepositForm";
 import CricketRegistrationForm from "../cricket/cricketauth/CricketRegistrationForm";
 import Cricket from "../cricket/Dashboard/Cricket";
+import MainPageOFIncome from "../pages/income/MainPageOFIncome";
+import RegistrationBonus from "../pages/income/incomeSubSection/RegistrationBonus";
+import DepositBonus from "../pages/income/incomeSubSection/DepositBonus";
+import ReferralBonus from "../pages/income/incomeSubSection/ReferralBonus";
+import DailyCashBackBonus from "../pages/income/incomeSubSection/DailyCashBackBonus";
+import DailySalaryBonus from "../pages/income/incomeSubSection/DailySalaryBonus";
+import SelfTradingBonus from "../pages/income/incomeSubSection/SelfTradingBonus";
+import TeamTradingBonus from "../pages/income/incomeSubSection/TeamTradingBonus";
+import TeamRewardBonus from "../pages/income/incomeSubSection/TeamRewardBonus";
 
 export const routes = [
     {
@@ -116,10 +124,10 @@ export const routes = [
         path:"/gameNotification",
         component:<GameNotification/>
     },
-    {
-        path:"/",
-        component:<Login/>
-    },
+    // {
+    //     path:"/",
+    //     component:<Login/>
+    // },
     {
         path:"/test",
         component:<Test/>
@@ -219,5 +227,41 @@ export const routes = [
     {
         path: "/cricket",
         component: <Cricket/>
+    },
+    {
+        path: "/account/income-main",
+        component: <MainPageOFIncome/>
+    },
+    {
+        path: "/account/income-main/registration-bonus",
+        component: <RegistrationBonus/>
+    },
+    {
+        path: "/account/income-main/deposit-bonus",
+        component: <DepositBonus/>
+    },
+    {
+        path: "/account/income-main/referral-bonus",
+        component: <ReferralBonus/>
+    },
+    {
+        path: "/account/income-main/daily-cash-back-bonus",
+        component: <DailyCashBackBonus/>
+    },
+    {
+        path: "/account/income-main/daily-salary-bonus",
+        component: <DailySalaryBonus/>
+    },
+    {
+        path: "/account/income-main/self-trading-bonus",
+        component: <SelfTradingBonus/>
+    },
+    {
+        path: "/account/income-main/team-trading-bonus",
+        component: <TeamTradingBonus/>
+    },
+    {
+        path: "/account/income-main/team-reward-bonus",
+        component: <TeamRewardBonus/>
     },
 ]

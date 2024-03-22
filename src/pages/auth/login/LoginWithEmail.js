@@ -23,6 +23,7 @@ import CustomCircularProgress from "../../../Shared/CustomCircularProgress";
 import { LoginEmailSchemaValidaton } from "../../../Shared/Validation";
 import { zubgmid } from "../../../Shared/color";
 import { endpoint } from "../../../services/urls";
+import { storeCookies } from "../../../Shared/CookieStorage";
 
 function LoginWithEmail() {
   // const device_id = uuid.v4();
@@ -80,6 +81,7 @@ function LoginWithEmail() {
         sessionStorage.setItem("isAvailableCricketUser", true);
         // get_user_data(response?.data?.UserID);
         setloding(false);
+        storeCookies()
         navigate("/dashboard");
         window.location.reload();
 

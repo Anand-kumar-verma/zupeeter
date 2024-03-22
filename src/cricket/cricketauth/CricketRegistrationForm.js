@@ -390,7 +390,7 @@ function CricketRegistrationForm() {
       </Box>
       {openDialogBox && (
         <Dialog open={openDialogBox} onClose={() => setOpenDialogBox(false)}>
-          <Box mt={3} className="!text-black !p-5 !w-[20vw]">
+          <Box mt={3} className="!text-black !p-5 lg:!w-[20vw] !w-[100%]">
             <p className="!text-black">Service Provider:</p>
             <div className="grid grid-cols-2 !border-2 !border-black !p-1">
               <p className="!text-black  !border-r !border-b !border-black">
