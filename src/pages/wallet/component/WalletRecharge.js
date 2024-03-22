@@ -35,6 +35,7 @@ import { cashDepositFn, walletamount } from "../../../services/apicalling";
 import { endpoint, rupees } from "../../../services/urls";
 import * as uuid from "uuid";
 import QRCode from "react-qr-code";
+import { cashDepositRequestValidationSchema } from "../../../Shared/Validation";
 function WalletRecharge() {
   // console.log(uuid.v4(), "This is response");
   const audioRefMusic = React.useRef(null);
@@ -120,12 +121,13 @@ function WalletRecharge() {
   }
 
   const initialValues = {
-    amount: 100,
+    amount: localStorage.getItem("amount_set") || 100,
     all_data: { t_id: "", amount: "", date: "" },
   };
 
   const fk = useFormik({
     initialValues: initialValues,
+    validationSchema: cashDepositRequestValidationSchema,
     onSubmit: () => {
       const fd = new FormData();
       fd.append("UserID", "7704002732");
@@ -141,6 +143,7 @@ function WalletRecharge() {
         amount: fk.values.amount,
         date: new Date(),
       });
+      localStorage.removeItem("amount_set")
     },
   });
 
@@ -613,6 +616,9 @@ function WalletRecharge() {
                   </InputAdornment>
                 }
               />
+              {fk.touched.amount && fk.errors.amount && (
+                <div className="error">{fk.errors.amount}</div>
+              )}
               {!deposit_req_data ? (
                 <Button sx={style.paytmbtntwo} onClick={fk.handleSubmit}>
                   Deposit
@@ -734,8 +740,8 @@ function WalletRecharge() {
         {deposit_req_data && (
           <Dialog open={deposit_req_data}>
             <div className="!bg-white !p-2">
-            <QRCode value={deposit_req_data?.upi_qr_code} />
-              <p className="!text-center">
+              <QRCode value={deposit_req_data?.upi_qr_code} />
+              <p className="!text-center !text-blue-600 !text-lg">
                 {" "}
                 {show_time.split("_")?.[0]}:
                 {show_time.split("_")?.[1]?.padEnd(2, "0")}

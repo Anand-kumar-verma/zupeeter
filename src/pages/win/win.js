@@ -38,7 +38,8 @@ function Win() {
       console.log(e);
     }
   };
-  const amount = data?.data?.data?.wallet || 0;
+  const amount = data?.data?.data || 0;
+
   const [opendialogbox, setOpenDialogBox] = useState(false);
   const isAppliedbet = localStorage.getItem("betApplied");
   const dummycounter = useSelector((state) => state.aviator.dummycounter);
@@ -90,7 +91,11 @@ function Win() {
             </Box>
             <Box>
               <Typography variant="body1" color="initial" className="b-val">
-                ₹ {Number(amount || 0)?.toFixed(2)}
+                ₹{" "}
+                {Number(
+                  Number(amount?.wallet || 0) + Number(amount?.winning || 0) ||
+                    0
+                )?.toFixed(2)}
               </Typography>
               <Typography variant="body1" color="initial" className="b-valp">
                 Available Balance

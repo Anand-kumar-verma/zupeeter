@@ -2,7 +2,8 @@ export const rupees = "₹"
 
 //  export const baseUrl = "https://task.sabrikhidmat.org"
 //  export const baseUrl = "https://bike.vpayout.com"
- export const baseUrl = "https://admin.gameszone.life"
+ export const baseUrl = "https://admin.sunlottery.fun"
+//  export const baseUrl = "https://admin.gameszone.life"
 
 
 // export const domain = "http://192.168.18.183:9000"
@@ -23,6 +24,7 @@ export const endpoint ={
   color_winning:`${baseUrl}/api/colour_winning`,
   cash_deposit:`${baseUrl}/api/deposit`,
   payment_url:"https://vpayout.com/Upi_controller/insert_fund_request_online",
+  withdraw_payment:`${baseUrl}/api/payout-request`,
   get_name_by_referral_code:`${baseUrl}/api/get-user-reffral-name`,
   payment_request:`${baseUrl}/api/deposit-request`,
   registration_bonus:`${baseUrl}/api/welcom-bonus`,

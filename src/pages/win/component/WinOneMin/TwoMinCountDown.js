@@ -302,7 +302,7 @@ const TwoMinCountDown = () => {
             }, [show_this_three_min_time_sec])}
           </Stack>
           <Typography variant="h3" color="initial" className="winTexttwo">
-            {Number(nextStpe) + 1}
+          {(Number(nextStpe) + 1)?.toString()?.padStart(7,"0")}
           </Typography>
         </Box>
       </Box>

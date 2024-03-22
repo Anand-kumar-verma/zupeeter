@@ -10,7 +10,7 @@ const Notification = ({ handleClosepolicy }) => {
         ⭐️ Welcome Dear Member ⭐️
       </p>
       <Box className="mt-2" sx={{ '&>p': { color: 'white', fontSize: '12px' } }}>
-        <p className=" pl-10 !text-white">⭐️ Game Zone Operating 5 Years+</p>
+        <p className=" pl-10 !text-white">⭐️ Sun Lottery Operating 5 Years+</p>
         <p className=" pl-10 !text-white">⭐️ High Quality Agent Benefits</p>
         <p className=" pl-10 !text-white">⭐️ No.1 Game Platform</p>
       </Box>

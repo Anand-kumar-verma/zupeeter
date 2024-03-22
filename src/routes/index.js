@@ -50,6 +50,8 @@ import DailySalaryBonus from "../pages/income/incomeSubSection/DailySalaryBonus"
 import SelfTradingBonus from "../pages/income/incomeSubSection/SelfTradingBonus";
 import TeamTradingBonus from "../pages/income/incomeSubSection/TeamTradingBonus";
 import TeamRewardBonus from "../pages/income/incomeSubSection/TeamRewardBonus";
+import AddBankDetails from "../pages/account/Component/AddBankDetails";
+import AddedBankDetailList from "../pages/account/Component/AddedBankDetailList";
 
 export const routes = [
     {
@@ -263,5 +265,13 @@ export const routes = [
     {
         path: "/account/income-main/team-reward-bonus",
         component: <TeamRewardBonus/>
+    },
+    {
+        path: "/add-bank-details",
+        component: <AddBankDetails/>
+    },
+    {
+        path: "/add-bank-details/pre-added-bank-details",
+        component: <AddedBankDetailList/>
     },
 ]

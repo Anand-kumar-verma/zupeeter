@@ -116,32 +116,38 @@ export const demomolap = `
   
 `;
 export const demomolaponesec = `
+@keyframes slideinlapinitial {
+  0% {
+    left: 20px;
+    top: calc(100% -  80px);
+  }
+  100% {
+    left:20%;
+    top: calc(95% -  80px);
+  }
+}
 @keyframes slideinlap {
     0% {
-      left: 20px;
-      top: calc(100% - 80px);
-    }
-  25% {
       left:20%;
-      top: calc(80% - 80px);
+      top: calc(95% - 80px);
     }
-    50% {
-      left: 40%;
-      top: calc(60% - 80px);
+  33% {
+      left:40%;
+      top: calc(75% - 80px);
     }
-    75% {
+    66% {
       left: 60%;
-      top: calc(40% - 80px);
+      top: calc(55% - 80px);
     }
     100% {
       left: 80%;
-      top: calc(20% - 80px);
+      top: calc(35% - 80px);
     }
   }
   @keyframes thirdAnimation {
     0% {
         left: 80%;
-        top: calc(20% - 80px);
+        top: calc(35% - 80px);
       }
     100% {
       left: 100%;

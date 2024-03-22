@@ -4,6 +4,7 @@ import "./App.css";
 import "./assets/styles/main.css";
 import { routes } from "./routes";
 import Login from "./pages/auth/login/Login";
+import Register from "./pages/auth/register/Register";
 
 const App = () => {
   const isAuthenticated = localStorage.getItem("logindata"); // Check if the user is authenticated
@@ -11,6 +12,7 @@ const App = () => {
   return (
     <Routes>
       <Route path="/" element={<Login />} />
+      <Route path="/register" element={<Register />} />
       {isAuthenticated ? (
         routes?.map((route, index) => {
           return (

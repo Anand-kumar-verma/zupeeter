@@ -24,6 +24,7 @@ import {
 import Layout from "../../component/Layout/Layout";
 import { rupees } from "../../services/urls";
 import moment from "moment";
+import toast from "react-hot-toast";
 
 function CricketWalletFundDepositForm() {
   const navigate = useNavigate();
@@ -42,6 +43,13 @@ function CricketWalletFundDepositForm() {
     initialValues: initialValue,
     onSubmit: () => {
       console.log(fk.values);
+      if (
+        !fk.values.amount ||
+        fk.values.deposit_type === "Select Deposit Type" ||
+        fk.values.service_provider === "Select Service Provider"
+      ) return toast("Please Choose all Fields")
+        localStorage.setItem("amount_set", fk.values.amount);
+      navigate("/wallet/Recharge");
     },
   });
   return (
@@ -73,7 +81,7 @@ function CricketWalletFundDepositForm() {
             <Box mt={2}>
               <FormControl fullWidth>
                 <Stack direction="row" className="loginlabel">
-                  <p  className={"!text-black"}>Enter Amount</p>
+                  <p className={"!text-black"}>Enter Amount</p>
                 </Stack>
                 <OutlinedInput
                   placeholder="Enter Amount"
@@ -89,7 +97,7 @@ function CricketWalletFundDepositForm() {
             <Box mt={2}>
               <FormControl fullWidth>
                 <Stack direction="row" className="loginlabel">
-                  <p  className={"!text-black"}>Select Deposit Type</p>
+                  <p className={"!text-black"}>Select Deposit Type</p>
                 </Stack>
                 <TextField
                   placeholder="Select Deposit Type"
@@ -106,8 +114,10 @@ function CricketWalletFundDepositForm() {
                     },
                   }}
                 >
-                  <MenuItem  value="Select Deposit Type">Select Deposit Type</MenuItem>
-                  <MenuItem  value="New Id">New Id</MenuItem>
+                  <MenuItem value="Select Deposit Type">
+                    Select Deposit Type
+                  </MenuItem>
+                  <MenuItem value="New Id">New Id</MenuItem>
                   <MenuItem value="Recharge">Recharge</MenuItem>
                 </TextField>
               </FormControl>
@@ -115,9 +125,7 @@ function CricketWalletFundDepositForm() {
             <Box mt={2}>
               <FormControl fullWidth>
                 <Stack direction="row" className="loginlabel">
-                  <p  className={"!text-black"}>
-                    Select Service Provider Type
-                  </p>
+                  <p className={"!text-black"}>Select Service Provider Type</p>
                 </Stack>
                 <TextField
                   placeholder="Select Deposit Type"
@@ -134,7 +142,9 @@ function CricketWalletFundDepositForm() {
                     },
                   }}
                 >
-                  <MenuItem value="Select Service Provider">Select Service Provider</MenuItem>
+                  <MenuItem value="Select Service Provider">
+                    Select Service Provider
+                  </MenuItem>
                   <MenuItem value="silverexch">silverexch</MenuItem>
                   <MenuItem value="lordsexch">lordsexch</MenuItem>
                   <MenuItem value="tenexch">tenexch</MenuItem>
@@ -150,11 +160,13 @@ function CricketWalletFundDepositForm() {
                 <p>Go For Login:</p>
                 <p className="!text-blue-500 !cursor-pointer" onClick={()=>navigate('/cricket/registration')}>Click here for login</p>
               </div> */}
-              <Button sx={style.paytmbtntwo}>Submit</Button>
+              <Button sx={style.paytmbtntwo} onClick={fk.handleSubmit}>
+                Submit
+              </Button>
             </Box>{" "}
           </Box>
         </Box>
-        {[1, 2, 3, 4, 5, 56, 6]?.map((i, index) => {
+        {/* {[1, 2, 3, 4, 5, 56, 6]?.map((i, index) => {
           return (
             <Box
               sx={{
@@ -175,7 +187,6 @@ function CricketWalletFundDepositForm() {
               <div className="!flex !justify-between !text-[12px]">
                 <span>Deposit Type</span>
                 <span>{i % 2 === 0 ? "Recharge" : "New ID"}</span>
-
               </div>
               <div className="!flex !justify-between !text-[12px]">
                 <span>Provider</span>
@@ -190,7 +201,7 @@ function CricketWalletFundDepositForm() {
               </div>
             </Box>
           );
-        })}
+        })} */}
       </Container>
     </Layout>
   );
@@ -200,7 +211,7 @@ export default CricketWalletFundDepositForm;
 
 export const style = {
   container: {
-    background: 'white',
+    background: "white",
     width: "100%",
     height: "100vh",
     overflow: "auto",

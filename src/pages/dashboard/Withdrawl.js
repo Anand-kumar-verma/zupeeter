@@ -34,6 +34,7 @@ function Withdrawl() {
     navigate(-1);
   };
 
+
   const walletamountFn = async () => {
     try {
       const response = await axios.get(
@@ -70,18 +71,18 @@ function Withdrawl() {
     onSubmit: () => {
       console.log(fk.values);
       const fd = new FormData();
-      fd.append("amount", fk.values.amount);
-      fd.append("email", fk.values.email);
-      fd.append("mobile", fk.values.mobile);
-      fd.append("description", fk.values.description);
-      fd.append("bank_name", fk.values.bank_name);
-      fd.append("name", fk.values.name);
-      fd.append("ifsc", fk.values.ifsc);
-      fd.append("account_number", fk.values.account_number);
-      fd.append("transaction_id", `${Date.now()}${user_id}`);
+      fd.append("Amount", fk.values.amount);
+      fd.append("Email", fk.values.email);
+      fd.append("Mobile", fk.values.mobile);
+      fd.append("Description", fk.values.description);
+      fd.append("BankName", fk.values.bank_name);
+      fd.append("Name", fk.values.name);
+      fd.append("Ifsc", fk.values.ifsc);
+      fd.append("Account", fk.values.account_number);
+      fd.append("TransactionID", `${Date.now()}${user_id}`);
       fd.append("user_id", user_id);
 
-      // getDepositResponse(fd);
+      withdraw_payment_Function(fd);
       // paymentRequest(fd, fk.values.amount);
       // fk.setFieldValue("all_data", {
       //   t_id: fd.get("TransactionID") || "",
@@ -90,6 +91,18 @@ function Withdrawl() {
       // });
     },
   });
+
+  const withdraw_payment_Function = async (fd) => {
+    try {
+      const response = await axios.post(`${endpoint.withdraw_payment}`,fd);
+
+      // setAmount(response?.data?.data);
+      console.log(response,"response")
+    } catch (e) {
+      toast(e?.message);
+      console.log(e);
+    }
+  };
 
   return (
     <Layout>

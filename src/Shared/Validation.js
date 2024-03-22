@@ -63,7 +63,7 @@ export const withdrawAmountSchemaValidaton = Yup.object().shape({
     .min(20, "Description must be 20 characters at minimum")
     .required("Password is required"),
   bank_name: Yup.string()
-    .min(8, "Bank Name must be 8 characters at minimum")
+    .max(8, "Bank Name should not be more that 8 character")
     .required("Bank Name is required"),
   name: Yup.string().required("Holder Name is required"),
   ifsc: Yup.string()
@@ -71,4 +71,20 @@ export const withdrawAmountSchemaValidaton = Yup.object().shape({
     .max(11, "IFSC should not be more than 11 character")
     .required("IFSC is required"),
   account_number: Yup.string().required("Account Number is required"),
+});
+
+export const cashDepositRequestValidationSchema = Yup.object().shape({
+  amount: Yup.string()
+    .required("Amount is required")
+    .test(
+      "minimumAmount",
+      "Amount must be greater than or equal to 100",
+      (value) => {
+        if (value) {
+          const numericValue = Number(value);
+          return numericValue >= 100;
+        }
+        return true; // If value is not provided, let required validation handle it
+      }
+    ),
 });

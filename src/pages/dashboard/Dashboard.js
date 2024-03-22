@@ -125,7 +125,7 @@ function Dashboard() {
 
   const initialValues = {
     //  referrel_code: `https://play.ferryinfotech.in/register?ref=${referal_code}`,
-    referrel_code: `https://play.ferryinfotech.in/register?ref=${referal_code}`,
+    referrel_code: `https://sunlottery.fun/register?ref=${referal_code}`,
   };
 
   const fk = useFormik({
@@ -216,7 +216,7 @@ function Dashboard() {
                 style={{ color: "white" }}
               >
                 <FitbitIcon />
-                <span className="text-[14px]">Welcome To Fun Games</span>
+                <span className="text-[14px]">Welcome To Sun Lottery</span>
               </div>
               <div className="flex gap-1 items-center cursor-pointer">
                 <CloudDownloadIcon sx={{ color: "white" }} />

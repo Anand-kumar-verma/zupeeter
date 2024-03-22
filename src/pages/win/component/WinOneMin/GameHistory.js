@@ -84,10 +84,10 @@ const GameHistory = ({ gid }) => {
         <Table sx={{ maxWidth: 575, background: zubgback, color: "white" }} className="wintable" aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>Period</TableCell>
-              <TableCell>Number</TableCell>
-              <TableCell>Big Small</TableCell>
-              <TableCell>Result</TableCell>
+              <TableCell className="!text-sm">Period</TableCell>
+              <TableCell className="!text-sm">Number</TableCell>
+              <TableCell className="!text-sm">Big/Small</TableCell>
+              <TableCell className="!text-sm">Result</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -208,7 +208,7 @@ const GameHistory = ({ gid }) => {
           </TableBody>
         </Table>
 
-        <Box className="paginationTable">
+        <Box className="paginationTable !w-full">
           <TablePagination
             sx={{ background: zubgbackgrad, color: 'white', }}
             rowsPerPageOptions={[5, 10, 15]}

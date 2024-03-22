@@ -25,9 +25,11 @@ import Rank from "../../assets/images/rank.png";
 import balance from "../../assets/images/send.png";
 import setting from "../../assets/images/settings (1).png";
 import trans from "../../assets/images/translation.png";
+import edit from "../../assets/images/edit_bank_details.png";
 import s from "../../assets/images/wallet.png";
 import Layout from "../../component/Layout/Layout";
 import { MyProfileDataFn } from "../../services/apicalling";
+import { Edit } from "@mui/icons-material";
 function Account() {
   const navigate = useNavigate();
   const profile_data = localStorage.getItem("profile_data");
@@ -44,7 +46,6 @@ function Account() {
     { id: 3, img: dp3 },
     { id: 4, img: dp4 },
   ];
-  console.log(result, "result");
   return (
     <Layout>
       <Container sx={style.container}>
@@ -120,12 +121,12 @@ function Account() {
               Withdraw
             </Typography>
           </Box>
-          {/* <Box sx={style.actionBox} component={NavLink} to="/VIP">
-            <Box component="img" src={vip} sx={style.actionImage} />
+          <Box sx={style.actionBox} component={NavLink} to="/add-bank-details">
+            <Box component="img" src={edit} sx={style.actionImage} />
             <Typography variant="body1" color="initial" sx={style.actionText}>
-              VIP
+              Add Bank 
             </Typography>
-          </Box> */}
+          </Box>
         </Box>
         <Box sx={style.actionContainer} component={NavLink} to={"/bathistory"}>
           <Box
