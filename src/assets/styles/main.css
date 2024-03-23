@@ -1222,6 +1222,10 @@ img {
     font-weight: 700 !important;
   }
 
+  .customer-care>img {
+    width: 100% !important;
+  }
+
 }
 
 
@@ -1242,7 +1246,7 @@ img {
 .wallet-track-box {
   width: 95%;
   margin: auto;
-  padding: 40px 10px;
+  padding: 10px 10px;
   border-radius: 10px;
   background-color: #4939c1;
   margin-top: 20px;
@@ -1369,7 +1373,7 @@ img {
 }
 
 .playnow {
-  background-color: #FF204E !important;
+  background-color: #00A260 !important;
   background-image: none !important;
   border-radius: 4px !important;
   box-shadow: #fff 4px 4px 0 0, #000 4px 4px 0 1px !important;
@@ -1391,6 +1395,7 @@ img {
   -webkit-user-select: none !important;
   vertical-align: middle !important;
   white-space: nowrap !important;
+  width: 50% !important;
 }
 
 .playnow:focus {
@@ -1419,15 +1424,38 @@ img {
 
 
 .live {
-  background: #FF204E !important;
+  background: #00A260 !important;
   width: 50% !important;
   border: none !important;
   color: white !important;
 }
 
 .upcoming {
-  background: gray !important;
+  background: #00ff5533 !important;
   width: 50% !important;
   border: none !important;
-  color: white !important;
+  color: black !important;
+}
+
+
+.offline-indicator {
+  width: 20px;
+  height: 20px;
+  background-color: red;
+  border-radius: 50%;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }

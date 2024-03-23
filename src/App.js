@@ -5,7 +5,8 @@ import "./assets/styles/main.css";
 import { routes } from "./routes";
 import Login from "./pages/auth/login/Login";
 import Register from "./pages/auth/register/Register";
-// tanveer 
+
+
 const App = () => {
   const isAuthenticated = localStorage.getItem("logindata"); // Check if the user is authenticated
 

@@ -5,7 +5,7 @@ import KeyboardArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardArrowLeft
 import { Box, Button, Container, IconButton, Stack, Typography } from '@mui/material';
 import * as React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { zubgback, zubgbackgrad, zubgback_cricket, zubgcrickblue, zubgcrickorange } from '../../Shared/color';
+import { zubgback, zubgbackgrad, zubgback_cricket, zubgcricklight, zubgcrickorange, zubgcrickgred } from '../../Shared/color';
 import deposit from '../../assets/images/history.png';
 import Layout from '../../component/Layout/Layout';
 
@@ -19,7 +19,7 @@ function CricketWithdrawlHistory() {
 
   return (
     <Layout footer={false}>
-      <Container className='no-scrollbar' sx={{ background: zubgcrickblue, width: '100%', height: '100vh', overflow: 'auto' }}>
+      <Container className='no-scrollbar' sx={{ background: zubgcrickgred, width: '100%', height: '100vh', overflow: 'auto' }}>
         <Box sx={style.header}>
           <Box component={NavLink} onClick={goBack}>
             <KeyboardArrowLeftOutlinedIcon />
@@ -37,13 +37,13 @@ function CricketWithdrawlHistory() {
               <Box component='img' src={deposit} width={30}></Box>
               <Typography variant="body1" color="initial" sx={{ fontSize: '15px ', color: 'white', ml: '10px' }}>Withdrawal history</Typography>
             </Stack>
-            <Box sx={{ mb: 2, padding: '15px', borderRadius: '10px', border: '1px solid white', background: zubgcrickblue, }}>
+            <Box sx={{ mb: 2, padding: '15px', borderRadius: '10px', border: '1px solid white', background: zubgcricklight, }}>
               <Stack direction='row' sx={{ paddingBottom: '10px', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid white' }}>
                 <Box>
-                  <Button sx={{ background: zubgcrickorange, color: 'white', textTransform: 'capitalize' }}>Withdrawal</Button>
+                  <Button sx={{ background: zubgcrickgred, color: 'white', textTransform: 'capitalize' }}>Withdrawal</Button>
                 </Box>
                 <Box>
-                  <Button sx={{ color: 'green', textTransform: 'capitalize' }}>Complete</Button>
+                  <Button sx={{ color: 'white', textTransform: 'capitalize' }}>Complete</Button>
                   <IconButton>
                     <ArrowForwardIcon sx={{ color: "white" }} />
                   </IconButton>
@@ -71,10 +71,10 @@ function CricketWithdrawlHistory() {
                 </Stack>
               </Stack>
             </Box>
-            <Box sx={{ mb: 2, padding: '15px', borderRadius: '10px', border: '1px solid white', background: zubgcrickblue, }}>
+            <Box sx={{ mb: 2, padding: '15px', borderRadius: '10px', border: '1px solid white', background: zubgcricklight, }}>
               <Stack direction='row' sx={{ paddingBottom: '10px', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid white' }}>
                 <Box>
-                  <Button sx={{ background: zubgcrickorange, color: 'white', textTransform: 'capitalize' }}>Withdrawal</Button>
+                  <Button sx={{ background: zubgcrickgred, color: 'white', textTransform: 'capitalize' }}>Withdrawal</Button>
                 </Box>
                 <Box>
                   <Button sx={{ color: 'red', textTransform: 'capitalize' }}>Failed</Button>
@@ -105,13 +105,13 @@ function CricketWithdrawlHistory() {
                 </Stack>
               </Stack>
             </Box>
-            <Box sx={{ mb: 2, padding: '15px', borderRadius: '10px', border: '1px solid white', background: zubgcrickblue, }}>
+            <Box sx={{ mb: 2, padding: '15px', borderRadius: '10px', border: '1px solid white', background: zubgcricklight, }}>
               <Stack direction='row' sx={{ paddingBottom: '10px', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid white' }}>
                 <Box>
-                  <Button sx={{ background: zubgcrickorange, color: 'white', textTransform: 'capitalize' }}>Withdrawal</Button>
+                  <Button sx={{ background: zubgcrickgred, color: 'white', textTransform: 'capitalize' }}>Withdrawal</Button>
                 </Box>
                 <Box>
-                  <Button sx={{ color: 'green', textTransform: 'capitalize' }}>Complete</Button>
+                  <Button sx={{ color: 'white', textTransform: 'capitalize' }}>Complete</Button>
                   <IconButton>
                     <ArrowForwardIcon sx={{ color: "white" }} />
                   </IconButton>
@@ -153,7 +153,7 @@ export default CricketWithdrawlHistory
 
 const style = {
   header: {
-    padding: '8px', background: zubgcrickblue, display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+    padding: '8px', background: zubgcrickgred, display: 'flex', alignItems: 'center', justifyContent: 'space-between',
     '&>p': { color: 'white !important', ml: '-30px' }, '&>a>svg': { color: 'white', fontSize: '25px' }
   },
   wthui: {
@@ -169,6 +169,6 @@ const style = {
     width: '95%', margin: 'auto', my: '10px', display: 'flex', flexWrap: "wrap", alignItems: 'center', justifyContent: 'space-between'
   },
   paytmbtn: { mb: 2, background: zubgback, color: 'white !important', width: '31%', border: "1px solid white", padding: '10px', '&:hover': { background: zubgbackgrad, border: "1px solid transparent", } },
-  paytmbtntwo: { borderRadius: '5px', textTransform: 'capitalize', mb: 2, background: zubgcrickblue, color: 'white !important', width: '100%', mt: '20px', border: "1px solid white", padding: '10px', '&:hover': { background: zubgcrickblue, border: "1px solid transparent", } },
+  paytmbtntwo: { borderRadius: '5px', textTransform: 'capitalize', mb: 2, background: zubgcricklight, color: 'white !important', width: '100%', mt: '20px', border: "1px solid white", padding: '10px', '&:hover': { background: zubgcricklight, border: "1px solid transparent", } },
   rechargeinstext: { mb: '10px', alignItems: 'center', justifyContent: 'start', '&>p': { marginLeft: '10px', color: 'white !important', fontSize: '14px' }, }
 };
