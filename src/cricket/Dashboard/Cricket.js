@@ -37,7 +37,7 @@ function Cricket() {
             </Typography>
             <Button component={NavLink} to='/cricket/user-profile' className="playnow" role="Button" sx={style.button} >Play Now</Button>
           </Box>
-          <Box sx={style.sidebar}>
+          {/* <Box sx={style.sidebar}>
             <Box sx={style.sidebarItem}>
               <Box component='img' src={wallet} width={25}></Box>
             </Box>
@@ -47,7 +47,7 @@ function Cricket() {
             <Box sx={style.sidebarItem} component={NavLink} to='/cricket/user-profile'>
               <Box component='img' src={avatar} width={25}></Box>
             </Box>
-          </Box>
+          </Box> */}
           <Typography variant="body1" color="initial" sx={style.title}>Cricket</Typography>
         </Box>
       </Box>
@@ -155,13 +155,13 @@ const style = {
   banner: { width: '100%', filter: 'brightness(0.5)', height: '100%', position: 'absolute', top: 0, left: '0px', objectFit: 'cover', objectPosition: 'center' },
   root: { position: 'relative', height: "100%", paddingTop: '15px' },
   stack: { alignItems: 'start', justifyContent: 'space-between', borderRadius: '5px', padding: '10px 5px' },
-  content: { width: '95%', marginLeft: '2.5%', marginTop: '30%' },
+  content: { width: '95%', marginLeft: '2.5%', marginTop: '30%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between' },
   heading: { color: 'white', fontSize: '15px', fontWeight: '500', mt: 5 },
   text: { color: 'white', fontSize: '45px', fontWeight: '600', mt: 1, mb: 3, width: "90%", lineHeight: '45px', },
   button: { mt: 5, },
   sidebar: { position: 'absolute', top: '40%', right: '0px', width: "10%", display: 'flex', flexDirection: 'column' },
   sidebarItem: { background: zubgcrickorange, padding: '10px', borderRadius: '5px', display: 'flex', alignItems: "center", justifyContent: "center", mb: '5px' },
-  title: { fontWeight: 800, fontSize: '110px', color: '#ffffff45', textAlign: 'center', position: "absolute", width: '100%', height: '20vh', bottom: "0", left: '0' },
+  title: { fontWeight: 800, fontSize: '80px', color: '#ffffff45', textAlign: 'center', position: "absolute", width: '100%', height: '15vh', bottom: "0", left: '0' },
   events: { width: '95%', marginLeft: '2.5%', borderRadius: '10px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' },
   eventItem: { width: '100%', padding: "20px", border: `1px solid ${zubgcrickorange}`, background: zubgcrickorange, borderRadius: '5px', mb: 2 },
   eventDate: { textAlign: 'center', fontSize: '17px', fontWeight: "500", color: 'white' },

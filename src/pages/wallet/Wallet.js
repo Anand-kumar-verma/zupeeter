@@ -24,11 +24,11 @@ function Wallet() {
     refetchOnReconnect: true,
   });
   const result = data?.data?.data;
-console.log(result,"This is profile data")
+  console.log(result, "This is profile data")
   const main_wallet = {
     series: [(
-        Number(result?.bonus || 0)
-    )?.toFixed(0)||0],
+      Number(result?.bonus || 0)
+    )?.toFixed(0) || 0],
     options: {
       chart: {
         height: 350,
@@ -173,13 +173,10 @@ console.log(result,"This is profile data")
       fill: {
         type: "gradient",
         gradient: {
-          shade: "dark",
           type: "horizontal",
-          shadeIntensity: 0.5,
-          gradientToColors: ["#FB6766","#F53E76"],
+          background: zubgbackgrad,
           inverseColors: true,
-          opacityFrom: 1,
-          opacityTo: 1,
+
           stops: [0, 100],
         },
       },
@@ -246,7 +243,7 @@ console.log(result,"This is profile data")
                 {(
                   Number(
                     Number(result?.winning_wallet || 0) +
-                      Number(result?.wallet || 0)
+                    Number(result?.wallet || 0)
                   ) || 0
                 )?.toFixed(0)}
               </Typography>
@@ -272,7 +269,7 @@ console.log(result,"This is profile data")
                 options={main_wallet.options}
                 series={main_wallet.series}
                 type="radialBar"
-                height={!isMediumScreen ? 200:250}
+                height={!isMediumScreen ? 200 : 250}
               />
               <Box
                 sx={{
@@ -285,7 +282,7 @@ console.log(result,"This is profile data")
                   {(
                     Number(
                       Number(result?.winning_wallet || 0) +
-                        Number(result?.wallet || 0)
+                      Number(result?.wallet || 0)
                     ) || 0
                   )?.toFixed(0)}
                 </Typography>
@@ -299,7 +296,7 @@ console.log(result,"This is profile data")
                 options={third_party_wallet.options}
                 series={third_party_wallet.series}
                 type="radialBar"
-                height={!isMediumScreen ? 200:250}
+                height={!isMediumScreen ? 200 : 250}
               />
               <Box
                 sx={{
@@ -437,7 +434,7 @@ console.log(result,"This is profile data")
                 0.000
               </Typography>
               <Typography variant="body1" color="initial">
-                BBD
+                SNL
               </Typography>
             </Box>
           </Box>
@@ -447,7 +444,7 @@ console.log(result,"This is profile data")
                 0.000
               </Typography>
               <Typography variant="body1" color="initial">
-                BBD
+                SNL
               </Typography>
             </Box>
           </Box>
@@ -457,7 +454,7 @@ console.log(result,"This is profile data")
                 0.000
               </Typography>
               <Typography variant="body1" color="initial">
-                BBD
+                SNL
               </Typography>
             </Box>
           </Box>
@@ -467,7 +464,7 @@ console.log(result,"This is profile data")
                 0.000
               </Typography>
               <Typography variant="body1" color="initial">
-                BBD
+                SNL
               </Typography>
             </Box>
           </Box>
@@ -477,7 +474,7 @@ console.log(result,"This is profile data")
                 0.000
               </Typography>
               <Typography variant="body1" color="initial">
-                BBD
+                SNL
               </Typography>
             </Box>
           </Box>
@@ -487,7 +484,7 @@ console.log(result,"This is profile data")
                 0.000
               </Typography>
               <Typography variant="body1" color="initial">
-                BBD
+                SNL
               </Typography>
             </Box>
           </Box>

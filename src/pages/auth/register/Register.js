@@ -25,7 +25,7 @@ import CustomCircularProgress from "../../../Shared/CustomCircularProgress";
 import { signupSchemaValidataon } from "../../../Shared/Validation";
 import { zubgbackgrad } from "../../../Shared/color";
 import logo from "../../../assets/images/logo.png";
-import poster from "../../../assets/images/poster4.jpg";
+import poster from "../../../assets/images/poster2.jpg";
 import { CandidateNameFn } from "../../../services/apicalling";
 import { endpoint } from "../../../services/urls";
 

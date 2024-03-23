@@ -48,7 +48,7 @@ function CricketWalletFundDepositForm() {
         fk.values.deposit_type === "Select Deposit Type" ||
         fk.values.service_provider === "Select Service Provider"
       ) return toast("Please Choose all Fields")
-        localStorage.setItem("amount_set", fk.values.amount);
+      localStorage.setItem("amount_set", fk.values.amount);
       navigate("/wallet/Recharge");
     },
   });
@@ -70,18 +70,17 @@ function CricketWalletFundDepositForm() {
           sx={{
             width: "95%",
             marginLeft: "2.5%",
-            // background: zubgcrickorange,
+            background: zubgcrickorange,
             borderRadius: "10px",
             padding: "10px",
             mt: "10px",
           }}
-          className={"!bg-slate-400"}
         >
           <Box mt={2} component="form">
             <Box mt={2}>
               <FormControl fullWidth>
                 <Stack direction="row" className="loginlabel">
-                  <p className={"!text-black"}>Enter Amount</p>
+                  <p className={"!text-white"}>Enter Amount</p>
                 </Stack>
                 <OutlinedInput
                   placeholder="Enter Amount"
@@ -97,7 +96,7 @@ function CricketWalletFundDepositForm() {
             <Box mt={2}>
               <FormControl fullWidth>
                 <Stack direction="row" className="loginlabel">
-                  <p className={"!text-black"}>Select Deposit Type</p>
+                  <p className={"!text-white"}>Select Deposit Type</p>
                 </Stack>
                 <TextField
                   placeholder="Select Deposit Type"
@@ -125,7 +124,7 @@ function CricketWalletFundDepositForm() {
             <Box mt={2}>
               <FormControl fullWidth>
                 <Stack direction="row" className="loginlabel">
-                  <p className={"!text-black"}>Select Service Provider Type</p>
+                  <p className={"!text-white"}>Select Service Provider Type</p>
                 </Stack>
                 <TextField
                   placeholder="Select Deposit Type"
@@ -211,14 +210,14 @@ export default CricketWalletFundDepositForm;
 
 export const style = {
   container: {
-    background: "white",
+    background: "#005543",
     width: "100%",
     height: "100vh",
     overflow: "auto",
   },
   header: {
     padding: "15px 8px",
-    background: zubgcrickblue,
+    background: '#005543',
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
@@ -261,7 +260,7 @@ export const style = {
     borderRadius: "5px",
     textTransform: "capitalize",
     mb: 2,
-    background: zubgcrickblue,
+    background: '#00B55E',
     color: "white !important",
     width: "100%",
     mt: "20px",

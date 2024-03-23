@@ -28,4 +28,6 @@ export const iconcoloryellow = '#FBB13B';
 
 export const iconcolorpink = '#EE1285';
 export const zubgcrickblue = '#613EF0';
-export const zubgcrickorange = '#FF5000';
+export const zubgcrickorange = '#00A260';
+export const zubgcrickgred = "#005543";
+export const zubgcricklight = "#00B55E";
