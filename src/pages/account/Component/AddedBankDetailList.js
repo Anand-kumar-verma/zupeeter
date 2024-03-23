@@ -17,11 +17,26 @@ import deposit from "../../../assets/images/history.png";
 import Layout from "../../../component/Layout/Layout";
 import { Add, Edit } from "@mui/icons-material";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
+import { useQuery } from "react-query";
+import { BankListDetails } from "../../../services/apicalling";
 function AddedBankDetailList() {
   const navigate = useNavigate();
   const goBack = () => {
     navigate(-1);
   };
+
+  const { isLoading, data } = useQuery(
+    ["bank_list_details"],
+    () => BankListDetails(),
+    {
+      refetchOnMount: false,
+      refetchOnReconnect: true,
+    }
+  );
+  const result = React.useMemo(() => data?.data?.data, [data]);
+
+  console.log(result,"this is result");
+
 
   return (
     <Layout>
@@ -78,7 +93,7 @@ function AddedBankDetailList() {
                 </IconButton>
               </div>
             </div>
-            {[1, 2, 3, 4, 5, 6, 7, 8]?.map((i, index) => {
+            {result?.map((i, index) => {
               return (
                 <Box
                   key={index}
@@ -112,7 +127,7 @@ function AddedBankDetailList() {
                       Account Holder Name
                     </Typography>
                     <Typography variant="body1" color="initial">
-                      Harry Porter
+                      {i?.holder_name}
                     </Typography>
                   </Stack>
                   <Stack
@@ -127,7 +142,7 @@ function AddedBankDetailList() {
                       Email
                     </Typography>
                     <Typography variant="body1" color="initial">
-                      itest@gmail.com
+                      {i?.email}
                     </Typography>
                   </Stack>
                   <Stack
@@ -142,7 +157,7 @@ function AddedBankDetailList() {
                       Bank Name
                     </Typography>
                     <Typography variant="body1" color="initial">
-                      UNION Bank
+                      {i?.bank_name}
                     </Typography>
                   </Stack>
                   <Stack
@@ -157,7 +172,7 @@ function AddedBankDetailList() {
                       Mobile No
                     </Typography>
                     <Typography variant="body1" color="initial">
-                      8707329034
+                      {i?.mobile}
                     </Typography>
                   </Stack>
                   <Stack
@@ -172,7 +187,7 @@ function AddedBankDetailList() {
                       IFSC Code
                     </Typography>
                     <Typography variant="body1" color="initial">
-                      UNION 464
+                      {i?.ifsc}
                     </Typography>
                   </Stack>
                   <Stack
@@ -187,7 +202,7 @@ function AddedBankDetailList() {
                       Account Number
                     </Typography>
                     <Typography variant="body1" color="initial">
-                      8979813427461
+                      {i?.account}
                     </Typography>
                   </Stack>
                 </Box>

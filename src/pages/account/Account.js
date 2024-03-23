@@ -46,6 +46,9 @@ function Account() {
     { id: 3, img: dp3 },
     { id: 4, img: dp4 },
   ];
+
+  console.log(result,"this is new msg");
+
   return (
     <Layout>
       <Container sx={style.container}>
@@ -59,7 +62,7 @@ function Account() {
           </Box>
           <Box sx={style.userInfo}>
             <Typography variant="" color="initial">
-              {result?.username}
+              {result?.full_name}
             </Typography>
             <Typography variant="body1" color="initial">
               UID | {result?.custid || 0}
@@ -98,7 +101,7 @@ function Account() {
           >
             <Box component="img" src={cip} sx={style.cardImage} />
             <Typography variant="body1" color="initial" sx={style.cardNumber}>
-              Fererral Code: {result?.referral_code}
+              Rererral Code: {result?.referral_code}
             </Typography>
           </Stack>
         </Box>

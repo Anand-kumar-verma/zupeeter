@@ -28,43 +28,7 @@ function GameNotification() {
           <Stack direction='row' sx={style.notificationStack}>
             <Stack direction='row' sx={style.notificationStack}>
               <Box component={'img'} src={promotion} sx={{ width: '30px', height: '30px' }}></Box>
-              <Typography variant="body1" color="initial">About Withdrawal - BDGGame Notify</Typography>
-            </Stack>
-          </Stack>
-          <Typography variant="body1" color="initial">
-            Please Fill In The Correct Bank Card Information. The Platform Will Process Withdrawals Within 1-24 Hours Or More. The Withdrawal Status Is "Completed" And The Transaction Has Been Approved By The Platform. The Bank Will Complete The Transfer Within 1-7 Working Days, But Delays May Occur, Especially During Holidays. But You Are Guaranteed To Receive Your Funds.
-          </Typography>
-          <Typography variant="body1" color="initial">2024-03-13 10:09:31</Typography>
-        </Box>
-        <Box sx={style.notificationBox}>
-          <Stack direction='row' sx={style.notificationStack}>
-            <Stack direction='row' sx={style.notificationStack}>
-              <Box component={'img'} src={promotion} sx={{ width: '30px', height: '30px' }}></Box>
-              <Typography variant="body1" color="initial">About Withdrawal - BDGGame Notify</Typography>
-            </Stack>
-          </Stack>
-          <Typography variant="body1" color="initial">
-            Please Fill In The Correct Bank Card Information. The Platform Will Process Withdrawals Within 1-24 Hours Or More. The Withdrawal Status Is "Completed" And The Transaction Has Been Approved By The Platform. The Bank Will Complete The Transfer Within 1-7 Working Days, But Delays May Occur, Especially During Holidays. But You Are Guaranteed To Receive Your Funds.
-          </Typography>
-          <Typography variant="body1" color="initial">2024-03-13 10:09:31</Typography>
-        </Box>
-        <Box sx={style.notificationBox}>
-          <Stack direction='row' sx={style.notificationStack}>
-            <Stack direction='row' sx={style.notificationStack}>
-              <Box component={'img'} src={promotion} sx={{ width: '30px', height: '30px' }}></Box>
-              <Typography variant="body1" color="initial">About Withdrawal - BDGGame Notify</Typography>
-            </Stack>
-          </Stack>
-          <Typography variant="body1" color="initial">
-            Please Fill In The Correct Bank Card Information. The Platform Will Process Withdrawals Within 1-24 Hours Or More. The Withdrawal Status Is "Completed" And The Transaction Has Been Approved By The Platform. The Bank Will Complete The Transfer Within 1-7 Working Days, But Delays May Occur, Especially During Holidays. But You Are Guaranteed To Receive Your Funds.
-          </Typography>
-          <Typography variant="body1" color="initial">2024-03-13 10:09:31</Typography>
-        </Box>
-        <Box sx={style.notificationBox}>
-          <Stack direction='row' sx={style.notificationStack}>
-            <Stack direction='row' sx={style.notificationStack}>
-              <Box component={'img'} src={promotion} sx={{ width: '30px', height: '30px' }}></Box>
-              <Typography variant="body1" color="initial">About Withdrawal - BDGGame Notify</Typography>
+              <Typography variant="body1" color="initial">About Withdrawal - Sun Lottery Notify</Typography>
             </Stack>
           </Stack>
           <Typography variant="body1" color="initial">

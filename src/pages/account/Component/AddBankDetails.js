@@ -54,15 +54,12 @@ function AddBankDetails() {
   }, []);
 
   const initialValues = {
-    amount: "",
     email: "",
     mobile: "",
-    description: "",
     bank_name: "",
     name: "",
     ifsc: "",
     account_number: "",
-    transaction_id: "",
   };
 
   const fk = useFormik({
@@ -71,18 +68,15 @@ function AddBankDetails() {
     onSubmit: () => {
       console.log(fk.values);
       const fd = new FormData();
-      fd.append("Amount", fk.values.amount);
-      fd.append("Email", fk.values.email);
-      fd.append("Mobile", fk.values.mobile);
-      fd.append("Description", fk.values.description);
-      fd.append("BankName", fk.values.bank_name);
-      fd.append("Name", fk.values.name);
-      fd.append("Ifsc", fk.values.ifsc);
-      fd.append("Account", fk.values.account_number);
-      fd.append("TransactionID", `${Date.now()}${user_id}`);
+      fd.append("email", fk.values.email);
+      fd.append("mobile", fk.values.mobile);
+      fd.append("bank_name", fk.values.bank_name);
+      fd.append("name", fk.values.name);
+      fd.append("ifsc_code", fk.values.ifsc);
+      fd.append("account_number", fk.values.account_number);
       fd.append("user_id", user_id);
 
-      withdraw_payment_Function(fd);
+      addbankDetailsFunction(fd);
       // paymentRequest(fd, fk.values.amount);
       // fk.setFieldValue("all_data", {
       //   t_id: fd.get("TransactionID") || "",
@@ -92,12 +86,13 @@ function AddBankDetails() {
     },
   });
 
-  const withdraw_payment_Function = async (fd) => {
+  const addbankDetailsFunction = async (fd) => {
     try {
-      const response = await axios.post(`${endpoint.withdraw_payment}`,fd);
-
-      // setAmount(response?.data?.data);
-      console.log(response,"response")
+      const response = await axios.post(`${endpoint.add_bank_details}`,fd);
+      toast(response?.data?.msg)
+      if(response?.data?.msg){
+        navigate('/add-bank-details/pre-added-bank-details')
+      }
     } catch (e) {
       toast(e?.message);
       console.log(e);

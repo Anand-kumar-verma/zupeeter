@@ -66,6 +66,7 @@ import Original from "./DashboadSubcomponent/Original";
 import Sports from "./DashboadSubcomponent/Sports";
 import Notification from "./Notification";
 import { checkTokenValidity } from "../../Shared/CookieStorage";
+import { support_mail, telegram_url } from "../../services/urls";
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -112,20 +113,21 @@ function Dashboard() {
 
   const result = profile?.data?.data;
 
-  useEffect(() => {
-    console.log(result?.referral_code, "nandn");
-    setReferral_code(
-      CryptoJS.AES.encrypt(
-        JSON.stringify(result?.referral_code),
-        "anand"
-      ).toString()
-    );
-    console.log(referal_code, "converted value");
-  }, [result]);
+  // useEffect(() => {
+  //   console.log(result?.referral_code, "nandn");
+  //   setReferral_code(
+  //     CryptoJS.AES.encrypt(
+  //       JSON.stringify(result?.referral_code),
+  //       "anand"
+  //     ).toString()
+  //   );
+  //   console.log(referal_code, "converted value");
+  // }, [result]);
 
   const initialValues = {
     //  referrel_code: `https://play.ferryinfotech.in/register?ref=${referal_code}`,
-    referrel_code: `https://sunlottery.fun/register?ref=${referal_code}`,
+    referrel_code: `https://sunlottery.fun/register?ref=${result?.referral_code}`,
+    // referrel_code: `https://play.ferryinfotech.in/register?ref=${referal_code}`,
   };
 
   const fk = useFormik({
@@ -372,19 +374,25 @@ function Dashboard() {
               </Button>
             </Stack>
             <Stack direction="row" sx={styles.socialButtonsContainer}>
-              <Button className="telegrambtn" sx={styles.telegramButton}>
+              <Button
+                className="telegrambtn"
+                sx={styles.telegramButton}
+                onClick={() => window.open(`${telegram_url}`, "_blank")}
+              >
                 <Stack>
                   <Box sx={styles.socialButtonIcon}>
                     <TelegramIcon sx={styles.socialIcon} />
                   </Box>
-                  <Box sx={styles.socialButtonText}>telegram</Box>
+                  <Box sx={styles.socialButtonText}>Telegram</Box>
                 </Stack>
               </Button>
               <Button className="supportbtn" sx={styles.supportButton}>
-                <Stack>
-                  <HelpOutlineIcon sx={styles.socialIconinfo} />
-                  <Box sx={styles.socialButtonText}>Support</Box>
-                </Stack>
+                <a href={`mailto:${support_mail}`}>
+                  <Stack>
+                    <HelpOutlineIcon sx={styles.socialIconinfo} />
+                    <Box sx={styles.socialButtonText}>Support</Box>
+                  </Stack>
+                </a>
               </Button>
             </Stack>
           </Box>

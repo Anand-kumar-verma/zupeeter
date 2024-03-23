@@ -10,7 +10,8 @@ export const rupees = "₹"
 // export const domain = "https://app.ferryinfotech.in/"
 export const domain = "https://aviator-backend-p1xp.onrender.com/"
 // export const domain = "https://app.sunlottery.fun/"
-
+export const support_mail = `support@sunlottrey.fun`
+export const telegram_url = `https://t.me/SunLottaryOfficial`
 
 export const endpoint ={
   login:`${baseUrl}/api/user_login`,
@@ -29,12 +30,15 @@ export const endpoint ={
   payment_request:`${baseUrl}/api/deposit-request`,
   registration_bonus:`${baseUrl}/api/welcom-bonus`,
   deposit_history:`${baseUrl}/api/deposit-history`,
+  withdrawl_history:`${baseUrl}/api/withdrawl-history`,
   deposit_bonus:`${baseUrl}/api/deposit-bonus`,
   referral_bonus:`${baseUrl}/api/refral-bonus`,
   daily_self_bet_income:`${baseUrl}/api/daily-self-bet-income`,
   daily_wallet_income:`${baseUrl}/api/daily-wallet-income`,
-
-
+  add_bank_details:`${baseUrl}/api/bank-add`,
+  get_bank_list:`${baseUrl}/api/user-bank-details`,
+  // https://admin.sunlottery.fun/api/user-bank-details?user_id=5
+  // https://admin.sunlottery.fun/api
   // https://admin.gameszone.life/api/daily-wallet-income?user_id=86
   // aviator API's
   aviator_login:`${baseUrl}/api/aviator/login`,

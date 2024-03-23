@@ -104,6 +104,17 @@ export const depositHistoryFunction = async () => {
     console.log(e);
   }
 };
+export const withdrawlHistoryFunction = async () => {
+  try {
+    const response = await axios.get(
+      `${endpoint.withdrawl_history}?user_id=${user_id}`
+    );
+    return response;
+  } catch (e) {
+    toast(e?.message);
+    console.log(e);
+  }
+};
 export const registrationBonusFn = async () => {
   try {
     const response = await axios.get(
@@ -153,6 +164,16 @@ export const dailyWalletIncomeFn = async () => {
     const response = await axios.get(
       `${endpoint.daily_wallet_income}?user_id=${user_id}`
     );
+    return response;
+  } catch (e) {
+    toast(e?.message);
+    console.log(e);
+  }
+};
+
+export const BankListDetails = async () => {
+  try {
+    const response = await axios.get(`${endpoint.get_bank_list}?user_id=${user_id}`);
     return response;
   } catch (e) {
     toast(e?.message);

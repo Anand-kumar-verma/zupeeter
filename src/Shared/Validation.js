@@ -43,7 +43,6 @@ export const signupSchemaValidataon = Yup.object().shape({
     .required("Mobile number is required"),
 });
 export const withdrawAmountSchemaValidaton = Yup.object().shape({
-  amount: Yup.string().required("Amount is required"),
   email: Yup.string()
     .email("Invalid email address format")
     .required("Email is required"),
@@ -59,18 +58,21 @@ export const withdrawAmountSchemaValidaton = Yup.object().shape({
       (value) => !/\./.test(value)
     )
     .required("Mobile number is required"),
-  description: Yup.string()
-    .min(20, "Description must be 20 characters at minimum")
-    .required("Password is required"),
-  bank_name: Yup.string()
-    .max(8, "Bank Name should not be more that 8 character")
-    .required("Bank Name is required"),
+  bank_name: Yup.string().required("Bank Name is required"),
   name: Yup.string().required("Holder Name is required"),
   ifsc: Yup.string()
     .min(11, "IFSC must be 11 characters at minimum")
     .max(11, "IFSC should not be more than 11 character")
     .required("IFSC is required"),
   account_number: Yup.string().required("Account Number is required"),
+});
+
+export const withdraw_amount_validation_schema = Yup.object().shape({
+  amount: Yup.string().required("Amount is required"),
+  description: Yup.string()
+    .min(20, "Description must be 20 characters at minimum")
+    .required("Password is required"),
+  bank_id: Yup.string().required("Bank Name is required"),
 });
 
 export const cashDepositRequestValidationSchema = Yup.object().shape({

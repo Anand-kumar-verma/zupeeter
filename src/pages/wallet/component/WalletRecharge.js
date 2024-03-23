@@ -18,9 +18,11 @@ import { useFormik } from "formik";
 import moment from "moment";
 import * as React from "react";
 import toast from "react-hot-toast";
-import { useQuery, useQueryClient } from "react-query";
+import QRCode from "react-qr-code";
+import { useQueryClient } from "react-query";
 import { NavLink, useNavigate } from "react-router-dom";
 import CustomCircularProgress from "../../../Shared/CustomCircularProgress";
+import { cashDepositRequestValidationSchema } from "../../../Shared/Validation";
 import { zubgback, zubgbackgrad, zubgmid } from "../../../Shared/color";
 import audiovoice from "../../../assets/bankvoice.mp3";
 import cip from "../../../assets/cip.png";
@@ -31,11 +33,7 @@ import balance from "../../../assets/images/send.png";
 import user from "../../../assets/images/user-guide.png";
 import payNameIcon2 from "../../../assets/payNameIcon2.png";
 import Layout from "../../../component/Layout/Layout";
-import { cashDepositFn, walletamount } from "../../../services/apicalling";
 import { endpoint, rupees } from "../../../services/urls";
-import * as uuid from "uuid";
-import QRCode from "react-qr-code";
-import { cashDepositRequestValidationSchema } from "../../../Shared/Validation";
 function WalletRecharge() {
   // console.log(uuid.v4(), "This is response");
   const audioRefMusic = React.useRef(null);
@@ -47,7 +45,6 @@ function WalletRecharge() {
   const [loding, setloding] = React.useState(false);
   const [show_time, set_show_time] = React.useState("0_0");
   const [amount, setAmount] = React.useState({ wallet: 0, winning: 0 });
-  const [ipAddress, setIpAddress] = React.useState(null);
   const client = useQueryClient();
 
   const navigate = useNavigate();
@@ -90,36 +87,6 @@ function WalletRecharge() {
     walletamountFn();
   }, []);
 
-  async function depositFunction(amnt) {
-    if (!amnt) {
-      toast("Please Enter the amount");
-      return;
-    }
-    setloding(true);
-    // cashDepositFn();
-    const reqbody = {
-      userid: user_id,
-      amount: amnt || 1000,
-      transection_id: 123,
-      status: "success",
-    };
-
-    try {
-      const res = axios.get(`${endpoint.cash_deposit}`, {
-        params: reqbody,
-      });
-      if (res) {
-        walletamountFn();
-        // client.refetchQueries("walletamount_new");
-        client.refetchQueries("walletamount");
-        toast("Deposit Amount Successfully");
-      }
-    } catch (e) {
-      console.log(e);
-    }
-    setloding(false);
-  }
-
   const initialValues = {
     amount: localStorage.getItem("amount_set") || 100,
     all_data: { t_id: "", amount: "", date: "" },
@@ -143,16 +110,16 @@ function WalletRecharge() {
         amount: fk.values.amount,
         date: new Date(),
       });
-      localStorage.removeItem("amount_set")
+      localStorage.removeItem("amount_set");
     },
   });
 
   async function paymentRequest(fd, amnt) {
+    // setloding(true);
     if (!amnt) {
       toast("Please Enter the amount");
       return;
     }
-    setloding(true);
     const reqbody = {
       user_id: user_id,
       amount: amnt || 1000,
@@ -163,16 +130,17 @@ function WalletRecharge() {
     fdata.append("amount", reqbody.amount);
     fdata.append("transection_id", reqbody.transection_id);
     try {
-      const res = axios.post(`${endpoint.payment_request}`, fdata);
+      const res = await axios.post(`${endpoint.payment_request}`, fdata);
       console.log(res, "responsedatarequestr");
     } catch (e) {
       console.log(e);
     }
-    setloding(false);
+    // setloding(false);
   }
 
   async function getDepositResponse(fd) {
     setloding(true);
+    console.log("Function called");
     try {
       const response = await axios.post(`${endpoint.payment_url}`, fd);
       console.log(response?.data, "-------");
@@ -186,21 +154,6 @@ function WalletRecharge() {
     }
     setloding(false);
   }
-
-  // React.useEffect(() => {
-  //   const fetchIpAddress = async () => {
-  //     try {
-  //       const response = await axios.get('https://api.ipify.org?format=json');
-  //       setIpAddress(response.data.ip);
-  //     } catch (error) {
-  //       console.error('Error fetching IP address:', error);
-  //     }
-  //   };
-
-  //   fetchIpAddress();
-  // }, []);
-
-  // console.log(ipAddress,deposit_req_data,"hiiii");
 
   React.useEffect(() => {
     if (deposit_req_data) {
@@ -221,6 +174,7 @@ function WalletRecharge() {
             clearInterval(interval);
             setDeposit_req_data();
             set_show_time("0_0");
+            setloding(false);
           }
         }
       }, 1000);
@@ -737,18 +691,24 @@ function WalletRecharge() {
         </Box>
         <CustomCircularProgress isLoading={loding} />
         {/* deposit_req_data */}
-        {deposit_req_data && (
-          <Dialog open={deposit_req_data}>
-            <div className="!bg-white !p-2">
-              <QRCode value={deposit_req_data?.upi_qr_code} />
-              <p className="!text-center !text-blue-600 !text-lg">
+        <div className="!h-[400px] ">
+          {deposit_req_data && (
+            <Dialog
+              open={deposit_req_data}
+              className=" !flex !items-center !justify-center lg:!bg-transparent !bg-white"
+            >
+              <div className="!bg-white">
+                <QRCode value={deposit_req_data?.upi_qr_code} />
+                {/* <QRCode value={"annad kumar verma"} /> */}
+                <p className="!text-blue-600  !mt-2 !text-center !font-bold !text-lg">
                 {" "}
                 {show_time.split("_")?.[0]}:
                 {show_time.split("_")?.[1]?.padEnd(2, "0")}
               </p>
-            </div>
-          </Dialog>
-        )}
+              </div>
+            </Dialog>
+          )}
+        </div>
       </Container>
     </Layout>
   );

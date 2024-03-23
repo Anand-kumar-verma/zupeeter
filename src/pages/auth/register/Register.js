@@ -15,9 +15,8 @@ import {
   Typography,
 } from "@mui/material";
 import axios from "axios";
-import crypto from "crypto-js";
 import { useFormik } from "formik";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { useQuery } from "react-query";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -32,7 +31,7 @@ import { endpoint } from "../../../services/urls";
 
 function Register() {
   const url = new URL(window.location.href);
-  const [refParam, setrefParam] = useState("");
+  const [refParam, setrefParam] = useState(url.searchParams.get("ref") || "");
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = React.useState(false);
   const [show_confirm_password, set_show_confirm_password] =
@@ -46,15 +45,15 @@ function Register() {
     event.preventDefault();
   };
 
-  useEffect(() => {
-    const value =
-      url.searchParams.get("ref") &&
-      crypto.AES.decrypt(
-        url.searchParams.get("ref")?.split(" ")?.join("+"),
-        "anand"
-      )?.toString(crypto.enc.Utf8);
-    setrefParam(value);
-  }, [url.searchParams.get("ref")]);
+  // useEffect(() => {
+  //   const value =
+  //     url.searchParams.get("ref") &&
+  //     crypto.AES.decrypt(
+  //       url.searchParams.get("ref")?.split(" ")?.join("+"),
+  //       "anand"
+  //     )?.toString(crypto.enc.Utf8);
+  //   setrefParam(value);
+  // }, [url.searchParams.get("ref")]);
 
   const initialValue = {
     email: "",
@@ -62,7 +61,8 @@ function Register() {
     name: "",
     password: "",
     confirmed_password: "",
-    referral_code: refParam?.substring(1, refParam.length - 1) || "",
+    // referral_code: refParam?.substring(1, refParam.length - 1) || "",
+    referral_code: refParam,
   };
 
   const fk = useFormik({
@@ -230,7 +230,7 @@ function Register() {
                   </Stack>
                   <TextField
                     id="name"
-                    placeholder="Enter NameAnand Kumar Verma"
+                    placeholder="Enter Name"
                     className="loginfields"
                     name="name"
                     type="text"

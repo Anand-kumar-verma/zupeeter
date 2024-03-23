@@ -19,7 +19,7 @@ const CustomCircularProgress = ({isLoading}) => {
           className: `!h-[4rem] !w-[4rem] !flex !justify-center !items-center !bg-[#4939c1]`,
         }}
       >
-        <CircularProgress className="!text-white" />
+        <CircularProgress className="!text-white !z-50" />
       </Dialog>
   )
 }

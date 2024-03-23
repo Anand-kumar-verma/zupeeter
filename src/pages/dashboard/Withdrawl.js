@@ -6,34 +6,41 @@ import {
   Button,
   Container,
   FormControl,
+  MenuItem,
   Stack,
   TextField,
   Typography,
 } from "@mui/material";
+import axios from "axios";
+import { useFormik } from "formik";
 import * as React from "react";
+import toast from "react-hot-toast";
+import { useQuery } from "react-query";
 import { NavLink, useNavigate } from "react-router-dom";
+import CustomCircularProgress from "../../Shared/CustomCircularProgress";
+import {
+  withdraw_amount_validation_schema
+} from "../../Shared/Validation";
 import { zubgback, zubgbackgrad, zubgmid } from "../../Shared/color";
 import cip from "../../assets/cip.png";
 import payment from "../../assets/images/payment (1).png";
-import balance from "../../assets/images/send.png";
-import Layout from "../../component/Layout/Layout";
 import playgame from "../../assets/images/playgame.jpg";
-import { useFormik } from "formik";
+import balance from "../../assets/images/send.png";
+import audiovoice from "../../assets/images/withdrawol_voice.mp3";
+import Layout from "../../component/Layout/Layout";
+import { BankListDetails } from "../../services/apicalling";
 import { endpoint } from "../../services/urls";
-import axios from "axios";
-import toast from "react-hot-toast";
-import { withdrawAmountSchemaValidaton } from "../../Shared/Validation";
 
 function Withdrawl() {
   const login_data = localStorage.getItem("logindata");
   const user_id = JSON.parse(login_data)?.UserID;
   const [amount, setAmount] = React.useState({ wallet: 0, winning: 0 });
-
+  const [lodint, setloding] = React.useState(false);
+  const audioRefMusic = React.useRef(null);
   const navigate = useNavigate();
   const goBack = () => {
     navigate(-1);
   };
-
 
   const walletamountFn = async () => {
     try {
@@ -53,32 +60,52 @@ function Withdrawl() {
     walletamountFn();
   }, []);
 
+  const { isLoading, data } = useQuery(
+    ["bank_list_details"],
+    () => BankListDetails(),
+    {
+      refetchOnMount: false,
+      refetchOnReconnect: true,
+    }
+  );
+  const result = React.useMemo(() => data?.data?.data, [data]);
+
+  console.log(result, "msg added");
+
   const initialValues = {
     amount: "",
-    email: "",
-    mobile: "",
+    // email: "",
+    // mobile: "",
     description: "",
-    bank_name: "",
-    name: "",
-    ifsc: "",
-    account_number: "",
-    transaction_id: "",
+    // bank_name: "",
+    // name: "",
+    // ifsc: "",
+    // account_number: "",
+    // transaction_id: "",
+    bank_id: "Select Bank",
   };
 
   const fk = useFormik({
     initialValues: initialValues,
-    validationSchema: withdrawAmountSchemaValidaton,
+    validationSchema: withdraw_amount_validation_schema,
     onSubmit: () => {
-      console.log(fk.values);
+      if (amount?.winning < fk.values.amount)
+        return toast("Your winning amount is low.");
+      if (fk.values.bank_id === "Select Bank")
+        return toast("Select Bank Account");
+      const data = result?.find((i) => i?.id === fk.values.bank_id);
+      console.log(data, "This is bank data");
+      if (!data) return toast("Data not found");
+
       const fd = new FormData();
       fd.append("Amount", fk.values.amount);
-      fd.append("Email", fk.values.email);
-      fd.append("Mobile", fk.values.mobile);
+      fd.append("Email", data?.email);
+      fd.append("Mobile", data?.mobile);
       fd.append("Description", fk.values.description);
-      fd.append("BankName", fk.values.bank_name);
-      fd.append("Name", fk.values.name);
-      fd.append("Ifsc", fk.values.ifsc);
-      fd.append("Account", fk.values.account_number);
+      fd.append("BankName", data?.bank_name);
+      fd.append("Name", data?.holder_name);
+      fd.append("Ifsc", data?.ifsc);
+      fd.append("Account", data?.account);
       fd.append("TransactionID", `${Date.now()}${user_id}`);
       fd.append("user_id", user_id);
 
@@ -93,19 +120,50 @@ function Withdrawl() {
   });
 
   const withdraw_payment_Function = async (fd) => {
+    setloding(true);
     try {
-      const response = await axios.post(`${endpoint.withdraw_payment}`,fd);
+      const response = await axios.post(`${endpoint.withdraw_payment}`, fd);
 
       // setAmount(response?.data?.data);
-      console.log(response,"response")
+      console.log(response, "response");
     } catch (e) {
       toast(e?.message);
       console.log(e);
     }
+    setloding(false);
   };
+
+  const handlePlaySound = async () => {
+    try {
+      if (audioRefMusic?.current?.pause) {
+        await audioRefMusic?.current?.play();
+      } else {
+        await audioRefMusic?.current?.pause();
+      }
+    } catch (error) {
+      // Handle any errors during play
+      console.error("Error during play:", error);
+    }
+  };
+  
+
+
+  React.useEffect(() => {
+    handlePlaySound();
+  }, []);
+
+
 
   return (
     <Layout>
+     {React.useMemo(() => {
+        return (
+          <audio ref={audioRefMusic} hidden>
+            <source src={`${audiovoice}`} type="audio/mp3" />
+          </audio>
+        );
+      }, [])}
+
       <Container
         className="no-scrollbar"
         sx={{
@@ -116,6 +174,7 @@ function Withdrawl() {
           mb: 4,
         }}
       >
+        <CustomCircularProgress isLoading={isLoading || lodint} />
         <Box sx={style.header}>
           <Box component={NavLink} onClick={goBack}>
             <KeyboardArrowLeftOutlinedIcon />
@@ -225,8 +284,8 @@ function Withdrawl() {
                 Withdrawal amount
               </Typography>
             </Stack>
-            <Box mt={2} component="form"   onSubmit={fk.handleSubmit}>
-              <FormControl fullWidth sx={{ mt: "10px" }}>
+            <Box mt={2} component="form" onSubmit={fk.handleSubmit}>
+              {/* <FormControl fullWidth sx={{ mt: "10px" }}>
                 <Stack direction="row" className="loginlabel">
                   <Typography variant="h3">
                     Account holder name <span className="!text-red-600">*</span>
@@ -285,7 +344,8 @@ function Withdrawl() {
                 {fk.touched.mobile && fk.errors.mobile && (
                   <div className="error">{fk.errors.mobile}</div>
                 )}
-              </FormControl>
+              </FormControl> */}
+              {/* amount */}
               <FormControl fullWidth sx={{ mt: "10px" }}>
                 <Stack direction="row" className="loginlabel">
                   <Typography variant="h3">
@@ -314,21 +374,38 @@ function Withdrawl() {
                   </Typography>
                 </Stack>
                 <TextField
-                  id="bank_name"
-                  name="bank_name"
-                  type="text"
-                  value={fk.values.bank_name}
+                  select
+                  id="bank_id"
+                  name="bank_id"
+                  value={fk.values.bank_id}
                   onChange={fk.handleChange}
-                  placeholder="Enter bank name *"
                   className="withdrawalfield"
                   onKeyDown={(e) => e.key === "Enter" && fk.handleSubmit()}
-                />
-                {fk.touched.bank_name && fk.errors.bank_name && (
-                  <div className="error">{fk.errors.bank_name}</div>
+                  InputProps={{
+                    style: {
+                      borderColor: "#4939c1",
+                      borderWidth: "1px",
+                      color: "white",
+                      background: "#281970",
+                      borderRadius: "10px",
+                    },
+                  }}
+                >
+                  <MenuItem value={"Select Bank"}>Select Bank</MenuItem>
+                  {result?.map((i, index) => {
+                    return (
+                      <MenuItem value={i?.id}>
+                        {i?.bank_name} ({i?.account})
+                      </MenuItem>
+                    );
+                  })}
+                </TextField>
+                {fk.touched.bank_id && fk.errors.bank_id && (
+                  <div className="error">{fk.errors.bank_id}</div>
                 )}
               </FormControl>
 
-              <FormControl fullWidth sx={{ mt: "10px" }}>
+              {/* <FormControl fullWidth sx={{ mt: "10px" }}>
                 <Stack direction="row" className="loginlabel">
                   <Typography variant="h3">
                     IFSC code <span className="!text-red-600">*</span>
@@ -367,7 +444,7 @@ function Withdrawl() {
                 {fk.touched.account_number && fk.errors.account_number && (
                   <div className="error">{fk.errors.account_number}</div>
                 )}
-              </FormControl>
+              </FormControl> */}
               <FormControl fullWidth sx={{ mt: "10px" }}>
                 <Stack direction="row" className="loginlabel">
                   <Typography variant="h3">
