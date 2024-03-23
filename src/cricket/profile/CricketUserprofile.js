@@ -20,6 +20,8 @@ import balance from "../../assets/images/send.png";
 import trans from "../../assets/images/translation.png";
 import Layout from "../../component/Layout/Layout";
 import SplashScreen from "../SplashScreen";
+import { useQuery } from "react-query";
+import { MyProfileDataFn } from "../../services/apicalling";
 function CricketUserprofile() {
   const [showSplashScreen, setShowSplashScreen] = useState(false);
   const isAvailableUser = sessionStorage.getItem("isAvailableCricketUser");
@@ -39,6 +41,12 @@ function CricketUserprofile() {
     }, 2000);
   }, []);
   // showSplashScreen
+
+  const { isLoading, data } = useQuery(["myprofile"], () => MyProfileDataFn(), {
+    refetchOnMount: false,
+    refetchOnReconnect: true,
+  });
+  const result = data?.data?.data;
 
   const state = {
     series: [44, 55, 67, 83],
@@ -95,10 +103,10 @@ function CricketUserprofile() {
           // onClick={() => navigate('/cricket/registration')}
           >
             <Typography variant="" sx={{ color: 'white !important' }}>
-              Rohit Sharma
+            {result?.full_name}
             </Typography>
             <Typography variant="body1" sx={{ color: 'white !important' }}>
-              UID | 52414986
+              UID | {result?.custid || 0}
             </Typography>
           </Box>
         </Stack>
@@ -123,7 +131,7 @@ function CricketUserprofile() {
 
                 sx={style.totalBalance}
               >
-                ₹3,069.32
+                ₹0
               </Typography>
               <CachedIcon sx={style.cachedIcon} />
             </Stack>

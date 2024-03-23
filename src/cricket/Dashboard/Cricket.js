@@ -35,7 +35,7 @@ function Cricket() {
             <Typography variant="body1" color="initial" sx={style.text}>
               The easiest way to make a sports bet
             </Typography>
-            <Button component={NavLink} to='/cricket/user-profile' className="playnow" role="Button" sx={style.button} >Play Now</Button>
+            <Button component={NavLink} to='/cricket/user-profile' className="playnow !cursor-pointer" role="Button" sx={style.button} >Play Now</Button>
           </Box>
           {/* <Box sx={style.sidebar}>
             <Box sx={style.sidebarItem}>
