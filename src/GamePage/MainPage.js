@@ -33,13 +33,11 @@ const MainPage = () => {
       console.log(fk.values);
     },
   });
-console.log(param_data,"params data")
   useEffect(()=>{
     param_data && get_user_data(param_data)
   },[param_data])
 
   const get_user_data = async (id) => {
-    console.log(id,"aviator user id")
     try {
       const response = await axios.get(`${endpoint.get_data_by_user_id}?id=${id}`,
         {

@@ -41,7 +41,6 @@ const SpentBetRight = ({ milliseconds, seconds, fk, formik }) => {
       userid: JSON.parse(logindata)?.id || 2,
       amount: betValue || 0,
     };
-    console.log(reqbody);
     try {
       const response = await axios.get(
         `${endpoint.bet_now}?userid=${reqbody?.userid}&amount=${reqbody?.amount}`
@@ -84,7 +83,6 @@ const SpentBetRight = ({ milliseconds, seconds, fk, formik }) => {
       const response = await axios.get(
         `${endpoint.bet_history}?userid=${userid}&limit=${10}`
       );
-      console.log(response);
       setgameno(response?.data?.data[0]?.gamesno);
     } catch (e) {
       toast(e?.message);

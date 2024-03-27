@@ -62,7 +62,6 @@ const Login = () => {
           },
         }
       );
-      console.log(response, "This is response");
       toast.success(response?.data?.message);
 
       if (response?.data?.success === "200") {

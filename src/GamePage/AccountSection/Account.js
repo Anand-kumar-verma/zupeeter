@@ -14,7 +14,6 @@ import MyAccount from "./MyAccount/MyAccount";
 import { useParams } from "react-router-dom";
 const Account = () => {
   const { id } = useParams();
-  console.log(id);
   const [selectedIndex, setSelectedIndex] = React.useState(3);
 
   const handleListItemClick = (event, index) => {

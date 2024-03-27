@@ -47,7 +47,6 @@ function Account() {
     { id: 4, img: dp4 },
   ];
 
-  console.log(result,"this is new msg");
 
   return (
     <Layout>
@@ -112,13 +111,21 @@ function Account() {
               Wallet
             </Typography>
           </Box>
-          <Box sx={style.actionBox} component={NavLink} to="/wallet/Recharge">
+          <Box
+            sx={style.actionBox}
+            component={NavLink}
+            // to="/wallet/Recharge"
+          >
             <Box component="img" src={dpt} sx={style.actionImage} />
             <Typography variant="body1" color="initial" sx={style.actionText}>
               Deposit
             </Typography>
           </Box>
-          <Box sx={style.actionBox} component={NavLink} to="/Withdrawal">
+          <Box
+            sx={style.actionBox}
+            component={NavLink}
+            // to="/Withdrawal"
+          >
             <Box component="img" src={wtd} sx={style.actionImage} />
             <Typography variant="body1" color="initial" sx={style.actionText}>
               Withdraw
@@ -127,7 +134,7 @@ function Account() {
           <Box sx={style.actionBox} component={NavLink} to="/add-bank-details">
             <Box component="img" src={edit} sx={style.actionImage} />
             <Typography variant="body1" color="initial" sx={style.actionText}>
-              Add Bank 
+              Add Bank
             </Typography>
           </Box>
         </Box>

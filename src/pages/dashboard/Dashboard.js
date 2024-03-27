@@ -305,7 +305,7 @@ function Dashboard() {
                   src={deposit}
                   alt="Deposit"
                   sx={styles.depositWithdrawIcon}
-                  onClick={() => navigate("/wallet/Recharge")}
+                  // onClick={() => navigate("/wallet/Recharge")}
                 />
               </Box>
               <Typography
@@ -337,7 +337,7 @@ function Dashboard() {
             >
               <Box className="serv-item">
                 <Box
-                  onClick={() => navigate("/Withdrawal")}
+                  // onClick={() => navigate("/Withdrawal")}
                   component="img"
                   src={cash}
                   alt="Withdraw"

@@ -1,10 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { useQuery } from "react-query";
-import axios from "axios";
-import CircularProgress from "@mui/material/CircularProgress";
 import Avatar from "@mui/material/Avatar";
-import moment from "moment";
-import Divider from "@mui/material/Divider";
+import CircularProgress from "@mui/material/CircularProgress";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { endpoint } from "../services/urls";
 
@@ -38,7 +35,6 @@ const AllBets = ({ formik,fk }) => {
       const response = await axios.get(
         `${endpoint.total_bet_history}`
       );
-      console.log(response)
       setAllBetsData(response?.data?.data||[])
     } catch (e) {
       toast(e?.message);

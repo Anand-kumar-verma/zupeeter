@@ -52,6 +52,7 @@ import TeamTradingBonus from "../pages/income/incomeSubSection/TeamTradingBonus"
 import TeamRewardBonus from "../pages/income/incomeSubSection/TeamRewardBonus";
 import AddBankDetails from "../pages/account/Component/AddBankDetails";
 import AddedBankDetailList from "../pages/account/Component/AddedBankDetailList";
+import QRScreen from "../pages/wallet/component/QRScreen";
 
 export const routes = [
     {
@@ -273,5 +274,9 @@ export const routes = [
     {
         path: "/add-bank-details/pre-added-bank-details",
         component: <AddedBankDetailList />
+    },
+    {
+        path: "/deposit/qr-screen",
+        component: <QRScreen />
     },
 ]

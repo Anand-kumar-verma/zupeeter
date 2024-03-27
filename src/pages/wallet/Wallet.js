@@ -338,7 +338,9 @@ function Wallet() {
                 mt: "30px",
               }}
             >
-              <NavLink to="/wallet/Recharge">
+              <NavLink
+              //  to="/wallet/Recharge"
+               >
                 <Box component="img" src={rechargeIcon} width={50}></Box>
                 <Typography variant="body1" color="initial" mt={1}>
                   Deposit
@@ -361,7 +363,9 @@ function Wallet() {
                 "&>a>img": { margin: "auto" },
               }}
             >
-              <NavLink to="/Withdrawal">
+              <NavLink 
+              // to="/Withdrawal"
+              >
                 <Box component="img" src={withdrow} width={50}></Box>
                 <Typography variant="body1" color="initial" mt={1}>
                   Withdraw

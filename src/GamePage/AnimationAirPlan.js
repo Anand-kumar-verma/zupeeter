@@ -206,7 +206,6 @@ export const demomobilesec = `
 //   top: calc(30% - 100px);
 // }
 export function animationabove_10_sec(mainDiv, animationAdded,dispatch,fk) {
-  console.log(animationAdded, "hiiabove10");
   mainDiv.style.animation = `slidein 5s linear forwards running`;
 
   mainDiv.addEventListener("animationend", () => {
@@ -220,7 +219,6 @@ export function animationabove_10_sec(mainDiv, animationAdded,dispatch,fk) {
 }
 
 export function animationupto_10_sec(mainDiv, animationAdded,dispatch,fk) {
-  console.log(animationAdded, "hiiupto10");
   mainDiv.style.animation = `slidein ${
     animationAdded - .3
   }s linear forwards running`;

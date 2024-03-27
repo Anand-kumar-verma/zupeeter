@@ -1,7 +1,7 @@
-import { Button, IconButton } from "@mui/material";
-import React, { useEffect, useRef, useState } from "react";
-import PlayCircleIcon from "@mui/icons-material/PlayCircle";
 import PauseCircleFilledIcon from "@mui/icons-material/PauseCircleFilled";
+import PlayCircleIcon from "@mui/icons-material/PlayCircle";
+import { Button, IconButton } from "@mui/material";
+import React, { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { backgroundMusicFun } from "../../redux/slices/counterSlice";
 
@@ -26,10 +26,8 @@ const ChangebackgroundMusic = ({setOpenCustomDialogBox,handleClose}) => {
     if (audioRefMusic?.current) {
       try {
         if (audioRefMusic?.current?.paused) {
-          console.log("inside the if block");
           audioRefMusic?.current?.play();
         } else {
-          console.log("inside the else block");
           audioRefMusic?.current?.pause();
         }
       } catch (error) {
@@ -42,10 +40,8 @@ const ChangebackgroundMusic = ({setOpenCustomDialogBox,handleClose}) => {
     if (audioRefMusic1?.current) {
       try {
         if (audioRefMusic1?.current?.paused) {
-          console.log("inside the if block");
           audioRefMusic1?.current?.play();
         } else {
-          console.log("inside the else block");
           audioRefMusic1?.current?.pause();
         }
       } catch (error) {

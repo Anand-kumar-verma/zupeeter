@@ -37,10 +37,8 @@ export const endpoint ={
   daily_wallet_income:`${baseUrl}/api/daily-wallet-income`,
   add_bank_details:`${baseUrl}/api/bank-add`,
   get_bank_list:`${baseUrl}/api/user-bank-details`,
-  // https://admin.sunlottery.fun/api/user-bank-details?user_id=5
-  // https://admin.sunlottery.fun/api
-  // https://admin.gameszone.life/api/daily-wallet-income?user_id=86
-  // aviator API's
+
+  // aviator api's
   aviator_login:`${baseUrl}/api/aviator/login`,
   get_data_by_user_id:`${baseUrl}/api/userProfile`,
   aviator_result:`${baseUrl}/api/aviator/result_cron`,

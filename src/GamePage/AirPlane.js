@@ -69,7 +69,6 @@ const AirPlane = ({ formik, fk }) => {
 
     const handleSetColorOfDigit = (color_value) => {
       fk.setFieldValue("setcolorofdigit", color_value);
-      console.log(color_value, "This is color Value");
     };
 
     const handleSetLoader = (setloder) => {
@@ -97,7 +96,6 @@ const AirPlane = ({ formik, fk }) => {
   function hii(randomFlyingTime) {
     const mainDiv = document.getElementsByClassName("maindiv")[0];
     const style = document.createElement("style");
-    console.log(isMediumScreen, "Hii");
     if (randomFlyingTime < 10) {
       if (!isMediumScreen) style.innerHTML = demomobilesec;
       else style.innerHTML = demomolaponesec;

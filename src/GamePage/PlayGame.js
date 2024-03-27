@@ -199,7 +199,6 @@ const PlayGame = () => {
   const handlePlaySound = async () => {
     try {
       if (byTimeEnablingSound && isEnableSound) {
-        console.log("inside if");
         await audioRefSound?.current?.play();
       } else {
         console.log("inside else");

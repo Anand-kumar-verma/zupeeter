@@ -12,19 +12,14 @@ import {
 } from "@mui/material";
 import { useFormik } from "formik";
 import * as React from "react";
+import toast from "react-hot-toast";
 import { NavLink, useNavigate } from "react-router-dom";
 import {
-  zubgback,
-  zubgback_cricket,
-  zubgbackgrad,
   zubgcrickblue,
   zubgcrickorange,
-  zubgmid,
+  zubgmid
 } from "../../Shared/color";
 import Layout from "../../component/Layout/Layout";
-import { rupees } from "../../services/urls";
-import moment from "moment";
-import toast from "react-hot-toast";
 
 function CricketWalletFundDepositForm() {
   const navigate = useNavigate();
@@ -42,7 +37,6 @@ function CricketWalletFundDepositForm() {
   const fk = useFormik({
     initialValues: initialValue,
     onSubmit: () => {
-      console.log(fk.values);
       if (
         !fk.values.amount ||
         fk.values.deposit_type === "Select Deposit Type" ||

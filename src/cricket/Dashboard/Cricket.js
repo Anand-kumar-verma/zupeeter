@@ -12,19 +12,18 @@ import team5 from './../../assets/images/club-5-copyright.png';
 import team7 from './../../assets/images/club-7-copyright.png';
 import team8 from './../../assets/images/club-8-copyright.png';
 import banner from './../../assets/images/cricketbanner.jpg';
-import rules from './../../assets/images/rules.png';
-import avatar from './../../assets/images/user-avatar.png';
-import wallet from './../../assets/images/wallet.png';
 
 function Cricket() {
 
   const [value, setValue] = React.useState(0);
 
-  console.log(value)
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
+  React.useEffect(()=>{
+    window.scrollTo(0, 0);
+  },[])
   return (
     <Container sx={style.container}>
       <Box sx={style.mainbox}>

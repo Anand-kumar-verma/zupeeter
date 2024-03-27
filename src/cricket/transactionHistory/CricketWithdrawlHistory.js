@@ -33,15 +33,14 @@ function CricketWithdrawlHistory() {
   };
 
   const { isLoading, data } = useQuery(
-    ["deposit_history"],
+    ["deposit_cricket_history"],
     () => withdrawlHistoryFunction(),
     {
       refetchOnMount: false,
       refetchOnReconnect: true,
     }
   );
-  const res = data?.data?.data;
-
+  const res = data?.data?.data?.filter((i)=>i?.tr15_depo_type === "Cricket")
   return (
     <Layout footer={false}>
       <Container

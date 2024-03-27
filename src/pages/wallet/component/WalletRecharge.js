@@ -6,19 +6,17 @@ import {
   Box,
   Button,
   Container,
-  Dialog,
   IconButton,
   InputAdornment,
   OutlinedInput,
   Stack,
-  Typography,
+  Typography
 } from "@mui/material";
 import axios from "axios";
 import { useFormik } from "formik";
 import moment from "moment";
 import * as React from "react";
 import toast from "react-hot-toast";
-import QRCode from "react-qr-code";
 import { useQueryClient } from "react-query";
 import { NavLink, useNavigate } from "react-router-dom";
 import CustomCircularProgress from "../../../Shared/CustomCircularProgress";
@@ -34,6 +32,7 @@ import user from "../../../assets/images/user-guide.png";
 import payNameIcon2 from "../../../assets/payNameIcon2.png";
 import Layout from "../../../component/Layout/Layout";
 import { endpoint, rupees } from "../../../services/urls";
+import QRScreen from "./QRScreen";
 function WalletRecharge() {
   // console.log(uuid.v4(), "This is response");
   const audioRefMusic = React.useRef(null);
@@ -131,7 +130,7 @@ function WalletRecharge() {
     fdata.append("transection_id", reqbody.transection_id);
     try {
       const res = await axios.post(`${endpoint.payment_request}`, fdata);
-      console.log(res, "responsedatarequestr");
+      // console.log(res, "responsedatarequestr");
     } catch (e) {
       console.log(e);
     }
@@ -140,10 +139,9 @@ function WalletRecharge() {
 
   async function getDepositResponse(fd) {
     setloding(true);
-    console.log("Function called");
     try {
       const response = await axios.post(`${endpoint.payment_url}`, fd);
-      console.log(response?.data, "-------");
+      // console.log(response?.data, "-------");
       if (response?.data?.status === "SUCCESS") {
         setDeposit_req_data(response?.data);
         toast.success("Payment Request Success!");
@@ -181,15 +179,155 @@ function WalletRecharge() {
     }
   }, [deposit_req_data]);
 
+  const audio = React.useMemo(() => {
+    return (
+      <audio ref={audioRefMusic} hidden>
+        <source src={`${audiovoice}`} type="audio/mp3" />
+      </audio>
+    );
+  }, []);
+
+  const rechargeInstruction = React.useMemo(() => {
+    return (
+      <Box
+        sx={{
+          padding: "10px",
+          width: "95%",
+          margin: "auto",
+          mt: "20px",
+          background: zubgmid,
+          borderRadius: "10px",
+          mb: 5,
+        }}
+      >
+        <Stack direction="row" sx={{ alignItems: "center", mb: "20px" }}>
+          <Box component="img" src={user} width={30}></Box>
+          <Typography
+            variant="body1"
+            color="initial"
+            sx={{ fontSize: "15px ", color: "white", ml: "10px" }}
+          >
+            {" "}
+            Recharge instructions
+          </Typography>
+        </Stack>
+        <Box
+          sx={{
+            border: "1px solid white",
+            padding: 2,
+            borderRadius: "10px",
+          }}
+        >
+          <Stack direction="row" sx={style.rechargeinstext}>
+            <Box component="img" src={dot} width={15}></Box>
+            <Typography variant="body1" color="initial">
+              If the transfer time is up, please fill out the deposit form
+              again.
+            </Typography>
+          </Stack>
+          <Stack direction="row" sx={style.rechargeinstext}>
+            <Box component="img" src={dot} width={15}></Box>
+            <Typography variant="body1" color="initial">
+              The transfer amount must match the order you created, otherwise
+              the money cannot be credited successfully.
+            </Typography>
+          </Stack>
+          <Stack direction="row" sx={style.rechargeinstext}>
+            <Box component="img" src={dot} width={15}></Box>
+            <Typography variant="body1" color="initial">
+              If you transfer the wrong amount, our company will not be
+              responsible for the lost amount!
+            </Typography>
+          </Stack>
+          <Stack direction="row" sx={style.rechargeinstext}>
+            <Box component="img" src={dot} width={15}></Box>
+            <Typography variant="body1" color="initial">
+              Note: do not cancel the deposit order after the money has been
+              transferred.
+            </Typography>
+          </Stack>
+        </Box>
+      </Box>
+    );
+  }, []);
+
+  const payment_button = React.useMemo(() => {
+    return (
+      <>
+        <Stack direction="row" sx={{ alignItems: "center", mb: "20px" }}>
+          <Box component="img" src={payment} width={30}></Box>
+          <Typography
+            variant="body1"
+            color="initial"
+            sx={{ fontSize: "15px ", color: "white", ml: "10px" }}
+          >
+            Deposit amount
+          </Typography>
+        </Stack>
+        <Stack
+          direction="row"
+          sx={{
+            alignItems: "center",
+            justifyContent: "space-between",
+            flexWrap: "wrap",
+            mt: "10px",
+          }}
+        >
+          <Button
+            sx={style.paytmbtn}
+            onClick={() => fk.setFieldValue("amount", 500)}
+          >
+            {" "}
+            ₹ 500
+          </Button>
+          <Button
+            sx={style.paytmbtn}
+            onClick={() => fk.setFieldValue("amount", 1000)}
+          >
+            {" "}
+            ₹ 1K
+          </Button>
+          <Button
+            sx={style.paytmbtn}
+            onClick={() => fk.setFieldValue("amount", 5000)}
+          >
+            {" "}
+            ₹ 5K
+          </Button>
+          <Button
+            sx={style.paytmbtn}
+            onClick={() => fk.setFieldValue("amount", 10000)}
+          >
+            {" "}
+            ₹ 10K
+          </Button>
+          <Button
+            sx={style.paytmbtn}
+            onClick={() => fk.setFieldValue("amount", 15000)}
+          >
+            {" "}
+            ₹ 15K
+          </Button>
+          <Button
+            sx={style.paytmbtn}
+            onClick={() => fk.setFieldValue("amount", 20000)}
+          >
+            {" "}
+            ₹ 20K
+          </Button>
+        </Stack>
+      </>
+    );
+  }, []);
+
+  if (deposit_req_data) {
+    return (
+      <QRScreen deposit_req_data={deposit_req_data} show_time={show_time} />
+    );
+  }
   return (
     <Layout>
-      {React.useMemo(() => {
-        return (
-          <audio ref={audioRefMusic} hidden>
-            <source src={`${audiovoice}`} type="audio/mp3" />
-          </audio>
-        );
-      }, [])}
+      {audio}
       <Container
         className="no-scrollbar"
         sx={{
@@ -473,77 +611,7 @@ function WalletRecharge() {
               mb: 2,
             }}
           >
-            {React.useMemo(() => {
-              return (
-                <>
-                  <Stack
-                    direction="row"
-                    sx={{ alignItems: "center", mb: "20px" }}
-                  >
-                    <Box component="img" src={payment} width={30}></Box>
-                    <Typography
-                      variant="body1"
-                      color="initial"
-                      sx={{ fontSize: "15px ", color: "white", ml: "10px" }}
-                    >
-                      Deposit amount
-                    </Typography>
-                  </Stack>
-                  <Stack
-                    direction="row"
-                    sx={{
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                      flexWrap: "wrap",
-                      mt: "10px",
-                    }}
-                  >
-                    <Button
-                      sx={style.paytmbtn}
-                      onClick={() => fk.setFieldValue("amount", 500)}
-                    >
-                      {" "}
-                      ₹ 500
-                    </Button>
-                    <Button
-                      sx={style.paytmbtn}
-                      onClick={() => fk.setFieldValue("amount", 1000)}
-                    >
-                      {" "}
-                      ₹ 1K
-                    </Button>
-                    <Button
-                      sx={style.paytmbtn}
-                      onClick={() => fk.setFieldValue("amount", 5000)}
-                    >
-                      {" "}
-                      ₹ 5K
-                    </Button>
-                    <Button
-                      sx={style.paytmbtn}
-                      onClick={() => fk.setFieldValue("amount", 10000)}
-                    >
-                      {" "}
-                      ₹ 10K
-                    </Button>
-                    <Button
-                      sx={style.paytmbtn}
-                      onClick={() => fk.setFieldValue("amount", 15000)}
-                    >
-                      {" "}
-                      ₹ 15K
-                    </Button>
-                    <Button
-                      sx={style.paytmbtn}
-                      onClick={() => fk.setFieldValue("amount", 20000)}
-                    >
-                      {" "}
-                      ₹ 20K
-                    </Button>
-                  </Stack>
-                </>
-              );
-            }, [])}
+            {payment_button}
             <Stack
               direction="row"
               sx={{
@@ -622,93 +690,25 @@ function WalletRecharge() {
               )}
             </Stack>
           </Box>
-          {React.useMemo(() => {
-            return (
-              <Box
-                sx={{
-                  padding: "10px",
-                  width: "95%",
-                  margin: "auto",
-                  mt: "20px",
-                  background: zubgmid,
-                  borderRadius: "10px",
-                  mb: 5,
-                }}
-              >
-                <Stack
-                  direction="row"
-                  sx={{ alignItems: "center", mb: "20px" }}
-                >
-                  <Box component="img" src={user} width={30}></Box>
-                  <Typography
-                    variant="body1"
-                    color="initial"
-                    sx={{ fontSize: "15px ", color: "white", ml: "10px" }}
-                  >
-                    {" "}
-                    Recharge instructions
-                  </Typography>
-                </Stack>
-                <Box
-                  sx={{
-                    border: "1px solid white",
-                    padding: 2,
-                    borderRadius: "10px",
-                  }}
-                >
-                  <Stack direction="row" sx={style.rechargeinstext}>
-                    <Box component="img" src={dot} width={15}></Box>
-                    <Typography variant="body1" color="initial">
-                      If the transfer time is up, please fill out the deposit
-                      form again.
-                    </Typography>
-                  </Stack>
-                  <Stack direction="row" sx={style.rechargeinstext}>
-                    <Box component="img" src={dot} width={15}></Box>
-                    <Typography variant="body1" color="initial">
-                      The transfer amount must match the order you created,
-                      otherwise the money cannot be credited successfully.
-                    </Typography>
-                  </Stack>
-                  <Stack direction="row" sx={style.rechargeinstext}>
-                    <Box component="img" src={dot} width={15}></Box>
-                    <Typography variant="body1" color="initial">
-                      If you transfer the wrong amount, our company will not be
-                      responsible for the lost amount!
-                    </Typography>
-                  </Stack>
-                  <Stack direction="row" sx={style.rechargeinstext}>
-                    <Box component="img" src={dot} width={15}></Box>
-                    <Typography variant="body1" color="initial">
-                      Note: do not cancel the deposit order after the money has
-                      been transferred.
-                    </Typography>
-                  </Stack>
-                </Box>
-              </Box>
-            );
-          }, [])}
+          {rechargeInstruction}
         </Box>
         <CustomCircularProgress isLoading={loding} />
         {/* deposit_req_data */}
-        <div className="!h-[400px] ">
-          {deposit_req_data && (
-            <Dialog
-              open={deposit_req_data}
-              className=" !flex !items-center !justify-center lg:!bg-transparent !bg-white"
-            >
-              <div className="!bg-white">
-                <QRCode value={deposit_req_data?.upi_qr_code} />
-                {/* <QRCode value={"annad kumar verma"} /> */}
-                <p className="!text-blue-600  !mt-2 !text-center !font-bold !text-lg">
+        {/* {true && (
+          <Dialog
+            open={true}
+            className=" !flex !items-center !justify-center lg:!bg-transparent !bg-white"
+          >
+            <div className="!bg-white">
+              <QRCode value={deposit_req_data?.upi_qr_code} />
+              <p className="!text-blue-600  !mt-2 !text-center !font-bold !text-lg">
                 {" "}
                 {show_time.split("_")?.[0]}:
                 {show_time.split("_")?.[1]?.padEnd(2, "0")}
               </p>
-              </div>
-            </Dialog>
-          )}
-        </div>
+            </div>
+          </Dialog>
+        )} */}
       </Container>
     </Layout>
   );
